@@ -35,10 +35,14 @@ WHO_THIS = re.compile(
 SCENE = re.compile(r"\b(what am i (looking at|seeing)|what('s| is) (in front of me|around me|this place look)|"
                    r"what do you see|describe (this|what))\b", re.I)
 
-YES = re.compile(r"^\W*(yes|yeah|yep|yup|sure|okay|ok|of course|go ahead|go on|tell me more|i do|sounds good|please|yes please)"
-                 r"([\s,]+(please|thanks|thank you|lucia|yes|sure|okay))*\W*$", re.I)
-NO = re.compile(r"^\W*(no|nope|nah|not now|no thanks|no thank you|i'?m (ok|okay|fine|good)|that'?s (ok|okay|fine|all)|"
-                r"i'?m good|maybe later)([\s,]+(thanks|thank you|lucia|please))*\W*$", re.I)
+_LEAD = r"^\W*((oh|um|uh|hmm|well|ah|ok|okay|lucia)[\s,.!]+)*"
+_TAIL = (r"([\s,.!]+(please|thanks|thank you|lucia|yes|yeah|sure|okay|ok|i do|i would|i'?d like that|go ahead|"
+         r"tell me|tell me more|more|definitely|absolutely|of course|why not|that'?s fine|i'?m (ok|okay|fine|good)|"
+         r"not now|no thanks|no thank you|that'?s (ok|okay|fine|all)|maybe later|i'?m good))*\W*$")
+YES = re.compile(_LEAD + r"(yes|yeah|yea|ya|yep|yup|sure|okay|ok|of course|go ahead|go on|tell me more|i do|sounds good|"
+                 r"please|yes please|mm-?hmm|uh-?huh|absolutely|definitely|why not|i would|i'?d like that)" + _TAIL, re.I)
+NO = re.compile(_LEAD + r"(no|nope|nah|not now|no thanks|no thank you|i'?m (ok|okay|fine|good)|that'?s (ok|okay|fine|all)|"
+                r"i'?m good|maybe later|not really|no no)" + _TAIL, re.I)
 
 # "who is <someone we don't know>": also catches speech-to-text mangling a name ("who is a pyrom").
 UNKNOWN_PERSON = re.compile(r"\b(who('s| is| was| are)|tell me about|do you know|have you met)\s+"

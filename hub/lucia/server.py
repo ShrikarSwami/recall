@@ -469,7 +469,8 @@ class Hub:
         if armed or followup:
             await self.question(rest if woke else text)
         elif woke:
-            if control or len(rest.split()) >= 2:
+            offer_reply = self.brain.offer is not None and (YES.search(rest) or NO.search(rest))
+            if control or offer_reply or len(rest.split()) >= 2:   # "Lucia, yes" answers the offer
                 await self.question(rest)
             else:
                 await self.arm("wake word")

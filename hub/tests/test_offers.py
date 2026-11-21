@@ -163,3 +163,15 @@ def test_standby_keeps_lucia_quiet_until_start_except_falls():
         del hub.to_glasses
         hub.cfg["voice"]["speakAnswers"] = True
         hub.standby = False
+
+
+@pytest.mark.parametrize("said", ["Oh yeah!", "Uh-huh.", "yes I would", "Yeah, tell me more.", "Sure, why not."])
+def test_natural_yes_replies_count(brain, said):
+    from lucia.brain import YES
+    assert YES.search(said)
+
+
+@pytest.mark.parametrize("said", ["No, I'm good.", "Not really.", "Um, no.", "Nope."])
+def test_natural_no_replies_count(brain, said):
+    from lucia.brain import NO
+    assert NO.search(said)
