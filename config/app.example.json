@@ -1,0 +1,38 @@
+{
+  "_comment": "Copy to config/app.local.json (gitignored) and fill in real values. Every user-facing string reads from here, so renaming the product is one edit.",
+
+  "appName": "Recall",
+  "wakeWord": "Hey Recall",
+  "idleHint": "Tap or say \"Hey Recall\"",
+
+  "patient": {
+    "name": "Somya Gupta",
+    "preferredName": "Somya",
+    "pronouns": "she/her"
+  },
+
+  "caregiver": {
+    "name": "Shrikar",
+    "relationship": "your grandson",
+    "phone": "+1-000-000-0000"
+  },
+
+  "currentPlace": "city_tech",
+
+  "models": {
+    "primary": { "host": "http://enverthor:11434", "text": "qwen2.5vl:7b", "vision": "qwen2.5vl:7b" },
+    "fallback": { "host": "http://localhost:11434", "text": "qwen2.5:3b" },
+    "fallbackAfterMs": 2500
+  },
+
+  "faces": {
+    "matchThreshold": 0.55,
+    "introCooldownSec": 120
+  },
+
+  "voice": {
+    "speakAnswers": true,
+    "showText": true,
+    "rate": 0.9
+  }
+}

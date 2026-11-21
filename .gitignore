@@ -1,0 +1,27 @@
+# ---- NEVER COMMIT THE MICROLUMIN SDK ----
+# The SDK kit is confidential ("Don't upload it to a public repo"). Keep it outside this repo
+# or in vendor/ (ignored). Pull it from the shared drive the organizers gave us.
+Microlumin_Ship/
+Microlumin_Ship.zip
+vendor/
+*.aar
+sdkappkey.jks
+
+# ---- private data: faces, real phone numbers, keys ----
+faces/*
+!faces/README.md
+config/app.local.json
+.env
+*.local.*
+
+# ---- build output ----
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.gradle/
+build/
+local.properties
+*.apk
+.DS_Store
+.idea/

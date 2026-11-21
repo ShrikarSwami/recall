@@ -1,0 +1,188 @@
+# Recall: spec
+
+> Working name. The product name lives in `config/app.example.json` → `appName`; never hard-code it.
+> Team **BB** · Worn Smart Glasses Hackathon · Nov 20–21, 2026 · City Tech, Brooklyn · Track: **Natural Interaction**
+> Status: draft v0.1 (Fri Nov 20). Open questions are at the bottom; edit freely.
+
+## 1. One-liner
+
+A pair of glasses that a person living with dementia can put on like their everyday glasses. They ask "who is this?" or "where are we?" out loud, and get a calm, short, correct answer in their ear and on the lens. Nothing to learn, nothing to remember, and no patient data leaves their own devices.
+
+## 2. The rule that decides every design choice
+
+From judge D.J. Patel: **treat every single session as a brand-new user.** People living with dementia won't remember a tutorial, a menu or a gesture they learned yesterday. So:
+
+- **One visible affordance, always on screen:** `Tap or say "Hey Recall"`. Nothing else to discover.
+- **No modes, no menus, no settings on the glasses.** All configuration happens on the caregiver's phone.
+- **Every answer stands alone.** It never says "as I said before". Asking the same question ten times gets the same patient answer ten times.
+- **Never contradict, never correct, never quiz.** "Somya, this is Dev. He's on your hackathon team," not "You should remember Dev."
+- **Short.** At most 2 lines on the lens and 1–2 sentences spoken.
+- **Fail gently.** "I'm not sure. Shrikar can help, I've let him know," never an error message.
+
+## 3. Demo story (3 minutes)
+
+The judge plays **Somya Gupta** (default patient, set in config). If we get the judge's own name in time, we swap it in so the glasses greet them personally; that's one config field.
+
+1. The judge puts the glasses on. The lens shows `Tap or say "Hey Recall"` and a soft greeting: "Hi Somya. You're at City Tech in Brooklyn."
+2. A teammate walks up. **Unprompted**, the lens shows `DEV · on your team` and the glasses say "This is Dev, he's on your team." *(proactive face intro, the wow moment)*
+3. The judge taps and asks "Who is this?", then "Where's he from?", then "What does he do?" Each answer comes from the facts Dev filled in.
+4. "Where are we?" → "You're at City Tech in Downtown Brooklyn, at a smart-glasses hackathon with your team."
+5. "What day is it?" → "It's Saturday, November 21st. It's about 2 in the afternoon."
+6. The judge asks "who is this?" again about the same person, on purpose. Same calm answer, no "I already told you". The caregiver phone shows "Asked about Dev 2× in 5 min."
+7. The judge says "I want to go home." → "You're safe, Somya. Shrikar knows where you are. I'm letting him know now." The caregiver's phone gets an alert. *(safety moment)*
+8. We close on the caregiver phone: who she met, what she asked, all stored only on her devices.
+
+## 4. Features and priority
+
+| P | Feature | Notes |
+|---|---|---|
+| **P0** | Always-on idle hint on lens | `Tap or say "Hey Recall"` plus the time. Must survive app restarts. |
+| **P0** | Tap-to-ask (temple touchpad / ring) | Most reliable trigger in a loud venue. Key codes: find them with `adb logcat`. |
+| **P0** | Answer = voice + short text | Both on by default; each toggled in config. |
+| **P0** | "Who is this?" via camera + face recognition | Uses [`face_id`](https://github.com/ShrikarSwami/face_id) (detect → align → ArcFace/MobileFaceNet embed → cosine match). |
+| **P0** | Knowledge-base Q&A | Questions map to answers written in `knowledge/*.md`. Paraphrases map to the same answer. |
+| **P0** | Where am I / what day / what time | Where comes from a preloaded place (demo data). Date and time come from the clock. |
+| **P1** | Wake word "Hey Recall" | Detected on the hub from the streamed mic. The button always works as a fallback. |
+| **P1** | Proactive face intro | When an enrolled face is seen, introduce them once. Cooldown per person (default 120 s). |
+| **P1** | Follow-up questions about the person in view | "Where's he from?" resolves "he" to the last recognised person. |
+| **P1** | Caregiver phone page | Live feed of questions, repeat counts, alerts, add/edit people and facts. |
+| **P1** | Distress / "I want to go home" handling | Reassure, plus alert on the caregiver page (the SMS is mocked in the demo). |
+| **P2** | Unknown face | "I don't think we've met them yet. You can ask their name." Never guess. |
+| **P2** | "What was I doing?" | Answer from today's log, e.g. "You just met Dev and Ana." |
+| **P2** | Scene description | VLM describes the room when there's no KB answer: "It looks like a classroom full of people with laptops." |
+| **P2** | Judge-name swap | Set the patient name from the caregiver page in 10 seconds. |
+
+## 5. What questions must work
+
+Questions are **intents**. Any phrasing that means the same thing hits the same answer. The small local model only does two jobs: (1) map the utterance to `{intent, subject}`, and (2) lightly rephrase the KB answer so it sounds natural. **It never invents facts.** If the KB has no answer, we say so gently.
+
+| Intent | Example phrasings | Source |
+|---|---|---|
+| `who_is_this` | who is this / who's that / do I know him / who am I talking to | camera → face → `knowledge/people/<id>.md` |
+| `person_fact` | where's he from / what does she do / how do I know him / is he married | last recognised person + their facts |
+| `where_am_i` | where are we / where am I / what is this place | `knowledge/places.md` → `currentPlace` |
+| `what_time` | what day is it / what time is it / what's the date | clock |
+| `who_am_i` | what's my name / who am I | `knowledge/patient.md` |
+| `my_people` | who's my caregiver / who's taking care of me / call my grandson | `knowledge/patient.md` + config caregiver |
+| `what_doing` | what am I doing here / why am I here / what was I doing | `knowledge/places.md` plus today's log |
+| `distress` | I want to go home / I'm scared / where is everyone / I'm lost | fixed calm script + caregiver alert |
+| `faq` | anything written in `knowledge/faq.md` | the Q/A pairs |
+| `unknown` | — | "I'm not sure about that. Shrikar can help." (logged for the caregiver) |
+
+## 6. Architecture
+
+```
+┌──────────── M6 glasses (Android 9, plain APK, no glasses SDK needed) ────────────┐
+│ glasses-app/  Kotlin                                                              │
+│  • full-screen black UI: idle hint, answer card (≤2 lines), "listening…" state    │
+│  • Camera2 → JPEG frame every ~1 s (and on tap)        ─┐                         │
+│  • AudioRecord 16 kHz mono → PCM stream                 ├─ WebSocket over Wi-Fi ─┐│
+│  • touchpad / ring key events                           ─┘                       ││
+│  • plays answer audio (WAV/PCM from hub) or Android TextToSpeech if present      ││
+└──────────────────────────────────────────────────────────────────────────────────┘│
+                                                                                    ▼
+┌──────────── hub/ on the MacBook (stands in for "the patient's phone") ───────────────┐
+│ FastAPI + WebSocket                                                                  │
+│  • wake word (openWakeWord) + VAD (Silero) on the mic stream                         │
+│  • STT: faster-whisper (EnverThor GPU) → fallback whisper on Mac                     │
+│  • face_id: enroll from faces/, match frames, proactive-intro cooldowns              │
+│  • intent router: small LLM → {intent, subject}; answer from knowledge/ (grounded)    │
+│  • TTS: Piper / macOS `say` → audio back to glasses                                  │
+│  • event log (SQLite, local) → caregiver page                                        │
+│  • serves caregiver-web/                                                             │
+└───────────────┬──────────────────────────────────────────────┬───────────────────────┘
+                │ Tailscale, ~80 ms RTT                        │ same Wi-Fi
+                ▼                                              ▼
+   EnverThor (NVIDIA Thor, 122 GB)                     caregiver phone (browser)
+   Ollama: qwen2.5vl:7b (text + vision)                caregiver-web/: feed, alerts,
+   fallback: local Ollama on the Mac                   people + facts editor
+```
+
+**Why the glasses app is a plain APK:** the kit says glasses apps are ordinary Android 9 apps installed with `adb`. The glasses-side SDK libraries aren't in the kit. So we use Android's own Camera2, AudioRecord and KeyEvent and talk to the hub over Wi-Fi. The phone-side SDK (BLE) isn't needed for the core loop.
+
+**Model plan (measured Fri 8:40 PM, from the Mac over Tailscale):**
+
+| Model on EnverThor | Cold (swap in) | Warm, ~20-token answer |
+|---|---|---|
+| `qwen2.5:14b` | ~6 s | ~2.0 s (19 tok/s) |
+| `qwen2.5vl:7b` | ~6 s | ~1 s (32 tok/s) |
+
+EnverThor's Ollama keeps **one model loaded at a time**: switching models costs ~5 s. So **use one model for everything: `qwen2.5vl:7b`** (text + vision), with `keep_alive` long, and warm it at startup. If a call exceeds `fallbackAfterMs` (2.5 s), the hub answers from the KB template directly with no rephrasing. That fallback is always correct, just less chatty. A local Mac model is the last resort.
+
+**Latency budget (tap → first audio):** STT 400 ms + intent/rephrase 1000 ms + TTS first chunk 300 ms + network 200 ms ≈ **< 2 s**. Faces run continuously in the background, so "who is this" doesn't wait on face matching.
+
+## 7. Knowledge base (the part everyone can edit)
+
+Plain markdown in `knowledge/`, so non-coders can fill it in from Discord. The hub loads it at startup and on change.
+
+- `knowledge/patient.md`: who the patient is, their people, routines.
+- `knowledge/places.md`: places with an id; `currentPlace` in config picks one.
+- `knowledge/people/<id>.md`: one file per person (teammates for the demo), from `docs/TEAM_TEMPLATE.md`.
+- `knowledge/faq.md`: any extra Q/A pairs, with alternate phrasings.
+
+Format rules (see the files for examples):
+
+```markdown
+# Q: Where's he from?
+- also: where is he from / where does he live / what's his hometown
+A: Dev grew up in Edison, New Jersey.
+```
+
+Each `# Q:` block is one intent. The `also:` lines are optional; the model handles paraphrases anyway, and they just make it more reliable.
+
+## 8. Faces
+
+- Enroll each teammate from 3 photos (front, slight left, slight right) taken **at the venue, in venue lighting**. Photos go in `faces/<person_id>/` (gitignored, never pushed).
+- Store **embeddings only** after enrollment; delete the raw photos after the event.
+- Match threshold `faces.matchThreshold` (start at 0.55; tune at the venue). Below the threshold, say "not sure".
+- Only people who opted in (filled the template) are enrolled. Unknown faces are never stored.
+
+## 9. Privacy and safety (also the pitch)
+
+- **Local-first:** patient data stays on the glasses, the patient's phone (the hub Mac in the demo) and a private compute box on the patient's own network (EnverThor). No cloud AI calls.
+- **No medical advice.** Health questions → "That's a good question for your doctor. Shrikar can help you call." Medication *reminders* are only things a caregiver typed in, read back verbatim.
+- **Consent:** faces enrolled only with that person's OK. One-tap "forget everything" on the caregiver page.
+- **The SDK kit is confidential** and must not be committed; see `.gitignore`.
+- **Real phone numbers** go only in `config/app.local.json` (gitignored). The example config has a placeholder.
+
+## 10. Repo layout
+
+| Path | What | Owner |
+|---|---|---|
+| `docs/SPEC.md` | this file | all |
+| `docs/TEAM_TEMPLATE.md` | Discord fill-in for each teammate | all |
+| `knowledge/` | patient, places, people, FAQ | content owner |
+| `config/` | app name, patient, caregiver, models | hub owner |
+| `glasses-app/` | Kotlin APK for the M6 | Android owner |
+| `hub/` | Python FastAPI: STT, faces, intents, TTS, log | AI/backend owner |
+| `caregiver-web/` | phone page (rough first, frontend devs polish) | frontend × 2 |
+| `faces/` | enrollment photos, never committed | hub owner |
+
+## 11. Workstreams (team BB)
+
+1. **Glasses app (Android):** black full-screen UI, Camera2 frames, mic stream, keys → WebSocket. Start from the WebView thin client already built in the prep kit, or go native if camera access needs it.
+2. **Hub + AI:** WebSocket server, STT, intent router, KB loader, TTS, EnverThor client + fallback.
+3. **Faces:** wire `face_id` into the hub; enroll teammates; tune the threshold under venue lights.
+4. **Frontend × 2:** lens UI polish (type size, contrast, layout on a 640×480 green waveguide) and the caregiver page.
+5. **Content + pitch:** collect templates from Discord, write `knowledge/`, own the 3-minute script and backup video.
+
+## 12. Timeline
+
+| When | Goal |
+|---|---|
+| Fri 9:00–10:30 PM | Glasses on adb, hello-world on the lens, camera frame + mic reaching the hub. Everyone posts their template. |
+| Fri night (remote) | Hub answers KB questions end to end in a laptop emulator; faces enrolled. |
+| Sat 8–10 AM | Full loop on the glasses: tap → question → voice + lens answer. |
+| Sat 10–12 | Proactive intro, wake word, caregiver page, distress flow. |
+| Sat 12–1 PM | Feature freeze, 3× worn rehearsals. |
+| Sat 1–2 PM | Backup video, submission text (with prior-work note), push. **2:00 code freeze.** |
+
+## 13. Prior work (must be disclosed in the submission)
+
+- `face_id` (Shrikar's own library, pre-existing).
+- Data model and principles adapted from `dementia-memory-assistant` (Shrikar's earlier app).
+- Prep-kit hub and emulator code written Fri Nov 20 before hacking started, if we reuse it.
+
+## 14. Open questions
+
+Tracked in the README of this repo until answered.
