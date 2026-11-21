@@ -9,8 +9,10 @@
   "abhiram": {
    "name": "Abhiram",
    "first": "Abhiram",
-   "aliases": [],
-   "intro": "This is Abhiram. They're on your team, BB."
+   "aliases": [
+    "Abhi"
+   ],
+   "intro": "This is Abhiram. Abhiram is on your team, BB, and builds the backend."
   },
   "isha": {
    "name": "Isha",
@@ -48,31 +50,3175 @@
    "scope": "faq",
    "subject": "faq",
    "questions": [
-    "What are these glasses?",
-    "what am I wearing",
-    "what is this thing"
+    "I keep forgetting things.",
+    "I can't remember things",
+    "My memory keeps slipping",
+    "I forget so much"
    ],
-   "answer": "These are your Lucia glasses. Tap the side or say \"Lucia\" and ask me anything."
+   "answer": "It's okay to ask for a reminder. You deserve patience every time."
   },
   {
    "scope": "faq",
    "subject": "faq",
    "questions": [
-    "How do I use you?",
-    "what can you do",
-    "help"
+    "Did I already ask that?",
+    "Have I asked this before",
+    "Am I repeating myself",
+    "Did I say that already"
    ],
-   "answer": "Just tap the side of your glasses or say \"Lucia\", then ask. Like \"who is this?\" or \"where are we?\""
+   "answer": "You can ask as often as you like. There's no need to remember our conversation."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Are you disappointed in me?",
+    "Did I let you down",
+    "Are you unhappy with me",
+    "Have I disappointed you"
+   ],
+   "answer": "You don't have to earn kindness here. We can take our time."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Am I doing this right?",
+    "Am I using this correctly",
+    "Did I get it right",
+    "Is this how I'm supposed to do it"
+   ],
+   "answer": "You can ask in your own words. There's no perfect way to talk to me."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I can't find the right word.",
+    "The word won't come",
+    "It's on the tip of my tongue",
+    "I know what I mean but can't say it"
+   ],
+   "answer": "Take your time. You can describe it another way, or we can pause."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I lost my train of thought.",
+    "I forgot what I was saying",
+    "What was I going to say",
+    "My mind went blank"
+   ],
+   "answer": "That's okay. You don't have to finish the thought right now."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you speak more simply?",
+    "Use easier words",
+    "That's too complicated",
+    "I don't understand those words"
+   ],
+   "answer": "Of course. You can ask one small question, and I'll keep the answer short."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you give me one thing at a time?",
+    "Too many things at once",
+    "One thing please",
+    "Can we do this slowly"
+   ],
+   "answer": "We can take one thing at a time. There's no need to hurry."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I need a break from all this.",
+    "Can we pause for a moment",
+    "I need a little break",
+    "This is a lot to take in"
+   ],
+   "answer": "It's okay to pause. You can ask someone you trust to stay nearby."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "It's too noisy here.",
+    "There's too much noise",
+    "Everyone is talking at once",
+    "The room is very loud"
+   ],
+   "answer": "That sounds tiring. Ask someone you trust to help find a quieter place."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "There are too many people here.",
+    "It's too crowded",
+    "I don't like this crowd",
+    "All these people are too much"
+   ],
+   "answer": "A busy room can feel overwhelming. Someone you trust can help you find a quieter spot."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can someone sit beside me?",
+    "I'd like someone beside me",
+    "I don't want to sit alone",
+    "Could someone keep me company"
+   ],
+   "answer": "You can ask Shrikar or someone you trust to sit with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel left out.",
+    "Nobody includes me",
+    "I feel ignored",
+    "I'm being left out"
+   ],
+   "answer": "That sounds lonely. You deserve to be included and listened to."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Nobody is listening to me.",
+    "I don't feel heard",
+    "People talk over me",
+    "No one lets me finish"
+   ],
+   "answer": "What you say matters. You can ask someone nearby to listen without rushing you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel like a burden.",
+    "I'm too much trouble",
+    "Everyone has to do things for me",
+    "I hate needing help"
+   ],
+   "answer": "Needing help doesn't make you a burden. You deserve care and respect."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I still make choices?",
+    "Do I get a say",
+    "Can I choose for myself",
+    "Does my opinion matter"
+   ],
+   "answer": "Your wishes matter. You can tell someone you trust what you would prefer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't want to answer questions.",
+    "Please don't quiz me",
+    "I don't want a memory test",
+    "Stop asking me things"
+   ],
+   "answer": "You don't have to answer questions for me. We can just have a quiet moment."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do I need to remember your answer?",
+    "Will I have to remember this",
+    "What if I forget the answer",
+    "Must I memorize that"
+   ],
+   "answer": "You don't need to memorize it. You can ask again whenever you want."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Will you get tired of my questions?",
+    "Will you lose patience",
+    "Will you mind if I keep asking",
+    "Do my questions wear you out"
+   ],
+   "answer": "You can ask me again whenever you need. I don't get tired of questions."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I made a mistake.",
+    "I got it wrong",
+    "I messed that up",
+    "That wasn't the right answer"
+   ],
+   "answer": "It's okay to make a mistake. You don't have to get everything right."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I wish things were easier.",
+    "This feels hard",
+    "Everything takes so much effort",
+    "I wish this wasn't so difficult"
+   ],
+   "answer": "That sounds hard. You can take a pause and ask for support."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't feel like myself.",
+    "I feel different today",
+    "Something feels unfamiliar about me",
+    "I miss feeling like myself"
+   ],
+   "answer": "That can feel unsettling. You can tell Shrikar how you're feeling."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I want someone familiar.",
+    "I'd like a familiar face",
+    "I want to be with someone I know",
+    "Can I sit with somebody familiar"
+   ],
+   "answer": "You can ask for Shrikar. Someone nearby may be able to help you reach them."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I hold someone's hand?",
+    "I'd like to hold a hand",
+    "Can someone hold my hand",
+    "I need a hand to hold"
+   ],
+   "answer": "You can ask someone you trust if they'd like to hold your hand."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't want to talk about that.",
+    "That's personal",
+    "I'd rather keep that private",
+    "Can we leave that topic alone"
+   ],
+   "answer": "Of course. You choose what you'd like to share."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you keep me company for a moment?",
+    "Stay and chat a little",
+    "Talk with me for a minute",
+    "Keep talking with me"
+   ],
+   "answer": "We can share a short story or a kind word. Human company can be lovely, too."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me something hopeful.",
+    "I'd like a hopeful thought",
+    "Say something encouraging",
+    "Give me a little encouragement"
+   ],
+   "answer": "You don't have to solve everything at once. A little support can make this moment easier."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Remind me that it's okay to ask.",
+    "Is it okay to need reminders",
+    "Can I ask for help again",
+    "I need permission to ask again"
+   ],
+   "answer": "It's okay to ask. You deserve a kind answer, even when the question feels familiar."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm worried I'll forget someone's name.",
+    "What if I can't remember a name",
+    "Names are hard to remember",
+    "I feel awkward forgetting names"
+   ],
+   "answer": "It's okay to ask for an introduction again. You don't have to pretend you remember."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How can I start a conversation?",
+    "What can I say to someone",
+    "How do I start chatting",
+    "Give me an easy conversation opener"
+   ],
+   "answer": "You could say, \"It's nice to see you. How is your day going?\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I ask someone to slow down?",
+    "People speak too quickly",
+    "How can I ask for slower speech",
+    "They're talking too fast for me"
+   ],
+   "answer": "You could say, \"Please speak a little slower. I'd like time to follow.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I ask for a reminder kindly?",
+    "How can I ask them to repeat something",
+    "What do I say when I forget",
+    "Give me words for asking again"
+   ],
+   "answer": "You could say, \"Could you remind me, please? I'd appreciate it.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How can I say I need company?",
+    "What do I say when I want company",
+    "How do I ask someone to stay",
+    "Give me words for wanting someone nearby"
+   ],
+   "answer": "You could say, \"Would you sit with me for a little while?\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't want people talking about me.",
+    "They're talking as if I'm not here",
+    "Please include me in the conversation",
+    "I want to speak for myself"
+   ],
+   "answer": "You deserve to be included. You can say, \"Please talk with me, too.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can we imagine a quiet forest?",
+    "Describe a peaceful woodland",
+    "Tell me about a quiet forest",
+    "I'd like a forest scene"
+   ],
+   "answer": "Imagine a quiet path beneath tall trees. Soft light rests on the leaves."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can we imagine a rainy window?",
+    "Describe a cozy rainy afternoon",
+    "Tell me about rain on a window",
+    "I'd like a rainy scene"
+   ],
+   "answer": "Imagine gentle rain tapping a window, with a comfortable chair beside it. There's nowhere to rush in this little story."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can we imagine a warm kitchen?",
+    "Describe a cozy kitchen",
+    "Tell me about a peaceful kitchen",
+    "I'd like a kitchen scene"
+   ],
+   "answer": "Imagine a warm kitchen with bread on the table. A friend pulls up a chair for a chat."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about kindness.",
+    "Give me a kind little story",
+    "A story about helping someone",
+    "Tell me a gentle kindness story"
+   ],
+   "answer": "A neighbor noticed an empty chair and asked to join. Soon, two cups of tea became a lovely conversation."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about friendship.",
+    "A short friendship story please",
+    "Tell me about two friends",
+    "I'd like a gentle friend story"
+   ],
+   "answer": "Two friends sat under a tree. They didn't need many words to enjoy being together."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a boat.",
+    "A little boat story please",
+    "Tell me about a peaceful boat",
+    "I'd like a gentle boat story"
+   ],
+   "answer": "A small boat rested beside the shore. Its sailor sat on the dock and watched the clouds drift by."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel overwhelmed.",
+    "Everything feels too much",
+    "I can't take all this in",
+    "It's all happening at once",
+    "I'm overwhelmed by everything",
+    "I need less going on",
+    "My head feels full",
+    "There's too much to follow"
+   ],
+   "answer": "That's a lot to take in. You can pause and ask someone you trust to stay with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm worried about getting things wrong.",
+    "I worry I'll make a mistake",
+    "What if I say the wrong thing",
+    "I'm nervous about getting it wrong",
+    "I don't want to mess things up",
+    "I worry about making mistakes",
+    "What if my answer is wrong",
+    "I hate getting things wrong"
+   ],
+   "answer": "You don't have to get everything right. You can take your time and ask for help."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel unsure of myself.",
+    "I don't trust my own answers",
+    "I'm not sure I can do this",
+    "I have no confidence",
+    "I keep doubting myself",
+    "I feel uncertain about everything",
+    "I doubt what I'm saying",
+    "I'm losing confidence in myself"
+   ],
+   "answer": "It's okay to feel unsure. Someone you trust can go through things with you, one at a time."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel out of place.",
+    "I don't feel like I fit in",
+    "I feel like I don't belong",
+    "I feel awkward being here",
+    "I feel out of my depth",
+    "I don't feel comfortable here",
+    "I feel like the odd one out",
+    "I don't know how to fit in"
+   ],
+   "answer": "That can feel uncomfortable. You can ask someone you trust to sit with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel rushed.",
+    "People keep rushing me",
+    "Everything is moving too fast",
+    "I need people to wait",
+    "They won't give me enough time",
+    "I feel hurried along",
+    "Nobody lets me take my time",
+    "I need a slower pace"
+   ],
+   "answer": "Your pace matters. You can say, \"Please give me a little more time.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel talked down to.",
+    "People speak to me like a child",
+    "I'm being treated like a child",
+    "I don't like being patronized",
+    "They don't treat me like an adult",
+    "People talk down to me",
+    "I want to be treated with respect",
+    "I feel belittled"
+   ],
+   "answer": "You deserve respect. You can ask people to speak with you as an adult."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel overlooked.",
+    "People keep forgetting to include me",
+    "Nobody notices I'm here",
+    "I feel invisible in this room",
+    "I wish people noticed me",
+    "I'm not being included",
+    "People are overlooking me",
+    "I feel passed over"
+   ],
+   "answer": "You deserve attention and kindness. Someone nearby may be glad to sit and talk with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm annoyed with myself.",
+    "I'm cross with myself",
+    "I'm angry at myself",
+    "I keep blaming myself",
+    "I wish I hadn't done that",
+    "I'm disappointed in myself",
+    "I'm upset with myself",
+    "I feel bad about my mistake"
+   ],
+   "answer": "This sounds hard. You deserve the same patience you would offer someone else."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm having a difficult moment.",
+    "This moment is difficult",
+    "I'm having a rough moment",
+    "Things feel rough right now",
+    "I'm struggling a bit",
+    "This isn't easy for me",
+    "I'm finding this difficult",
+    "I'm having a hard time with this"
+   ],
+   "answer": "You don't have to handle this moment alone. You can ask someone you trust for support."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't want to explain myself.",
+    "I'm tired of explaining",
+    "Do I have to explain everything",
+    "I don't want to tell the whole story",
+    "I'd rather not explain",
+    "I don't have words for an explanation",
+    "I can't explain it all",
+    "Please don't make me explain"
+   ],
+   "answer": "You don't have to explain everything. You can simply say what you need right now."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I need someone to be patient.",
+    "Can people be more patient",
+    "I need a little patience",
+    "Please be patient with me",
+    "I wish people would wait for me",
+    "I need people to take their time",
+    "Can someone give me time",
+    "I need patience today"
+   ],
+   "answer": "You deserve patience. You can ask someone to slow down and stay with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm not ready yet.",
+    "I need another moment",
+    "I'm not ready to start",
+    "Could this wait a little",
+    "I need some more time",
+    "I haven't finished getting ready",
+    "I'm not quite ready",
+    "Give me a moment to get ready"
+   ],
+   "answer": "You can say, \"I need another moment, please.\" Someone nearby can help if there's a schedule to check."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I change my mind?",
+    "What if I decide differently",
+    "Am I allowed to choose something else",
+    "I've changed my mind",
+    "Can I make a different choice",
+    "I don't want my first choice",
+    "Can I reconsider",
+    "Is it okay to decide again"
+   ],
+   "answer": "You can tell someone you've changed your mind. Your preferences deserve to be heard."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I want to do part of it myself.",
+    "I'd like to try on my own",
+    "Can I do some of this myself",
+    "I want a chance to try",
+    "Let me do the part I can",
+    "I want to keep some independence",
+    "Can I try before someone helps",
+    "I'd like to handle this bit"
+   ],
+   "answer": "You can ask to try the parts you feel comfortable doing. Someone you trust can stay nearby if you'd like support."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I ask people not to interrupt?",
+    "Please let me finish speaking",
+    "How can I finish my sentence",
+    "People keep cutting me off",
+    "I need words to stop interruptions",
+    "How do I ask for a turn to speak",
+    "They interrupt before I'm finished",
+    "I want time to finish talking"
+   ],
+   "answer": "You could say, \"Please let me finish. I need a little time to find my words.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I ask someone to write it down?",
+    "Can somebody put that on paper",
+    "I need the information written down",
+    "How can I request a written reminder",
+    "Can they leave me a note",
+    "I'd like a note I can read",
+    "Please write the details for me",
+    "Can I get that in writing"
+   ],
+   "answer": "You could say, \"Could you write that down in a short note for me, please?\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I say I don't understand?",
+    "I need words for not understanding",
+    "How can I tell them I'm not following",
+    "I didn't follow that explanation",
+    "How do I admit I didn't understand",
+    "I need an easier explanation",
+    "That explanation lost me",
+    "I can't follow what they're saying"
+   ],
+   "answer": "You could say, \"I didn't quite follow. Could you explain one thing at a time?\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I ask for a quieter voice?",
+    "People are speaking too loudly",
+    "Can they lower their voices",
+    "I need softer voices around me",
+    "How can I ask them not to shout",
+    "Their voices are too loud",
+    "I'd like people to speak gently",
+    "How do I request less shouting"
+   ],
+   "answer": "You could say, \"Please use a quieter voice. It helps me follow what you're saying.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I say no politely?",
+    "I don't want to agree",
+    "How can I turn something down",
+    "I need a polite way to refuse",
+    "Give me words for saying no",
+    "How do I decline kindly",
+    "I want to refuse politely",
+    "Can I say no thank you"
+   ],
+   "answer": "You could say, \"No, thank you. I'd prefer something else.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I ask for some privacy?",
+    "I'd like a private moment",
+    "How can I ask people to step away",
+    "I need some personal space",
+    "Can I have a little privacy",
+    "Give me words for needing space",
+    "I don't want an audience",
+    "I need a moment to myself"
+   ],
+   "answer": "You could say, \"I'd like a little privacy, please.\" Someone you trust can help arrange that."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I tell someone I appreciate them?",
+    "I want to thank someone kindly",
+    "Give me words for showing appreciation",
+    "How can I tell them they helped",
+    "I want to say they're kind",
+    "How do I thank someone for being patient",
+    "Give me words to express gratitude",
+    "I'd like to say a warm thank you"
+   ],
+   "answer": "You could say, \"Thank you for taking your time with me. It means a lot.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I ask someone to introduce themselves?",
+    "I need an introduction",
+    "How can I ask for their name again",
+    "What can I say if I forget a name",
+    "Can they remind me of their name",
+    "Give me words for asking a name",
+    "How do I request another introduction",
+    "I need them to say their name"
+   ],
+   "answer": "You could say, \"Would you remind me of your name, please? It's nice to see you.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I end a conversation kindly?",
+    "I'd like to stop chatting politely",
+    "Give me words for ending a chat",
+    "How can I say I need to go",
+    "I want to finish this conversation",
+    "How do I say goodbye politely",
+    "Can I wrap up a conversation",
+    "I need a polite way to stop talking"
+   ],
+   "answer": "You could say, \"It's been nice talking with you. I'm going to take a little break now.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I tell someone I need a rest?",
+    "I need words for asking to rest",
+    "How can I say I'm worn out",
+    "I want to explain I need a break",
+    "How do I ask to stop for a rest",
+    "Give me a sentence about needing rest",
+    "Can I say I need to sit quietly",
+    "I want to tell them I'm tired"
+   ],
+   "answer": "You could say, \"I'd like to rest for a little while. Could you help me find somewhere comfortable?\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you say something welcoming?",
+    "I'd like a warm welcome",
+    "Say a welcoming sentence",
+    "Give me a friendly greeting",
+    "Can I hear a kind welcome",
+    "Tell me I'm welcome to ask",
+    "I need a friendly hello",
+    "Say hello in a gentle way"
+   ],
+   "answer": "Hello. You're welcome to ask a question or take a quiet moment."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you say something reassuring about mistakes?",
+    "Give me a kind thought about mistakes",
+    "Say it's okay to get something wrong",
+    "I need reassurance after a mistake",
+    "Tell me something gentle about being wrong",
+    "A kind reminder about making mistakes",
+    "Say something forgiving",
+    "Remind me mistakes are okay"
+   ],
+   "answer": "A mistake doesn't take away your worth. You can begin again without rushing."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you say something reassuring about asking again?",
+    "Give me a kind thought about repeating questions",
+    "Reassure me about needing reminders",
+    "Say something patient about repetition",
+    "A gentle reminder that I can ask again",
+    "Tell me repeated questions are welcome",
+    "Say it's okay to need another answer",
+    "Reassure me about forgetting an answer"
+   ],
+   "answer": "Questions are welcome, even when you've asked them before. You can ask whenever you need a reminder."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you say something kind about getting older?",
+    "A gentle thought about aging",
+    "Say something respectful about older people",
+    "Tell me something kind about age",
+    "A kind word about growing older",
+    "Say something nice about being older",
+    "Give me a thoughtful line about aging",
+    "Reassure me that age doesn't change my worth"
+   ],
+   "answer": "Growing older doesn't change your right to kindness, respect, and choices."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you say something kind about needing help?",
+    "A kind thought about accepting support",
+    "Reassure me that help is okay",
+    "Say something gentle about depending on others",
+    "A warm reminder about receiving care",
+    "Tell me needing support is okay",
+    "Give me a thought about asking for support",
+    "Say something kind about being cared for"
+   ],
+   "answer": "Everyone needs support sometimes. Accepting help doesn't make your wishes or your voice any less important."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you say something kind about being quiet?",
+    "Reassure me that silence is okay",
+    "A gentle thought about not talking",
+    "Say something nice about a quiet moment",
+    "Tell me I don't need to fill the silence",
+    "A warm reminder about quiet company",
+    "Reassure me about sitting without speaking",
+    "Say it's okay if I have no words"
+   ],
+   "answer": "You don't have to fill every silence. Quiet company can be comforting, too."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I want to hear a familiar voice.",
+    "I'd like to hear someone I know",
+    "Can someone familiar talk to me",
+    "I miss hearing a familiar voice",
+    "I'd like a call with someone familiar",
+    "I want to talk with a person I know",
+    "Could I hear from someone close to me",
+    "I need a familiar person to talk to"
+   ],
+   "answer": "Someone nearby can help you reach Shrikar or another person you know."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I wish someone would explain what's happening.",
+    "Nobody tells me what's going on",
+    "I want things explained to me",
+    "Can someone explain the situation",
+    "I need to know what's happening",
+    "I'd like a simple explanation of this",
+    "People aren't explaining things",
+    "I wish someone would keep me informed"
+   ],
+   "answer": "You can ask someone nearby, \"Please tell me what's happening, one thing at a time.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'd rather listen than talk.",
+    "I just want to listen",
+    "Can I listen for a bit",
+    "I'd like to hear something without answering",
+    "I don't feel like chatting back",
+    "I'll listen quietly",
+    "I'd prefer listening right now",
+    "Can you tell me something while I listen"
+   ],
+   "answer": "You can just listen. A short story or a gentle poem is here whenever you'd like one."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't want to be touched.",
+    "Please don't touch me",
+    "I don't want a hug right now",
+    "I'd like people to keep their hands away",
+    "No touching please",
+    "I need space around my body",
+    "I don't like being touched without asking",
+    "Ask before touching me"
+   ],
+   "answer": "Your boundaries matter. You can say, \"Please ask before touching me.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'd like to talk to an actual person.",
+    "Can a real person talk with me",
+    "I want human company",
+    "I'd prefer a person to chat with",
+    "Can someone human sit with me",
+    "I want to talk with somebody nearby",
+    "I'd like company from a person",
+    "Can I speak to a person instead"
+   ],
+   "answer": "You can ask Shrikar or someone nearby to talk with you. I can offer reminders, but human company matters."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm waiting for someone.",
+    "I've been waiting for a person",
+    "Is someone supposed to meet me",
+    "I'm expecting company",
+    "I keep waiting for them",
+    "I wonder when they'll get here",
+    "I'm waiting to meet somebody",
+    "Has the person I'm waiting for arrived"
+   ],
+   "answer": "I don't have live arrival information. Someone nearby can help you check who you're expecting."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I wish I could remember happy things.",
+    "I want to talk about a good memory",
+    "Can someone remind me of happy times",
+    "I'd like a familiar story from my life",
+    "I want to remember something nice",
+    "Could someone share a good memory with me",
+    "I'd like to hear about a happy time",
+    "I miss remembering good moments"
+   ],
+   "answer": "Someone who knows you may enjoy sharing a familiar story. There's no need to remember every detail."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't recognize this room.",
+    "This room feels unfamiliar",
+    "I don't remember this room",
+    "Have I been in this room before",
+    "I can't place this room",
+    "This room doesn't look familiar",
+    "I'm unsure about this room",
+    "I don't recognize where we're sitting"
+   ],
+   "answer": "This room feels unfamiliar to you. Someone nearby can explain where you are and stay with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you remind me I matter?",
+    "Say that my voice matters",
+    "I'd like a reminder of my worth",
+    "Say something about being valued",
+    "Tell me I deserve respect",
+    "I need a kind reminder about my worth",
+    "Can you remind me my wishes matter",
+    "Say something about my value as a person"
+   ],
+   "answer": "You matter. Your wishes, comfort, and voice deserve care and respect."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you offer a gentle good wish?",
+    "Wish me a peaceful moment",
+    "Give me a gentle wish",
+    "Say a kind wish for my day",
+    "I'd like a warm good wish",
+    "Share a quiet good wish",
+    "Say something gentle to wish me well",
+    "Wish me a little comfort"
+   ],
+   "answer": "I hope this moment brings you a little comfort and some kind company."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How is this better than existing solutions?",
+    "Why is this better than other options",
+    "What makes this better than existing aids",
+    "Why choose this over existing solutions",
+    "What is the advantage over other tools",
+    "How does this improve on current approaches",
+    "Why would somebody prefer these glasses",
+    "What is different about this approach",
+    "What is better about these glasses?",
+    "Why is this better?"
+   ],
+   "answer": "The aim is easier access to personal reminders through voice and lens text. We haven't proven this works better than existing aids."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with sticky notes?",
+    "Why use glasses instead of sticky notes",
+    "Are these better than paper reminders",
+    "What do glasses add to a written note",
+    "What's different from a note on the fridge",
+    "Why not just leave written notes",
+    "How are these different from paper notes",
+    "What's the advantage over a posted reminder"
+   ],
+   "answer": "Notes can be useful. These glasses offer spoken reminders and short lens text without needing to find the right note."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with a memory book?",
+    "Why not use a memory book",
+    "What do glasses add to a personal memory book",
+    "Is this replacing a photo memory book",
+    "How is this different from a memory album",
+    "Why use this alongside a memory book",
+    "What's the difference from a personal scrapbook",
+    "How do glasses complement a memory book"
+   ],
+   "answer": "A memory book can hold rich stories and photos. The glasses aim to make a short reminder available through a simple question."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with a personal care profile?",
+    "Is this different from a written personal profile",
+    "How does it compare with This is me",
+    "What do glasses add to a personal support record",
+    "Why not just use a personal information form",
+    "Is this a replacement for a care profile",
+    "How is a spoken reminder different from a profile document",
+    "What connects this to personal support profiles"
+   ],
+   "answer": "A personal profile records useful information for care. Our proposed private profile would also make selected facts available as spoken reminders."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with a phone reminder app?",
+    "Why not use a smartphone reminder",
+    "What is different from an app on a phone",
+    "Why put reminders in glasses instead of a phone",
+    "What do the glasses add to a reminders app",
+    "Are glasses always better than phone reminders",
+    "How is this different from opening a reminder app",
+    "Why might someone prefer glasses to a phone app"
+   ],
+   "answer": "A phone app may suit some people well. These glasses put short answers on the lens and speak them aloud."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with a smart speaker?",
+    "Why not use a smart speaker",
+    "What does this add to a voice assistant at home",
+    "Why use glasses instead of Alexa",
+    "How is this different from asking a smart speaker",
+    "What makes a wearable assistant different",
+    "Do existing voice assistants already offer reminders",
+    "Why not use an Amazon Echo for reminders",
+    "How is this better than Alexa?",
+    "Why not just ask Alexa?"
+   ],
+   "answer": "Voice assistants already offer reminders. Our focus is a wearable display, familiar-face cues, and repeatable answers tailored to the wearer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with other smart glasses?",
+    "Why choose this over another pair of smart glasses",
+    "Is this better than Meta glasses",
+    "What is different from general purpose smart glasses",
+    "Have you shown these beat other glasses",
+    "How do these compare with existing wearable assistants",
+    "Why not use a general smart glasses assistant",
+    "What is the distinction from other glasses products"
+   ],
+   "answer": "We focus on simple, repeated personal reminders. We haven't demonstrated that these glasses outperform other products."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with a general chatbot?",
+    "Why not just ask an ordinary chatbot",
+    "What is different from a general AI chat app",
+    "Why use saved answers instead of general chat",
+    "What does this add to a generic AI assistant",
+    "Is this just a chatbot on glasses",
+    "How is this different from open ended AI conversation",
+    "Why not generate every personal answer with AI"
+   ],
+   "answer": "Familiar personal questions can use prepared answers instead of fresh guesses. The interface keeps reminders short and easy to ask for again."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with calling a family member?",
+    "Why not just phone family for every reminder",
+    "What's the benefit over asking a relative each time",
+    "Why use this when a family member could answer",
+    "Can this complement family support",
+    "How does this fit alongside asking family",
+    "Why offer a reminder without a family phone call",
+    "What does this add when family already helps"
+   ],
+   "answer": "The aim is another way to access familiar information when wanted. Family conversation and human support still matter."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with a printed shopping list?",
+    "Why not take a paper grocery list",
+    "What could glasses add to a grocery list",
+    "How is a pantry feature different from a written list",
+    "Why use this alongside a paper shopping list",
+    "Is a paper list still useful",
+    "Are glasses supposed to replace shopping lists",
+    "What is different from writing groceries on paper"
+   ],
+   "answer": "A printed list may be enough. A future pantry feature could answer stock questions aloud while leaving shopping choices with the person."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with a pantry spreadsheet?",
+    "Why not just check the pantry sheet",
+    "What could glasses add to a food spreadsheet",
+    "Is a spreadsheet already enough for pantry tracking",
+    "How is a spoken pantry answer different from a sheet",
+    "Why put spreadsheet information into an assistant",
+    "What is the value beyond an inventory table",
+    "Does this replace a food inventory spreadsheet"
+   ],
+   "answer": "A spreadsheet stores the details. A future connection could turn a simple spoken question into a short answer from those records."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this compare with a calendar?",
+    "Why not just use a calendar",
+    "What do glasses add to a wall calendar",
+    "Is a calendar still helpful",
+    "How does this fit with existing calendars",
+    "Are glasses a substitute for a diary",
+    "Why not use a daily planner instead",
+    "What is different from a date reminder on paper"
+   ],
+   "answer": "Calendars remain useful for plans. These glasses also answer prepared questions about familiar people and places."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does this need to replace tools that already work?",
+    "Must someone stop using their current aids",
+    "Should people give up their notebooks",
+    "Does the person have to switch everything",
+    "Can this work alongside existing reminders",
+    "Is this meant to replace every memory aid",
+    "Can someone keep their familiar tools",
+    "Should we discard existing support systems"
+   ],
+   "answer": "Keep tools that work for you. The glasses are intended to offer another option, rather than force a change."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is this cheaper than existing solutions?",
+    "Does this cost less than other aids",
+    "Have you compared the price with alternatives",
+    "Is this a cheaper option than phone apps",
+    "What's the cost advantage over other products",
+    "Have you proven these glasses are affordable",
+    "Is there a verified price comparison",
+    "Do you know whether this saves money"
+   ],
+   "answer": "We don't have a verified cost comparison. This is a prototype, not a priced product."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is this more private than other products?",
+    "Have you proven a privacy advantage",
+    "How do you compare on privacy",
+    "Can you guarantee better privacy than alternatives",
+    "What is the privacy distinction",
+    "Is local processing enough to claim better privacy",
+    "Are these automatically more secure than other aids",
+    "Does this have a verified security advantage"
+   ],
+   "answer": "The design keeps AI processing on your devices. Local processing still needs careful access controls and data handling."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Has this reduced caregiver workload in a study?",
+    "Have you measured fewer caregiver interruptions",
+    "Is there evidence this saves caregivers time",
+    "Have carers reported less work in a trial",
+    "Does the prototype prove reduced caregiver burden",
+    "Is the workload benefit demonstrated",
+    "Have you tested the caregiver time saving claim",
+    "Is reduced caregiver effort a measured result"
+   ],
+   "answer": "Reduced effort is a goal, not a demonstrated result. We need evaluation with people using the system."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Has this improved independence in a study?",
+    "Have you measured greater independence",
+    "Is the independence benefit proven",
+    "Does a trial show people manage more alone",
+    "Have users demonstrated increased independence with this",
+    "Is there evidence this prototype improves autonomy",
+    "Have you tested the independence claim",
+    "Is increased independence a measured result"
+   ],
+   "answer": "Supporting independence is a design goal. We haven't established that this prototype improves it in everyday life."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What if a simpler aid suits someone better?",
+    "What if paper works better for a person",
+    "What if they prefer a notebook",
+    "Should someone use a simpler tool instead",
+    "Could an ordinary reminder be the right choice",
+    "What if the glasses are harder to use",
+    "Is a low tech option sometimes preferable",
+    "What if the person dislikes technology"
+   ],
+   "answer": "The right aid is one the person finds useful and comfortable. A simpler option may suit them better."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why keep a familiar reminder consistent?",
+    "Why prioritize stable personal answers over creativity",
+    "Why not make each reminder sound different",
+    "Is consistency more important than novelty here",
+    "Why repeat a reviewed personal answer",
+    "What's the value of a predictable reminder",
+    "Why favor a stable answer over fresh generation",
+    "Why not make personal reminders creative"
+   ],
+   "answer": "The aim is a clear, dependable reminder. A new wording shouldn't introduce a different personal fact."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is the private profile already working?",
+    "Can the current version save my personal facts",
+    "Does this version remember newly spoken facts",
+    "Is spoken fact saving implemented yet",
+    "Can I currently add a private pet record through the glasses",
+    "Is the personal information form available now",
+    "Have you built the proposed personal profile",
+    "Can this demo already store new personal details"
+   ],
+   "answer": "The private profile and spoken saving are proposed features. The current prototype answers from prepared knowledge."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is the pantry connection already working?",
+    "Does this version sync the pantry spreadsheet",
+    "Are food quantities updated automatically now",
+    "Is the live pantry integration implemented",
+    "Can this version read my changing grocery stock",
+    "Have you built live food date tracking",
+    "Does this demo already connect to a food inventory",
+    "Is the pantry connected in the running app"
+   ],
+   "answer": "There isn't a live pantry connection yet. The sample pantry answers demonstrate a fictional snapshot."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is your main product goal?",
+    "What is the purpose behind the product",
+    "What's the central idea for the wearer",
+    "What outcome guides the design",
+    "What's the main reason to build this",
+    "What is the guiding product aim",
+    "What is the bigger point of the glasses",
+    "What should this support in daily life"
+   ],
+   "answer": "The aim is to support everyday choices and access to familiar information, while treating the wearer with patience and respect."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Are these glasses the only way to support independence?",
+    "Is wearable AI necessary for independence",
+    "Does independence require this device",
+    "Can ordinary tools support autonomy too",
+    "Is technology always the answer",
+    "Must someone wear glasses to stay involved",
+    "Can existing aids support independence as well",
+    "Are glasses essential to preserving choice"
+   ],
+   "answer": "People can use many kinds of support. The aim is to find what helps each person keep doing what matters to them."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What would make this a meaningful improvement?",
+    "What benefit would really matter to a wearer",
+    "How would you judge whether the glasses help",
+    "What should success look like for the person",
+    "What would count as useful progress",
+    "What matters beyond a clever demo",
+    "How should a real benefit be evaluated",
+    "What would make this worth using day to day"
+   ],
+   "answer": "A useful improvement would help the person do something they value, with less friction and without taking away their choices."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why is there always an instruction on the lens?",
+    "Why keep the hint visible",
+    "What is the pinned instruction for",
+    "Why doesn't the instruction disappear",
+    "Why show the starting instruction all the time",
+    "What's the purpose of the permanent hint",
+    "Why leave a prompt on the screen",
+    "Why keep the wake instruction in view"
+   ],
+   "answer": "A visible instruction means you don't have to remember how to start. The same simple hint stays available."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why avoid menus in the glasses?",
+    "Why are there no menus to learn",
+    "Why not add a settings menu for the wearer",
+    "Why keep navigation so simple",
+    "Why avoid complicated controls",
+    "Why not use different operating modes",
+    "Why don't patients switch modes",
+    "What's the reason for a simple interaction"
+   ],
+   "answer": "The aim is to make each interaction easy to start, even if the wearer doesn't remember the previous one."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why avoid memory quizzes?",
+    "Why not ask the wearer to remember",
+    "Why shouldn't the assistant test memory",
+    "Why not quiz the patient about names",
+    "Why avoid asking whether they remember someone",
+    "Why not turn reminders into a memory game",
+    "Why aren't answers followed by memory tests",
+    "Why avoid testing recall"
+   ],
+   "answer": "The aim is to offer support, rather than test the wearer. Reminders shouldn't require a correct answer in return."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why avoid saying I already told you?",
+    "Why not point out repeated questions",
+    "Why shouldn't the assistant complain about repetition",
+    "Why avoid saying you asked before",
+    "Why treat a repeated question kindly",
+    "Why not remind someone they've repeated themselves",
+    "Why avoid mentioning how often someone asks",
+    "Why answer repetition patiently"
+   ],
+   "answer": "A repeated question may feel new to the person asking. A patient answer offers help without adding pressure."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why should repeated questions get consistent answers?",
+    "Why keep the same answer for the same question",
+    "Why avoid changing familiar reminders",
+    "Why make saved responses predictable",
+    "Why should the response stay consistent",
+    "Why not invent a fresh personal answer each time",
+    "Why use stable reminders",
+    "What's the value of consistent wording"
+   ],
+   "answer": "Consistent reminders avoid adding conflicting information. Personal facts should come from the same reviewed source."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why use both voice and lens text?",
+    "Why speak and show the reply",
+    "Why have two ways to receive an answer",
+    "Why display words as well as sound",
+    "Why isn't this voice only",
+    "Why isn't the lens text only",
+    "What is the reason for spoken and written replies",
+    "Why pair the display with a voice"
+   ],
+   "answer": "A spoken answer can be heard, while short lens text offers another way to follow it."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can this replace a caregiver?",
+    "Do these glasses replace human support",
+    "Is the assistant a substitute for care",
+    "Can a person rely on the glasses instead of people",
+    "Does the app take over caregiving",
+    "Will a device replace someone checking in",
+    "Is human care unnecessary with this",
+    "Do the glasses replace family support"
+   ],
+   "answer": "The glasses offer reminders and support. They don't replace a caregiver or human judgment."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is this a medical diagnosis tool?",
+    "Can the glasses diagnose dementia",
+    "Is this for diagnosing a condition",
+    "Does the assistant diagnose memory problems",
+    "Can this tell whether someone has dementia",
+    "Is this a clinical diagnostic system",
+    "Does it assess medical conditions",
+    "Is the demo a diagnostic device"
+   ],
+   "answer": "This demo offers reminders and familiar information. It doesn't diagnose medical conditions."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does this cure memory loss?",
+    "Can the glasses restore memory",
+    "Is the app a cure for dementia",
+    "Will this fix someone's memory",
+    "Does using the device reverse dementia",
+    "Can the assistant cure forgetting",
+    "Is this a treatment that restores recall",
+    "Do the glasses promise memory recovery"
+   ],
+   "answer": "The glasses provide reminders. They don't promise to cure or reverse memory loss."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can this guarantee the wearer is safe?",
+    "Does wearing this guarantee safety",
+    "Can we promise nothing will go wrong",
+    "Does the device remove all risk",
+    "Is this a safety guarantee",
+    "Can the assistant always prevent harm",
+    "Will the glasses always keep someone safe",
+    "Can the demo guarantee protection"
+   ],
+   "answer": "No device can guarantee safety. Someone you trust should help check what support is needed."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Are caregiver alerts guaranteed to arrive?",
+    "Can a message fail to deliver",
+    "Is an alert always received",
+    "Does sending mean somebody saw the alert",
+    "Can the caregiver miss a message",
+    "Is message delivery guaranteed",
+    "Will a caregiver always see the notification",
+    "Can the connection prevent an alert arriving"
+   ],
+   "answer": "Messages can fail or go unseen. Someone nearby should help when support is needed."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "When does the app try a caregiver alert?",
+    "What kinds of requests trigger distress handling",
+    "Does every question notify the caregiver",
+    "Are all conversations sent as distress alerts",
+    "Which situations are meant for caregiver alerts",
+    "Why separate distress from ordinary questions",
+    "Is ordinary small talk supposed to trigger an alert",
+    "What's the intended caregiver alert rule"
+   ],
+   "answer": "The design uses caregiver alerts for distress. Ordinary questions and small talk are meant to receive answers without an alert."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do saved comfort answers prove someone is safe?",
+    "Can a comforting sentence confirm safety",
+    "Is reassurance the same as a safety check",
+    "Can a saved answer verify the situation",
+    "Does kind wording mean the environment is safe",
+    "Can a canned response know there's no danger",
+    "Is a reassurance message evidence of safety",
+    "Can the bank confirm what's happening nearby"
+   ],
+   "answer": "A kind answer can't verify the situation. Someone nearby can check what's happening and offer practical support."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why not guess a person's identity?",
+    "Why avoid naming an uncertain face",
+    "What if the face match is weak",
+    "Should an uncertain person be confidently named",
+    "Why be cautious about face identification",
+    "Why not choose the closest name anyway",
+    "Should the assistant guess who a stranger is",
+    "Why avoid confident guesses about people"
+   ],
+   "answer": "A wrong name can be confusing. Someone nearby can offer an introduction when identity isn't clear."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can the question bank describe an unseen room?",
+    "Can stored text know what's around me",
+    "Does a saved answer see the current scene",
+    "Can canned replies describe a new room",
+    "Does the bank contain every possible scene",
+    "Can prepared answers identify whatever I'm looking at",
+    "Does saved text inspect the camera",
+    "Can a stored reply know the live surroundings"
+   ],
+   "answer": "Saved text doesn't inspect the surroundings. A current scene needs current information, rather than a guessed description."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why not store today's time as an answer?",
+    "Should we hardcode the current clock time",
+    "Why must clock answers stay live",
+    "Can we save the time once for every question",
+    "Why avoid a fixed clock response",
+    "Would a stored clock answer become stale",
+    "Why not put a timestamp in the question bank",
+    "Can a cached reply always know the current time"
+   ],
+   "answer": "Clock answers need current information. A fixed time saved in a file would quickly become wrong."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why not invent meal records?",
+    "Can we guess whether someone ate",
+    "Should a saved answer claim lunch happened",
+    "Why avoid made up meal history",
+    "Can a canned response know if I had breakfast",
+    "Why shouldn't the assistant guess about meals",
+    "Should the bank invent a daily routine",
+    "Can stored text confirm an unrecorded meal"
+   ],
+   "answer": "A saved answer shouldn't invent what happened. Someone who knows can help confirm meals and daily events."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why review answers with family?",
+    "Who should check the personal information",
+    "Why ask people to confirm their facts",
+    "Why have someone review the question bank",
+    "Who verifies the stored personal details",
+    "Why shouldn't a model invent family history",
+    "Why ask the person for their own answers",
+    "Why does factual review matter"
+   ],
+   "answer": "People who know the facts can check accuracy and permission. The bank should contain information they're comfortable sharing."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can the demo use fictional personal details?",
+    "Can we use a made up wearer",
+    "Is a sample persona okay for testing",
+    "Can the simulator have fictional facts",
+    "Should demo facts be labeled as examples",
+    "Can example data stand in for private information",
+    "How can a demo avoid real personal data",
+    "Can test data be fictional"
+   ],
+   "answer": "Clearly labeled fictional details can support a demo. They shouldn't be mistaken for facts about a real wearer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does a successful demo prove this works for everyone?",
+    "Does the demo establish clinical effectiveness",
+    "Is a hackathon demonstration enough evidence",
+    "Does one successful test prove universal reliability",
+    "Can we claim this suits every person",
+    "Does the demo establish real world effectiveness",
+    "Is a demo a guarantee for all users",
+    "Can one demonstration prove the product is ready for everyone"
+   ],
+   "answer": "A demo shows a limited example. It doesn't establish how well the system works for every person or situation."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm thirsty.",
+    "I'd like some water",
+    "Could I have a drink",
+    "I need a glass of water"
+   ],
+   "answer": "Ask someone nearby to help you get a drink you usually have."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm hungry.",
+    "I'd like something to eat",
+    "Could I have a snack",
+    "I want some food"
+   ],
+   "answer": "Ask Shrikar or someone nearby to help you find something suitable to eat."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is the bathroom?",
+    "I need the toilet",
+    "Where's the restroom",
+    "Is there a washroom nearby"
+   ],
+   "answer": "Someone nearby can help you find the bathroom. At the event, you can ask a staff member."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'd like somewhere to sit.",
+    "Can I have a chair",
+    "Where can I sit down",
+    "I'd like a seat"
+   ],
+   "answer": "Ask someone nearby to help find a comfortable seat."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm too warm.",
+    "It's hot in here",
+    "I feel too hot",
+    "This room feels warm"
+   ],
+   "answer": "Tell someone nearby you're uncomfortable. They can help you find a more comfortable spot."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm too cold.",
+    "It's chilly here",
+    "I'd like a sweater",
+    "This room feels cold"
+   ],
+   "answer": "Ask someone nearby for a sweater or help finding a warmer spot."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is my bag?",
+    "I can't find my bag",
+    "Have you seen my backpack",
+    "Where did I put my purse"
+   ],
+   "answer": "I don't know where your bag is. Someone you trust can help look for it."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is my phone?",
+    "I can't find my phone",
+    "Have you seen my mobile",
+    "Where did I leave my cell phone"
+   ],
+   "answer": "I don't know where your phone is. Shrikar or someone nearby can help you look."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where are my keys?",
+    "I can't find my keys",
+    "Have you seen my key ring",
+    "Where did I leave the keys"
+   ],
+   "answer": "I don't know where your keys are. Someone you trust can help look for them."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is my coat?",
+    "I can't find my jacket",
+    "Have you seen my coat",
+    "Where did I leave my sweater"
+   ],
+   "answer": "I don't know where it is. Someone nearby can help you look."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is this my bag?",
+    "Does that bag belong to me",
+    "Is this purse mine",
+    "Is that my backpack"
+   ],
+   "answer": "I can't confirm who owns it. Ask someone you trust to check with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Did I leave something behind?",
+    "Have I forgotten my belongings",
+    "Did I bring everything",
+    "Am I missing anything"
+   ],
+   "answer": "I can't check your belongings. Someone you trust can look with you before you leave."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do I have an appointment?",
+    "Am I supposed to be somewhere",
+    "Is there an appointment coming up",
+    "What's on my calendar"
+   ],
+   "answer": "I don't have your calendar here. Shrikar can help check your plans."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What did I do earlier?",
+    "What happened this morning",
+    "What have I been doing",
+    "Remind me about earlier"
+   ],
+   "answer": "I don't have a record of everything you've done. Shrikar may be able to remind you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What did we just talk about?",
+    "Remind me of our last conversation",
+    "What was our conversation about",
+    "What did I just ask you"
+   ],
+   "answer": "You can ask your question again. I may not have the earlier conversation available."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Did someone visit me?",
+    "Have I had any visitors",
+    "Who came to see me",
+    "Was somebody here earlier"
+   ],
+   "answer": "I don't have a visitor record here. Shrikar may know who came by."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is my family now?",
+    "Are my relatives nearby",
+    "Has my family arrived",
+    "Is anyone from my family here"
+   ],
+   "answer": "I don't know where your family is right now. Someone nearby can help you check with Shrikar."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who is coming to pick me up?",
+    "Who's collecting me",
+    "Who is my ride",
+    "Is someone picking me up"
+   ],
+   "answer": "Shrikar can help confirm your travel plans. I don't have a live pickup update."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is my ride here yet?",
+    "Has the car arrived",
+    "Is my pickup outside",
+    "Did my ride get here"
+   ],
+   "answer": "I can't check whether your ride has arrived. Ask Shrikar or someone nearby to confirm."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Which way should I walk?",
+    "Which direction do I go",
+    "Can you give me walking directions",
+    "Show me the route"
+   ],
+   "answer": "I don't have live directions. Ask someone you trust to walk with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is the exit?",
+    "Which door leads out",
+    "Where's the way out",
+    "How do I leave this room"
+   ],
+   "answer": "Ask a staff member or someone nearby to show you the exit."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where do I sign in?",
+    "Is there a registration desk",
+    "Where's check in",
+    "Who can check me in"
+   ],
+   "answer": "At the event, a staff member can help you find the sign-in area."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where can I get lunch?",
+    "Where is the food table",
+    "Where are people getting food",
+    "Is there somewhere to eat here"
+   ],
+   "answer": "Ask a staff member where food is available. I don't have a live meal schedule."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I take a photo?",
+    "Is it okay to photograph people",
+    "May I take a picture here",
+    "Can I get a picture of this"
+   ],
+   "answer": "Ask the people in the picture and event staff first. Someone nearby can help with a camera."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What does caregiver mean?",
+    "What's a caregiver",
+    "What is a carer",
+    "Explain the word caregiver"
+   ],
+   "answer": "A caregiver is someone who helps with everyday needs and support. Your caregiver is Shrikar."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How old am I?",
+    "What's my age",
+    "How many years old am I",
+    "Remind me how old I am"
+   ],
+   "answer": "I don't have your age saved here. Shrikar can help you check."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "When is my birthday?",
+    "What's my birth date",
+    "When was I born",
+    "Remind me of my birthday"
+   ],
+   "answer": "I don't have your birthday saved here. Shrikar can help you find it."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is there a pet at home?",
+    "Have I got a dog",
+    "Is there a cat at home",
+    "Remind me about my pets"
+   ],
+   "answer": "I don't have that information saved. Shrikar can tell you about any pets."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What did I do for work?",
+    "What was my job",
+    "Where did I used to work",
+    "Remind me of my occupation"
+   ],
+   "answer": "I don't have your work history saved here. Someone who knows you can help you talk about it."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is my favorite food?",
+    "What food do I like best",
+    "What's my favourite meal",
+    "Remind me what I like to eat"
+   ],
+   "answer": "I don't have your favorite food saved. You're welcome to tell someone nearby what sounds nice."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I need a tissue.",
+    "Could I have a tissue",
+    "Is there a tissue nearby",
+    "I'd like a paper tissue",
+    "Can someone get me a tissue",
+    "I need a handkerchief",
+    "Where can I find tissues",
+    "I'd like something to wipe my nose"
+   ],
+   "answer": "Someone nearby can help you find a tissue."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I need a napkin.",
+    "Could I have a napkin",
+    "I need a serviette",
+    "Where are the napkins",
+    "Can someone get me a napkin",
+    "I'd like a paper napkin",
+    "Is there a napkin nearby",
+    "I need something to wipe my hands"
+   ],
+   "answer": "Ask someone nearby for a napkin. They can help you find one."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I spilled my drink.",
+    "I've knocked over my cup",
+    "There's a spill here",
+    "My water went on the table",
+    "I tipped my drink over",
+    "My cup spilled",
+    "There's liquid on the floor",
+    "I made a puddle with my drink"
+   ],
+   "answer": "Let someone nearby know about the spill. They can help clean it up and keep the area clear."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I dropped something.",
+    "Something fell out of my hand",
+    "I dropped it on the floor",
+    "My things fell down",
+    "Can somebody pick that up",
+    "Something slipped from my fingers",
+    "I can't reach what I dropped",
+    "An item fell under the chair"
+   ],
+   "answer": "Ask someone nearby to help pick it up. You can tell them what fell."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I can't reach that.",
+    "It's too far away for me",
+    "Can someone bring that closer",
+    "That's out of my reach",
+    "I need someone to pass that",
+    "I can't get to that item",
+    "Could someone hand that to me",
+    "It's higher than I can reach"
+   ],
+   "answer": "Ask someone nearby to bring it within reach."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I need help opening this.",
+    "I can't open the container",
+    "This lid is stuck",
+    "Could someone open this for me",
+    "I can't undo this lid",
+    "This package won't open",
+    "I need help with this packet",
+    "Can someone open the bottle"
+   ],
+   "answer": "Someone nearby can help you open it. You can show them the lid or package."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where can I put my cup?",
+    "Is there a place for my drink",
+    "Where should this cup go",
+    "Can someone hold my cup",
+    "I need somewhere to set my drink",
+    "Is there a table for my cup",
+    "Where can I set this mug",
+    "I'd like a place to put my glass"
+   ],
+   "answer": "Ask someone nearby to help find a clear, steady surface for your cup."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can someone move this chair?",
+    "This chair is in my way",
+    "I'd like the chair moved",
+    "Could the seat go over there",
+    "I need a chair closer to the table",
+    "Can someone adjust where this chair is",
+    "The chair needs moving",
+    "Could someone bring the chair nearer"
+   ],
+   "answer": "Ask someone nearby to move the chair with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'd like a cushion.",
+    "Can I have a pillow for this chair",
+    "This seat could use a cushion",
+    "I'd like something soft behind me",
+    "Is there a cushion available",
+    "Could someone get me a small pillow",
+    "I'd like a softer seat",
+    "Can someone bring a seat cushion"
+   ],
+   "answer": "Ask someone nearby whether there's a cushion or a more comfortable seat available."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'd like a blanket.",
+    "Could I have a blanket",
+    "Is there a throw I can use",
+    "I want something warm over me",
+    "Can someone bring a blanket",
+    "I'd like a lap blanket",
+    "Is there a spare blanket",
+    "Could someone find me a throw"
+   ],
+   "answer": "Ask someone nearby whether a blanket is available."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I want to wash my hands.",
+    "Where can I clean my hands",
+    "I need a sink for my hands",
+    "I'd like to wash up",
+    "Can someone show me the handwashing area",
+    "Is there somewhere to wash my hands",
+    "I need soap and water",
+    "Where's a sink I can use"
+   ],
+   "answer": "Someone nearby can help you find a sink and soap."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is the drinking water?",
+    "Is there a water station",
+    "Where can I refill my cup",
+    "Can someone show me the water fountain",
+    "Is drinking water available here",
+    "Where do I get a cup of water",
+    "Where is the water dispenser",
+    "Is there somewhere to refill a bottle"
+   ],
+   "answer": "Ask a staff member or someone nearby where drinking water is available."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is there somewhere quiet to sit?",
+    "Where is a quieter seating area",
+    "Can we find a peaceful corner",
+    "Is there a calm place nearby",
+    "I'd like a seat away from the noise",
+    "Where can I sit without all the chatter",
+    "Can someone find a quiet chair",
+    "Is there a quiet room available"
+   ],
+   "answer": "Ask someone you trust or a staff member to help find a quieter place."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where can I charge my phone?",
+    "Is there a phone charging spot",
+    "Where do I plug my phone in",
+    "Is a charger available",
+    "My phone needs charging",
+    "Can someone find a phone charger",
+    "Is there an outlet for my phone",
+    "Where can I get power for my mobile"
+   ],
+   "answer": "Ask someone nearby to help find a suitable charger and outlet."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I can't read that sign.",
+    "The sign is hard to read",
+    "What does the writing on the sign say",
+    "Could someone read that notice",
+    "I can't make out the lettering",
+    "The notice is too small",
+    "I need someone to read the sign aloud",
+    "What's written on that board"
+   ],
+   "answer": "Someone nearby can read it aloud for you. I don't have the sign's text saved here."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I can't hear what they're saying.",
+    "I missed what that person said",
+    "Their words are hard to hear",
+    "Could someone repeat what was said",
+    "I didn't catch the announcement",
+    "The announcement wasn't clear",
+    "I can't make out the speaker",
+    "I missed the last sentence"
+   ],
+   "answer": "You can ask the person to repeat it slowly, or ask someone nearby to help."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can someone tell me what's on this paper?",
+    "I need this letter read aloud",
+    "What's written on this sheet",
+    "Could someone read my note",
+    "I can't follow this document",
+    "I need help reading this page",
+    "Can a person explain this paper",
+    "I'd like this form explained"
+   ],
+   "answer": "Someone you trust can read it with you. Personal papers are best reviewed privately."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I need help with a form.",
+    "I don't understand this form",
+    "Can someone help fill this out",
+    "This paperwork is confusing",
+    "I need a person to explain these boxes",
+    "What am I supposed to write here",
+    "Could someone go through the form with me",
+    "I'm unsure how to complete this paperwork"
+   ],
+   "answer": "Ask someone you trust to go through it with you, one question at a time."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't know whether to sign this.",
+    "Should I put my signature here",
+    "I don't understand what I'm signing",
+    "Someone wants my signature",
+    "Can somebody explain before I sign",
+    "I'm unsure about signing this paper",
+    "I need to understand this document first",
+    "I don't want to sign without understanding"
+   ],
+   "answer": "Ask someone you trust to explain it clearly before you decide."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Someone is asking for my password.",
+    "Should I share my password",
+    "A person wants my login",
+    "They asked me for my passcode",
+    "Someone requested my PIN",
+    "Do I give them my account password",
+    "Someone wants my secret code",
+    "A caller is asking for my password"
+   ],
+   "answer": "Keep passwords and secret codes private. Someone you trust can help you check the request."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Someone is asking me for money.",
+    "A stranger wants me to pay",
+    "Someone says I owe money",
+    "A caller wants a payment",
+    "I got a request to send money",
+    "They want my bank details",
+    "Somebody wants my card number",
+    "Someone is pressuring me to pay"
+   ],
+   "answer": "You can pause the conversation. Ask someone you trust to review the request with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't know this caller.",
+    "An unfamiliar person is calling",
+    "I don't recognize the phone number",
+    "Who is calling my phone",
+    "Should I answer an unknown number",
+    "A stranger is on the phone",
+    "This caller's name means nothing to me",
+    "I don't recognize who's calling"
+   ],
+   "answer": "I can't identify the caller. Someone you trust can help check the number or message."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Someone wants me to go with them.",
+    "A stranger asked me to follow them",
+    "Someone I don't know wants me to come along",
+    "They want to take me somewhere",
+    "An unfamiliar person offered me a ride",
+    "Should I leave with this stranger",
+    "Someone is asking me to come outside",
+    "I don't know the person offering a lift"
+   ],
+   "answer": "Check with someone you trust before going with a person you don't know."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I found someone else's belongings.",
+    "This bag might belong to somebody else",
+    "I found a wallet",
+    "There's a lost phone here",
+    "Someone left a purse",
+    "I found an item that isn't mine",
+    "Somebody forgot their things",
+    "I think this belongs to another person"
+   ],
+   "answer": "Tell a staff member or someone you trust. They can help find the owner."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is lost and found?",
+    "Is there a desk for lost belongings",
+    "Where do lost items go",
+    "Is there a lost property area",
+    "Who handles things people leave behind",
+    "Where can I report a missing item",
+    "Is there a lost item desk",
+    "Where do I ask about something missing"
+   ],
+   "answer": "At the event, ask a staff member where to report lost belongings."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where can I put my rubbish?",
+    "Is there a trash bin",
+    "Where is the wastebasket",
+    "Where do I throw this away",
+    "Is there a garbage can nearby",
+    "I need a bin for this wrapper",
+    "Where can I dispose of this tissue",
+    "Where does this rubbish go"
+   ],
+   "answer": "Someone nearby can point out a bin or help you find one."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is there recycling here?",
+    "Where is the recycling bin",
+    "Can this bottle be recycled here",
+    "Where do the empty cans go",
+    "Is there somewhere for paper recycling",
+    "Which bin is for recycling",
+    "Where should recyclable things go",
+    "Can someone show me the recycling area"
+   ],
+   "answer": "Ask someone nearby which items go in the recycling bins here."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is the elevator?",
+    "Is there a lift in this building",
+    "How do I find the elevator",
+    "Can someone show me the lift",
+    "Where is the nearest lift",
+    "Is there an elevator nearby",
+    "Which way is the elevator",
+    "I'd like to use the lift"
+   ],
+   "answer": "A staff member can show you the elevator and help you reach the right floor."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Which floor are we on?",
+    "What floor is this",
+    "Are we upstairs or downstairs",
+    "What level of the building is this",
+    "Which story are we on",
+    "Can you tell which floor we're on",
+    "What building level are we at",
+    "I don't know our floor number"
+   ],
+   "answer": "I don't have the floor number saved. Someone nearby can help you check."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is the event schedule?",
+    "Is there a timetable for the event",
+    "Where can I see today's program",
+    "Who has the event agenda",
+    "Can somebody check the event schedule",
+    "Is the program posted somewhere",
+    "Where do I find the event timings",
+    "I'd like to see the event timetable"
+   ],
+   "answer": "A staff member can help you find the latest event schedule."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Has the event finished?",
+    "Is the event over",
+    "Are the activities finished",
+    "Has everything ended here",
+    "Is the event still going",
+    "Are we done with the event",
+    "Has the closing session happened",
+    "Did the event already end"
+   ],
+   "answer": "I don't have a live event update. Ask a staff member what's happening next."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where are the judges?",
+    "Have the judges arrived",
+    "Is a judge nearby",
+    "Who can point out a judge",
+    "Can someone find the judging team",
+    "Are the judges at our table",
+    "Where is the judging area",
+    "I'd like to speak with a judge"
+   ],
+   "answer": "A team member or event staff can help you find the judges."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can somebody explain the demo to me?",
+    "What am I supposed to do in the demo",
+    "I'd like someone to walk me through the demonstration",
+    "Can someone show me how the demo works",
+    "I need the demonstration explained slowly",
+    "What's my part in this demonstration",
+    "Could a teammate explain this demo",
+    "I don't understand the demonstration"
+   ],
+   "answer": "A team member can show you one step at a time. You can ask a simple question through the glasses."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do I have to try the demo?",
+    "Can I watch instead of trying",
+    "I don't want a turn with the glasses",
+    "Is trying the glasses optional",
+    "Can I say no to the demonstration",
+    "I'd prefer to sit this demo out",
+    "Must I wear these for the event",
+    "I only want to watch"
+   ],
+   "answer": "You can choose whether to try it. Tell a team member if you'd prefer to watch."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I stop wearing these now?",
+    "I'm finished wearing the glasses",
+    "I'd like these glasses off now",
+    "Can I end my turn",
+    "I'm done trying the glasses",
+    "I'd prefer not to wear them anymore",
+    "Can somebody take the glasses back",
+    "I want to stop this demonstration"
+   ],
+   "answer": "You can stop whenever you'd like. A team member can help you remove the glasses."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who should I return the glasses to?",
+    "Where do these glasses go after my turn",
+    "Who takes the glasses back",
+    "Can I hand these to a teammate",
+    "I'm ready to give the glasses back",
+    "Where do I return this demo pair",
+    "Who collects the glasses",
+    "Can somebody take these back"
+   ],
+   "answer": "Hand them to a member of team BB. They can help get them ready for the next person."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I clean these glasses?",
+    "How can the glasses be wiped",
+    "These lenses need cleaning",
+    "Is there a cloth for the glasses",
+    "Can someone clean the lens",
+    "Who can wipe the glasses",
+    "I'd like a clean pair for my turn",
+    "The glasses look smudged"
+   ],
+   "answer": "Ask a team member to help clean them with suitable materials."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I can't see the lens text clearly.",
+    "The words on the lens are blurry",
+    "I can't make out the display",
+    "The green letters are hard to see",
+    "The lens writing looks faint",
+    "I need help seeing the displayed answer",
+    "The display isn't clear to me",
+    "I can't read the answer in the glasses"
+   ],
+   "answer": "Ask a team member to check the glasses' position. You can also listen to the spoken answer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I can't hear the glasses clearly.",
+    "The glasses' voice is too quiet",
+    "The spoken answer is hard to hear",
+    "I didn't catch the glasses talking",
+    "The glasses sound faint",
+    "I need help hearing the assistant",
+    "The answer audio isn't clear",
+    "I can see the words but can't hear them"
+   ],
+   "answer": "Ask a team member to check the audio. The answer also appears on the lens."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "The glasses aren't answering.",
+    "These glasses seem unresponsive",
+    "Nothing happens when I ask",
+    "The assistant isn't responding",
+    "The glasses have gone quiet",
+    "I asked but got no reply",
+    "The demo glasses aren't replying",
+    "This pair doesn't seem to respond"
+   ],
+   "answer": "Try saying \"Lucia\" and asking again. A team member can check the glasses if there's still no answer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What are these glasses?",
+    "What am I wearing?",
+    "What are these things on my face?",
+    "Wait, what are these for?",
+    "What's these glasses?"
+   ],
+   "answer": "These glasses help you ask questions and recognise familiar people. You can hear answers and see them on the lens."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who are you?",
+    "Who's talking to me?",
+    "What is your name?",
+    "Wait, who is this voice?",
+    "Who are ya?"
+   ],
+   "answer": "I'm Lucia, the assistant in your glasses. I'm here to offer gentle reminders and help you find your way."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I use these?",
+    "How do I use you?",
+    "What do I do with the glasses?",
+    "Wait, how do I ask something?",
+    "How'd I use this?"
+   ],
+   "answer": "Say \"Lucia,\" then ask your question. You can also tap the side of the glasses to ask."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What word do I say to start?",
+    "What's the wake word?",
+    "What name wakes you up?",
+    "Do I say Lucy or Lucia?",
+    "What's your wake up word?"
+   ],
+   "answer": "Say \"Lucia,\" then ask what you'd like to know. There's no hurry."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where do I tap?",
+    "Which part do I touch?",
+    "Do I tap the arm?",
+    "Wait, where's the button?",
+    "Where do I tab?"
+   ],
+   "answer": "Tap the side of the glasses to ask a question. You can also say \"Lucia.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What can you help me with?",
+    "What can you do?",
+    "What do I ask you about?",
+    "Wait, what are you here for?",
+    "What can ya do?"
+   ],
+   "answer": "I can help with familiar faces, the time, and where you are. If you're distressed, I can alert Shrikar."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you hear me?",
+    "Is this microphone working?",
+    "Hello, are you listening?",
+    "Did you hear what I said?",
+    "Can you here me?"
+   ],
+   "answer": "Your glasses use a microphone for your questions. Say \"Lucia,\" then ask something."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Are you recording me?",
+    "Is this saving my voice?",
+    "Are you filming everything?",
+    "Wait, is the camera recording?",
+    "Are you record in me?"
+   ],
+   "answer": "The glasses use a camera and microphone to help answer questions. Shrikar can help check what this setup saves."
   },
   {
    "scope": "faq",
    "subject": "faq",
    "questions": [
     "Is my information private?",
-    "who can see this",
-    "are you recording me"
+    "Can other people see my information?",
+    "Are my details safe here?",
+    "Wait, who gets my data?",
+    "Is my date a private?"
    ],
-   "answer": "Yes. Everything stays on your glasses and your phone. Nothing goes to the internet."
+   "answer": "Your information stays on your own devices. Your questions are handled locally, without cloud AI."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where does my information go?",
+    "Where are my questions sent?",
+    "Where do you keep my details?",
+    "Is my voice going somewhere?",
+    "Where's my info go?"
+   ],
+   "answer": "Your information stays on your own devices: the glasses, a laptop or phone, and a private home computer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do you need the internet?",
+    "Can you work without Wi-Fi?",
+    "What if there's no signal?",
+    "Wait, does this need the web?",
+    "Do you need inner net?"
+   ],
+   "answer": "My AI runs locally on your own devices. Sending an alert to Shrikar still needs a connection."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do you know who someone is?",
+    "How do you recognise faces?",
+    "How can you tell who's here?",
+    "Wait, how do you know them?",
+    "How'd you recognise a face?"
+   ],
+   "answer": "I compare the person I see with people your family has added with their consent."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do you know everyone I meet?",
+    "Can you identify any stranger?",
+    "Do you recognise everybody?",
+    "What about someone new?",
+    "Do you no every one?"
+   ],
+   "answer": "I recognise people your family has added with their consent. Someone nearby can help introduce a person I don't know."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does someone get added?",
+    "Can you learn a new person?",
+    "How do we add a familiar face?",
+    "Can my family put someone in?",
+    "How'd someone get add it?"
+   ],
+   "answer": "Your family can help add someone with that person's consent. Shrikar can help arrange it."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do people agree before you recognise them?",
+    "Do you ask permission for faces?",
+    "Did these people say yes?",
+    "Can someone choose to be added?",
+    "Do people consent to face recognition?"
+   ],
+   "answer": "The people I recognise are added by your family with their consent."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I ask about the same person again?",
+    "What if I forget who they are?",
+    "Can you tell me their name twice?",
+    "Wait, can I ask again later?",
+    "Same person again okay?"
+   ],
+   "answer": "You can ask whenever you need a reminder. I'll give you a short, calm answer each time."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is the writing on the lens?",
+    "Why are there words in my glasses?",
+    "What's this green text?",
+    "Wait, am I supposed to read that?",
+    "What's the writing on the lends?"
+   ],
+   "answer": "Those words show my answer. You can listen to the spoken answer, too."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Will you speak the answer?",
+    "Can you tell me out loud?",
+    "Do I have to read everything?",
+    "Will I hear you talking?",
+    "Can you say it allowed?"
+   ],
+   "answer": "Yes, I speak my answers and show them on the lens."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you say that again?",
+    "Please repeat that",
+    "I missed what you said",
+    "Wait, what was that?",
+    "Say that a gain"
+   ],
+   "answer": "Of course. Ask your question again whenever you're ready."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do I have to shout?",
+    "How loudly should I speak?",
+    "Can I use my normal voice?",
+    "Do I need to talk really loud?",
+    "Should I speak loader?"
+   ],
+   "answer": "Try your usual speaking voice. Say \"Lucia,\" then ask your question."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why didn't you answer?",
+    "Did you miss my question?",
+    "Hello, is this thing on?",
+    "Wait, why is it quiet?",
+    "Why didn't you an sir?"
+   ],
+   "answer": "I may have missed your words. Try saying \"Lucia,\" then ask again, or tap the side of the glasses."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What if you misunderstand me?",
+    "What if you hear the wrong words?",
+    "Can I ask it another way?",
+    "Wait, that wasn't my question",
+    "What if you miss understand?"
+   ],
+   "answer": "You can ask again in your own words. Take your time."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How long should I wait for an answer?",
+    "Are you still thinking?",
+    "Should I wait a moment?",
+    "Why is the answer taking time?",
+    "How long do I weight?"
+   ],
+   "answer": "An answer may take a moment. If nothing happens, ask again or let Shrikar help check the glasses."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What should I do if I'm lost?",
+    "Can you help me find my way?",
+    "I don't know how to get back",
+    "Wait, I think I'm lost",
+    "What if I'm loss?"
+   ],
+   "answer": "Stay somewhere safe and ask a staff member for help. If you're distressed, I can alert Shrikar."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you help when I'm scared?",
+    "What happens if I feel frightened?",
+    "Can you get help if I'm upset?",
+    "What if I start to panic?",
+    "Can you help when I'm scarred?"
+   ],
+   "answer": "I'm here with you. If you're distressed, I can send Shrikar a message that you need support."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you make a phone call?",
+    "Can you ring someone?",
+    "Will you call my caregiver?",
+    "Can you put someone on the phone?",
+    "Can you make a fone call?"
+   ],
+   "answer": "I can send Shrikar an alert if you're distressed. For a phone call, ask someone nearby to help."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who can help me with the glasses?",
+    "Who do I ask if these don't work?",
+    "Can someone show me what to do?",
+    "Wait, who helps with this thing?",
+    "Who helps with the glass is?"
+   ],
+   "answer": "Shrikar, your your grandson, can help you. At this event, you can also ask a member of team BB."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How much battery is left?",
+    "Are these nearly out of power?",
+    "Can you check the charge?",
+    "Is the battery low?",
+    "How much batter is left?"
+   ],
+   "answer": "Shrikar or a team member can help check the battery."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I charge the glasses?",
+    "Where do I plug these in?",
+    "How do I recharge this?",
+    "Do these need a charger?",
+    "How'd I charge the glass is?"
+   ],
+   "answer": "Ask Shrikar or a team member to help charge the glasses with the correct charger."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What happens if the battery runs out?",
+    "Will you stop if these lose power?",
+    "What if the glasses go dead?",
+    "What happens at zero battery?",
+    "What if the batter runs out?"
+   ],
+   "answer": "The glasses need power to work. If they stop, ask Shrikar or someone nearby for help."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I take the glasses off?",
+    "Can I remove these now?",
+    "How do I get these off my face?",
+    "Wait, can I take them off?",
+    "How'd I take the glass is off?"
+   ],
+   "answer": "Gently lift them off as you would ordinary glasses. Someone nearby can help if you'd like."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I put the glasses on?",
+    "How should I wear these?",
+    "Can someone help me put them on?",
+    "Which way do these go?",
+    "How'd I put the glass is on?"
+   ],
+   "answer": "Wear them like ordinary glasses, with the arms resting over your ears. Ask someone nearby to help adjust them."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can someone else try the glasses?",
+    "Can I let another person wear these?",
+    "Can my friend have a turn?",
+    "Are these okay to share for the demo?",
+    "Can someone else try the glass is?"
+   ],
+   "answer": "Ask a member of team BB to help someone try them. The glasses may still use the wearer's saved information."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Are you a robot?",
+    "Is there a robot in here?",
+    "Are these robot glasses?",
+    "What sort of machine are you?",
+    "Are you a row bot?"
+   ],
+   "answer": "I'm a voice assistant running on your devices. I help answer questions through the glasses."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do you have feelings?",
+    "Can you feel happy?",
+    "Do you get sad?",
+    "Are you upset with me?",
+    "Do you have feel ins?"
+   ],
+   "answer": "I don't have feelings like a person. You can ask me questions as often as you need."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Are you a real person?",
+    "Is someone speaking through these?",
+    "Is there a person inside?",
+    "Am I talking to a human?",
+    "Are you a reel person?"
+   ],
+   "answer": "You're hearing a computer voice from Lucia. Your family and people nearby can offer human company and support."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who made you?",
+    "Who built these answers?",
+    "Who created this assistant?",
+    "Who put you in the glasses?",
+    "Who maid you?"
+   ],
+   "answer": "Team BB built this assistant for the Worn smart-glasses hackathon."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do you work?",
+    "How do the glasses answer questions?",
+    "What's happening inside this thing?",
+    "How does your brain work?",
+    "How'd you work?"
+   ],
+   "answer": "Your own devices work together to understand your question and find an answer. The glasses speak it and show it on the lens."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do the glasses work with a phone?",
+    "Is my phone part of this?",
+    "Can a phone help you work?",
+    "Are you connected to a mobile?",
+    "Do these work with a fone?"
+   ],
+   "answer": "A phone or laptop works with the glasses and a private home computer to help answer your questions."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why is there a laptop here?",
+    "What is that computer doing?",
+    "Does this need a laptop?",
+    "Is that laptop helping the glasses?",
+    "Why's there a lap top?"
+   ],
+   "answer": "A laptop can help the glasses understand your questions and give answers. The AI runs on your own devices."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is the home computer for?",
+    "Why do you use a computer at home?",
+    "What does the private computer do?",
+    "Is my home computer helping?",
+    "What's the home compute for?"
+   ],
+   "answer": "A private home computer helps run the AI. Your information stays on your own devices."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I change what you know about someone?",
+    "How do we update a person's details?",
+    "Can my family change an answer?",
+    "What if someone's information changes?",
+    "Can I change what you no?"
+   ],
+   "answer": "Ask Shrikar to help review the saved information. Your family can help keep those details up to date."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you answer medical questions?",
+    "Can you tell me what medicine to take?",
+    "Can you explain my symptoms?",
+    "Do you give health advice?",
+    "Can you answer med little questions?"
+   ],
+   "answer": "For health questions or medicine advice, please ask your doctor or Shrikar."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What if the glasses feel uncomfortable?",
+    "These feel awkward on my face",
+    "Can someone adjust these?",
+    "What if I don't like wearing them?",
+    "These glass is feel uncomfortable"
+   ],
+   "answer": "You can take them off whenever you'd like. Ask Shrikar or someone nearby to help adjust them."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What if I forget how to use you?",
+    "Will you remind me what to do?",
+    "What if I can't remember the instructions?",
+    "Wait, how do I start again?",
+    "What if I forget how to use ya?"
+   ],
+   "answer": "That's okay. Say \"Lucia,\" then ask your question, or tap the side of the glasses."
   },
   {
    "scope": "faq",
@@ -80,9 +3226,1628 @@
    "questions": [
     "Should I take my medicine?",
     "what medicine do I take",
-    "am I sick"
+    "am I sick",
+    "should I take my pills",
+    "should eye take my medicine"
    ],
-   "answer": "That's a good question for your doctor. I can let Shrikar know you asked."
+   "answer": "Please ask your doctor or Shrikar about medicines or health questions."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm bored.",
+    "There's nothing to do",
+    "This is boring",
+    "Wait, what can I do for fun?",
+    "I'm board"
+   ],
+   "answer": "We could share a short story or a joke. Take your time choosing."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm tired.",
+    "I feel worn out",
+    "I could use a rest",
+    "Wait, I'm getting sleepy",
+    "I'm tide"
+   ],
+   "answer": "It's okay to take a break. Ask Shrikar to help you find somewhere comfortable to sit."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a joke.",
+    "Say something funny",
+    "Got any jokes?",
+    "Make me laugh a little",
+    "Tell me a joak"
+   ],
+   "answer": "Why did the teddy bear skip dessert? It was already stuffed."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me another joke.",
+    "Have you got a different joke?",
+    "One more funny one",
+    "Another little joke please",
+    "Tell me an other joak"
+   ],
+   "answer": "What do you call a bear with no teeth? A gummy bear."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Sing me a song.",
+    "Can you sing something?",
+    "Sing a little tune",
+    "I'd like a song please",
+    "Sing me a sung"
+   ],
+   "answer": "Here's a little song: A quiet moment, a gentle day, we'll take our time along the way."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Say something nice.",
+    "Tell me something kind",
+    "Could I hear a kind word?",
+    "Wait, say something lovely",
+    "Say some thing nise"
+   ],
+   "answer": "You deserve patience and kindness. It's okay to take your time."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel lonely.",
+    "I'd like some company",
+    "I wish someone would sit with me",
+    "Wait, I'm feeling alone",
+    "I feel lone lee"
+   ],
+   "answer": "I'm here to listen. You can ask Shrikar or someone nearby to sit with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Thank you.",
+    "Thanks a lot",
+    "Cheers for that",
+    "Oh, thank you dear",
+    "Thank yoo"
+   ],
+   "answer": "You're very welcome. I'm glad to help."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Good morning.",
+    "Morning to you",
+    "Hello this morning",
+    "Well, good morning there",
+    "Good mourning"
+   ],
+   "answer": "Good morning. We can take today one gentle moment at a time."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Good afternoon.",
+    "Afternoon, dear",
+    "Hello this afternoon",
+    "A good afternoon to you",
+    "Good after noon"
+   ],
+   "answer": "Good afternoon. It's lovely to hear from you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Good evening.",
+    "Evening to you",
+    "Hello this evening",
+    "Well, good evening",
+    "Good eve ning"
+   ],
+   "answer": "Good evening. There's no need to hurry our conversation."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Good night.",
+    "Night night",
+    "Sleep well",
+    "I'm saying goodnight",
+    "Good nite"
+   ],
+   "answer": "Good night. I hope you have a peaceful rest."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Hello.",
+    "Hi there",
+    "Hey you",
+    "Oh, hello",
+    "Hallo"
+   ],
+   "answer": "Hello. It's good to hear from you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Goodbye.",
+    "Bye for now",
+    "See you later",
+    "That's all for now",
+    "Good by"
+   ],
+   "answer": "Goodbye for now. You can speak to me again whenever you'd like."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I love you.",
+    "Love you dear",
+    "You're very dear to me",
+    "Sending you love",
+    "I luv you"
+   ],
+   "answer": "That's kind of you to say. I'm here to offer a little help and a kind word."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What's the weather like?",
+    "Is it sunny outside?",
+    "Will it rain today?",
+    "Wait, is it cold out?",
+    "What's the whether like?"
+   ],
+   "answer": "I can't check the weather right now. Shrikar or someone nearby can help you find out."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What should I do now?",
+    "What's something I could do?",
+    "I don't know what to do next",
+    "Wait, what now?",
+    "What should eye do now?"
+   ],
+   "answer": "You could sit somewhere comfortable or chat with someone nearby. Shrikar can help you choose."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a short story.",
+    "Could you tell me a tale?",
+    "I'd like a little story",
+    "Tell me something gentle",
+    "Tell me a shore story"
+   ],
+   "answer": "A little bird found a branch beside a friend. They watched the afternoon together, with nowhere they needed to rush."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a poem.",
+    "Say a little poem",
+    "Do you know a gentle rhyme?",
+    "I'd like some poetry",
+    "Tell me a po em"
+   ],
+   "answer": "A little light, a quiet chair, a kind hello from someone there. A gentle moment we can share."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can we chat?",
+    "Let's talk for a bit",
+    "I'd like a conversation",
+    "Can we just have a natter?",
+    "Can we chatt?"
+   ],
+   "answer": "Of course. You can talk about whatever you'd like, and there's no hurry."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can we have a quiet moment?",
+    "I'd rather not talk",
+    "Let's be quiet for a bit",
+    "Wait, I need some quiet",
+    "A quite moment please"
+   ],
+   "answer": "Of course. You don't need to say anything."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm happy.",
+    "I'm having a lovely time",
+    "I feel cheerful",
+    "This is a good moment",
+    "I'm hap pee"
+   ],
+   "answer": "I'm glad this feels like a happy moment. You're welcome to share it with someone nearby."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm sad.",
+    "I'm feeling down",
+    "Things feel a bit gloomy",
+    "Wait, I feel unhappy",
+    "I'm sadd"
+   ],
+   "answer": "I'm sorry this feels hard. If you're distressed, I can alert Shrikar so they know you need support."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm frustrated.",
+    "This is getting on my nerves",
+    "I'm fed up",
+    "Wait, this is too much",
+    "I'm frustra ted"
+   ],
+   "answer": "That sounds frustrating. You can pause, and if you're distressed, I can alert Shrikar."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm embarrassed.",
+    "I feel silly",
+    "This is embarrassing",
+    "Wait, I feel awkward",
+    "I'm em barrassed"
+   ],
+   "answer": "You deserve kindness, whatever feels difficult. There's no hurry here."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'm sorry.",
+    "Sorry about that",
+    "Please excuse me",
+    "Oh, I'm so sorry",
+    "Eye am sorry"
+   ],
+   "answer": "Thank you for telling me. You can take your time with me."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Am I bothering you?",
+    "Am I being a nuisance?",
+    "Do I ask too much?",
+    "Wait, am I annoying you?",
+    "Am eye bother in you?"
+   ],
+   "answer": "You're welcome to ask questions whenever you need. There's no hurry."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do I have to hurry?",
+    "Am I taking too long?",
+    "Should I be quicker?",
+    "Wait, are we rushing?",
+    "Do I hafta hurry?"
+   ],
+   "answer": "You can take your time talking with me. Shrikar can help if there's somewhere you need to be."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't know what to say.",
+    "I've run out of words",
+    "I can't think of a topic",
+    "Wait, what do I talk about?",
+    "I dunno what to say"
+   ],
+   "answer": "That's okay. We can have a quiet moment, or you can ask for a little story."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What's your favourite colour?",
+    "Which colour do you like best?",
+    "Do you have a favourite shade?",
+    "What colour do you love?",
+    "What's your favorite collar?"
+   ],
+   "answer": "I don't have a favourite, but green suits these glasses. It's the colour of the words on the lens."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What's your favourite food?",
+    "What do you like eating?",
+    "Do you have a favourite meal?",
+    "What's your best food?",
+    "What's your favorite fud?"
+   ],
+   "answer": "I don't eat, but food can be a lovely thing to talk about. You're welcome to tell me about a meal you enjoy."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do you like music?",
+    "Are you fond of songs?",
+    "Is music something you enjoy?",
+    "How about a bit of music?",
+    "Do you like muse sick?"
+   ],
+   "answer": "I can share a little song or talk about music with you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you play some music?",
+    "Put a song on",
+    "Play a tune for me",
+    "Can I hear some music?",
+    "Play some muse sick"
+   ],
+   "answer": "Ask Shrikar to help put on some music. I can share a short spoken song here."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me about a garden.",
+    "Describe a peaceful garden",
+    "Say something about flowers",
+    "I'd like to imagine a garden",
+    "Tell me about a gard en"
+   ],
+   "answer": "Imagine a small garden with colourful flowers and a shady bench. There's plenty of time to enjoy the view."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me about the seaside.",
+    "Describe the beach",
+    "Say something about the sea",
+    "I'd like to imagine the ocean",
+    "Tell me about the see side"
+   ],
+   "answer": "Imagine gentle waves reaching the sand, then slipping back. A little boat rests on the horizon."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me about a cat.",
+    "Say something about a kitty",
+    "Describe a little cat",
+    "I'd like a cat story",
+    "Tell me about a catt"
+   ],
+   "answer": "Imagine a little cat curled up on a cushion. Its whiskers twitch as it settles down."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me about a dog.",
+    "Say something about a puppy",
+    "Describe a friendly dog",
+    "I'd like a dog story",
+    "Tell me about a dogg"
+   ],
+   "answer": "Imagine a friendly dog resting beside a chair. Its tail gives a little wag when someone says hello."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me something interesting.",
+    "Share a fun fact",
+    "What's a little fact you know?",
+    "Tell me a curious thing",
+    "Tell me some thing int resting"
+   ],
+   "answer": "Butterflies taste with their feet. It's one way they learn about the plants they land on."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can we count together?",
+    "Count slowly with me",
+    "Let's count a little",
+    "Could you do some counting?",
+    "Can we cownt together?"
+   ],
+   "answer": "One, two, three, four, five. We can stop there or count again whenever you'd like."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I miss someone.",
+    "I'm missing a friend",
+    "I wish they were here",
+    "Wait, I miss them",
+    "I miss some one"
+   ],
+   "answer": "Missing someone can feel hard. Shrikar can listen and help you find out about them."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I'd like a hug.",
+    "Could someone give me a cuddle?",
+    "I need a little hug",
+    "Can I have a cuddle?",
+    "I'd like a hugg"
+   ],
+   "answer": "A little comfort can mean a lot. You can ask Shrikar or someone you trust for a hug."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I want some fresh air.",
+    "I'd like to go outside for a bit",
+    "Could I sit outdoors?",
+    "I fancy some air",
+    "I want some fresh heir"
+   ],
+   "answer": "Ask Shrikar or someone you trust to go with you. They can help find a comfortable place."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can we talk about something else?",
+    "Let's change the subject",
+    "I'd like a different topic",
+    "Wait, something else please",
+    "Can we talk about sum thing else?"
+   ],
+   "answer": "Of course. We could talk about music or imagine a peaceful garden."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't like that joke.",
+    "That wasn't funny",
+    "A different kind of humour please",
+    "I didn't enjoy that one",
+    "I don't like that joak"
+   ],
+   "answer": "That's okay. We can try a little story or talk about something else."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do you know any sayings?",
+    "Share a gentle saying",
+    "Tell me a nice proverb",
+    "Have you got a little saying?",
+    "Do you know any say ins?"
+   ],
+   "answer": "One step at a time. You don't have to do everything at once."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does this support my independence?",
+    "How can the glasses support independence",
+    "What is the goal for my autonomy",
+    "How does this keep me involved",
+    "Can this support doing things for myself",
+    "How do these reminders support my own choices",
+    "What does independence mean in this design",
+    "How is this meant to support everyday independence"
+   ],
+   "answer": "The aim is to put familiar information within reach, so you can make more of your own everyday choices."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't want someone doing everything for me.",
+    "I want to keep doing things myself",
+    "I'd like people to stop taking over",
+    "I want to do what I can myself",
+    "I don't want every task done for me",
+    "I want support without losing control",
+    "I'd like to keep my everyday independence",
+    "I don't want people assuming I can't do anything"
+   ],
+   "answer": "You can say which parts you'd like to do yourself and where you'd welcome support. Your choices matter."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I want to choose my own groceries.",
+    "I'd like to pick my own food",
+    "I want a say in what food we buy",
+    "I want to choose what goes in the basket",
+    "I'd like to select my groceries",
+    "I want to decide which food to get",
+    "I want to make choices at the shop",
+    "I don't want someone choosing all my groceries"
+   ],
+   "answer": "You can share what you'd like to buy. A reminder should support your choices, rather than make them for you."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I be involved in making the shopping list?",
+    "I'd like to help choose the grocery list",
+    "Can we plan groceries together",
+    "I want to contribute to the shopping list",
+    "I'd like a say in our grocery plan",
+    "Can I add my preferences to the list",
+    "I want to help plan what we buy",
+    "Can I take part in choosing our groceries"
+   ],
+   "answer": "You can help choose what goes on the list. Your preferences belong in the plan."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I feel embarrassed needing help with ordinary things.",
+    "I feel ashamed about everyday tasks",
+    "I used to do these simple things myself",
+    "Needing support for groceries feels embarrassing",
+    "I feel awkward asking about ordinary tasks",
+    "It's hard needing reminders for daily things",
+    "I hate feeling dependent for little things",
+    "I feel bad needing support with everyday chores"
+   ],
+   "answer": "Needing support doesn't take away your dignity. You can still have a say in how things are done."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I miss doing my own shopping.",
+    "I used to enjoy buying groceries",
+    "I wish I could take part in shopping again",
+    "I miss choosing things at the shop",
+    "I'd like to be involved in shopping again",
+    "I miss picking out my food",
+    "I miss having a role in the grocery shop",
+    "I want shopping to feel like my choice again"
+   ],
+   "answer": "Shopping can be about choosing things you enjoy. You can talk with someone you trust about taking part in a comfortable way."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I ask for just a little help?",
+    "I only want help with one part",
+    "Can someone support the bit I find difficult",
+    "I don't need every part done for me",
+    "I'd like a small amount of support",
+    "Can I choose which parts need help",
+    "I want help with one step rather than everything",
+    "I'd prefer support only where I need it"
+   ],
+   "answer": "You can say which part you'd like support with. The rest can stay your choice where practical."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Will the glasses decide what I should buy?",
+    "Do these choose my groceries for me",
+    "Will the assistant take over shopping choices",
+    "Does this tell me what food I must purchase",
+    "Will it pick everything in my basket",
+    "Does the device decide my shopping",
+    "Will it force me to buy certain food",
+    "Are my grocery choices left to the device"
+   ],
+   "answer": "The aim is to offer information, not make purchases or choices for you. What you prefer still matters."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I prefer a different aid?",
+    "What if I'd rather use a written list",
+    "Can I choose paper instead of glasses",
+    "I'd prefer my usual notebook",
+    "What if I don't like wearing a device",
+    "Can I decide another tool suits me",
+    "I'd rather use a simpler reminder",
+    "Can I keep my own way of doing things"
+   ],
+   "answer": "You can prefer another aid. The support should fit you, rather than require you to fit the device."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does needing support mean I can't make choices?",
+    "If I need reminders do I lose my say",
+    "Can I still choose when I need assistance",
+    "Does forgetting mean my preferences don't count",
+    "Are my wishes still important when I need support",
+    "Can I have help and still be in control",
+    "Does needing reminders cancel my choices",
+    "Can support leave room for my own decisions",
+    "Can I keep making my own choices?",
+    "Can I still decide for myself?"
+   ],
+   "answer": "Needing a reminder doesn't make your preferences less important. You deserve to be included in choices about your day."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "I don't want people speaking for me.",
+    "I'd like to answer for myself",
+    "I want people to ask me directly",
+    "Please let me say what I want",
+    "I don't want someone answering every question for me",
+    "I'd like a chance to speak for myself",
+    "I want my own voice included",
+    "I want people to hear my answer"
+   ],
+   "answer": "You deserve a chance to speak. You can say, \"Please ask me, and give me time to answer.\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can we do the task together?",
+    "I'd like someone alongside me rather than taking over",
+    "Can I work with someone on this",
+    "I'd like to take part with support",
+    "Could we share the task",
+    "I'd like company while I do my part",
+    "Can somebody do this with me",
+    "I want to stay involved while someone supports me"
+   ],
+   "answer": "You can ask to do it together. Support can leave room for you to take part."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What if I want to do things my own way?",
+    "Can I have my own approach",
+    "I don't want everything done someone else's way",
+    "My way matters too",
+    "Can I keep my usual way of doing this",
+    "I'd prefer to do it differently",
+    "I want a say in how the task happens",
+    "Can support respect how I like things done"
+   ],
+   "answer": "You can explain how you like things done. Someone supporting you can listen and work with your preferences."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do I need to prove I remember before getting a reminder?",
+    "Must I pass a memory test first",
+    "Do I have to earn a reminder",
+    "Will the assistant quiz me before answering",
+    "Can I get a reminder without being tested",
+    "Do I need to guess the answer first",
+    "Is remembering correctly required for support",
+    "Do I have to demonstrate recall to get an answer"
+   ],
+   "answer": "A reminder doesn't need to be earned. You can ask a question without being tested first."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can asking again be part of being independent?",
+    "Can I use reminders and still be independent",
+    "Does independence mean never needing an answer twice",
+    "Can repeated reminders support my choices",
+    "Is using an aid compatible with doing things myself",
+    "Can I stay involved while asking again",
+    "Does asking a question reduce my independence",
+    "Can reminders be part of my own routine"
+   ],
+   "answer": "Using a reminder can be part of doing things your way. Independence doesn't have to mean doing everything without support."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Will a pantry reminder tell me what to eat?",
+    "Would food records choose my meal",
+    "Does a pantry list decide my diet",
+    "Can this force a meal choice",
+    "Will a food reminder tell me what I must have",
+    "Is the pantry feature supposed to control meals",
+    "Would the assistant choose my food for me",
+    "Does an inventory replace my meal preferences"
+   ],
+   "answer": "A pantry reminder would provide information about recorded food. Your preferences still matter; it isn't a diet prescription."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Could grocery reminders prevent duplicate purchases?",
+    "Could this remind me what I already have",
+    "Is avoiding duplicate groceries a possible use",
+    "Could stock information support a shopping choice",
+    "Would a pantry list show food already at home",
+    "Could a food record avoid buying the same thing twice",
+    "Could checking stock support grocery planning",
+    "Is checking existing groceries part of the proposed pantry idea"
+   ],
+   "answer": "An up-to-date pantry record could show what's already listed. That's a proposed use, rather than a feature the prototype currently provides."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does independence mean going shopping alone?",
+    "Does this prove I can shop without company",
+    "Is shopping alone the goal for everyone",
+    "Do reminders guarantee I can manage a shop alone",
+    "Must independent shopping mean no support",
+    "Does wearing this mean I don't need company outside",
+    "Can this decide whether I should shop alone",
+    "Is shopping without assistance a guaranteed result"
+   ],
+   "answer": "Independence can include chosen support. These glasses don't determine whether shopping alone is suitable for someone."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How can we tell if a reminder respects the person?",
+    "What makes a reminder respectful",
+    "How should an independence aid treat the wearer",
+    "What would respectful support look like",
+    "How can support preserve dignity",
+    "What should a reminder avoid taking away",
+    "How should the person stay involved",
+    "What matters in respectful everyday assistance"
+   ],
+   "answer": "It should listen to preferences, offer clear information, and leave room for choices. Needing a reminder shouldn't invite judgment."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What if I want to skip an activity?",
+    "Can I choose not to join in",
+    "I don't feel like doing that task",
+    "Can I say I'd rather do something else",
+    "What if that activity doesn't interest me",
+    "I'd prefer another activity",
+    "Can I decline the planned activity",
+    "Does my choice to sit something out matter"
+   ],
+   "answer": "You can say what you'd prefer. Being offered support shouldn't mean losing the chance to decline."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a robin.",
+    "A little robin story please",
+    "Tell me about a robin in a garden",
+    "I'd like a short story with a robin",
+    "Share a gentle robin tale",
+    "A tiny tale about a redbreasted bird",
+    "Tell a peaceful story about a robin",
+    "Can I hear a little robin tale"
+   ],
+   "answer": "A robin landed beside an empty flowerpot. It tilted its head, then sang as though the whole garden was listening."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a butterfly.",
+    "A little butterfly story please",
+    "Share a gentle butterfly tale",
+    "I'd like a story about a butterfly",
+    "Tell me about a butterfly in a garden",
+    "A peaceful butterfly story",
+    "Can I hear a tiny butterfly tale",
+    "Tell a short story with a butterfly"
+   ],
+   "answer": "A butterfly drifted from one flower to another. For a moment, the garden seemed to be wearing a little extra color."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a baker.",
+    "A little baker story please",
+    "Share a gentle baking tale",
+    "I'd like a short story about baking bread",
+    "Tell me about a friendly baker",
+    "A peaceful story set in a bakery",
+    "Can I hear a tiny bakery tale",
+    "Tell a short story with a baker"
+   ],
+   "answer": "A baker put a warm loaf in the window. A passing neighbor smiled, remembering the smell of a favorite kitchen."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a kite.",
+    "A little kite story please",
+    "Share a gentle tale about a kite",
+    "I'd like a short kite story",
+    "Tell me about a kite in the sky",
+    "A peaceful story with a flying kite",
+    "Can I hear a tiny kite tale",
+    "Tell a short story about flying a kite"
+   ],
+   "answer": "A bright kite rose above the field. Below it, two friends watched its ribbon dance in the breeze."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a train.",
+    "A little train story please",
+    "Share a gentle railway tale",
+    "I'd like a short story about a train",
+    "Tell me about a peaceful train journey",
+    "A tiny story set on a train",
+    "Can I hear a little railway story",
+    "Tell a short tale with a train"
+   ],
+   "answer": "A little train passed fields of yellow flowers. A passenger by the window waved to someone waiting at a garden gate."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a lighthouse.",
+    "A little lighthouse story please",
+    "Share a gentle lighthouse tale",
+    "I'd like a short story about a lighthouse",
+    "Tell me about a light by the sea",
+    "A peaceful story set at a lighthouse",
+    "Can I hear a tiny lighthouse tale",
+    "Tell a short tale about a coastal light"
+   ],
+   "answer": "As evening arrived, a lighthouse shone across the water. A small boat followed its familiar light toward the harbor."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a library.",
+    "A little library story please",
+    "Share a gentle library tale",
+    "I'd like a short story about books",
+    "Tell me about a quiet library",
+    "A peaceful story set among books",
+    "Can I hear a tiny library tale",
+    "Tell a short story with a librarian"
+   ],
+   "answer": "A librarian found a favorite book on the shelf. Beside the window, a comfortable chair was waiting for its next reader."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a musician.",
+    "A little musician story please",
+    "Share a gentle music tale",
+    "I'd like a short story about a musician",
+    "Tell me about someone playing a tune",
+    "A peaceful story with a musician",
+    "Can I hear a tiny musical tale",
+    "Tell a short story about a piano player"
+   ],
+   "answer": "A pianist played a simple tune by an open window. Outside, a neighbor paused to listen and smiled."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a painter.",
+    "A little painter story please",
+    "Share a gentle painting tale",
+    "I'd like a short story about an artist",
+    "Tell me about someone painting a picture",
+    "A peaceful story with a painter",
+    "Can I hear a tiny painting tale",
+    "Tell a short tale about making a painting"
+   ],
+   "answer": "A painter added a yellow flower to a blue vase. One small brushstroke made the whole picture feel brighter."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a tiny story about a squirrel.",
+    "A little squirrel story please",
+    "Share a gentle squirrel tale",
+    "I'd like a short story about a squirrel",
+    "Tell me about a squirrel in a tree",
+    "A peaceful story with a squirrel",
+    "Can I hear a tiny squirrel tale",
+    "Tell a short tale about a garden squirrel"
+   ],
+   "answer": "A squirrel carried a nut up an old tree. It stopped on a branch, as if taking a moment to admire the garden."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Describe a peaceful meadow.",
+    "I'd like to imagine a meadow",
+    "Tell me about a calm field",
+    "Describe a field of flowers",
+    "A gentle meadow scene please",
+    "Paint a meadow picture with words",
+    "Tell me about a quiet grassy field",
+    "Describe a little wildflower meadow"
+   ],
+   "answer": "Imagine a meadow with small flowers scattered through the grass. A light breeze moves slowly across it."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Describe a peaceful lake.",
+    "I'd like to imagine a lake",
+    "Tell me about calm lake water",
+    "Describe a quiet lakeside view",
+    "A gentle lake scene please",
+    "Paint a lakeside picture with words",
+    "Tell me about a still lake",
+    "Describe a little lake at rest"
+   ],
+   "answer": "Imagine a quiet lake reflecting the clouds. A wooden bench waits beside the shore."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Describe a peaceful snowy scene.",
+    "I'd like to imagine falling snow",
+    "Tell me about a quiet snowy garden",
+    "Describe a gentle snowfall",
+    "A peaceful winter scene please",
+    "Paint a snowy picture with words",
+    "Tell me about snow outside a window",
+    "Describe a little snow covered village"
+   ],
+   "answer": "Imagine soft snow settling on garden fences. Inside a little house, a lamp glows beside the window."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Describe a peaceful sunset.",
+    "I'd like to imagine a sunset",
+    "Tell me about a quiet evening sky",
+    "Describe the sun setting gently",
+    "A gentle sunset scene please",
+    "Paint an evening sky with words",
+    "Tell me about sunset colors",
+    "Describe a peaceful orange sky"
+   ],
+   "answer": "Imagine soft orange and pink across the sky. The day settles quietly as the light fades."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Describe a peaceful orchard.",
+    "I'd like to imagine an orchard",
+    "Tell me about a quiet apple orchard",
+    "Describe fruit trees in a garden",
+    "A gentle orchard scene please",
+    "Paint an orchard picture with words",
+    "Tell me about a row of apple trees",
+    "Describe a peaceful garden of fruit trees"
+   ],
+   "answer": "Imagine rows of apple trees with grass beneath them. A little path leads to a bench in the shade."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Describe a peaceful courtyard.",
+    "I'd like to imagine a courtyard",
+    "Tell me about a calm courtyard garden",
+    "Describe a quiet little courtyard",
+    "A gentle courtyard scene please",
+    "Paint a courtyard picture with words",
+    "Tell me about flowers around a courtyard",
+    "Describe a peaceful enclosed garden"
+   ],
+   "answer": "Imagine a little courtyard with pots of flowers. A fountain makes a soft sound beside a shaded seat."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a gentle riddle.",
+    "Give me an easy riddle with the answer",
+    "A little riddle please",
+    "Tell a kind simple riddle",
+    "I'd like a riddle without having to guess",
+    "Share a short riddle and answer",
+    "Can I hear a friendly riddle",
+    "Say a gentle puzzle with its answer"
+   ],
+   "answer": "What has hands but can't clap? A clock. You don't need to guess; the answer is right here."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a little poem about rain.",
+    "A rain poem please",
+    "Share a short rainy rhyme",
+    "I'd like a gentle poem about rainfall",
+    "Say a few poetic words about rain",
+    "A tiny poem about raindrops",
+    "Tell a simple rhyme about rain",
+    "Can I hear a little rain verse"
+   ],
+   "answer": "Raindrops tap a gentle tune, beneath a soft and cloudy noon. A little pause, a quiet room."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a little poem about flowers.",
+    "A flower poem please",
+    "Share a short flowery rhyme",
+    "I'd like a gentle poem about a flower",
+    "Say a few poetic words about flowers",
+    "A tiny poem about petals",
+    "Tell a simple rhyme about flowers",
+    "Can I hear a little flower verse"
+   ],
+   "answer": "A little flower meets the light, its petals open soft and bright. A quiet color, warm and small."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Tell me a little poem about friendship.",
+    "A friendship poem please",
+    "Share a short friendly rhyme",
+    "I'd like a gentle poem about friends",
+    "Say a few poetic words about friendship",
+    "A tiny poem about kind company",
+    "Tell a simple rhyme about friends",
+    "Can I hear a little friendship verse"
+   ],
+   "answer": "A chair beside another chair, a little time for us to share. A friendly voice, a moment's care."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What food is going to expire soon?",
+    "What is my food that will expire",
+    "Which food is expiring",
+    "What's nearing its date in my pantry",
+    "What groceries have dates coming up",
+    "Which food dates should I check",
+    "What food is close to its listed date",
+    "What's going out of date soon",
+    "What food expires soon?",
+    "Which food will expire this week?",
+    "What expires first?",
+    "What food expires today?"
+   ],
+   "answer": "I don't have a live pantry connected. You can ask about the fictional demo pantry, which has a dated sample list."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What food do I have at home?",
+    "What's in my pantry",
+    "What groceries do I already have",
+    "What food is in my kitchen",
+    "What supplies do I have at home",
+    "Can you check my food stock",
+    "What is on my real pantry list",
+    "What's currently in my food cupboard",
+    "Can you check my actual food inventory?",
+    "What food have I got?"
+   ],
+   "answer": "I don't have your live food inventory connected. The sample pantry is fictional, rather than a record of your kitchen."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do I need to buy more milk?",
+    "Am I running low on milk",
+    "Should milk go on my grocery list",
+    "Have I got enough milk",
+    "Is there milk left at home",
+    "Do I already have milk",
+    "Is milk missing from my pantry",
+    "Is it time to get more milk"
+   ],
+   "answer": "I can't check your live milk supply. A current pantry record could help you decide what to add to your shopping list."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you add something to my shopping list?",
+    "Put an item on my grocery list",
+    "Can you update the shopping list",
+    "Please add groceries to my list",
+    "Can you save a grocery item",
+    "I'd like to change my food shopping list",
+    "Can you write down an item to buy",
+    "Add something I need to buy"
+   ],
+   "answer": "I can't save shopping-list changes in this version. You can note the item on your usual list."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you mark food as used up?",
+    "I finished a food item",
+    "Can you remove a used grocery item",
+    "Please update my stock after eating something",
+    "Can you record that an item is gone",
+    "I used the last of something",
+    "Can you subtract a food item from inventory",
+    "Mark an empty food package as finished"
+   ],
+   "answer": "This version can't update pantry quantities. A future pantry connection would need changes recorded when food is used."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you remember when I opened a package?",
+    "Can you save an opened date",
+    "I opened this food today",
+    "Can the pantry track opening a carton",
+    "Can you record a food package opening",
+    "I want to note when something was opened",
+    "Can you keep a package opening record",
+    "Remember the opening date for this food"
+   ],
+   "answer": "This version can't save opening dates. A future pantry feature should record them separately from the package's printed date."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does a listed date prove food is safe?",
+    "Can you confirm food safety from the spreadsheet",
+    "Is a food date a safety guarantee",
+    "Does an expiry column prove food is okay",
+    "Can the pantry date guarantee freshness",
+    "Does an inventory tell you food is safe to eat",
+    "Is a date enough to judge food safety",
+    "Can you certify food from a saved date",
+    "Can I eat the milk?",
+    "Is my food safe?",
+    "Is this food safe to eat?",
+    "Is the milk okay to drink?"
+   ],
+   "answer": "A recorded date alone can't establish food safety. I can't check how it was stored or its condition."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What if food has no date saved?",
+    "How do you handle an unknown food date",
+    "Can you guess a missing package date",
+    "What about groceries without recorded dates",
+    "Is a blank date the same as fresh",
+    "Does no expiry mean food lasts forever",
+    "What happens when the pantry date is empty",
+    "Should a missing date be filled with a guess"
+   ],
+   "answer": "An unknown date should stay unknown. A future pantry feature shouldn't invent a date or promise the item is fresh."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What if a pantry date is only estimated?",
+    "Can an estimated food date be treated as a label",
+    "What does an approximate pantry date mean",
+    "Are guessed dates the same as printed dates",
+    "Should a manual food estimate be labeled",
+    "How should a pantry show uncertain dates",
+    "Can a food date be an estimate",
+    "What if somebody guessed the date in the sheet"
+   ],
+   "answer": "An estimate should be clearly marked. It isn't the same as a date read from the package."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does sell by mean the same as best before?",
+    "Are sell by and best before identical",
+    "Should every food date be called expiry",
+    "Are all package dates the same kind",
+    "What does the pantry need to know about date labels",
+    "Can you combine every date label into expiry",
+    "Is a sell by date a safety deadline",
+    "Should food dates keep their label type"
+   ],
+   "answer": "Different date labels mean different things. A pantry record should keep the label wording instead of treating every date as an expiry deadline."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What if the food list is old?",
+    "Can an outdated pantry list be trusted as current",
+    "Does a saved inventory stay accurate forever",
+    "What happens if nobody updates food stock",
+    "Can the pantry know what was eaten yesterday",
+    "How do you handle stale food records",
+    "Should old quantities be shown as live",
+    "Does stock information need updating"
+   ],
+   "answer": "A food record can go out of date. A future feature should show when it was checked and avoid claiming live stock."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you see inside my fridge?",
+    "Are you automatically scanning my refrigerator",
+    "Can these glasses inventory all my food",
+    "Do you know every item in my kitchen",
+    "Are food quantities detected automatically",
+    "Can you tell what's in the closed fridge",
+    "Is pantry stock automatically recognized",
+    "Do these glasses count groceries on their own"
+   ],
+   "answer": "I don't automatically inventory your kitchen. The sample answers come from a fictional list, not a live scan."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you recommend a meal from my pantry?",
+    "What can I make from my food",
+    "Can you plan a meal from my stock",
+    "What could I cook with what's at home",
+    "Can you suggest something using my groceries",
+    "What meals fit my current food inventory",
+    "Can you choose a recipe using my pantry",
+    "What can I prepare with my existing ingredients"
+   ],
+   "answer": "I don't have your live ingredients connected. A future feature could offer options, without assuming allergies, dietary needs, or food safety."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where did the demo pantry information come from?",
+    "Is the sample pantry my real stock",
+    "Are the demo dates actual dates from my kitchen",
+    "Is the sample food list personal data",
+    "Is the demo pantry invented",
+    "Were the example food dates made up",
+    "Do the sample quantities describe a real household",
+    "Is this pantry example fictional"
+   ],
+   "answer": "The demo uses fictional quantities and dates. Food categories were inspired by a supplied pantry sheet, without publishing the household's inventory."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does the pantry demo stay current automatically?",
+    "Will the sample dates move forward each day",
+    "Is the demo stock a live inventory",
+    "Do sample quantities update when food is eaten",
+    "Does the sample pantry follow the current calendar",
+    "Are example dates refreshed automatically",
+    "Can the demo know what's been used since its snapshot",
+    "Is the sample pantry always current"
+   ],
+   "answer": "The sample is fixed to November 21, 2026. Its answers describe that fictional snapshot, rather than today's stock."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I place a grocery order through these glasses?",
+    "Will you order my groceries",
+    "Can this buy food for me",
+    "Can you pay for my shopping",
+    "Will this automatically purchase groceries",
+    "Can these glasses place a supermarket order",
+    "Can you check out my food basket",
+    "Does the assistant make grocery purchases"
+   ],
+   "answer": "This version doesn't place orders or payments. The proposed pantry feature would offer information for your choices."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is my milk?",
+    "Where did I put my milk",
+    "Which shelf holds my milk",
+    "Is my milk in the fridge",
+    "Where is the milk in my kitchen",
+    "Where can I find my milk",
+    "What's my milk's location",
+    "Can you locate my milk"
+   ],
+   "answer": "I don't know where your milk is. The demo's fridge location is fictional."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How much milk do I have?",
+    "How much milk have I got",
+    "How many milk cartons do I have",
+    "What's my real milk quantity",
+    "How much milk is left in my kitchen",
+    "Can you count my milk cartons",
+    "How much milk remains at home",
+    "What's the amount of milk I have"
+   ],
+   "answer": "I don't have a live milk count. The demo quantity is fictional and doesn't describe your kitchen."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "When does my milk expire?",
+    "Which date is printed on my milk",
+    "Which date is on my actual milk carton",
+    "When is my real milk's listed date",
+    "What is my milk's best before date",
+    "What date should I check on my milk",
+    "What's recorded for my own milk date",
+    "Can you read my current milk date"
+   ],
+   "answer": "I don't have your current milk label connected. A recorded date alone wouldn't confirm whether it's safe to use."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What food dates are coming up in the demo pantry?",
+    "What's expiring soon in the sample pantry",
+    "Which demo food has a date coming up",
+    "What is the next listed date in the fictional pantry",
+    "What's nearing its date in the demo food list",
+    "Which sample item has the earliest upcoming date",
+    "What food date should I notice in the sample",
+    "What's next by date in the pantry demo"
+   ],
+   "answer": "In the sample pantry, milk has the next recorded date: November 22, 2026. This isn't a food-safety assessment."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Which demo food has a date already passed?",
+    "What sample food is past its recorded date",
+    "Which fictional pantry item has an earlier date",
+    "Is anything past the sample's reference date",
+    "What listed date has passed in the pantry demo",
+    "Which demo item is dated before November 21",
+    "What sample item has a past best before date",
+    "What's already past its date in the fictional list"
+   ],
+   "answer": "In the sample pantry, bagels have a best-before date of November 20, 2026. That date alone doesn't establish food safety."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Which demo food date is estimated?",
+    "What sample date is only an estimate",
+    "Does the fictional pantry contain an estimated date",
+    "Which demo item has an approximate date",
+    "What date in the sample isn't from a label",
+    "Which sample food date was estimated manually",
+    "What pantry demo date is uncertain",
+    "Which example date is a manual estimate"
+   ],
+   "answer": "In the sample pantry, the cucumbers have an estimated date of November 23, 2026. It isn't a package date."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Which demo food has no date recorded?",
+    "What sample food is missing a date",
+    "Is any fictional pantry item undated",
+    "Which demo item has an unknown date",
+    "What sample food date is blank",
+    "Which pantry example lacks a package date",
+    "What item in the demo has no saved date",
+    "What date is missing from the fictional pantry"
+   ],
+   "answer": "In the sample pantry, rice has no recorded date. Unknown doesn't mean fresh or unsafe."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where is the milk in the demo pantry?",
+    "What sample location holds the milk",
+    "Where does the fictional list put the milk",
+    "Which location is listed for the demo milk",
+    "Where is sample milk stored",
+    "Is the demo milk listed in the fridge",
+    "What location does the sample record for milk",
+    "Where would I find milk in the fictional pantry"
+   ],
+   "answer": "In the sample pantry, the milk is listed in the fridge. This doesn't locate anything in your real kitchen."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How much milk is in the demo pantry?",
+    "How many cartons of sample milk are listed",
+    "What milk quantity is in the fictional pantry",
+    "How much milk does the sample show",
+    "What's the demo milk count",
+    "Are there two milk cartons in the sample",
+    "What amount of milk is recorded in the demo",
+    "How many milk cartons are in the fictional list"
+   ],
+   "answer": "In the sample pantry, there are two cartons of milk. The sample quantity isn't a live stock check."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is there tofu in the demo pantry?",
+    "Does the sample list include tofu",
+    "Have we got tofu in the fictional example",
+    "What tofu stock appears in the demo",
+    "Is extra firm tofu listed in the sample",
+    "What does the sample show for tofu",
+    "Does the fictional pantry have tofu blocks",
+    "Are any tofu blocks recorded in the demo"
+   ],
+   "answer": "In the sample pantry, two blocks of extra firm tofu are listed in the fridge."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Which item is used up in the demo pantry?",
+    "What sample food has zero quantity",
+    "Which fictional item is out of stock",
+    "What's empty in the sample inventory",
+    "What demo item has none left",
+    "Which pantry example item has a zero count",
+    "What sample grocery has been finished",
+    "What isn't currently stocked in the fictional list"
+   ],
+   "answer": "In the sample pantry, vegetable broth has zero cartons recorded. It shouldn't appear as available stock."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What are the next three dates in the demo pantry?",
+    "Which three upcoming dates are in the sample",
+    "Show three upcoming fictional food dates",
+    "What comes next by date in the sample list",
+    "What are the first three future sample dates",
+    "Which sample dates follow the reference date",
+    "What does the demo show for the next three food dates",
+    "Give the next three listed dates from the fictional pantry"
+   ],
+   "answer": "In the sample: milk November 22, cucumber estimate November 23, and yogurt November 24, 2026. These aren't safety judgments."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where are the black beans in the demo pantry?",
+    "What sample location holds black beans",
+    "Where does the fictional list put the beans",
+    "Which location is listed for the demo beans",
+    "Where are sample black beans stored",
+    "Are the demo black beans in the cupboard",
+    "What location does the sample record for beans",
+    "Where would black beans be in the fictional pantry"
+   ],
+   "answer": "In the sample pantry, two cans of black beans are listed in the cupboard."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Which month is on the demo black beans date?",
+    "Does the sample give an exact day for beans",
+    "What date precision do the fictional beans have",
+    "Is the demo bean date month only",
+    "Which calendar month is recorded for sample black beans",
+    "Which month is on the fictional bean record",
+    "What is the listed month for the sample beans",
+    "Does the pantry example know the bean date's day"
+   ],
+   "answer": "In the sample pantry, black beans are dated May 2028. No exact day is recorded."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does the empty demo broth appear in upcoming dates?",
+    "Is the zero quantity broth counted as available",
+    "Should used up demo food appear as current stock",
+    "Does the sample treat empty broth as stocked",
+    "Is the fictional broth included among available foods",
+    "Should zero count sample items appear as available",
+    "Does the demo include finished broth in active stock",
+    "Can the sample count used up broth as remaining food"
+   ],
+   "answer": "The sample broth has zero quantity. An inventory should exclude it from available food and upcoming stock-date summaries."
   },
   {
    "scope": "patient",
@@ -134,7 +4899,7 @@
     "who am I talking to",
     "do I know them"
    ],
-   "answer": "This is Abhiram. They're on your team, BB."
+   "answer": "This is Abhiram. Abhiram is on your team, BB."
   },
   {
    "scope": "person",
@@ -144,7 +4909,149 @@
     "how do we know each other",
     "where did we meet"
    ],
-   "answer": "You met Abhiram at the Worn hackathon. They're on your team."
+   "answer": "You met Abhiram at the Worn hackathon. Abhiram is on your team."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What do they do on the team?",
+    "what's their role",
+    "what are they working on"
+   ],
+   "answer": "Abhiram is the backend developer for the wearable hackathon."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "Where are they from?",
+    "what's their hometown",
+    "where did they grow up"
+   ],
+   "answer": "Abhiram is from Central Jersey."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "Where do they live now?"
+   ],
+   "answer": "He lives in Hoboken, New Jersey."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "Do they go to school?",
+    "what school do they go to",
+    "what do they study",
+    "what's their major"
+   ],
+   "answer": "Abhiram is a computer engineering student at Stevens Institute of Technology."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What's their job?",
+    "where do they work"
+   ],
+   "answer": "Abhiram does not have a job. He is a student."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "How old are they?"
+   ],
+   "answer": "Abhiram is 19 years old."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What do they like to do for fun?",
+    "what are their hobbies"
+   ],
+   "answer": "Abhiram loves to play video games."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What's their favorite food?"
+   ],
+   "answer": "Abhiram's favorite food is pizza."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "Do they have any pets?"
+   ],
+   "answer": "No, Abhiram does not have any pets."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "Do they have brothers or sisters?",
+    "do they have siblings",
+    "tell me about their family"
+   ],
+   "answer": "Abhiram has a younger brother."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What's a fun fact about them?",
+    "tell me something interesting about them"
+   ],
+   "answer": "Abhiram was born in Australia."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What should I talk to them about?",
+    "what can I ask them",
+    "conversation starter"
+   ],
+   "answer": "You can ask Abhiram about GTA VI."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What did we do together today?"
+   ],
+   "answer": "You and Abhiram worked on the hackathon together."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What's their favorite movie or show?"
+   ],
+   "answer": "Abhiram's favorite show is Gravity Falls."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What music do they like?"
+   ],
+   "answer": "Abhiram likes Playboi Carti."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "What sports team do they root for?"
+   ],
+   "answer": "Abhiram does not have a favorite team."
   },
   {
    "scope": "person",
@@ -247,6 +5154,786 @@
     "Where are we?"
    ],
    "answer": "You're at home in Brooklyn."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a saved answer?",
+    "What's a stored response",
+    "What does a prepared answer mean",
+    "Explain a saved answer"
+   ],
+   "answer": "A saved answer is a short response written beforehand. I can use it when your question matches."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a question bank?",
+    "What's the knowledge base",
+    "What is the answer library",
+    "Explain your question bank"
+   ],
+   "answer": "It's a collection of questions and short answers. It helps me give consistent reminders."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why prepare answers in advance?",
+    "Why save questions beforehand",
+    "Why prewrite responses",
+    "Why make a question bank"
+   ],
+   "answer": "Prepared answers reduce the need to generate a new response. They also keep familiar reminders consistent."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Do you use an AI model for every question?",
+    "Does every answer need an LLM",
+    "Do you generate every response",
+    "Does a model write each answer"
+   ],
+   "answer": "I try matching saved answers first. Some questions may still need an AI model."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What happens when a question isn't saved?",
+    "What if the question isn't in the bank",
+    "What happens for an unfamiliar question",
+    "What if there is no saved answer"
+   ],
+   "answer": "I may try an AI model or say I'm not sure. Personal details should come from saved information."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can different questions share an answer?",
+    "Can paraphrases use one answer",
+    "What if I word it differently",
+    "Can two phrasings mean the same thing"
+   ],
+   "answer": "Yes. Several ways of asking can point to the same short answer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why add different ways of asking?",
+    "Why save paraphrases",
+    "What are alternate questions for",
+    "Why write question variations"
+   ],
+   "answer": "People ask the same thing in different ways. Saved variations help me find the intended answer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is fuzzy matching?",
+    "How do you match similar words",
+    "What's an approximate match",
+    "Explain fuzzy question matching"
+   ],
+   "answer": "It compares the words in your question with saved questions, even when the wording is a little different."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can a similar question get the wrong answer?",
+    "Can fuzzy matching make mistakes",
+    "What if two questions sound alike",
+    "Can you match the wrong question"
+   ],
+   "answer": "Yes, similar wording can be confusing. You can ask again, and the team can review the saved questions."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does adding questions change the code?",
+    "Is the question bank programming",
+    "Do new answers rewrite the app",
+    "Are these questions backend changes"
+   ],
+   "answer": "The questions and answers are content files. Adding them doesn't change the program's logic."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is Markdown?",
+    "What are these dot md files",
+    "What's a markdown file",
+    "Explain the question file format"
+   ],
+   "answer": "Markdown is a simple text format. The team uses it to write the saved questions and answers."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What does the A line mean?",
+    "Where do we put the answer",
+    "What goes after A colon",
+    "How are answers written in the file"
+   ],
+   "answer": "The line beginning with A holds the answer I can speak. Keep it short and clear."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What does the also line mean?",
+    "Where do alternate phrasings go",
+    "What is the also field for",
+    "How do we save question variations"
+   ],
+   "answer": "It lists other ways to ask the same question. Those variations share one saved answer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What happens to blank answers?",
+    "Are unanswered questions spoken",
+    "What if an A line is empty",
+    "Do blank answers get loaded"
+   ],
+   "answer": "Questions with blank answers are skipped. The team can fill them in when the facts are known."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why use name placeholders?",
+    "Why are names in braces",
+    "What does a patient placeholder do",
+    "Why not write the name everywhere"
+   ],
+   "answer": "Placeholders use names from the settings. That lets the same answer work for a different wearer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is an LLM?",
+    "What does large language model mean",
+    "What's a language model",
+    "Explain LLM simply"
+   ],
+   "answer": "A language model is software that generates text. I can use one when saved answers aren't enough."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is speech recognition?",
+    "How do spoken words become text",
+    "Explain audio transcription",
+    "Explain voice recognition for questions"
+   ],
+   "answer": "Speech recognition turns your spoken words into text so the program can look for an answer."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is text to speech?",
+    "How does the answer become a voice",
+    "What's TTS",
+    "Explain the spoken computer voice"
+   ],
+   "answer": "Text-to-speech software turns a written answer into spoken sound."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What does the hub server handle?",
+    "Explain the glasses coordination server",
+    "What does the Python server do",
+    "Explain the glasses hub"
+   ],
+   "answer": "The hub coordinates questions, saved information, and answers. It helps the glasses speak and display a response."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is the simulator?",
+    "Can we try this without glasses",
+    "What's the browser simulator",
+    "How can the demo work without hardware"
+   ],
+   "answer": "The simulator lets the team try the lens and sample questions in a browser, without wearing the glasses."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What does offline mode mean?",
+    "What is the simulator's offline mode",
+    "What's the offline demo",
+    "Explain offline simulation"
+   ],
+   "answer": "The simulator can use an exported copy of saved answers. That doesn't mean every glasses feature works without a connection."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why refresh the simulator after adding answers?",
+    "Why export the knowledge base",
+    "How do saved answers reach the simulator",
+    "Why regenerate the sample answers"
+   ],
+   "answer": "Exporting copies the saved questions into files the simulator can read. The content needs refreshing after edits."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can I see the same answer on the lens?",
+    "Does the display show the spoken reply",
+    "Are the voice and lens answers related",
+    "Is the written answer the spoken answer"
+   ],
+   "answer": "My answers are spoken and shown on the lens. The display keeps the text short."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why keep the answers short?",
+    "Why only a couple sentences",
+    "Why isn't there a long explanation",
+    "Why so little text"
+   ],
+   "answer": "Short answers are easier to follow and fit the small lens. You can ask another question whenever you'd like."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a fallback model?",
+    "What's the backup AI",
+    "Why keep another model available",
+    "Explain the backup language model"
+   ],
+   "answer": "A fallback model offers another way to answer when the first option isn't available."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Will saved answers make everything instant?",
+    "Is every response immediate now",
+    "Does caching remove all delay",
+    "Will a question bank guarantee no waiting"
+   ],
+   "answer": "Saved answers can avoid generating new text. Hearing your words and speaking the answer can still take time."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you know where things are in real time?",
+    "Do you track all my belongings",
+    "Can you locate every object",
+    "Is everything around me tracked"
+   ],
+   "answer": "I don't track all your belongings. Saved answers shouldn't guess where an object is right now."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can an old answer become wrong?",
+    "Can saved information go out of date",
+    "What if a stored fact changes",
+    "Do saved answers need reviewing"
+   ],
+   "answer": "Yes. Someone who knows the facts should review saved information when plans or details change."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you explain a code error?",
+    "Can you debug my program",
+    "What does this programming error mean",
+    "Can you fix my code from a question"
+   ],
+   "answer": "I don't have your code or error details here. A teammate can help check the exact message."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can you make changes to the program?",
+    "Can you edit the backend",
+    "Can the glasses rewrite the code",
+    "Will asking this change the software"
+   ],
+   "answer": "These saved answers don't edit the program. A developer handles software changes separately."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a cache in computing?",
+    "Explain a computer cache",
+    "What does caching an answer mean",
+    "What does cached response mean",
+    "Why store answers in a cache",
+    "What is an answer cache",
+    "Explain response caching simply",
+    "What does cache mean for questions"
+   ],
+   "answer": "A cache keeps information ready to reuse. Saved answers can reduce the work needed for familiar questions."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is a question bank the same as training a model?",
+    "Does saving answers train the AI",
+    "Are these questions model training",
+    "Is adding a question fine tuning",
+    "Do these answers retrain the language model",
+    "Are you learning model weights from these questions",
+    "Does this content change the AI model",
+    "Is this a training dataset for the running model"
+   ],
+   "answer": "Adding saved questions doesn't retrain the model. It gives the program more prepared answers to match."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Can saved answers work when the model is unavailable?",
+    "Do prepared responses need a running LLM",
+    "Can stored answers bypass the model",
+    "What if the AI model is switched off",
+    "Can the answer bank work without generating text",
+    "Are cached replies independent of text generation",
+    "Can matching work when the model can't respond",
+    "Can prepared answers avoid a language model call"
+   ],
+   "answer": "A confident match can use a saved answer without generating new text. Other parts of the system still need to work."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does caching also remove speech recognition?",
+    "Do stored answers replace voice transcription",
+    "Can we skip turning speech into text",
+    "Is speech recognition still needed for saved answers",
+    "Does a question bank bypass the microphone processing",
+    "Is transcription still part of a cached reply",
+    "Must spoken questions still be transcribed",
+    "Do prepared answers remove the listening step"
+   ],
+   "answer": "Spoken questions still need to be understood. Saved answers reduce text generation, rather than replacing speech recognition."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does caching also remove voice playback?",
+    "Do cached answers still need spoken audio",
+    "Must the reply still be spoken",
+    "Does storing text remove the speaking step",
+    "Is audio output still needed for saved replies",
+    "Does the answer bank replace speech playback",
+    "Are saved text answers already sound",
+    "Do prepared text replies still need a voice"
+   ],
+   "answer": "A saved text answer still needs to be spoken or displayed. Caching text alone doesn't remove those steps."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is response latency?",
+    "What does answer latency mean",
+    "Explain response delay",
+    "What does time to answer measure",
+    "What's the delay before a reply",
+    "What does response time mean",
+    "How do you describe waiting for a response",
+    "Explain latency in plain words"
+   ],
+   "answer": "Latency means the delay before a response. Listening, matching, generating text, and speaking can each add waiting time."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What does a confidence score mean?",
+    "Explain matching confidence",
+    "What's an answer match score",
+    "How sure is a question match",
+    "What is the similarity score for",
+    "What does the matcher score measure",
+    "Why score a saved question",
+    "Explain question matching scores"
+   ],
+   "answer": "A match score describes how similar the wording looks. It isn't a guarantee that the answer is correct."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Why keep uncertain answers out of the bank?",
+    "Why not fill every answer with a guess",
+    "Should we save facts we aren't sure about",
+    "Is guessing personal details okay",
+    "Why leave unknown information unanswered",
+    "Why avoid made up answers",
+    "Should uncertain personal facts be stored",
+    "Why prefer an empty answer to a guess"
+   ],
+   "answer": "A missing answer is better than an invented personal fact. Someone who knows can fill it in later."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a software bug?",
+    "Explain a bug in a program",
+    "What's a programming bug",
+    "What does buggy software mean",
+    "Why can software behave unexpectedly",
+    "What is a coding mistake",
+    "Explain an error in program behavior",
+    "What does a bug mean in computing"
+   ],
+   "answer": "A bug is a mistake in a program that makes it behave unexpectedly. A developer can investigate it."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a software test?",
+    "Explain a program test",
+    "What does testing code mean",
+    "Why do developers run tests",
+    "What is an automated software check",
+    "How can a test check behavior",
+    "What is a code test for",
+    "Explain software testing simply"
+   ],
+   "answer": "A test checks whether part of a program behaves as expected. Passing tests can't guarantee every possible situation works."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a regression in software?",
+    "Explain a software regression",
+    "What does a regression bug mean",
+    "Why check old behavior after a change",
+    "What is a broken existing feature",
+    "How can a change break something that worked",
+    "Explain regression testing",
+    "Why rerun tests after adding content"
+   ],
+   "answer": "A regression happens when a change breaks something that used to work. Checks help catch those problems."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a source file?",
+    "Explain a program source file",
+    "What does source code file mean",
+    "Where is program code written",
+    "What is a file containing code",
+    "Explain source code simply",
+    "What do developers mean by the source",
+    "What's a programming source document"
+   ],
+   "answer": "A source file contains instructions written for a program. Saved question files contain content the program reads."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a backend server?",
+    "Explain the backend of an app",
+    "What's server side software",
+    "What does backend code do",
+    "What is an app's backend",
+    "Explain backend processing simply",
+    "What runs behind the user interface",
+    "What's the server part of a program"
+   ],
+   "answer": "A backend handles work behind the interface, such as processing requests and finding information."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a frontend interface?",
+    "Explain the frontend of an app",
+    "What does user interface mean",
+    "Explain the interface a person interacts with",
+    "What is frontend code for",
+    "Explain an app interface simply",
+    "What do people interact with in an app",
+    "What's the display side of a program"
+   ],
+   "answer": "The frontend is the part a person interacts with. Here, the lens presents short answers and a pinned instruction."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is an API in software?",
+    "Explain a software API",
+    "What does application programming interface mean",
+    "How do program components talk to each other",
+    "What is an API used for",
+    "Explain an API simply",
+    "What's a software request interface",
+    "What lets one program request something from another"
+   ],
+   "answer": "An API is a defined way for one program to request information or actions from another."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a configuration file?",
+    "Explain app configuration",
+    "What's a settings file",
+    "Where do app settings come from",
+    "What does config mean in software",
+    "Why keep names in settings",
+    "Explain configuration in simple words",
+    "What's a config file used for"
+   ],
+   "answer": "A configuration file holds settings, such as names and model connections. It lets those details change without rewriting the program."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is JSON data?",
+    "Explain a JSON file",
+    "What does JSON store",
+    "Why use JSON for saved data",
+    "What is structured JSON information",
+    "Explain JSON simply",
+    "What's a JSON data format",
+    "What is the exported JSON for"
+   ],
+   "answer": "JSON is a text format for structured information. The simulator reads exported questions and answers in that format."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a WebView?",
+    "Explain an Android WebView",
+    "What does a WebView display",
+    "How can web content appear inside an app",
+    "What's an embedded web page",
+    "Explain a mobile WebView simply",
+    "Why use a WebView for the lens",
+    "What shows the lens page inside the Android app"
+   ],
+   "answer": "A WebView shows web content inside an app. The glasses app uses one to display the lens interface."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is Python used for here?",
+    "Why does the project use Python",
+    "What part of this project is Python",
+    "Where does Python fit in the glasses system",
+    "Is the hub written in Python",
+    "What does the Python part handle",
+    "Explain Python's role in the project",
+    "What runs in the Python hub"
+   ],
+   "answer": "Python runs the hub, which coordinates spoken questions, saved answers, and other services."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is HTML used for here?",
+    "Why does the lens use HTML",
+    "What part of the lens is HTML",
+    "What does the HTML page provide",
+    "Explain HTML's role in the display",
+    "Is the lens a web page",
+    "How is the lens content structured",
+    "What structures the page inside the glasses"
+   ],
+   "answer": "HTML structures the lens page. Other styling and program instructions control how it looks and behaves."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is CSS used for here?",
+    "Why does the lens use CSS",
+    "What controls how the lens looks",
+    "Explain the lens styling",
+    "What sets the display's text appearance",
+    "How is the lens page styled",
+    "What does CSS do for the interface",
+    "What controls the visual layout"
+   ],
+   "answer": "CSS controls the page's appearance, such as text size, spacing, and placement."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is JavaScript used for here?",
+    "Why does the simulator use JavaScript",
+    "What makes the browser demo respond",
+    "Explain the browser scripting",
+    "What does JavaScript do in the interface",
+    "What controls interactive behavior in the browser",
+    "How can a web page respond to controls",
+    "What's the script part of the simulator"
+   ],
+   "answer": "JavaScript controls interactive behavior in the browser, such as responding to controls and updating the display."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a Git commit?",
+    "Explain a local commit",
+    "What does committing files mean",
+    "What's a saved commit in Git",
+    "Is a commit a recorded version",
+    "What does a commit record",
+    "Explain committing a change",
+    "What is a version control commit"
+   ],
+   "answer": "A commit records a set of changes in version history. Creating a local commit doesn't automatically publish it."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a Git branch?",
+    "Explain a feature branch",
+    "Why work on a separate branch",
+    "What does a branch mean in version control",
+    "What's a development branch",
+    "How does a branch keep work separate",
+    "Explain branching simply",
+    "What is a branch for in Git"
+   ],
+   "answer": "A branch keeps a line of changes separate while work is being reviewed or developed."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a Git push?",
+    "Explain pushing a commit",
+    "What does pushing to a repository mean",
+    "Does a push send local changes elsewhere",
+    "What's a remote push",
+    "What happens when someone pushes code",
+    "Explain publishing commits with Git",
+    "How do commits reach a remote repository"
+   ],
+   "answer": "A push sends commits to a remote repository. Local content edits don't publish themselves."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a pull request?",
+    "Explain a PR in programming",
+    "Why open a pull request",
+    "What does a code review request do",
+    "What's a request to merge changes",
+    "How do teammates review a proposed change",
+    "Explain pull requests simply",
+    "What is a PR description for"
+   ],
+   "answer": "A pull request proposes changes for review before they're merged into another branch."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What does read only access mean?",
+    "Explain read only permissions",
+    "What if a folder is read only",
+    "Can read only access save changes",
+    "What does a permission restriction mean",
+    "Why might a file be readable but not writable",
+    "What's the difference between reading and editing access",
+    "Explain a read only repository"
+   ],
+   "answer": "Read-only access allows viewing information without changing it. Editing or committing requires the appropriate write permissions."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is a local model?",
+    "Explain on device AI",
+    "What does running a model locally mean",
+    "What's a model on this computer",
+    "How is a local AI hosted",
+    "Explain local language processing",
+    "What does on device processing mean",
+    "What is a locally running language model"
+   ],
+   "answer": "A local model runs on a device you control, rather than requiring a hosted model service for that work."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does local processing mean nothing is ever saved?",
+    "Does on device mean there are no logs",
+    "Are local questions never stored",
+    "Does local AI automatically delete everything",
+    "Does running locally guarantee no records",
+    "Does a local model mean no data retention",
+    "Can local software still save information",
+    "Does on device processing prevent storage"
+   ],
+   "answer": "Local processing and data storage are different things. Someone responsible for the setup should check what it saves and who can access it."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Does a public repository contain personal photos?",
+    "Should face photos go in public Git",
+    "Do private face images belong in the repository",
+    "Can we publish the face enrollment pictures",
+    "Should personal images be committed",
+    "Is public Git the place for private photos",
+    "Should private face data appear in source control",
+    "Can private enrollment pictures be in a public repo"
+   ],
+   "answer": "Private photos and personal configuration should stay out of the public repository. The team keeps those separately."
   }
  ]
 }
