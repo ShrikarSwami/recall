@@ -54,10 +54,28 @@ says "Go-go" or touches the temple.
 
 ## Operator setup (5 minutes before)
 
+On Shrikar's Mac the hub and the caregiver page run as login services (`~/Library/LaunchAgents/com.bb.gogo.hub.plist`
+and `com.bb.gogo.care.plist`): they start when the Mac logs in and restart within seconds if they crash. Real texts on,
+lens dark until **s**. Just open the page:
+
 ```bash
-cd ~/Projects/recall/hub && LUCIA_STANDBY=1 .venv/bin/python3 -u -m lucia.server > data/hub.log   # real texts, lens dark until s
-cd ~/Projects/recall/gogo-standalone && python3 care/server.py                   # caregiver page
 open http://127.0.0.1:9300/dashboard/
+```
+
+Restart or stop them:
+
+```bash
+launchctl kickstart -k gui/$(id -u)/com.bb.gogo.hub
+```
+
+```bash
+launchctl bootout gui/$(id -u)/com.bb.gogo.hub; launchctl bootout gui/$(id -u)/com.bb.gogo.care
+```
+
+On another Mac, run them by hand:
+
+```bash
+cd ~/Projects/recall/hub && LUCIA_STANDBY=1 .venv/bin/python3 -u -m lucia.server > data/hub.log
 ```
 
 - Glasses on the same Wi-Fi as the Mac and pointed at the hub (see `docs/GLASSES_RETURN.md` §3).
