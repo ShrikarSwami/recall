@@ -4,6 +4,8 @@
 > Team **BB** · Worn Smart Glasses Hackathon · Nov 20–21, 2026 · City Tech, Brooklyn · Track: **Natural Interaction**
 > Status: draft v0.1 (Fri Nov 20). Open questions are at the bottom; edit freely.
 
+> For a code-checked snapshot of implemented features, published content, and suggested next work, see [Content handoff and next steps](AGENT_HANDOFF.md) (reviewed Nov 21).
+
 ## 1. One-liner
 
 A pair of glasses that a person living with dementia can put on like their everyday glasses. They ask "who is this?" or "where are we?" out loud, and get a calm, short, correct answer in their ear and on the lens. Nothing to learn, nothing to remember, and no patient data leaves their own devices.
