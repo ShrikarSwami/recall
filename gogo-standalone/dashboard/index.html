@@ -340,7 +340,7 @@
   function renderLive() {
     var live = state.live, p = state.profile, loc = live.location || "seat";
     $("h-live").textContent = p.name + " is " + (LOC[loc] || "here").toLowerCase().replace("at his", "at his").replace("in the", "in the");
-    $("l-step").textContent = live.step || "Waiting for the glasses";
+    $("l-step").textContent = live.step || (live.lensOnline ? "Wearing their glasses" : "Waiting for the glasses");
     $("l-loc").textContent = LOC[loc] || loc;
     $("l-said").innerHTML = live.lastLucia ? "<b>Lucia:</b> “" + esc(live.lastLucia) + "”" : '<span class="empty">Lucia hasn\'t said anything yet.</span>';
     var pos = POS[loc] || POS.seat; $("me").setAttribute("cx", pos[0]); $("me").setAttribute("cy", pos[1]);
@@ -390,10 +390,19 @@
   function loadWeather() {
     api("/api/weather").then(function (w) {
       var t = w.ok ? w.sky + ", " + w.tempF + "°F" + (w.chill ? " (" + w.chill + ")" : "") : "unavailable (no internet)";
-      $("t-weather").textContent = "Weather: " + t; $("pl-weather").textContent = "Live weather at this place: " + t + (w.ok ? ". Lucia tells Mike this." : ".");
+      $("t-weather").textContent = "Weather: " + t; $("t-weather").style.display = w.ok ? "" : "none"; $("pl-weather").textContent = "Live weather at this place: " + t + (w.ok ? ". Lucia tells Mike this." : ".");
     }).catch(function () {});
   }
   function clock() { $("t-clock").textContent = new Date().toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" }); }
+  // operator keys: g grocery, c calendar, f fall, s stop (ignored while typing in a field)
+  document.addEventListener("keydown", function (e) {
+    var tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey || tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+    var k = (e.key || "").toLowerCase();
+    if ("gcfs".indexOf(k) < 0 || k.length !== 1) return;
+    e.preventDefault();
+    api("/api/demo", { key: k }).then(function (r) { if (r.ok) { toast(r.label); setTimeout(poll, 800); } });
+  });
   clock(); setInterval(clock, 20000);
   poll(); setInterval(poll, 1500); loadWeather(); setInterval(loadWeather, 600000);
 })();

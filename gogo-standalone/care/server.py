@@ -202,6 +202,12 @@ class Handler(SimpleHTTPRequestHandler):
             kind = b.pop("type", "system")
             ev = add_event(kind, **b)
             return self._json({"ok": True, "id": ev["id"]})
+        if u.path == "/api/demo":
+            key = str(b.get("key", "")).lower()
+            if key not in DEMO_KEYS:
+                return self._json({"ok": False}, 400)
+            threading.Thread(target=demo_key, args=(key,), daemon=True).start()   # answers can take a while to speak
+            return self._json({"ok": True, "label": DEMO_KEYS[key][0]})
         if u.path == "/api/instruct":
             text = (b.get("text") or "").strip()
             if not text:
@@ -239,10 +245,10 @@ def hub_get(path, timeout=2):
         return json.load(r)
 
 
-def hub_post(path, body):
+def hub_post(path, body, timeout=4):
     req = urllib.request.Request(HUB + path, data=json.dumps(body).encode("utf-8"),
                                  headers={"Content-Type": "application/json"}, method="POST")
-    with urllib.request.urlopen(req, timeout=4) as r:
+    with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.load(r)
 
 
@@ -268,6 +274,23 @@ def from_hub(ev, last_seen):
     if t == "place" and ev.get("name"):
         return [("system", {"text": "Arrived at " + ev["name"]})]
     return []
+
+
+# operator keys on the dashboard (g/c/f/s): one key = one demo moment on the glasses, through the hub
+DEMO_KEYS = {
+    "g": ("Grocery list", "/api/place", {"name": "the grocery store", "kind": "grocery", "force": True, "remember": False}),
+    "c": ("Today's schedule", "/api/ask", {"text": "what's next on my schedule?"}),
+    "f": ("Fall alert", "/api/fall", {}),
+    "s": ("Stop", "/api/ask", {"text": "stop"}),
+}
+
+
+def demo_key(key):
+    label, path, body = DEMO_KEYS[key]
+    try:
+        hub_post(path, body, timeout=60)
+    except Exception as e:
+        add_event("system", text="Demo key %s failed: %s" % (key, str(e)[:80]))
 
 
 def hub_bridge():

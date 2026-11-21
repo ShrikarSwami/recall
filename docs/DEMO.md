@@ -1,5 +1,7 @@
 # Judge-first demo — three minutes
 
+> **Superseded on Nov 21 by [DEMO_FLOW.md](DEMO_FLOW.md)** (faces → g grocery → c calendar → fall → caregiver page). The notes below still apply for wording and fallbacks.
+
 One narrator, one operator, and one teammate in view at a time. Do not introduce the team before the face-recognition moment. Use the judge's first name only if they choose to provide it; otherwise explain the configured demo persona. The judge is trying a reminder interaction, not being diagnosed or tested.
 
 ## Before handing over the glasses
