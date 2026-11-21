@@ -36,7 +36,8 @@ def test_loader_skips_blank_answers_and_examples(brain):
     subjects = {e.subject for e in brain.kb.entries}
     assert {"dev", "ana", "patient", "faq", "city_tech"} <= subjects
     assert "example" not in subjects
-    assert not any("pets" in e.questions[0] for e in brain.kb.entries)
+    assert not any(e.subject == "ana" and "pets" in e.questions[0] for e in brain.kb.entries)
+    assert all(e.answer.strip() for e in brain.kb.entries)
     assert not any("AGENTS" in e.source or "README" in e.source for e in brain.kb.entries)
 
 

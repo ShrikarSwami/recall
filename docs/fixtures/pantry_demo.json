@@ -1,0 +1,97 @@
+{
+  "fixture_id": "pantry-demo-v1",
+  "fictional": true,
+  "as_of": "2026-11-21",
+  "purpose": "Fixed demonstration only; not a live household inventory or food-safety assessment.",
+  "source_description": "Common food categories inspired by a user-supplied pantry table. All fixture quantities and dates are synthetic.",
+  "items": [
+    {
+      "id": "milk",
+      "name": "Milk",
+      "quantity": 2,
+      "unit": "cartons",
+      "location": "Fridge",
+      "date": "2026-11-22",
+      "date_kind": "best_before",
+      "date_precision": "day",
+      "opened_on": null
+    },
+    {
+      "id": "yogurt",
+      "name": "Plain yogurt",
+      "quantity": 1,
+      "unit": "tub",
+      "location": "Fridge",
+      "date": "2026-11-24",
+      "date_kind": "best_before",
+      "date_precision": "day",
+      "opened_on": null
+    },
+    {
+      "id": "tofu",
+      "name": "Extra firm tofu",
+      "quantity": 2,
+      "unit": "blocks",
+      "location": "Fridge",
+      "date": "2026-11-25",
+      "date_kind": "best_before",
+      "date_precision": "day",
+      "opened_on": null
+    },
+    {
+      "id": "cucumbers",
+      "name": "Cucumbers",
+      "quantity": 3,
+      "unit": "pieces",
+      "location": "Fridge",
+      "date": "2026-11-23",
+      "date_kind": "manual_estimate",
+      "date_precision": "day",
+      "opened_on": null
+    },
+    {
+      "id": "bagels",
+      "name": "Bagels",
+      "quantity": 4,
+      "unit": "pieces",
+      "location": "Cupboard",
+      "date": "2026-11-20",
+      "date_kind": "best_before",
+      "date_precision": "day",
+      "opened_on": null
+    },
+    {
+      "id": "black_beans",
+      "name": "Black beans",
+      "quantity": 2,
+      "unit": "cans",
+      "location": "Cupboard",
+      "date": "2028-05",
+      "date_kind": "best_before",
+      "date_precision": "month",
+      "opened_on": null
+    },
+    {
+      "id": "rice",
+      "name": "Rice",
+      "quantity": 1,
+      "unit": "bag",
+      "location": "Cupboard",
+      "date": null,
+      "date_kind": "unknown",
+      "date_precision": "unknown",
+      "opened_on": null
+    },
+    {
+      "id": "broth",
+      "name": "Vegetable broth",
+      "quantity": 0,
+      "unit": "cartons",
+      "location": "Fridge",
+      "date": "2026-11-19",
+      "date_kind": "sell_by",
+      "date_precision": "day",
+      "opened_on": null
+    }
+  ]
+}

@@ -159,6 +159,28 @@ A: Dev grew up in Edison, New Jersey.
 
 Each `# Q:` block is one intent. The `also:` lines are optional; the model handles paraphrases anyway, and they just make it more reliable.
 
+## 7a. Proposed personal memory entry (research added Nov 21)
+
+**Proposal only; not implemented.** Add an optional private profile that the wearer can contribute to, independently or with a chosen caregiver's help. Begin with a simple phone form for important people, current and past pets, interests, and comfort preferences. An optional later spoken flow could accept “Remember, my dog's name is Buster,” read it back, and save only after clear confirmation and a successful durable write. Buster is fictional example data.
+
+This extends established memory-support practices: notes and journals, photo-based memory books, life-story records, and personal profiles such as Alzheimer's Society's “This is me,” which explicitly includes pets. These resources involve the person and people who know them; they do not establish effectiveness for this prototype. See the sourced review and design in [Personal memory: research and proposed fact entry](PERSONAL_MEMORY_RESEARCH.md).
+
+- Keep ownership, current versus past status, source, review state, and dates. Never turn a question, wish, or overheard remark into an established personal fact.
+- Respect the wearer's choices; offer supported review without requiring a caregiver to approve every low-risk self-report. Handle conflicts and corrections without silently overwriting or arguing.
+- Use one eligible fact to fill short answer templates across many phrasings. A pet's name does not establish its breed or current location. Unknown is different from no pets.
+- Personal-fact lookup must take precedence over the generic unknown response; the present fuzzy matcher does not implement that guarantee. Refresh affected answers and caches on edit or deletion.
+- Store real profiles privately, outside public knowledge files and simulator exports, with authorized access. The existing name form is not a persistent fact editor.
+
+Implementation is a separate team-scoped change; this research update does not change the backend, phone UI, or glasses behavior.
+
+## 7b. Independence, comparisons, and pantry examples (content update Nov 21)
+
+The aim is access to familiar information that supports everyday choices, including taking part in groceries, without assuming a person needs every task done for them. Repeated questions receive patient answers; the wearer retains a say in what support they prefer. Improved independence is a goal, not an outcome demonstrated by this prototype.
+
+The bank now includes comparison and independence questions, pantry questions with honest current limitations, and an explicitly fictional food snapshot fixed to November 21, 2026. The snapshot does not sync the supplied spreadsheet or certify food safety. A live pantry, stock editing, and shopping-list updates remain proposed work.
+
+See [Independence, comparisons, and pantry demonstration](COMPARISONS_AND_PANTRY.md) for the source review, fair comparison table, sample questions, and [fictional pantry fixture](fixtures/pantry_demo.json). No household inventory is added to the public knowledge files.
+
 ## 8. Faces
 
 - Enroll each teammate from 3 photos (front, slight left, slight right) taken **at the venue, in venue lighting**. Photos go in `faces/<person_id>/` (gitignored, never pushed).
