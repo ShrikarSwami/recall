@@ -253,6 +253,12 @@ class Brain:
             return self.intro_reply(named, "who_is")
 
         cands = matcher.candidates(t, self.kb, person, self.cfg.get("currentPlace"))
+        if person and cands and cands[0].entry.subject != person:
+            # "what does he do?" is about the person, not Lucia's own FAQ ("what can you do?"): a close
+            # match about the person in view wins over a slightly better generic one.
+            mine = next((c for c in cands if c.entry.subject == person), None)
+            if mine and mine.score >= matcher.MAYBE and mine.score >= cands[0].score - 6:
+                cands = [mine] + [c for c in cands if c is not mine]
         best = cands[0] if cands else None
         chosen = None
         if best and best.score >= matcher.SURE:

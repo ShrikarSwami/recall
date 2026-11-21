@@ -226,7 +226,7 @@ class Hub:
         if not self.imu_for_offer:
             self.imu_for_offer = True
             await self.to_glasses({"type": "imu", "on": True})
-        await self.event("offer", kind=self.brain.offer.kind, subject=self.brain.offer.subject)
+        await self.event("offer", offer=self.brain.offer.kind, subject=self.brain.offer.subject)
         asyncio.create_task(self._close_offer_later(until))
 
     async def _close_offer_later(self, until: float):

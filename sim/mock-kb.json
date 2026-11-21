@@ -24,7 +24,7 @@
    "name": "Shrikar Swami",
    "first": "Shrikar",
    "aliases": [],
-   "intro": "This is Shrikar. They're on your team, BB."
+   "intro": "This is Shrikar. He's on your team, BB."
   },
   "sid": {
    "name": "Sid",
@@ -5126,7 +5126,10 @@
    "questions": [
     "What do they do on the team?",
     "what's their role",
-    "what are they working on"
+    "what are they working on",
+    "what do they do",
+    "what does he do",
+    "what does she do"
    ],
    "answer": "Abhiram is the backend developer for the wearable hackathon."
   },
@@ -5292,7 +5295,7 @@
     "who am I talking to",
     "do I know them"
    ],
-   "answer": "This is Shrikar. They're on your team, BB."
+   "answer": "This is Shrikar. He's on your team, BB."
   },
   {
    "scope": "person",
@@ -5302,7 +5305,207 @@
     "how do we know each other",
     "where did we meet"
    ],
-   "answer": "You met Shrikar at the Worn hackathon. They're on your team."
+   "answer": "You met Shrikar at the Worn hackathon. He's presenting his hackathon project to you."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What do they do on the team?",
+    "what's their role",
+    "what are they working on",
+    "what do they do",
+    "what does he do",
+    "what does she do"
+   ],
+   "answer": "He's building the software for the team's smart glasses app."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "Where are they from?",
+    "what's their hometown",
+    "where did they grow up"
+   ],
+   "answer": "He's from Manalapan, New Jersey. He grew up in Iselin."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "Where do they live now?"
+   ],
+   "answer": "He lives in Hoboken, New Jersey, on campus at Stevens."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "Do they go to school?",
+    "what school do they go to",
+    "what do they study",
+    "what's their major"
+   ],
+   "answer": "He's a second-year computer science student at Stevens Institute of Technology."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What's their job?",
+    "where do they work"
+   ],
+   "answer": "He doesn't have a job right now. He previously interned in AI research at AuresTech, a defense contractor."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "How old are they?"
+   ],
+   "answer": "He's 19."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What do they like to do for fun?",
+    "what are their hobbies"
+   ],
+   "answer": "He likes building Legos, editing videos, gaming, and working out."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What's their favorite food?"
+   ],
+   "answer": "He's vegetarian. He loves poke bowls and dosas."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "Do they have any pets?"
+   ],
+   "answer": "He has pet fish."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "Do they have brothers or sisters?",
+    "do they have siblings",
+    "tell me about their family"
+   ],
+   "answer": "He has a younger brother, Shriyansh."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What's a fun fact about them?",
+    "tell me something interesting about them"
+   ],
+   "answer": "He built an autonomous soccer goalkeeper robot called OTTO."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What should I talk to them about?",
+    "what can I ask them",
+    "conversation starter"
+   ],
+   "answer": "Ask him about Legos, his robot OTTO, video games, or what he's building this weekend."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What did we do together today?"
+   ],
+   "answer": "You spent today at the Worn hackathon building a smart glasses app together."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What's their favorite movie or show?"
+   ],
+   "answer": "His favorites are Smiling Friends, the Dark Knight trilogy, and Never Have I Ever."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What music do they like?"
+   ],
+   "answer": "He's mostly into PARTYNEXTDOOR, Drake, Kanye, and Travis Scott. He enjoys R&B, hip-hop, and slowed-down edits."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What sports team do they root for?"
+   ],
+   "answer": "He roots for the Knicks, but he's not a big sports guy."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What is their hackathon project?",
+    "what is your hackathon project",
+    "what is Shrikar building",
+    "tell me about his hackathon project"
+   ],
+   "answer": "He's building Lucia, an AI assistant on smart glasses that identifies familiar people and answers questions about them aloud."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "Where can I find their work online?",
+    "where can I find your work online",
+    "what is his website",
+    "what is Shrikar's GitHub"
+   ],
+   "answer": "His website is shrikarswami.com and his GitHub is ShrikarSwami."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "What do they want to do after graduation?",
+    "what do you want to do after you graduate",
+    "what are his career goals",
+    "what are Shrikar's dream companies"
+   ],
+   "answer": "He wants to work in software or AI. His dream companies are Meta, Google, and Apple."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "Have they done hackathons before?",
+    "have you done hackathons before",
+    "has he won a hackathon prize",
+    "tell me about Shrikar's fakeblock project"
+   ],
+   "answer": "He won Best Pitch at an NYU hackathon for a project called fakeblock."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "Are they looking for an internship?",
+    "is he looking for a summer internship",
+    "when does Shrikar want an internship",
+    "what internship is he hunting for"
+   ],
+   "answer": "He's looking for a summer 2027 internship."
   },
   {
    "scope": "person",
