@@ -20,15 +20,18 @@ A: {caregiver} is taking you home after the awards, around 6 o'clock.
 
 # Q: Where's the bathroom?
 - also: where is the restroom / where's the toilet / I need the bathroom
-A: Go out the door to the exit, and you will see a sign for the bathroom on your right.
+A: Go out the door to the exit, and you will see a sign for the bathroom on your right. {caregiver} can walk there with you.
 
-# Q: Where's the kitchen?
-- also: where can I get food / where can I get water / where's the food
-A: In the back right corner of the room, there are snacks and drinks.
+# Q: Where can I get food?
+- also: where's the kitchen / where can I get water / where's the food
+A: Snacks and drinks are in the corner of this room. {caregiver} can walk there with you.
+
+# Q: Is there a quiet place?
+A: There's no quiet room here, but you can sit down with {caregiver}.
 
 # Q: Where's the front door?
 - also: where is the exit / how do I get outside / where's the entrance
-A: Leave the classroom and turn left. You will see an exit.
+A: Leave the classroom and turn left. You will see an exit. {caregiver} can walk there with you.
 
 ## home
 name: Home
