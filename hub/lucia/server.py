@@ -545,8 +545,7 @@ async def ws_lens(ws: WebSocket):
                                    "app": hub.cfg["appName"], "patient": placeholders(hub.cfg)["patient"],
                                    "now": int(time.time() * 1000),  # the glasses' clock/timezone are wrong (set to China)
                                    "tz": int(__import__("datetime").datetime.now().astimezone().utcoffset().total_seconds() // 60)}))
-    if hub.standby:
-        await ws.send_text(json.dumps({"type": "power", "on": False}))
+    await ws.send_text(json.dumps({"type": "power", "on": not hub.standby}))   # a reconnecting lens never stays dark
     try:
         while True:
             m = json.loads(await ws.receive_text())
