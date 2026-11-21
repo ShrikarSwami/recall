@@ -64,20 +64,24 @@ class LLM:
             image=jpeg, n=40, timeout=8)
 
     async def freeform(self, question: str, patient: str, recent: list[str] | None = None) -> str | None:
-        """Off-script questions (a judge asks something we never wrote down). Short, kind, no invented
-        personal facts, no medical advice."""
+        """Off-script general-knowledge questions. The brain already routed people and health questions away.
+        Must hedge ("I think…"), stay to one short sentence, and say UNSURE rather than guess."""
         context = ("\nEarlier in this conversation:\n" + "\n".join(recent[-4:])) if recent else ""
         prompt = (
             f"You are Lucia, a gentle voice assistant inside smart glasses worn by {patient}, who has memory loss. "
-            "Answer in at most 2 short sentences (under 30 words), warm and calm, plain words, no lists or markdown. "
-            "Never give medical advice; for health questions say a doctor or their caregiver can help. "
-            f"Never make up facts about {patient}, their family, friends, plans or past; if asked something "
-            "personal you don't know, say you're not sure." + context +
-            f"\n\nThey asked: \"{question}\"\nLucia says:")
-        out = await self.ask(prompt, n=70, timeout=6)
+            "Their question came from speech-to-text and may contain mistakes. "
+            "If it is a general-knowledge question you are confident about, answer in ONE short sentence "
+            "(under 20 words) that starts with \"I think\". Plain, warm words; no lists or markdown. "
+            "If the words look garbled, ask about a specific person, place in their life, their health, "
+            "medicine, money, or anything you are not sure of, reply with exactly: UNSURE" + context +
+            f"\n\nQuestion: \"{question}\"\nLucia:")
+        out = await self.ask(prompt, n=50, timeout=6)
         if not out:
             return None
-        return out.strip().strip('"').split("\n")[0][:240]
+        out = out.strip().strip('"').split("\n")[0][:200]
+        if "UNSURE" in out.upper() or not out.lower().startswith("i think"):
+            return None
+        return out
 
     async def warm(self) -> None:
         await self.ask("Say OK.", n=2, timeout=30)
