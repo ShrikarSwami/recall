@@ -9,6 +9,9 @@ client = TestClient(app)   # requests come from host "testclient", i.e. "the net
 
 
 def setup_module():
+    import tempfile
+    from pathlib import Path
+    hub.log_path = Path(tempfile.mkdtemp()) / "events.jsonl"   # never write test events into the real caregiver feed
     hub.cfg["apiToken"] = "test-token"
     hub.cfg["voice"]["speakAnswers"] = False
     hub.reminders = reminders.load(CONFIG_DIR / "reminders.example.md")
