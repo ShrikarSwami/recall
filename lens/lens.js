@@ -25,7 +25,7 @@
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var card = $("card"), title = $("title"), lines = $("lines"), slot = $("slot");
-  var hideTimer = null, clockOffset = 0, tzMin = null;
+  var hideTimer = null, clockOffset = 0, tzMin = null, hubBase = null;
   var splashTimer = null;
 
   // ------------------------------------------------------------ card, sticker, arrows, ring
@@ -178,7 +178,8 @@
 
   // ------------------------------------------------------------ clock, hint, battery
   function tick() {
-    var now = Date.now() + clockOffset, d, h, m;
+    // the M6's own clock jumps (time zone/NTP), so count from the hub's time with the page's steady timer
+    var now = hubBase !== null ? hubBase + performance.now() : Date.now() + clockOffset, d, h, m;
     if (tzMin === null) { d = new Date(now); h = d.getHours(); m = d.getMinutes(); }
     else { d = new Date(now + tzMin * 60000); h = d.getUTCHours(); m = d.getUTCMinutes(); }   // the M6 ships set to China time
     h = h % 12 || 12; m = ("0" + m).slice(-2);
@@ -223,7 +224,7 @@
     else if (t === "battery") { $("batpct").textContent = (msg.pct != null ? msg.pct : 15) + "%"; $("bat").className = msg.on ? "on" : ""; }
     else if (t === "config") {
       if (msg.hint) $("hint").textContent = msg.hint;
-      if (msg.now) clockOffset = msg.now - Date.now();
+      if (msg.now) { clockOffset = msg.now - Date.now(); hubBase = msg.now - performance.now(); }
       if (typeof msg.tz === "number") tzMin = msg.tz;
       tick();
     }
