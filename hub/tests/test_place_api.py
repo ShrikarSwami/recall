@@ -1,8 +1,6 @@
 """POST /api/place: the iPhone Shortcut contract (docs/SHORTCUT_API.md)."""
 import os
 
-import os
-
 from fastapi.testclient import TestClient
 
 from lucia import reminders
