@@ -139,7 +139,7 @@ class Voice:
                            check=True, capture_output=True, timeout=20)
             with wave.open(str(out)) as w:
                 pcm = w.readframes(w.getnframes())
-        if len(self.cache) < 300:
+        if pcm and len(self.cache) < 300:
             self.cache[key] = pcm
         return pcm
 

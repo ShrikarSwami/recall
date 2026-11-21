@@ -44,6 +44,14 @@ curl -XPOST localhost:9100/api/ask -H 'content-type: application/json' -d '{"tex
 ```
 Or use the simulator in **Live hub** mode.
 
+The hub quietly prewarms the greeting, teammate intros and common orientation speech at startup,
+after `/api/reload`, and after `/api/patient` changes the name. `/api/state` includes `voice_warmup`
+(`warming`, `ready`, `partial`, or `disabled`, with clip counts). No audio plays during warmup.
+Only exact text is cached; changed place/schedule wording can still need a first render. A partial
+warmup does not prevent startup; check that macOS `say` produces audio before the demo.
+Caregiver alerts use the existing iMessage path, adding the Mac's local time and either the fresh
+phone-reported place or the configured demo place, e.g. `Lucia: … · 1:40 AM · City Tech, Downtown Brooklyn`. `LUCIA_DRY_RUN=1` never sends a text.
+
 ## Rules
 
 - Write endpoints (`/api/place`, `/api/say`, `/api/ask`, `/api/record`, `/api/reload`, `/api/patient`) are open to this Mac but need `X-Lucia-Token` (= `apiToken` in `config/app.local.json`) from anywhere else.
