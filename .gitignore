@@ -26,3 +26,4 @@ local.properties
 .DS_Store
 .idea/
 hub/probe_out/
+hub/data/

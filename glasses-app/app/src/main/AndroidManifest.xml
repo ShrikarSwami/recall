@@ -10,11 +10,15 @@
         android:usesCleartextTraffic="true"
         android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
         <activity android:name=".MainActivity" android:exported="true"
+            android:launchMode="singleTask" android:stateNotNeeded="true" android:excludeFromRecents="false"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!-- Lets Lucia be the glasses' home app, so it is the only thing the wearer ever sees. -->
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

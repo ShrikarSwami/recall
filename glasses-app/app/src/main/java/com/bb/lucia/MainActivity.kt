@@ -55,7 +55,7 @@ import java.util.concurrent.TimeUnit
  * Configure:  adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://<mac-ip>:9100/ws/glasses
  * Logs:       adb logcat -s Lucia
  */
-class MainActivity : Activity(), TextToSpeech.OnInitListener {
+class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.SensorEventListener {
     private val ui = Handler(Looper.getMainLooper())
     private lateinit var hint: TextView
     private lateinit var clock: TextView
@@ -86,12 +86,19 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val prefs = getSharedPreferences("lucia", Context.MODE_PRIVATE)
         intent.getStringExtra("hub")?.let { prefs.edit().putString("hub", it).apply() }
-        hubUrl = prefs.getString("hub", "ws://192.168.1.10:9100/ws/glasses")!!
+        hubUrl = prefs.getString("hub", "ws://127.0.0.1:9100/ws/glasses")!!
         buildUi()
         tts = TextToSpeech(this, this)
         connect()
         startMic()
         ui.post(tick)
+        // Off-body sensor: tells the hub when the glasses go on/off a face (auto-greet).
+        (getSystemService(Context.SENSOR_SERVICE) as android.hardware.SensorManager).let { sm ->
+            sm.getDefaultSensor(android.hardware.Sensor.TYPE_LOW_LATENCY_OFFBODY_DETECT, true)?.let {
+                sm.registerListener(this, it, android.hardware.SensorManager.SENSOR_DELAY_NORMAL)
+                log("offbody sensor registered")
+            }
+        }
         log("start hub=$hubUrl model=${android.os.Build.MODEL} sdk=${android.os.Build.VERSION.SDK_INT}")
     }
 
@@ -147,7 +154,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener {
                 ui.post { status.text = "" }
                 val caps = JSONObject().put("type", "hello").put("model", android.os.Build.MODEL)
                     .put("sdk", android.os.Build.VERSION.SDK_INT).put("tts", ttsReady)
-                    .put("cameras", Camera.getNumberOfCameras())
+                    .put("cameras", Camera.getNumberOfCameras()).put("worn", worn ?: JSONObject.NULL)
                 webSocket.send(caps.toString())
                 log("connected")
                 ui.post { openCamera() }
@@ -295,6 +302,25 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener {
         log("input $name")
         ws?.send(JSONObject().put("type", "key").put("name", name).put("code", code).toString())
     }
+
+    private var worn: Boolean? = null
+
+    override fun onSensorChanged(e: android.hardware.SensorEvent) {
+        if (e.sensor.type == android.hardware.Sensor.TYPE_LOW_LATENCY_OFFBODY_DETECT) {
+            val on = e.values[0] > 0.5f  // 1.0 = on body
+            if (on != worn) {
+                worn = on
+                log("worn=$on")
+                ws?.send(JSONObject().put("type", "worn").put("value", on).toString())
+            }
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: android.hardware.Sensor?, accuracy: Int) {}
+
+    // Home app: the wearer can never "exit" Lucia.
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {}
 
     private fun log(s: String) = Log.i("Lucia", s)
 
