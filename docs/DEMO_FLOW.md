@@ -62,6 +62,11 @@ lens dark until **s**. Just open the page:
 open http://127.0.0.1:9300/dashboard/
 ```
 
+A watchdog (`hub/tools/watchdog.sh`, launch agent `com.bb.gogo.watchdog`) checks every 30 seconds that the hub, the
+caregiver page, the glasses and Messages are up. It restarts what's down, and if the glasses are gone for a minute it
+reconnects them over USB or Wi-Fi adb. A Mac notification shows only when something breaks or recovers; the log is
+`hub/data/watchdog.log`. `com.bb.gogo.awake` keeps the Mac from idle-sleeping (closing the lid still sleeps it).
+
 Restart or stop them:
 
 ```bash
