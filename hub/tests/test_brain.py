@@ -130,3 +130,24 @@ def test_caregiver_text_says_what_was_asked(brain):
     ask(brain, "who is a pyrom")
     y = ask(brain, "yes")
     assert y.alert == 'Somya has a question: "who is a pyrom"'
+
+
+def test_model_down_does_not_guess_from_a_loose_match():
+    import asyncio
+    from lucia import server
+    b = server.hub.brain
+
+    class Down:
+        async def choose(self, *a, **k):
+            return None
+
+        async def freeform(self, *a, **k):
+            return None
+    llm, b.llm = b.llm, Down()
+    try:
+        r = asyncio.run(b.answer("what is the capital of France?"))
+        assert "home computer" not in r.speech
+        r = asyncio.run(b.answer("where is the bathroom?"))
+        assert "bathroom" in r.speech.lower()
+    finally:
+        b.llm = llm

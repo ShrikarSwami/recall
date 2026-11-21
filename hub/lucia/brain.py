@@ -54,6 +54,7 @@ ABOUT = re.compile(r"\b(tell me (more )?about|what do you know about|talk about|
 SEEN_FRESH_S = 15        # a face counts as "in front of you" for this long
 TOPIC_FRESH_S = 180      # "he"/"she" refers to the last person discussed for this long
 OFFER_S = 10             # a yes/no offer stays open this long (the hub extends it past the spoken audio)
+LLM_DOWN_MIN = 76        # model unreachable: "capital of France" fuzzy-matched a FAQ at 68
 MORE_MAX = 3             # "want to hear more?" chains at most this many facts
 OFFER_HOW = 'Nod or say "yes"  ·  shake or say "no"'
 
@@ -318,7 +319,7 @@ class Brain:
                                           f"{c.phrase} (about {self.kb.people[c.entry.subject].first})" for c in top])
             if k is not None and k >= 0:
                 chosen = top[k]
-            elif k is None and best.score >= matcher.MAYBE:  # LLM unreachable: trust a decent fuzzy match
+            elif k is None and best.score >= LLM_DOWN_MIN:  # LLM unreachable: only trust a close fuzzy match
                 chosen = best
         elif best and best.score >= matcher.MAYBE:
             chosen = best
