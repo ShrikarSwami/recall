@@ -44,6 +44,18 @@ Errors: `401` wrong/missing token · `400` no name. Requests from the hub Mac it
 
 For the stage demo, tap **Run** on the Shortcut: a fixed `name` + `kind` is the most reliable.
 
+## Demo: Fall
+
+A second Shortcut stands in for the fall sensor on stage. It sends the urgent caregiver text and says
+"are you okay" on the glasses. The event is logged with source `api`, so the caregiver feed shows it was a demo trigger.
+
+```
+POST http://<hub>:9100/api/fall?token=<apiToken>
+```
+
+No body. Response: `{"ok": true}`. Errors: `401` wrong or missing token.
+Set `LUCIA_DRY_RUN=1` on the hub to rehearse without sending a real text.
+
 ## Testing without the phone
 
 ```bash

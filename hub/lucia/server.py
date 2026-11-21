@@ -344,13 +344,13 @@ class Hub:
         """IMU streams whenever falls are on (or during an offer / a recording)."""
         await self.to_glasses({"type": "imu", "on": bool(self.falls_on or self.imu_for_offer or self.rec)})
 
-    async def fall(self):
+    async def fall(self, source: str = "sensor"):
         """Text first (seconds matter), then reassure the wearer."""
         vals = placeholders(self.cfg)
         text = fill(self.cfg.get("falls", {}).get(
             "message", "WARNING: {patient} may have fallen. Please check on them urgently!"), vals)
         text = self.alert_text(text)
-        await self.event("fall")
+        await self.event("fall", source=source)
         status = await self.alerts.send(text, urgent=True)
         await self.event("alert", text=text, status=status, urgent=True)
         r = self.brain._reply("{patient}, are you okay? I've let {caregiver} know. Help is on the way.",
@@ -643,6 +643,13 @@ async def api_place(body: dict):
     said = await hub.arrive(name, kind, home_min)
     await hub.event("place", name=name, place_kind=kind, home_min=home_min, announced=bool(said))
     return {"ok": True, "said": said}
+
+
+@app.post("/api/fall", dependencies=[Depends(require_token)])
+async def api_fall():
+    """Stage demo: an iPhone Shortcut stands in for the fall sensor. Same alert + voice as a real fall."""
+    await hub.fall(source="api")
+    return {"ok": True}
 
 
 @app.post("/api/ask", dependencies=[Depends(require_token)])

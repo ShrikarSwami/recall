@@ -1,4 +1,6 @@
 """POST /api/place: the iPhone Shortcut contract (docs/SHORTCUT_API.md)."""
+import os
+
 from fastapi.testclient import TestClient
 
 from lucia import reminders
@@ -12,11 +14,21 @@ def setup_module():
     import tempfile
     from pathlib import Path
     hub.log_path = Path(tempfile.mkdtemp()) / "events.jsonl"   # never write test events into the real caregiver feed
+    global _old_dry
+    _old_dry = os.environ.get("LUCIA_DRY_RUN")
+    os.environ["LUCIA_DRY_RUN"] = "1"                          # alerts are logged, never texted
     hub.cfg["apiToken"] = "test-token"
     hub.cfg["voice"]["speakAnswers"] = False
     hub.reminders = reminders.load(CONFIG_DIR / "reminders.example.md")
     hub.brain.place = None
     hub.arrived_at.clear()
+
+
+def teardown_module():
+    if _old_dry is None:
+        os.environ.pop("LUCIA_DRY_RUN", None)
+    else:
+        os.environ["LUCIA_DRY_RUN"] = _old_dry
 
 
 def test_requires_token_from_network():
@@ -39,3 +51,13 @@ def test_token_in_query_and_bad_input():
     assert client.post("/api/place?token=test-token", json={"kind": "grocery"}).status_code == 400
     r = client.post("/api/place?token=test-token", json={"name": "CVS", "kind": "pharmacy", "home_min": "soon"})
     assert r.status_code == 200 and hub.brain.place["home_min"] is None
+
+
+def test_fall_requires_token():
+    assert client.post("/api/fall").status_code == 401
+
+
+def test_fall_with_token_alerts_in_dry_run():
+    assert hub.alerts.dry
+    r = client.post("/api/fall?token=test-token")
+    assert r.status_code == 200 and r.json() == {"ok": True}
