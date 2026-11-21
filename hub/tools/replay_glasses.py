@@ -52,6 +52,9 @@ def silence(seconds: float) -> bytes:
     return b"\x00" * int(16000 * 2 * seconds)
 
 
+GREETED: asyncio.Event | None = None   # set in main (needs a running loop)
+
+
 async def listen(ws, until: float):
     while time.time() < until:
         try:
@@ -62,6 +65,8 @@ async def listen(ws, until: float):
             continue  # answer audio (PCM 22.05 kHz) — not played here
         m = json.loads(msg)
         if m.get("type") == "card":
+            if m.get("intent") == "greeting" and GREETED is not None:
+                GREETED.set()
             print(f"  LENS  [{m.get('intent')}] {m.get('title')}: {' / '.join(m.get('lines', []))}")
             if m.get("prompt"):
                 print(f"        prompt: {m['prompt'].replace(chr(10), ' | ')}")
@@ -91,7 +96,14 @@ async def main(a):
     async with websockets.connect(url, max_size=None) as ws:
         await ws.send(json.dumps({"type": "hello", "model": "replay", "sdk": 0, "tts": False, "cameras": 1, "worn": True}))
         print(f"connected to {url} as fake glasses")
+        global GREETED
+        GREETED = asyncio.Event()
         listener = asyncio.create_task(listen(ws, time.time() + 3600))
+        try:   # the hub greets on connect (at most every 90 s); the mic is muted while Lucia speaks
+            await asyncio.wait_for(GREETED.wait(), 1.5)
+            await asyncio.sleep(7)
+        except asyncio.TimeoutError:
+            pass
 
         if a.frame:
             jpeg = Path(a.frame).read_bytes()

@@ -68,13 +68,15 @@ class Transcriber:
         self.model = model
         self.pool = ThreadPoolExecutor(max_workers=1)
         self.last_ms = 0.0
+        self.hint = ""      # names Whisper should expect (wake word, teammates), e.g. "Lucia. Abhiram, Sid."
 
     def _run(self, pcm: bytes) -> str:
         import mlx_whisper
         audio = np.frombuffer(pcm, dtype=np.int16).astype(np.float32) / 32768.0
         t0 = time.perf_counter()
         r = mlx_whisper.transcribe(audio, path_or_hf_repo=self.model, language="en",
-                                   condition_on_previous_text=False, no_speech_threshold=0.5)
+                                   condition_on_previous_text=False, no_speech_threshold=0.5,
+                                   initial_prompt=self.hint or None)
         self.last_ms = (time.perf_counter() - t0) * 1000
         text = r.get("text", "").strip()
         return "" if JUNK.match(text) else text
