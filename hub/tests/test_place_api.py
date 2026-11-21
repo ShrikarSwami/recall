@@ -61,3 +61,21 @@ def test_fall_with_token_alerts_in_dry_run():
     assert hub.alerts.dry
     r = client.post("/api/fall?token=test-token")
     assert r.status_code == 200 and r.json() == {"ok": True}
+
+
+def test_demo_key_place_repeats_and_keeps_location(client_and_hub=None):
+    import asyncio
+    from lucia import server
+    hub = server.hub
+    said = []
+
+    async def fake_say(reply, question=""):
+        said.append(reply.speech)
+    hub.say, before = fake_say, hub.brain.place
+    try:
+        for _ in range(2):
+            asyncio.run(hub.arrive("the grocery store", "grocery", None, force=True, remember=False))
+        assert len(said) == 2
+        assert hub.brain.place == before
+    finally:
+        del hub.say

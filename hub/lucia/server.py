@@ -135,18 +135,20 @@ class Hub:
             except Exception as ex:  # never let the reminder loop die
                 print(f"[hub] heads-up error: {ex!r}")
 
-    async def arrive(self, name: str, kind: str, home_min) -> str:
+    async def arrive(self, name: str, kind: str, home_min, force: bool = False, remember: bool = True) -> str:
         """iPhone says we're somewhere. Remember it; on a *new* arrival, say where and read that place's reminders once."""
         now = time.time()
         key = f"{kind}:{name}".lower()
         prev = self.brain.place
         self.brain.place = {"name": name, "kind": kind, "home_min": home_min, "at": now}
         new_arrival = not prev or f"{prev.get('kind')}:{prev.get('name')}".lower() != key or now - self.arrived_at.get(key, 0) > 30 * 60
-        if not new_arrival:
+        if not (new_arrival or force):
             return ""
         self.arrived_at[key] = now
         speech = " ".join(p for p in (self.brain.where_line(), reminders.arrival_lines(kind, self.reminders)) if p)
-        await self.say(self.brain._reply(speech, name[:22], "arrival"))
+        if not remember:                    # stage demo key: show the moment, keep the real location
+            self.brain.place = prev
+        await self.say(self.brain._reply(speech, (name[:1].upper() + name[1:])[:22], "arrival"))
         return speech
 
     async def start(self):
@@ -648,7 +650,7 @@ async def api_place(body: dict):
         home_min = None if home_min in (None, "") else max(0, round(float(home_min)))
     except (TypeError, ValueError):
         home_min = None
-    said = await hub.arrive(name, kind, home_min)
+    said = await hub.arrive(name, kind, home_min, force=bool(body.get("force")), remember=body.get("remember", True) is not False)
     await hub.event("place", name=name, place_kind=kind, home_min=home_min, announced=bool(said))
     return {"ok": True, "said": said}
 

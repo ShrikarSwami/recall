@@ -22,7 +22,7 @@ import threading
 import tty
 import urllib.request
 
-STORE = {"name": "the grocery store", "kind": "grocery"}
+STORE = {"name": "the grocery store", "kind": "grocery", "force": True, "remember": False}
 
 
 def keys() -> dict:
