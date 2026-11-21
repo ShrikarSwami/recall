@@ -55,8 +55,8 @@ says "Lucia" or touches the temple.
 ## Operator setup (5 minutes before)
 
 ```bash
-cd ~/Projects/recall-pr22/hub && LUCIA_STANDBY=1 .venv/bin/python3 -u -m lucia.server > data/hub.log   # real texts, lens dark until s
-cd ~/Projects/recall-pr22/gogo-standalone && python3 care/server.py                   # caregiver page
+cd ~/Projects/recall/hub && LUCIA_STANDBY=1 .venv/bin/python3 -u -m lucia.server > data/hub.log   # real texts, lens dark until s
+cd ~/Projects/recall/gogo-standalone && python3 care/server.py                   # caregiver page
 open http://127.0.0.1:9300/dashboard/
 ```
 
