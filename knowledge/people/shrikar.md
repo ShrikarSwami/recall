@@ -1,7 +1,7 @@
 ---
 id: shrikar
 name: Shrikar Swami
-aliases: Shree, Shrika, Shrieker, Schrieker
+aliases: Shri, Sri, Shree, Shrika, Shrieker, Schrieker
 pronouns: he/him
 intro: This is Shrikar, one of the presenters of this project. He built the glasses software.
 relationship: teammate on team BB

@@ -96,3 +96,17 @@ def test_real_recordings(name, want):
 
 def test_still_is_nothing():
     assert classify([(i / 60, 2.0, -1.5) for i in range(90)]) is None
+
+
+def test_a_new_question_during_an_offer_is_not_a_yes(brain):
+    brain.saw("dev")
+    ask(brain, "who is this")
+    r = ask(brain, "tell me about Ana")
+    assert r.subject == "ana" and r.intent != "offer_yes"
+
+
+@pytest.mark.parametrize("q", ["yes", "Yes please.", "yeah, sure", "tell me more", "okay thanks"])
+def test_yes_variants(brain, q):
+    brain.saw("dev")
+    ask(brain, "who is this")
+    assert ask(brain, q).intent == "offer_yes"
