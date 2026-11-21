@@ -394,12 +394,12 @@
     }).catch(function () {});
   }
   function clock() { $("t-clock").textContent = new Date().toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" }); }
-  // operator keys: g grocery, c calendar, f fall, s stop (ignored while typing in a field)
+  // operator keys: s start (welcome), g grocery, c calendar, f fall, x stop talking, b blank lens (ignored while typing in a field)
   document.addEventListener("keydown", function (e) {
     var tag = (e.target && e.target.tagName) || "";
     if (e.metaKey || e.ctrlKey || e.altKey || tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
     var k = (e.key || "").toLowerCase();
-    if ("gcfs".indexOf(k) < 0 || k.length !== 1) return;
+    if ("sgcfxb".indexOf(k) < 0 || k.length !== 1) return;
     e.preventDefault();
     api("/api/demo", { key: k }).then(function (r) { if (r.ok) { toast(r.label); setTimeout(poll, 800); } });
   });

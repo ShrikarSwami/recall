@@ -7,6 +7,7 @@ Glasses protocol: see glasses-app/.../MainActivity.kt. Caregiver page: /caregive
 from __future__ import annotations
 
 import asyncio
+import os
 from copy import deepcopy
 from datetime import datetime
 import json
@@ -28,6 +29,7 @@ from .faces import Faces
 from .falls import FallDetector
 from .gestures import HeadGestures
 from .llm import LLM
+from .brain import NO, YES
 from .speech import Segmenter, Transcriber, Voice, earcon, split_wake
 
 ARM_S = 8                 # after a tap / bare wake word, the next utterance is the question
@@ -53,6 +55,8 @@ class Hub:
         self.caregivers: set[WebSocket] = set()
         self.lenses: set[WebSocket] = set()      # lens pages (glasses WebView, simulator)
         self.armed_until = 0.0
+        self.armed_by_offer = False
+        self.standby = os.environ.get("LUCIA_STANDBY") == "1"   # stage demo: lens dark and Lucia quiet until the operator starts it
         self.playing_until = 0.0
         self.worn: bool | None = None
         self.last_greet = 0.0
@@ -275,10 +279,26 @@ class Hub:
         if generation == self.output_generation and time.time() >= self.playing_until - 0.05:
             await self.to_glasses({"type": "avatar", "talking": False})
 
+    async def set_standby(self, on: bool):
+        """Stage demo: on = lens dark, Lucia quiet. off = welcome the wearer and start fresh."""
+        self.standby = on
+        await self.interrupt()
+        await self.to_glasses({"type": "power", "on": not on})
+        if on:
+            return
+        self.introduced.clear()          # everyone gets introduced again for the new judge
+        welcome = self.cfg.get("demoWelcome", "Welcome! I'm {app}, here to help you remember. "
+                                              "Look at someone, and I'll tell you who they are.")
+        await self.event("demo_start")
+        await self.say(self.brain._reply(welcome, "Welcome", "greeting",
+                                         card=self.cfg.get("demoWelcomeCard", "I'm here to help you remember.")))
+
     async def say(self, reply: Reply, question: str = ""):
         if reply.intent == "speech_stop":
             await self.interrupt()
             return
+        if self.standby and reply.intent != "fall":
+            return                       # demo not started yet (falls always go through)
         generation = self.output_generation
         alert = self.alert_text(reply.alert) if reply.alert else None
         async with self.speak_lock:
@@ -322,6 +342,7 @@ class Hub:
         until = max(time.time(), self.playing_until) + OFFER_S
         self.brain.offer.until = until
         self.armed_until = until
+        self.armed_by_offer = True       # only a yes/no is taken without the wake word
         self.head.reset()
         if not self.imu_for_offer:
             self.imu_for_offer = True
@@ -390,6 +411,7 @@ class Hub:
         if self.speak_lock.locked() or time.time() < self.playing_until:
             await self.interrupt()
         self.armed_until = time.time() + ARM_S
+        self.armed_by_offer = False
         await self.to_glasses({"type": "state", "value": "listening"})
         await self.to_glasses({"type": "snap"})
         await self.to_glasses(earcon())
@@ -430,6 +452,8 @@ class Hub:
             return
         armed = time.time() < self.armed_until
         woke, rest = split_wake(text, self.cfg["wakeWord"])
+        if armed and self.armed_by_offer and not woke and not (YES.search(text) or NO.search(text)):
+            armed = False                # bystander talk during "Want to hear more?" is not an answer
         control = playback.command(rest if woke else text, self.cfg["wakeWord"])
         playback_finished = time.time() >= self.playing_until and not self.speak_lock.locked()
         followup = bool(control and time.time() < self.followup_until
@@ -469,7 +493,7 @@ class Hub:
     async def maybe_introduce(self, pid: str):
         cooldown = self.cfg.get("faces", {}).get("introCooldownSec", 120)
         now = time.time()
-        if self.worn is False or now - self.introduced.get(pid, 0) < cooldown or pid not in self.kb.people:
+        if self.standby or self.worn is False or now - self.introduced.get(pid, 0) < cooldown or pid not in self.kb.people:
             return
         if now < self.playing_until or now < self.armed_until or self.speak_lock.locked():
             return
@@ -510,6 +534,8 @@ async def ws_lens(ws: WebSocket):
                                    "app": hub.cfg["appName"], "patient": placeholders(hub.cfg)["patient"],
                                    "now": int(time.time() * 1000),  # the glasses' clock/timezone are wrong (set to China)
                                    "tz": int(__import__("datetime").datetime.now().astimezone().utcoffset().total_seconds() // 60)}))
+    if hub.standby:
+        await ws.send_text(json.dumps({"type": "power", "on": False}))
     try:
         while True:
             m = json.loads(await ws.receive_text())
@@ -659,6 +685,20 @@ async def api_place(body: dict):
 async def api_fall():
     """Stage demo: an iPhone Shortcut stands in for the fall sensor. Same alert + voice as a real fall."""
     await hub.fall(source="api")
+    return {"ok": True}
+
+
+@app.post("/api/demo/start", dependencies=[Depends(require_token)])
+async def api_demo_start():
+    """Operator key s: lens on, WELCOME, Lucia introduces people from here."""
+    await hub.set_standby(False)
+    return {"ok": True}
+
+
+@app.post("/api/demo/standby", dependencies=[Depends(require_token)])
+async def api_demo_standby():
+    """Operator key b: lens dark and Lucia quiet between judges (fall alerts still work)."""
+    await hub.set_standby(True)
     return {"ok": True}
 
 

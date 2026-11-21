@@ -276,12 +276,14 @@ def from_hub(ev, last_seen):
     return []
 
 
-# operator keys on the dashboard (g/c/f/s): one key = one demo moment on the glasses, through the hub
+# operator keys on the dashboard (s start, g grocery, c calendar, f fall, x stop, b blank): one key = one demo moment on the glasses, through the hub
 DEMO_KEYS = {
     "g": ("Grocery list", "/api/place", {"name": "the grocery store", "kind": "grocery", "force": True, "remember": False}),
     "c": ("Today's schedule", "/api/ask", {"text": "what's next on my schedule?"}),
     "f": ("Fall alert", "/api/fall", {}),
-    "s": ("Stop", "/api/ask", {"text": "stop"}),
+    "s": ("Start: welcome", "/api/demo/start", {}),
+    "x": ("Stop talking", "/api/ask", {"text": "stop"}),
+    "b": ("Blank: lens off until s", "/api/demo/standby", {}),
 }
 
 

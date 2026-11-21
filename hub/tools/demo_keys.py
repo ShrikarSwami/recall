@@ -30,7 +30,9 @@ def keys() -> dict:
         "g": ("grocery list", "/api/place", STORE),
         "c": ("today's schedule", "/api/ask", {"text": "what's next on my schedule?"}),
         "f": ("FALL alert", "/api/fall", {}),
-        "s": ("stop", "/api/ask", {"text": "stop"}),
+        "s": ("start: welcome", "/api/demo/start", {}),
+        "x": ("stop talking", "/api/ask", {"text": "stop"}),
+        "b": ("blank: lens off until s", "/api/demo/standby", {}),
     }
 
 

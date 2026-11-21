@@ -13,7 +13,7 @@ points at lists and the schedule, and looks concerned after a fall.
 
 | # | What the judge sees | Who does what | What is real |
 |---|---|---|---|
-| 1 | Judge puts on the glasses. **No wires.** | Operator unplugs USB before handing them over. | Glasses run on Wi-Fi to the hub. |
+| 1 | Judge puts on the glasses. **No wires.** The lens is dark. Then WELCOME: the squirrel waves and Lucia says "Welcome! I'm Lucia, here to help you remember. Look at someone, and I'll tell you who they are." | Operator unplugs USB, hands the glasses over, then presses **s** on the caregiver page. | Glasses run on Wi-Fi to the hub. |
 | 2 | Judge looks at Shrikar, then Sid, then Abhi. Lucia says who each one is ("This is Shrikar, one of the presenters of this project"), and the squirrel waves. Judge can nod or say "yes" to hear more. | One teammate at a time, facing the judge in good light. | Real face recognition from the glasses camera, real voice, real nod detection. |
 | 3 | "What if you're grocery shopping?" The lens shows the grocery list and Lucia reads what to buy. | Operator presses **g** on the caregiver page. | The list and the voice are real. In daily life the family's phone says "you arrived at the store"; on stage the key stands in for that. |
 | 4 | "Or you have a busy day." The lens shows what's next on the hackathon schedule. | Operator presses **c**. | The real schedule and the real clock. The judge can also just ask "Lucia, what's next?" |
@@ -21,8 +21,20 @@ points at lists and the schedule, and looks concerned after a fall.
 | 6 | Operator turns the laptop: the caregiver page shows the conversation, who was recognised and the fall alert in red. | Operator shows the page. | Live data from the glasses. |
 | 7 | Close: "We want people living with dementia to stay independent, and caregivers to have peace of mind. It's as easy as putting on your glasses every morning." | Narrator. | — |
 
-The caregiver page is also the **operator's remote**. With it in front, the keys **g** (grocery), **c** (calendar),
-**f** (fall) and **s** (stop) change what's on the glasses. Keys are ignored while typing in a field.
+The caregiver page is also the **operator's remote**. With it in front, these keys change what's on the glasses
+(ignored while typing in a field):
+
+| Key | Does |
+|---|---|
+| **s** | Start: lens on, WELCOME, then Lucia introduces whoever the judge looks at |
+| **g** | Grocery list |
+| **c** | Calendar: what's next today |
+| **f** | Fall alert (backup if the real fall isn't detected): "are you okay?" + text to the caregiver |
+| **x** | Stop Lucia talking |
+| **b** | Blank: lens dark and Lucia quiet until **s** (between judges). Falls still alert. |
+
+During "Want to hear more?" Lucia only takes a nod, "yes" or "no". Other talk nearby is ignored unless someone
+says "Lucia" or touches the temple.
 
 ## For the slides
 
@@ -43,7 +55,7 @@ The caregiver page is also the **operator's remote**. With it in front, the keys
 ## Operator setup (5 minutes before)
 
 ```bash
-cd ~/Projects/recall-pr22/hub && .venv/bin/python3 -u -m lucia.server > data/hub.log   # real texts (no LUCIA_DRY_RUN)
+cd ~/Projects/recall-pr22/hub && LUCIA_STANDBY=1 .venv/bin/python3 -u -m lucia.server > data/hub.log   # real texts, lens dark until s
 cd ~/Projects/recall-pr22/gogo-standalone && python3 care/server.py                   # caregiver page
 open http://127.0.0.1:9300/dashboard/
 ```
