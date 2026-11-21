@@ -121,6 +121,23 @@ EnverThor's Ollama keeps **one model loaded at a time**: switching models costs 
 
 **Latency budget (tap → first audio):** STT 200 ms + intent/rephrase 1000 ms + TTS first chunk 300 ms + network 200 ms ≈ **< 2 s**. Faces run continuously in the background, so "who is this" doesn't wait on face matching.
 
+
+## 6a. Hardware findings (probed on our M6, Fri Nov 20, 9:10 PM)
+
+| What | Result |
+|---|---|
+| Device | `XNM_Glass`, Android 9 (API 28), Unisoc UWS6152 (1x A75 + 3x A55), 1.9 GB RAM, 640x480 @ 160 dpi |
+| adb | Works after Developer Mode (MLDemo iOS → Glasses → Developer) + USB replug |
+| Link to hub | **USB with `adb reverse tcp:9100 tcp:9100`** → glasses use `ws://127.0.0.1:9100`. No Wi-Fi needed (glasses Wi-Fi was off). Use a port above 9000: 8765 is taken by SLHJ, 8770 by macOS `sharingd`. |
+| Camera | Works from a plain app (`android.hardware.Camera`, 1 back camera). 640x480 JPEG ~40–48 KB, ~1.2 fps at our throttle. Sizes up to 1920x1080. |
+| Mic | Works (`AudioRecord`, 16 kHz mono, VOICE_RECOGNITION source); room audio arrives. Still to do: a deliberate speech test. |
+| Text-to-speech | **No TTS engine on the glasses** → the hub must speak (macOS `say`/Piper) and stream PCM 22.05 kHz to the app. |
+| Speaker | Test tone sent on each key press; confirm it's audible. |
+| Display | The launcher draws a status bar (clock, BT, Wi-Fi, battery) over the top ~40 px that apps can't hide. Our pinned hint `Say "Lucia" to ask` sits **bottom-left**. |
+| Touchpad / ring | Instant key events (~7 ms down→up), so map by key code, not timing: **66 ENTER = tap (ask)**, 142 F12 then 4 BACK (300 ms apart) = second gesture, 22/21 DPAD_RIGHT/LEFT = swipes. BACK is swallowed so nothing can close Lucia. |
+| Sensors | Accelerometer, gyroscope, magnetometer, light, proximity, step counter, **off-body detect** (auto-greet when the glasses go on), pressure. |
+| Built-in apps | `com.mlaixr.*` launcher, assistant, camera, recorder, translator, prompter, navigation, ring, audiocare. |
+
 ## 7. Knowledge base (the part everyone can edit)
 
 Plain markdown in `knowledge/`, so non-coders can fill it in from Discord. The hub loads it at startup and on change.

@@ -1,7 +1,7 @@
 """Hardware probe server: proves the glasses' camera, mic, keys and speaker all reach the laptop.
 
-    uv run python probe.py            # listens on ws://0.0.0.0:8765/ws/glasses
-    adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://<mac-ip>:8765/ws/glasses
+    uv run python probe.py            # listens on ws://0.0.0.0:9100/ws/glasses
+    adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://<mac-ip>:9100/ws/glasses
 
 Writes probe_out/frame_*.jpg and probe_out/mic.wav, logs every key, and answers each key press
 with a card plus a 1-second test tone so you can check the display and the speaker.
@@ -62,8 +62,8 @@ async def handler(ws):
 
 
 async def main():
-    async with websockets.serve(handler, "0.0.0.0", 8765, max_size=None):
-        print("probe listening on ws://0.0.0.0:8765/ws/glasses")
+    async with websockets.serve(handler, "0.0.0.0", 9100, max_size=None):
+        print("probe listening on ws://0.0.0.0:9100/ws/glasses")
         await asyncio.Future()
 
 

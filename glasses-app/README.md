@@ -1,7 +1,7 @@
 # glasses-app: the Lucia app that runs on the M6
 
 A plain Android 9 app (no MicroLumin SDK needed). It shows a black, see-through UI with
-`Say "Lucia" to ask` pinned top-left and the time top-right. It streams the mic (16 kHz PCM) and
+`Say "Lucia" to ask` pinned bottom-left and the time bottom-right (the launcher's status bar covers the top ~40 px). It streams the mic (16 kHz PCM) and
 ~1 fps camera JPEGs to the hub over a WebSocket, sends touchpad/ring presses, and plays the answers.
 Protocol: see the comment at the top of `MainActivity.kt`.
 
@@ -14,7 +14,8 @@ JAVA_HOME=/opt/homebrew/opt/openjdk@17 ./gradlew assembleDebug
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell pm grant com.bb.lucia android.permission.CAMERA
 adb shell pm grant com.bb.lucia android.permission.RECORD_AUDIO
-adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://<mac-ip>:8765/ws/glasses
+adb reverse tcp:9100 tcp:9100      # USB link to the Mac, no Wi-Fi needed
+adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://127.0.0.1:9100/ws/glasses
 adb logcat -s Lucia        # key codes, camera sizes, mic/tts status
 ```
 

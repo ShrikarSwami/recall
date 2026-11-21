@@ -52,7 +52,7 @@ import java.util.concurrent.TimeUnit
  *                        {"type":"snap"}  (send a frame now)
  *                  binary PCM16 mono 22050 Hz         (answer audio, played as it arrives)
  *
- * Configure:  adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://<mac-ip>:8765/ws/glasses
+ * Configure:  adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://<mac-ip>:9100/ws/glasses
  * Logs:       adb logcat -s Lucia
  */
 class MainActivity : Activity(), TextToSpeech.OnInitListener {
@@ -86,7 +86,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val prefs = getSharedPreferences("lucia", Context.MODE_PRIVATE)
         intent.getStringExtra("hub")?.let { prefs.edit().putString("hub", it).apply() }
-        hubUrl = prefs.getString("hub", "ws://192.168.1.10:8765/ws/glasses")!!
+        hubUrl = prefs.getString("hub", "ws://192.168.1.10:9100/ws/glasses")!!
         buildUi()
         tts = TextToSpeech(this, this)
         connect()
@@ -113,10 +113,15 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener {
             setPadding(56, 0, 56, 0); addView(title); addView(body)
         }
         root.addView(card, FrameLayout.LayoutParams(-1, -1))
-        root.addView(hint, FrameLayout.LayoutParams(-2, -2, Gravity.TOP or Gravity.START).apply { setMargins(24, 18, 0, 0) })
-        root.addView(clock, FrameLayout.LayoutParams(-2, -2, Gravity.TOP or Gravity.END).apply { setMargins(0, 18, 24, 0) })
-        root.addView(status, FrameLayout.LayoutParams(-2, -2, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL).apply { setMargins(0, 0, 0, 16) })
+        // The M6 launcher draws its own status bar (clock, BT, battery) over the top ~40 px,
+        // so our pinned hint lives in the bottom-left corner where nothing covers it.
+        root.addView(hint, FrameLayout.LayoutParams(-2, -2, Gravity.BOTTOM or Gravity.START).apply { setMargins(24, 0, 0, 18) })
+        root.addView(clock, FrameLayout.LayoutParams(-2, -2, Gravity.BOTTOM or Gravity.END).apply { setMargins(0, 0, 24, 18) })
+        root.addView(status, FrameLayout.LayoutParams(-2, -2, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL).apply { setMargins(0, 0, 0, 52) })
         setContentView(root)
+        @Suppress("DEPRECATION")
+        root.systemUiVisibility = (android.view.View.SYSTEM_UI_FLAG_FULLSCREEN or android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            or android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         root.isFocusable = true; root.isFocusableInTouchMode = true; root.requestFocus()
     }
 
@@ -256,23 +261,23 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener {
     }
 
     // ------------------------------------------------------------------ touchpad / ring
-    private var downAt = 0L
-    private var lastTapAt = 0L
+    // The M6 firmware turns touchpad/ring gestures into instant key events (~7 ms down→up),
+    // so gestures are told apart by key code, not by timing. Measured Fri Nov 20:
+    //   66 ENTER = tap (→ ask) · 142 F12 + 4 BACK = second gesture · 22/21 DPAD = swipes.
+    // BACK is swallowed so a gesture can never close Lucia (every session = brand-new user).
+    private fun gestureName(code: Int) = when (code) {
+        KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> "tap"
+        KeyEvent.KEYCODE_DPAD_RIGHT -> "swipe_forward"
+        KeyEvent.KEYCODE_DPAD_LEFT -> "swipe_back"
+        KeyEvent.KEYCODE_BACK -> "back"
+        KeyEvent.KEYCODE_F12 -> "f12"
+        else -> "key_$code"
+    }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         log("key code=${event.keyCode} (${KeyEvent.keyCodeToString(event.keyCode)}) action=${event.action} repeat=${event.repeatCount}")
         if (event.keyCode == KeyEvent.KEYCODE_VOLUME_UP || event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) return super.dispatchKeyEvent(event)
-        if (event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0) downAt = event.eventTime
-        if (event.action == KeyEvent.ACTION_UP) {
-            val held = event.eventTime - downAt
-            val name = when {
-                held > 700 -> "long_press"
-                event.eventTime - lastTapAt < 350 -> "double_tap"
-                else -> "tap"
-            }
-            lastTapAt = event.eventTime
-            sendKey(name, event.keyCode)
-        }
+        if (event.action == KeyEvent.ACTION_UP) sendKey(gestureName(event.keyCode), event.keyCode)
         return true
     }
 
