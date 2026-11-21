@@ -1,6 +1,8 @@
 """POST /api/place: the iPhone Shortcut contract (docs/SHORTCUT_API.md)."""
 import os
 
+import os
+
 from fastapi.testclient import TestClient
 
 from lucia import reminders
@@ -14,11 +16,21 @@ def setup_module():
     import tempfile
     from pathlib import Path
     hub.log_path = Path(tempfile.mkdtemp()) / "events.jsonl"   # never write test events into the real caregiver feed
+    global _old_dry
+    _old_dry = os.environ.get("LUCIA_DRY_RUN")
+    os.environ["LUCIA_DRY_RUN"] = "1"                          # alerts are logged, never texted
     hub.cfg["apiToken"] = "test-token"
     hub.cfg["voice"]["speakAnswers"] = False
     hub.reminders = reminders.load(CONFIG_DIR / "reminders.example.md")
     hub.brain.place = None
     hub.arrived_at.clear()
+
+
+def teardown_module():
+    if _old_dry is None:
+        os.environ.pop("LUCIA_DRY_RUN", None)
+    else:
+        os.environ["LUCIA_DRY_RUN"] = _old_dry
 
 
 def test_requires_token_from_network():
