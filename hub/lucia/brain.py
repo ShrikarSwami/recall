@@ -18,8 +18,12 @@ from .knowledge import Knowledge
 
 DISTRESS = re.compile(
     r"\b(go(ing)? home|want (to go )?home|take me home|scared|afraid|frightened|i('m| am) lost|"
-    r"where is everyone|where('s| is) my (mom|mother|dad|father|wife|husband)|help me|i('m| am) confused|"
+    r"where is everyone|where('s| is) my (mom|mother|dad|father|wife|husband)|i('m| am) confused|"
     r"don't know where i am|do not know where i am|get me out)\b", re.I)
+# A bare call for help is distress; asking what the assistant helps with is not.
+HELP_DISTRESS = re.compile(
+    r"\W*(?:(?:please|someone|somebody)[, ]+|(?:can|could|would) (?:you|someone|somebody) )?"
+    r"help me(?:[,\s]+(?:please|now|right now))?\W*", re.I)
 TIME = re.compile(r"\b(what )?(time|day|date|year|month)\b.*\b(is it|today|now)\b|\bwhat day\b|\bwhat time\b|"
                   r"\bwhat('s| is) the date\b|\bwhat year\b|\bwhat month\b|\btoday's date\b", re.I)
 WHERE = re.compile(r"\b(where (am i|are we|is this)|what (is|'s) this place|what place is this|where have i (got|gotten) to)\b", re.I)
@@ -31,10 +35,14 @@ WHO_THIS = re.compile(
 SCENE = re.compile(r"\b(what am i (looking at|seeing)|what('s| is) (in front of me|around me|this place look)|"
                    r"what do you see|describe (this|what))\b", re.I)
 
-YES = re.compile(r"^\W*(yes|yeah|yep|yup|sure|okay|ok|of course|go ahead|go on|tell me more|i do|sounds good|please|yes please)"
-                 r"([\s,]+(please|thanks|thank you|lucia|yes|sure|okay))*\W*$", re.I)
-NO = re.compile(r"^\W*(no|nope|nah|not now|no thanks|no thank you|i'?m (ok|okay|fine|good)|that'?s (ok|okay|fine|all)|"
-                r"i'?m good|maybe later)([\s,]+(thanks|thank you|lucia|please))*\W*$", re.I)
+_LEAD = r"^\W*((oh|um|uh|hmm|well|ah|ok|okay|lucia)[\s,.!]+)*"
+_TAIL = (r"([\s,.!]+(please|thanks|thank you|lucia|yes|yeah|sure|okay|ok|i do|i would|i'?d like that|go ahead|"
+         r"tell me|tell me more|more|definitely|absolutely|of course|why not|that'?s fine|i'?m (ok|okay|fine|good)|"
+         r"not now|no thanks|no thank you|that'?s (ok|okay|fine|all)|maybe later|i'?m good))*\W*$")
+YES = re.compile(_LEAD + r"(yes|yeah|yea|ya|yep|yup|sure|okay|ok|of course|go ahead|go on|tell me more|i do|sounds good|"
+                 r"please|yes please|mm-?hmm|uh-?huh|absolutely|definitely|why not|i would|i'?d like that)" + _TAIL, re.I)
+NO = re.compile(_LEAD + r"(no|nope|nah|not now|no thanks|no thank you|i'?m (ok|okay|fine|good)|that'?s (ok|okay|fine|all)|"
+                r"i'?m good|maybe later|not really|no no)" + _TAIL, re.I)
 
 # "who is <someone we don't know>": also catches speech-to-text mangling a name ("who is a pyrom").
 UNKNOWN_PERSON = re.compile(r"\b(who('s| is| was| are)|tell me about|do you know|have you met)\s+"
@@ -50,6 +58,7 @@ ABOUT = re.compile(r"\b(tell me (more )?about|what do you know about|talk about|
 SEEN_FRESH_S = 15        # a face counts as "in front of you" for this long
 TOPIC_FRESH_S = 180      # "he"/"she" refers to the last person discussed for this long
 OFFER_S = 10             # a yes/no offer stays open this long (the hub extends it past the spoken audio)
+LLM_DOWN_MIN = 76        # model unreachable: "capital of France" fuzzy-matched a FAQ at 68
 MORE_MAX = 3             # "want to hear more?" chains at most this many facts
 OFFER_HOW = 'Nod or say "yes"  ·  shake or say "no"'
 
@@ -239,7 +248,8 @@ class Brain:
                 return self._resolve(False)
         self.offer = None
 
-        if DISTRESS.search(t):
+        help_text = re.sub(r"^\W*(?:hey\s+)?" + re.escape(self.cfg["wakeWord"]) + r"\b\W*", "", t, flags=re.I)
+        if DISTRESS.search(t) or HELP_DISTRESS.fullmatch(help_text):
             r = self._reply("You're safe, {patient}. {caregiver} knows where you are, and I'm letting him know now.",
                             "You're safe", "distress")
             r.alert = f"{self.vals['patient']} said: \"{t}\""
@@ -313,7 +323,7 @@ class Brain:
                                           f"{c.phrase} (about {self.kb.people[c.entry.subject].first})" for c in top])
             if k is not None and k >= 0:
                 chosen = top[k]
-            elif k is None and best.score >= matcher.MAYBE:  # LLM unreachable: trust a decent fuzzy match
+            elif k is None and best.score >= LLM_DOWN_MIN:  # LLM unreachable: only trust a close fuzzy match
                 chosen = best
         elif best and best.score >= matcher.MAYBE:
             chosen = best

@@ -67,3 +67,10 @@ The clock must use the hub's `now`/`tz` (already handled in `lens.js`): the glas
 
 idle (hint + clock only) · listening · thinking · answer card · proactive intro · greeting · distress ·
 unknown person ("I don't think we've met them yet") · long answer (3-line overflow) · disconnected.
+
+## Gogo lens (Sid, Nov 21)
+
+`lens/` now holds the Gogo version: the squirrel guide (canvas sprites, `squirrel_*`), postage-stamp icons, the GOGO splash (`splash/`), and extra messages
+(`avatar`, `splash`, `power`, `arrows`, `ring`, `tapnote`, `battery`; see the header of `lens.js`). It is a **superset**: every hub message above
+(`config`, `state`, `card` with `intent`/`prompt`, `clear`, `conn`) still works. Cards with an `intent` and no `icon` get a stamp automatically
+(`INTENT_STAMP` in `lens.js`). Verified in real Chromium 74 at 640x480. Not yet tested on the glasses: sprite frame rate on the Unisoc chip.

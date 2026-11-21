@@ -1,0 +1,78 @@
+{
+ "profile": {
+  "name": "Somya",
+  "age": 74,
+  "gender": "woman",
+  "stage": "Middle",
+  "limitations": "Forgets recent events. Needs one short instruction at a time. Can get anxious in crowds.",
+  "remembers": "Shrikar, old songs, family dinners, the neighborhood where they grew up.",
+  "forgets": "What day it is, where they left their things, faces they met today.",
+  "easy": "Walking short distances, washing their hands, sitting down at a table, drinking water.",
+  "caregiver": "Shrikar (grandson)",
+  "notes": "Demo persona. Likes to be called Somya."
+ },
+ "goals": [
+  {
+   "day": 1,
+   "items": [
+    "Freshen up and wash hands",
+    "Get back to your seat",
+    "Drink a glass of water"
+   ]
+  },
+  {
+   "day": 2,
+   "items": [
+    "Short walk with a friend",
+    "Lunch at the table"
+   ]
+  },
+  {
+   "day": 3,
+   "items": [
+    "Call Shrikar",
+    "Look through the photo album"
+   ]
+  },
+  {
+   "day": 4,
+   "items": [
+    "Morning stretch",
+    "Help set the table"
+   ]
+  },
+  {
+   "day": 5,
+   "items": [
+    "Visit from Priya",
+    "Afternoon tea"
+   ]
+  },
+  {
+   "day": 6,
+   "items": [
+    "Garden walk",
+    "Early dinner"
+   ]
+  }
+ ],
+ "places": {
+  "city": "CUNY, Brooklyn",
+  "lat": 40.6955,
+  "lon": -73.9872,
+  "gate": "top right",
+  "bag": "Right behind you",
+  "seat": "Your seat, next to your bag",
+  "routeToBathroom": [
+   "Stand up slowly. Step back a little.",
+   "Head to the gate, in the top right corner.",
+   "Go through the gate, then turn left.",
+   "The bathroom is the first door on your right."
+  ],
+  "routeBack": [
+   "Turn around and head back to the gate.",
+   "Walk straight, toward your friends.",
+   "Your seat is the one with your bag."
+  ]
+ }
+}

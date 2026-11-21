@@ -1,5 +1,7 @@
 # Content handoff and next steps
 
+> Historical audit. Start with [FINAL_HANDOFF.md](FINAL_HANDOFF.md) for the current demo plan, merged work and hardware gates. The snapshots and recommendations below predate it.
+
 Reviewed November 21, 2026 against main commit `0391b08d7066b458c7d11ce776658aa6853c7cef`.
 
 This is a documentation handoff. No runtime behavior is changed. Check the current main branch before implementing any recommendation: other teammates are actively working in this repository. Follow the root and folder-specific agent instructions, and keep changes small ahead of the November 21, 2:00 PM ET code freeze.

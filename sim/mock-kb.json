@@ -3384,9 +3384,17 @@
     "What can you do?",
     "What do I ask you about?",
     "Wait, what are you here for?",
-    "What can ya do?"
+    "What can ya do?",
+    "What can I ask you?",
+    "What can I ask?",
+    "What questions can I ask you?",
+    "Give me some examples",
+    "How can you help me?",
+    "What can you help me?",
+    "What should I ask you?",
+    "Can you give me an example?"
    ],
-   "answer": "I can help with familiar faces, the time, and where you are. If you're distressed, I can alert Shrikar."
+   "answer": "Say \"Lucia,\" then ask \"Who is this?\" or \"Where am I?\" You can ask again whenever you need a reminder."
   },
   {
    "scope": "faq",

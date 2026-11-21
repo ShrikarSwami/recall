@@ -1,88 +1,86 @@
-# Demo script (3 minutes) — draft v1
+# Judge-first demo — three minutes
 
-> Draft for the team to workshop. Speaker roles are letters, not names, until we decide who says what.
-> **A** = opener / narrator · **B, C, D** = teammates who get "recognized" · **Op** = operator at the laptop
-> (hub + caregiver page), standing slightly back. Everything the judge hears from Lucia is real and live.
+> **Superseded on Nov 21 by [DEMO_FLOW.md](DEMO_FLOW.md)** (faces → g grocery → c calendar → fall → caregiver page). The notes below still apply for wording and fallbacks.
 
-## Before they arrive (Op, 20 s)
+One narrator, one operator, and one teammate in view at a time. Do not introduce the team before the face-recognition moment. Use the judge's first name only if they choose to provide it; otherwise explain the configured demo persona. The judge is trying a reminder interaction, not being diagnosed or tested.
 
-- Hub running (`uv run python -m lucia.server`), glasses connected, faces enrolled, `LUCIA_DRY_RUN` **off**.
-- Caregiver page open on the phone that receives the iMessage (`http://<mac>:9100/caregiver`).
-- Optional: ask the judge's first name while they walk up and swap it in (caregiver page, or
-  `curl -XPOST localhost:9100/api/patient -d '{"name":"<Name>"}' -H 'content-type: application/json'`).
-  Lucia then greets them by name. If there's no time, they play **Somya**.
+## Before handing over the glasses
 
-## 0:00 — Paint the picture (A, ~25 s, glasses still in hand)
+The operator completes the hardware gates in [FINAL_HANDOFF.md](FINAL_HANDOFF.md). Have the caregiver page and the receiving phone ready. Use the tested connection, keep USB available, and confirm the current APK and hub are running. Check `voice_warmup` in `/api/state`; `ready` means clips rendered, not that the glasses speaker was heard.
 
-> "Before we start, we want to paint a picture. We're **not** going to introduce ourselves, and that's on
-> purpose. We want to put you in the shoes of someone living with dementia. You might have known all of us at
-> some point. Maybe we worked together, maybe we're family. But right now, you don't remember.
+A name set through `/api/patient` lasts in memory and can be reset by a reload/restart. Set it before the final warmup check. Keep actual phone numbers and tokens in private config. No need to add a service or redesign the caregiver page.
+
+## 0:00–0:25 — Set up the moment
+
+> “We're not going to introduce ourselves just yet. Imagine seeing someone familiar and not being able to place their name, or forgetting why you came into a room. Even a small question can mean having to ask someone else for help.
 >
-> These glasses are called Lucia. There's nothing to learn: if you ever need anything, just say **'Lucia'**, or
-> touch the right side of the glasses. That's the only instruction, and it's always written on the lens."
+> We built Lucia to give people living with dementia another way to get those reminders themselves. Put these on. Say ‘Lucia’ or hold the right side, then ask a question. That instruction stays on the lens.”
 
-Hand them the glasses.
+The demo name and wake word above are examples; use the configured values if changed. Let the greeting finish. Do not talk over the glasses.
 
-## 0:25 — Putting them on (Lucia, automatic)
+## 0:25–0:45 — Let Lucia suggest the first question
 
-Lens + voice: *"Hi {Name}. You're at City Tech, Downtown Brooklyn. Say 'Lucia' if you need anything."*
+Prompt only if needed: “You can ask, ‘Lucia, what can I ask you?’”
 
-A (quietly): "Look around at us."
+Lucia's prepared answer:
 
-## 0:35 — The wow moment: it recognizes us (B steps in front)
+> “Say ‘Lucia,’ then ask ‘Who is this?’ or ‘Where am I?’ You can ask again whenever you need a reminder.”
 
-Lucia, unprompted: *"This is B, one of the presenters of this project. Want to hear more about B?"* The judge can nod or say yes. (lens: name + one line)
+Let the judge choose. This is a short help answer, not an autonomous tour or an automatic sequence of questions. If they choose location first, do location first, then invite them to look at the teammate.
 
-A: "Go ahead, ask it anything about any of us."
-Prompt the judge only if they freeze: "Who is this?" · "Where's she from?" · "What does he do?" · "How do I know him?"
+## 0:45–1:20 — Meet a teammate
 
-C and D step in one at a time; each gets introduced. **Same question twice gets the same calm answer** —
-A can point that out: "Ask again. It will never say 'I already told you.'"
+Use Shrikar or Abhiram for the main demonstration: both have supplied follow-up facts. One person stands in good light facing the glasses. Wait for an automatic introduction; if it does not arrive, the judge can ask “Who is this?”
 
-## 1:15 — Where am I, what day is it (judge)
+Lucia identifies them as a presenter and may offer “Want to hear more?” Let the judge say yes or nod. Then one natural question, such as “What does he do?” or “What does he like doing?”
 
-A: "Now imagine you just lost track of where you are."
-- "Lucia, where are we?" → *"You're at City Tech in Downtown Brooklyn, at a smart-glasses hackathon with your team."*
-- "What day is it?" → *"It's Saturday, November 21st. It's about 2 in the afternoon."*
+Use only facts that person supplied. Do not tell the judge they previously met us or that we are their family. Sid and Isha have basic introductions but mostly blank profile answers; do not promise a detailed conversation about them until they fill those in.
 
-## 1:35 — Yes or no, the way you'd naturally answer (judge)
+## 1:20–1:45 — Ask again, without embarrassment
 
-Lucia sometimes offers something: *"Want to hear more about C?"* and the lens shows
-`Nod or say "yes"`. The judge can nod, shake their head, or just say yes/no. No new gesture to learn: it's what
-people do anyway.
+> “You don't have to remember the answer. Ask the same question again.”
 
-## 1:55 — Safety (judge)
+Let them repeat “Who is this?” or use “Lucia, say that again.” If they missed the voice, try “Lucia, say that again slowly.”
 
-A: "Last one. Say: 'I want to go home.'"
-- Lucia: *"You're safe, {Name}. Shrikar knows where you are, and I'm letting him know now."*
-- **Op holds up the phone: the real iMessage just arrived.** The caregiver page shows the alert.
+> “It gives you a calm reminder without saying you already asked. The goal is to make that small moment something you can handle yourself.”
 
-## 2:15 — The caregiver side (Op, phone in hand)
+A short “huh?” works in the 15-second follow-up window after an answer. During playback, use the wake word plus a control or hold the temple; do not promise every background “what?” interrupts.
 
-> "This is what the caregiver sees: who you met, what you asked, and how often. You asked about C twice in two
-> minutes; that's useful for a family, and the patient is never made to feel it."
+## 1:45–2:05 — Orientation
 
-## 2:35 — Close (A)
+If not already shown, ask “Where am I?” or “Why am I here?” A day/time question uses the Mac's actual clock; do not rehearse a fixed spoken time. Skip this section if the judge has already explored location.
 
-> "Everything you just saw ran on the glasses and on the family's own devices. No cloud AI, no patient data
-> leaving home. Faces are only added with that person's consent. Lucia never quizzes, never corrects, and
-> treats every question as the first time, because for the person asking, it is."
+## 2:05–2:35 — Support when needed
 
-Pause. "Thank you."
+> “Independence doesn't mean having no one to turn to. For this next part, we're testing a distress alert. Try ‘Lucia, I want to go home.’”
 
-## If something breaks (say it calmly, keep going)
+Lucia responds and the operator checks both the caregiver feed and receiving phone. Hold up an actual received iMessage only after it arrives. The alert includes the time and available place. The caregiver feed is not proof an iMessage arrived.
 
-| Problem | Do this |
+> “The caregiver can see the question and check in, while ordinary reminders stay in the glasses.”
+
+The current distress response speaks before attempting the text and can overstate notification or location. The operator must confirm the real result; do not claim delivery from the spoken response alone.
+
+## 2:35–3:00 — Close on independence
+
+> “We want everyday reminders to be something you can ask for yourself, with familiar support close by when you need it. You don't have to find a phone, learn a menu or explain that you forgot.
+>
+> Processing runs on our own devices, and caregiver alerts use iMessage. This is our working prototype; the next step is testing it with the people who would use it.”
+
+Introduce the team now if useful. Use [SUBMISSION.md](SUBMISSION.md) for implementation and prior-work questions. Do not claim measured clinical benefit or guaranteed emergency response.
+
+## Optional, after the core flow
+
+Fall detection is a separate experimental demonstration, not a requirement for the three-minute flow. Include it only after a reliable rehearsal and if time allows. A synthetic/replayed fall must be described as such; do not imply a hardware event occurred. Nobody needs to perform a real fall to complete this demo. A second person or a hackathon/company question is also optional.
+
+## Keep moving if something fails
+
+| Observation | Next step |
 |---|---|
-| Voice not heard (loud room) | "You can also just touch the side." Touch → ask. |
-| Face not recognized | Step closer, face the camera, good light. Or ask "Who is B?" by name. |
-| Wi-Fi / link drops | Op restarts the glasses app; meanwhile show the simulator (`/sim/`) on the laptop. |
-| iMessage slow | Show the caregiver page alert; the message lands a few seconds later. |
-
-## Flagship moments (for the pitch and the video)
-
-1. **"We won't introduce ourselves"** framing + automatic face introductions.
-2. **Same question, same calm answer** (repeat-safe).
-3. **Distress → real iMessage** to the caregiver.
-4. Nod / say yes to an offer (natural, nothing to learn).
-5. Local-first privacy.
+| No greeting | Use the pinned instruction and ask the first question; do not wait silently for the wear sensor. |
+| Wake word missed in venue noise | Hold the right side, pause for listening, then ask. |
+| Face not recognized | One person, better light; then ask “Who is Shrikar?” as an explicitly named-person fallback. This does not prove face recognition. |
+| Voice too quiet | Let the judge read the lens; operator fixes volume before another run. Temple input alone does not make output louder. |
+| Link drops | Use the rehearsed USB fallback; if necessary show the simulator and say you are switching to it. |
+| iMessage absent | Check the feed's send status; show the feed as the feed, without promising a later delivery. |
+| Nod unreliable | Say yes. |
+| Running long | Keep the first face, repeat and caregiver moment. Skip extra people, event trivia and falls. |

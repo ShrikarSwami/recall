@@ -45,3 +45,9 @@ def test_heads_up_once():
 def test_greeting_line_and_end_of_day():
     assert schedule.next_line(EV, AT_11) == "Your next thing is Lunch at 12:30."
     assert "nothing else" in schedule.answer(EV, "what's next", datetime(2026, 11, 21, 19, 0))[0]
+
+
+def test_calendar_phrasings_reach_the_schedule():
+    for q in ["what's on my schedule today?", "what's on my calendar", "Lucia, what's my schedule",
+              "read me today's agenda", "what's on the calendar today"]:
+        assert schedule.NEXT.search(q), q

@@ -110,3 +110,93 @@ def test_yes_variants(brain, q):
     brain.saw("dev")
     ask(brain, "who is this")
     assert ask(brain, q).intent == "offer_yes"
+
+
+def test_bystander_talk_during_an_offer_is_ignored():
+    """Rehearsal 1: chatter during "Want to hear more?" was answered, each answer opened a new offer."""
+    import asyncio
+    import time
+    from lucia import server
+    hub, asked = server.hub, []
+
+    async def fake_question(text):
+        asked.append(text)
+
+    async def run(text):
+        async def tx(pcm):
+            return text
+        hub.stt.transcribe, hub.question = tx, fake_question
+        hub.armed_until, hub.armed_by_offer = time.time() + 10, True
+        await hub.utterance(b"")
+
+    try:
+        for said in ["Oh, it works. It works.", "Abhi, Abhi, Abhi", "Yes, that is my game of magnets."]:
+            asyncio.run(run(said))
+        assert asked == []
+        for said in ["Yes.", "yeah sure", "no thanks"]:
+            asyncio.run(run(said))
+        assert asked == ["Yes.", "yeah sure", "no thanks"]
+    finally:
+        del hub.stt.transcribe, hub.question
+        hub.armed_until, hub.armed_by_offer = 0.0, False
+
+
+def test_standby_keeps_lucia_quiet_until_start_except_falls():
+    import asyncio
+    from lucia import server
+    hub, sent = server.hub, []
+
+    async def capture(msg):
+        sent.append(msg if isinstance(msg, dict) else "pcm")
+    hub.to_glasses = capture
+    hub.cfg["voice"]["speakAnswers"] = False
+    try:
+        asyncio.run(hub.set_standby(True))
+        assert {"type": "power", "on": False} in sent
+        sent.clear()
+        asyncio.run(hub.say(hub.brain._reply("Hello there.", "Hi", "kb:faq")))
+        assert not [m for m in sent if isinstance(m, dict) and m.get("type") == "card"]
+        asyncio.run(hub.set_standby(False))
+        cards = [m for m in sent if isinstance(m, dict) and m.get("type") == "card"]
+        assert {"type": "power", "on": True} in sent and cards[-1]["title"] == "Welcome"
+    finally:
+        del hub.to_glasses
+        hub.cfg["voice"]["speakAnswers"] = True
+        hub.standby = False
+
+
+@pytest.mark.parametrize("said", ["Oh yeah!", "Uh-huh.", "yes I would", "Yeah, tell me more.", "Sure, why not."])
+def test_natural_yes_replies_count(brain, said):
+    from lucia.brain import YES
+    assert YES.search(said)
+
+
+@pytest.mark.parametrize("said", ["No, I'm good.", "Not really.", "Um, no.", "Nope."])
+def test_natural_no_replies_count(brain, said):
+    from lucia.brain import NO
+    assert NO.search(said)
+
+
+def test_who_is_this_without_wake_word_when_a_face_is_in_view():
+    import asyncio
+    from lucia import server
+    hub, asked = server.hub, []
+
+    async def fake_question(text):
+        asked.append(text)
+
+    async def run(text):
+        async def tx(pcm):
+            return text
+        hub.stt.transcribe, hub.question = tx, fake_question
+        await hub.utterance(b"")
+    try:
+        hub.brain.seen.clear()
+        asyncio.run(run("Who is this?"))
+        assert asked == []                     # nobody in view: bystander talk
+        hub.brain.saw("abhiram")
+        asyncio.run(run("Who is this?"))
+        assert asked == ["Who is this?"]
+    finally:
+        del hub.stt.transcribe, hub.question
+        hub.brain.seen.clear()

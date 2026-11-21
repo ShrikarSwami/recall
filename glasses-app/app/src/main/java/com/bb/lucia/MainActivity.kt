@@ -74,6 +74,20 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
 
     private var camera: Camera? = null
     private var lastFrameMs = 0L
+    private var lastPreviewMs = 0L
+    // The M6 camera can silently stop delivering preview frames (seen on stage, Nov 21): reopen it.
+    private val cameraWatchdog = object : Runnable {
+        override fun run() {
+            val cam = camera
+            if (cam != null && lastPreviewMs > 0 && System.currentTimeMillis() - lastPreviewMs > 5000) {
+                log("camera stalled ${System.currentTimeMillis() - lastPreviewMs} ms; reopening")
+                try { cam.setPreviewCallback(null); cam.stopPreview(); cam.release() } catch (e: Exception) {}
+                camera = null; lastPreviewMs = 0L
+                openCamera()
+            }
+            ui.postDelayed(this, 2000)
+        }
+    }
     private var frameEveryMs = 1000L
     private var snapRequested = false
     private val camTexture = SurfaceTexture(10)
@@ -313,6 +327,8 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
                 setPreviewCallback { data, cam -> onFrame(data, cam) }
                 startPreview()
             }
+            lastPreviewMs = System.currentTimeMillis()
+            ui.removeCallbacks(cameraWatchdog); ui.postDelayed(cameraWatchdog, 2000)
         } catch (e: Exception) {
             log("camera failed $e; retrying in 3 s")
             camera = null
@@ -322,6 +338,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
 
     private fun onFrame(nv21: ByteArray, cam: Camera) {
         val now = System.currentTimeMillis()
+        lastPreviewMs = now
         if (!snapRequested && now - lastFrameMs < frameEveryMs) return
         lastFrameMs = now; snapRequested = false
         val s = cam.parameters.previewSize
@@ -445,6 +462,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
 
     override fun onDestroy() {
         super.onDestroy()
+        ui.removeCallbacks(cameraWatchdog)
         camera?.apply { setPreviewCallback(null); stopPreview(); release() }
         recorder?.release(); player?.release(); tts?.shutdown()
     }

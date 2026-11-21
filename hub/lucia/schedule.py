@@ -14,7 +14,7 @@ from rapidfuzz import fuzz
 HEADS_UP_MIN = 15
 
 NEXT = re.compile(r"\b(what('s| is| do i have)? (next|coming up|after this)|what('s| is) (on|happening) (today|now|later)|"
-                  r"what('s| is) (the )?(schedule|plan|agenda)|what (am i|are we) doing (today|next|later)|"
+                  r"what('s| is) (the )?(schedule|plan|agenda|calendar)|(my|the|our|today'?s) (schedule|calendar|agenda)|what (am i|are we) doing (today|next|later)|"
                   r"what do i have (today|next|later)|anything (coming up|later|today))\b", re.I)
 WHEN = re.compile(r"\b(when('s| is| does| do| will)?|what time('s| is| does)?|how long (until|till|before))\b", re.I)
 
