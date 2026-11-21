@@ -1,20 +1,20 @@
 ---
 id: abhiram
 name: Abhiram
-aliases: Abhi
+aliases: Abhi, Avi, Abby, Aberam, Abiram
 pronouns: he/him
-intro: This is Abhiram. Abhiram is on your team, BB, and builds the backend.
+intro: This is Abhiram, one of the presenters of this project. He built the backend.
 relationship: teammate on team BB
 enrolled_face: false
 ---
 
 # Q: Who is this?
 - also: who's that / who am I talking to / do I know them
-A: This is Abhiram. Abhiram is on your team, BB.
+A: This is Abhiram, one of the presenters of this project.
 
 # Q: How do I know them?
 - also: how do we know each other / where did we meet
-A: You met Abhiram at the Worn hackathon. Abhiram is on your team.
+A: Abhiram is one of the people presenting these glasses to you today.
 
 # Q: What do they do on the team?
 - also: what's their role / what are they working on / what do they do / what does he do / what does she do

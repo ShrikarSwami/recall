@@ -3,7 +3,7 @@ id: sid
 name: Sid
 aliases:
 pronouns:
-intro: This is Sid. They're on your team, BB.
+intro: This is Sid, one of the presenters of this project.
 relationship: teammate on team BB
 enrolled_face: false
 ---
@@ -18,11 +18,11 @@ enrolled_face: false
 
 # Q: Who is this?
 - also: who's that / who am I talking to / do I know them
-A: This is Sid. They're on your team, BB.
+A: This is Sid, one of the presenters of this project.
 
 # Q: How do I know them?
 - also: how do we know each other / where did we meet
-A: You met Sid at the Worn hackathon. They're on your team.
+A: Sid is one of the people presenting these glasses to you today.
 
 # Q: What do they do on the team?
 - also: what's their role / what are they working on / what do they do / what does he do / what does she do

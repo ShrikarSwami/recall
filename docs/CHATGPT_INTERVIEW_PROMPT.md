@@ -33,7 +33,7 @@ id: <firstname, lowercase>
 name: <Full Name>
 aliases: <nicknames, comma-separated, or blank>
 pronouns: <he/him | she/her | they/them>
-intro: This is <Name>. <One short sentence: on your team, BB, and what they do.>
+intro: This is <Name>, one of the presenters of this project. <Optional short sentence: what they built.>
 relationship: teammate on team BB
 enrolled_face: false
 ---
@@ -47,6 +47,8 @@ A: <same as intro>
 A: <answer>
 
 (one "# Q:" block per fact; aim for 20–35 blocks)
+
+PERSPECTIVE: the listener is a judge meeting me at our demo. Say "one of the presenters of this project", never "on your team" or "your friend".
 
 ANSWER RULES
 - 1–2 short sentences, under 25 words, warm, plain spoken English. No lists, emoji, or markdown in answers.
