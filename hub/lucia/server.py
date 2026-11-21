@@ -20,9 +20,10 @@ from fastapi.staticfiles import StaticFiles
 from . import knowledge
 from .export_kb import export_kb
 from .alerts import Alerts
-from .brain import Brain, Reply
+from .brain import OFFER_S, Brain, Reply
 from .config import DATA_DIR, FACES_DIR, KNOWLEDGE_DIR, ROOT, fill, load_config, placeholders
 from .faces import Faces
+from .gestures import HeadGestures
 from .llm import LLM
 from .speech import Segmenter, Transcriber, Voice, earcon, split_wake
 
@@ -57,6 +58,8 @@ class Hub:
         DATA_DIR.mkdir(parents=True, exist_ok=True)
         self.log_path = DATA_DIR / "events.jsonl"
         self.rec: dict | None = None   # active hardware recording (see /api/record)
+        self.head = HeadGestures()
+        self.imu_for_offer = False
 
     # ------------------------------------------------------------------ recording (glasses-free dev)
     async def record_start(self, label: str, seconds: float, imu: bool):
@@ -143,19 +146,58 @@ class Hub:
 
     async def say(self, reply: Reply, question: str = ""):
         async with self.speak_lock:
+            ttl = max(6000, 450 * len(reply.speech.split()) + 3000) + (OFFER_S * 1000 if reply.offer else 0)
             await self.to_glasses({"type": "card", "title": reply.title, "lines": reply.lines, "intent": reply.intent,
-                                   "ttl_ms": max(6000, 450 * len(reply.speech.split()) + 3000)})
+                                   "prompt": reply.prompt or "", "ttl_ms": ttl})
             await self.to_glasses({"type": "state", "value": "idle"})
             if self.cfg["voice"].get("speakAnswers", True):
                 pcm = await self.voice.pcm(reply.speech)
                 self.playing_until = time.time() + len(pcm) / 2 / Voice.OUT_RATE + 0.4
                 for i in range(0, len(pcm), 8820):  # 200 ms chunks
                     await self.to_glasses(pcm[i:i + 8820])
+            if reply.offer and self.brain.offer:
+                await self.open_offer()
         await self.event("answer", question=question, speech=reply.speech, intent=reply.intent,
                          subject=reply.subject, repeat=reply.repeat_count, score=reply.score)
         if reply.alert:
             status = await self.alerts.send(f"{self.cfg['appName']}: {reply.alert}")
             await self.event("alert", text=reply.alert, status=status)
+
+    # ------------------------------------------------------------------ yes/no offers (nod or say "yes")
+    async def open_offer(self):
+        """Lucia just asked a yes/no question: listen for "yes"/"no" (no wake word needed) and a nod/shake."""
+        until = max(time.time(), self.playing_until) + OFFER_S
+        self.brain.offer.until = until
+        self.armed_until = until
+        self.head.reset()
+        if not self.imu_for_offer:
+            self.imu_for_offer = True
+            await self.to_glasses({"type": "imu", "on": True})
+        await self.event("offer", kind=self.brain.offer.kind, subject=self.brain.offer.subject)
+        asyncio.create_task(self._close_offer_later(until))
+
+    async def _close_offer_later(self, until: float):
+        await asyncio.sleep(max(0.0, until - time.time()) + 0.2)
+        if self.brain.offer and self.brain.offer.until > time.time():
+            return  # a newer offer is open
+        self.brain.offer = None
+        if self.imu_for_offer:
+            self.imu_for_offer = False
+            if not self.rec:
+                await self.to_glasses({"type": "imu", "on": False})
+
+    async def head_gesture(self, name: str, source: str = "imu"):
+        reply = self.brain.gesture(name)
+        await self.event("gesture", name=name, source=source, used=reply is not None)
+        if reply:
+            self.armed_until = 0
+            await self.say(reply, f"({name})")
+
+    def imu(self, rows: list):
+        if self.brain.offer and time.time() < self.brain.offer.until:
+            g = self.head.feed(rows)
+            if g:
+                asyncio.create_task(self.head_gesture(g))
 
     # ------------------------------------------------------------------ input
     async def arm(self, why: str):
@@ -219,8 +261,7 @@ class Hub:
             return
         self.introduced[pid] = now
         self.brain.topic = (pid, now)
-        r = self.brain._reply(self.brain.intro(pid), self.kb.people[pid].first, "proactive_intro", pid)
-        await self.say(r)
+        await self.say(self.brain.intro_reply(pid, "proactive_intro"))
 
     async def greet(self):
         if time.time() - self.last_greet < GREET_GAP_S:
@@ -260,6 +301,8 @@ async def ws_lens(ws: WebSocket):
             m = json.loads(await ws.receive_text())
             if m.get("type") == "key" and m.get("name") in TOUCH_KEYS:
                 await hub.arm(m.get("name") + " (lens)")
+            elif m.get("type") == "gesture" and m.get("name") in ("nod", "shake"):
+                asyncio.create_task(hub.head_gesture(m["name"], "lens"))
             elif m.get("type") == "ask":
                 asyncio.create_task(hub.question(m.get("text", "")))
             elif m.get("type") == "seen":
@@ -316,6 +359,7 @@ async def ws_glasses(ws: WebSocket):
                     await hub.greet()
                 elif t == "imu":
                     hub.record_line("imu", {"rows": m.get("rows", [])})
+                    hub.imu(m.get("rows", []))
                 elif t == "key":
                     hub.record_line("keys", m)
                     await hub.event("key", name=m.get("name"), code=m.get("code"), scan=m.get("scan"), device=m.get("device"))

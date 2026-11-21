@@ -13,6 +13,8 @@ Connects to ws://<hub>/ws/glasses and sends the same binary/JSON the glasses app
     # put the glasses "on" (greeting), or press any measured gesture:
     uv run python tools/replay_glasses.py --key worn
     uv run python tools/replay_glasses.py --key double_tap
+    # answer a yes/no offer ("Want to hear more about Sid?") with a head nod, or by saying it:
+    uv run python tools/replay_glasses.py --say "Lucia, who is Sid?" --then nod --then say:no
 
 Key names → codes are the real ones measured on the M6 (docs/HARDWARE.md).
 Only one glasses client is active at a time: running this takes over from real glasses until it exits.
@@ -29,6 +31,10 @@ import wave
 from pathlib import Path
 
 import websockets
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from lucia.gestures import synth  # noqa: E402
 
 KEYS = {"tap": 66, "double_tap": 142, "long_press": 141, "swipe_forward": 22, "swipe_back": 21, "back": 4, "worn": 301}
 CHUNK = 3200  # 100 ms of 16 kHz PCM16
@@ -57,6 +63,10 @@ async def listen(ws, until: float):
         m = json.loads(msg)
         if m.get("type") == "card":
             print(f"  LENS  [{m.get('intent')}] {m.get('title')}: {' / '.join(m.get('lines', []))}")
+            if m.get("prompt"):
+                print(f"        prompt: {m['prompt'].replace(chr(10), ' | ')}")
+        elif m.get("type") == "imu":
+            print(f"  hub asked for IMU streaming: {m.get('on')}")
         elif m.get("type") == "state":
             print(f"  state {m.get('value')}")
 
@@ -97,6 +107,18 @@ async def main(a):
             await stream_audio(ws, silence(0.4) + tts_pcm(a.say) + silence(1.2))
         if a.recording:
             await replay(ws, Path(a.recording))
+        for step in a.then or []:
+            await asyncio.sleep(a.gap)                # let Lucia finish speaking
+            if step in ("nod", "shake"):
+                print(f"→ head {step} (gyro)")
+                rows = synth(step, t0_ms=int(time.time() * 1000) % 10_000_000)
+                for i in range(0, len(rows), 6):      # ~100 ms batches, like the app
+                    await ws.send(json.dumps({"type": "imu", "rows": rows[i:i + 6]}))
+                    await asyncio.sleep(0.1)
+            else:
+                text = step[4:] if step.startswith("say:") else step
+                print(f"→ says: {text!r}")
+                await stream_audio(ws, silence(0.3) + tts_pcm(text) + silence(1.2))
 
         await asyncio.sleep(a.wait)
         listener.cancel()
@@ -131,5 +153,8 @@ if __name__ == "__main__":
     p.add_argument("--frame", help="JPEG to send as the camera view")
     p.add_argument("--key", action="append", help=f"gesture: {', '.join(KEYS)} (repeatable)")
     p.add_argument("--recording", help="hub/data/recordings/<step> folder to replay")
+    p.add_argument("--then", action="append",
+                   help='after the answer: "nod", "shake" or "say:<words>" (repeatable, e.g. --then nod --then say:yes)')
+    p.add_argument("--gap", type=float, default=7.0, help="seconds between --then steps (Lucia speaking)")
     p.add_argument("--wait", type=float, default=6.0, help="seconds to keep listening for answers")
     asyncio.run(main(p.parse_args()))

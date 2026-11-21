@@ -84,6 +84,9 @@
   $("b-tap").onclick = function () { arm("tap"); };
   // any touch on the temple asks: the wearer never has to remember which gesture
   $("b-hold").onclick = function () { arm("long_press"); };
+  // head gestures (IMU): only mean something right after Lucia asks a yes/no question
+  $("b-nod").onclick = function () { log("imu", "nod"); if (mode === "live") send({ type: "gesture", name: "nod" }); };
+  $("b-shake").onclick = function () { log("imu", "shake"); if (mode === "live") send({ type: "gesture", name: "shake" }); };
   $("b-left").onclick = function () { arm("swipe_back"); };
   $("b-right").onclick = function () { arm("swipe_forward"); };
   $("b-back").onclick = function () { log("key", "back (swallowed: Lucia never closes)"); };
