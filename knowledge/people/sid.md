@@ -18,7 +18,7 @@ enrolled_face: true
 
 # Q: Who is this?
 - also: who's that / who am I talking to / do I know them
-A: This is Sid, one of the presenters of this project. He worked on the front end of the app and designed the squirrel guide on the lens.
+A: This is Sid, one of the presenters of this project. He designed the squirrel guide.
 
 # Q: How do I know them?
 - also: how do we know each other / where did we meet

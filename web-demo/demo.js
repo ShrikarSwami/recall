@@ -55,15 +55,25 @@
       talkTimer = setTimeout(done, 380 * speech.split(" ").length + 4000);
     } else talkTimer = setTimeout(done, 330 * speech.split(" ").length + 600);
     G.add("lucia", { text: speech });
+    syncOffer();
+  }
+  function syncOffer() {
+    var box = $("offer");
+    if (offer && on) { $("offer-q").textContent = "Hear more about " + KB.people[offer.id].first + "?"; box.hidden = false; }
+    else box.hidden = true;
+    Array.prototype.forEach.call(document.querySelectorAll("[data-person]"), function (b) {
+      b.className = offer && b.getAttribute("data-person") === offer.id ? "on" : "";
+    });
   }
   function think(fn) { lensMsg({ type: "state", value: "thinking" }); setTimeout(fn, 450); }
   function stop() {
     gen++; if (window.speechSynthesis) speechSynthesis.cancel();
     lensMsg({ type: "clear" }); lensMsg({ type: "avatar", talking: false, perk: true });
+    syncOffer();
   }
   function power(v) {
     on = v; lensMsg({ type: "power", on: v });
-    if (!v) { stop(); G.live.lensSeen = 0; }
+    if (!v) { offer = null; stop(); G.live.lensSeen = 0; }
   }
   function phone(text) {
     $("phone-text").textContent = text; $("phone").className = "on";
@@ -169,7 +179,7 @@
   Array.prototype.forEach.call(document.querySelectorAll("[data-person]"), function (b) { b.addEventListener("click", function () { meet(b.getAttribute("data-person")); }); });
   Array.prototype.forEach.call(document.querySelectorAll("[data-say]"), function (b) { b.addEventListener("click", function () { answerOffer(b.getAttribute("data-say") === "yes"); }); });
   $("ask").addEventListener("submit", function (e) { e.preventDefault(); ask($("ask-text").value); $("ask-text").value = ""; });
-  ["Go-go, where am I?", "What day is it?", "Who is Abhiram?", "Say that again", "I want to go home"].forEach(function (q) {
+  ["Where am I?", "What day is it?", "What's Sid's favorite food?", "Say that again", "I want to go home"].forEach(function (q) {
     var b = document.createElement("button"); b.type = "button"; b.textContent = q;
     b.addEventListener("click", function () { ask(q); }); $("examples").appendChild(b);
   });

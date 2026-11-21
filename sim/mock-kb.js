@@ -5952,7 +5952,7 @@ window.MOCK_KB = {
     "who am I talking to",
     "do I know them"
    ],
-   "answer": "This is Sid, one of the presenters of this project. He worked on the front end of the app and designed the squirrel guide on the lens."
+   "answer": "This is Sid, one of the presenters of this project. He designed the squirrel guide."
   },
   {
    "scope": "person",
