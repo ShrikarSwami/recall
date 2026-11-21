@@ -291,7 +291,7 @@
     $("pl-city").value = pl.city; $("pl-lat").value = pl.lat; $("pl-lon").value = pl.lon; $("pl-gate").value = pl.gate; $("pl-bag").value = pl.bag; $("pl-seat").value = pl.seat;
     $("pl-to").value = (pl.routeToBathroom || []).join("\n"); $("pl-back").value = (pl.routeBack || []).join("\n");
     drawDays();
-    var q = ["Take your pills with a glass of water", "Please stay away from the stairs", "It's lunch time, come and sit down", state.profile.caregiver.split(" ")[0] + " is on her way", "You're doing really well"];
+    var q = ["Take your pills with a glass of water", "Please stay away from the stairs", "It's lunch time, come and sit down", state.profile.caregiver.split(" ")[0] + " is on the way", "You're doing really well"];
     $("quick").innerHTML = q.map(function (t) { return '<button type="button">' + esc(t) + "</button>"; }).join("");
     Array.prototype.forEach.call($("quick").children, function (b) { b.addEventListener("click", function () { $("s-text").value = b.textContent; }); });
     filled = true;
