@@ -9,6 +9,8 @@ Lucia only states facts written here. More good answers = a better demo, since t
 | `people/<firstname>.md` | one teammate (or a judge) | that person. **Agents: ask your human to fill theirs in.** |
 | `patient.md` | the patient (demo persona, name from config) | content owner |
 | `places.md` | places; `config` → `currentPlace` picks the active one | content owner |
+| `schedule.md` | the wearer's day (`## YYYY-MM-DD` / `- HH:MM Title \| detail`): drives "what's next" and heads-ups | caregiver |
+| `event.md` | the Worn hackathon: rooms, tracks, judges, prizes, deadlines | content owner |
 | `faq.md` | the glasses/app itself, privacy, how-to, anything else | content owner |
 | `people/_example.md`, `people/_judge.md` | templates (files starting with `_` are ignored) | — |
 
@@ -42,3 +44,5 @@ A: Abhiram grew up in Edison, New Jersey.
 `docs/CHATGPT_KB_PROMPT.md` is a ready prompt that has ChatGPT generate hundreds of Q&A blocks in this exact
 format for `patient.md`, `places.md` and `faq.md`. Paste its output into the right file, skim it, and run the
 tests (`cd hub && uv run pytest -q`).
+
+Who fills in what, and what must stay private: `docs/CAREGIVER_DATA.md`.

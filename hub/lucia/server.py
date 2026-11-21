@@ -7,17 +7,18 @@ Glasses protocol: see glasses-app/.../MainActivity.kt. Caregiver page: /caregive
 from __future__ import annotations
 
 import asyncio
+from datetime import datetime
 import json
 import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import Depends, FastAPI, HTTPException, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import knowledge
+from . import knowledge, reminders, schedule
 from .export_kb import export_kb
 from .alerts import Alerts
 from .brain import OFFER_S, Brain, Reply
@@ -57,7 +58,9 @@ class Hub:
         self.speak_lock = asyncio.Lock()
         DATA_DIR.mkdir(parents=True, exist_ok=True)
         self.log_path = DATA_DIR / "events.jsonl"
-        self.rec: dict | None = None   # active hardware recording (see /api/record)
+        self.rec: dict | None = None
+        self.reminders: dict[str, list[str]] = {}
+        self.arrived_at: dict[str, float] = {}   # active hardware recording (see /api/record)
         self.head = HeadGestures()
         self.imu_for_offer = False
 
@@ -98,7 +101,47 @@ class Hub:
             self.rec[kind].write(json.dumps({"t": round(time.time() - self.rec["t0"], 3), **obj}) + "\n")
 
     # ------------------------------------------------------------------ setup
+    def load_day(self):
+        """Schedule + place reminders (knowledge/schedule.md, config/reminders*.md)."""
+        self.brain.events = schedule.load(KNOWLEDGE_DIR / "schedule.md")
+        self.reminders = reminders.load()
+
+    async def heads_up_loop(self):
+        """A calm heads-up ~15 minutes before each schedule item, once each."""
+        said: set[str] = set()
+        while True:
+            await asyncio.sleep(20)
+            try:
+                now = datetime.fromtimestamp(time.time())
+                e = schedule.heads_up(self.brain.events, now, said)
+                if not e or self.glasses is None or self.worn is False:
+                    continue
+                if time.time() < self.playing_until or time.time() < self.armed_until or self.speak_lock.locked():
+                    continue
+                said.add(e.key)
+                mins = round((e.start - now).total_seconds() / 60)
+                r = self.brain._reply(f"Just so you know, {e.title} is in about {mins} minutes.", e.title, "heads_up")
+                await self.say(r)
+            except Exception as ex:  # never let the reminder loop die
+                print(f"[hub] heads-up error: {ex!r}")
+
+    async def arrive(self, name: str, kind: str, home_min) -> str:
+        """iPhone says we're somewhere. Remember it; on a *new* arrival, say where and read that place's reminders once."""
+        now = time.time()
+        key = f"{kind}:{name}".lower()
+        prev = self.brain.place
+        self.brain.place = {"name": name, "kind": kind, "home_min": home_min, "at": now}
+        new_arrival = not prev or f"{prev.get('kind')}:{prev.get('name')}".lower() != key or now - self.arrived_at.get(key, 0) > 30 * 60
+        if not new_arrival:
+            return ""
+        self.arrived_at[key] = now
+        speech = " ".join(p for p in (self.brain.where_line(), reminders.arrival_lines(kind, self.reminders)) if p)
+        await self.say(self.brain._reply(speech, name[:22], "arrival"))
+        return speech
+
     async def start(self):
+        self.load_day()
+        asyncio.create_task(self.heads_up_loop())
         self.enrolled = self.faces.enroll_all() if FACES_DIR.exists() else {}
         print(f"[hub] knowledge: {len(self.kb.entries)} answers, people={list(self.kb.people)}, faces={self.enrolled}")
         loop = asyncio.get_running_loop()
@@ -109,8 +152,10 @@ class Hub:
         self.cfg = load_config()
         self.kb = knowledge.load(KNOWLEDGE_DIR)
         self.brain.cfg, self.brain.kb = self.cfg, self.kb
+        self.load_day()
         self.enrolled = self.faces.enroll_all() if FACES_DIR.exists() else {}
-        return {"answers": len(self.kb.entries), "people": list(self.kb.people), "faces": self.enrolled}
+        return {"answers": len(self.kb.entries), "people": list(self.kb.people), "faces": self.enrolled,
+                "schedule": len(self.brain.events), "reminder_kinds": list(self.reminders)}
 
     # ------------------------------------------------------------------ output
     async def event(self, kind: str, **data):
@@ -402,21 +447,51 @@ async def caregiver_page():
     return FileResponse(WEB / "index.html")
 
 
-@app.post("/api/ask")
+def require_token(request: Request):
+    """Write endpoints: open to this Mac (sim, tools), token-protected for anything on the network
+    (the iPhone Shortcut, a teammate's laptop). Token = "apiToken" in config/app.local.json,
+    sent as header X-Lucia-Token or ?token=. With no apiToken configured, everything is open (dev)."""
+    host = request.client.host if request.client else ""
+    if host in ("127.0.0.1", "::1", "localhost"):
+        return
+    want = hub.cfg.get("apiToken")
+    if want and (request.headers.get("x-lucia-token") or request.query_params.get("token")) != want:
+        raise HTTPException(401, "missing or wrong X-Lucia-Token")
+
+
+@app.post("/api/place", dependencies=[Depends(require_token)])
+async def api_place(body: dict):
+    """iPhone Shortcut: {"name": "Whole Foods in Hoboken", "kind": "grocery", "home_min": 10}.
+    Only the name/kind/minutes are kept (in memory); never coordinates or the home address."""
+    name = str(body.get("name", "")).strip()[:60]
+    if not name:
+        raise HTTPException(400, "name is required")
+    kind = str(body.get("kind", "place")).strip().lower()[:20] or "place"
+    home_min = body.get("home_min")
+    try:
+        home_min = None if home_min in (None, "") else max(0, round(float(home_min)))
+    except (TypeError, ValueError):
+        home_min = None
+    said = await hub.arrive(name, kind, home_min)
+    await hub.event("place", name=name, place_kind=kind, home_min=home_min, announced=bool(said))
+    return {"ok": True, "said": said}
+
+
+@app.post("/api/ask", dependencies=[Depends(require_token)])
 async def api_ask(body: dict):
     """Type a question as if spoken (testing, or a teammate driving the demo)."""
     await hub.question(body.get("text", ""))
     return {"ok": True}
 
 
-@app.post("/api/say")
+@app.post("/api/say", dependencies=[Depends(require_token)])
 async def api_say(body: dict):
     r = hub.brain._reply(body.get("text", ""), body.get("title", hub.cfg["appName"]), "manual")
     await hub.say(r)
     return {"ok": True}
 
 
-@app.post("/api/record")
+@app.post("/api/record", dependencies=[Depends(require_token)])
 async def api_record(body: dict):
     """Record raw glasses data for offline development: mic.wav, frames/*.jpg, imu.jsonl, keys.jsonl
     in hub/data/recordings/<label>/ (gitignored, local only). {"label": "nod", "seconds": 15, "imu": true}"""
@@ -427,12 +502,12 @@ async def api_record(body: dict):
     return {"recording": label}
 
 
-@app.post("/api/reload")
+@app.post("/api/reload", dependencies=[Depends(require_token)])
 async def api_reload():
     return hub.reload()
 
 
-@app.post("/api/patient")
+@app.post("/api/patient", dependencies=[Depends(require_token)])
 async def api_patient(body: dict):
     """Swap the patient's name live (e.g. to the judge's name)."""
     name = body.get("name", "").strip()

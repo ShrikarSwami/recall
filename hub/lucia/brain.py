@@ -12,7 +12,7 @@ from collections import deque
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from . import matcher
+from . import matcher, schedule
 from .config import fill, placeholders
 from .knowledge import Knowledge
 
@@ -22,6 +22,8 @@ DISTRESS = re.compile(
     r"don't know where i am|do not know where i am|get me out)\b", re.I)
 TIME = re.compile(r"\b(what )?(time|day|date|year|month)\b.*\b(is it|today|now)\b|\bwhat day\b|\bwhat time\b|"
                   r"\bwhat('s| is) the date\b|\bwhat year\b|\bwhat month\b|\btoday's date\b", re.I)
+WHERE = re.compile(r"\b(where (am i|are we|is this)|what (is|'s) this place|what place is this|where have i (got|gotten) to)\b", re.I)
+PLACE_FRESH_S = 15 * 60   # an iPhone place report counts as "where you are now" for this long
 WHO_THIS = re.compile(
     r"\b(who('s| is| are)? (this|that|he|she|they|it|in front of me|next to me|talking)|"
     r"who am i (talking|speaking) (to|with)|(?<!how )do i know (him|her|them|this|that)|"
@@ -74,8 +76,25 @@ class Brain:
     latest_frame: bytes | None = None
     clock: object = time.time
     offer: Offer | None = None
+    events: list = field(default_factory=list)                 # schedule.Event list (knowledge/schedule.md)
+    place: dict | None = None                                  # live place from the iPhone: name, kind, home_min, at
 
     # ---------------------------------------------------------------- context
+    def live_place(self) -> dict | None:
+        if self.place and self.clock() - self.place.get("at", 0) < PLACE_FRESH_S:
+            return self.place
+        return None
+
+    def where_line(self) -> str:
+        p = self.live_place()
+        if p:
+            line = f"You're at {p['name']}."
+            if p.get("home_min") is not None:
+                m = int(p["home_min"])
+                line += " Home is about a minute away." if m <= 1 else f" Home is about {m} minutes away."
+            return line
+        place = self.kb.places.get(self.cfg.get("currentPlace", ""), {})
+        return f"You're at {place['name']}." if place.get("name") else ""
     @property
     def vals(self) -> dict:
         return placeholders(self.cfg)
@@ -167,9 +186,10 @@ class Brain:
         return r
 
     def greeting(self) -> Reply:
-        place = self.kb.places.get(self.cfg.get("currentPlace", ""), {})
-        where = f" You're at {place['name']}." if place.get("name") else ""
-        return self._reply(f"Hi {{patient}}.{where} Say \"{{wake}}\" if you need anything.", "Hi {patient}", "greeting")
+        where = self.where_line()
+        nxt = schedule.next_line(self.events, datetime.fromtimestamp(self.clock()))
+        parts = [f"Hi {{patient}}.", where, nxt, f'Say "{{wake}}" if you need anything.']
+        return self._reply(" ".join(p for p in parts if p), "Hi {patient}", "greeting")
 
     # ---------------------------------------------------------------- main entry
     async def answer(self, text: str) -> Reply:
@@ -186,6 +206,14 @@ class Brain:
                             "You're safe", "distress")
             r.alert = f"{self.vals['patient']} said: \"{t}\""
             return r
+
+        # Schedule before the clock, so "what time is lunch" isn't answered with the current time.
+        sched = schedule.answer(self.events, t, datetime.fromtimestamp(self.clock()))
+        if sched:
+            return self._reply(sched[0], sched[1], "schedule")
+
+        if WHERE.search(t) and self.live_place():
+            return self._reply(self.where_line(), "Where you are", "where_live")
 
         if TIME.search(t) and not matcher.person_mentioned(t, self.kb):
             now = datetime.fromtimestamp(self.clock())

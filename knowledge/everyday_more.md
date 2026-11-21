@@ -118,7 +118,7 @@ A: I don't have the floor number saved. Someone nearby can help you check.
 
 # Q: Where is the event schedule?
 - also: Is there a timetable for the event / Where can I see today's program / Who has the event agenda / Can somebody check the event schedule / Is the program posted somewhere / Where do I find the event timings / I'd like to see the event timetable
-A: A staff member can help you find the latest event schedule.
+A: Ask me "what's next?" and I'll tell you. A staff member has the full schedule too.
 
 # Q: Has the event finished?
 - also: Is the event over / Are the activities finished / Has everything ended here / Is the event still going / Are we done with the event / Has the closing session happened / Did the event already end
@@ -126,7 +126,7 @@ A: I don't have a live event update. Ask a staff member what's happening next.
 
 # Q: Where are the judges?
 - also: Have the judges arrived / Is a judge nearby / Who can point out a judge / Can someone find the judging team / Are the judges at our table / Where is the judging area / I'd like to speak with a judge
-A: A team member or event staff can help you find the judges.
+A: Judges walk table to table from 2:15. A team member can point them out.
 
 # Q: Can somebody explain the demo to me?
 - also: What am I supposed to do in the demo / I'd like someone to walk me through the demonstration / Can someone show me how the demo works / I need the demonstration explained slowly / What's my part in this demonstration / Could a teammate explain this demo / I don't understand the demonstration

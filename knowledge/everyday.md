@@ -90,7 +90,7 @@ A: At the event, a staff member can help you find the sign-in area.
 
 # Q: Where can I get lunch?
 - also: Where is the food table / Where are people getting food / Is there somewhere to eat here
-A: Ask a staff member where food is available. I don't have a live meal schedule.
+A: Lunch is at 12:30. Ask a staff member where the food table is.
 
 # Q: Can I take a photo?
 - also: Is it okay to photograph people / May I take a picture here / Can I get a picture of this
