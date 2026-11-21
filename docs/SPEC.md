@@ -132,7 +132,7 @@ EnverThor's Ollama keeps **one model loaded at a time**: switching models costs 
 | Camera | Works from a plain app (`android.hardware.Camera`, 1 back camera). 640x480 JPEG ~40–48 KB, ~1.2 fps at our throttle. Sizes up to 1920x1080. |
 | Mic | Works (`AudioRecord`, 16 kHz mono, VOICE_RECOGNITION source); room audio arrives. Still to do: a deliberate speech test. |
 | Text-to-speech | **No TTS engine on the glasses** → the hub must speak (macOS `say`/Piper) and stream PCM 22.05 kHz to the app. |
-| Speaker | Test tone sent on each key press; confirm it's audible. |
+| Speaker | **Confirmed audible**: a PCM16 22.05 kHz tone streamed from the hub plays through the glasses speaker on each key press. |
 | Display | The launcher draws a status bar (clock, BT, Wi-Fi, battery) over the top ~40 px that apps can't hide. Our pinned hint `Say "Lucia" to ask` sits **bottom-left**. |
 | Touchpad / ring | Instant key events (~7 ms down→up), so map by key code, not timing: **66 ENTER = tap (ask)**, 142 F12 then 4 BACK (300 ms apart) = second gesture, 22/21 DPAD_RIGHT/LEFT = swipes. BACK is swallowed so nothing can close Lucia. |
 | Sensors | Accelerometer, gyroscope, magnetometer, light, proximity, step counter, **off-body detect** (auto-greet when the glasses go on), pressure. |
