@@ -29,6 +29,8 @@ window.MOCK_KB = {
    "name": "Shrikar Swami",
    "first": "Shrikar",
    "aliases": [
+    "Shri",
+    "Sri",
     "Shree",
     "Shrika",
     "Shrieker",

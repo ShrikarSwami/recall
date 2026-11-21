@@ -107,3 +107,8 @@ def test_how_do_i_know_him_is_not_who_is_this(brain):
     brain.saw("dev")
     r = ask(brain, "how do I know him?")
     assert r.intent.startswith("kb") and "hackathon" in r.speech
+
+
+def test_tell_me_about_named_person_gives_intro(brain):
+    r = ask(brain, "tell me about Dev")
+    assert r.subject == "dev" and r.speech.startswith("This is Dev")

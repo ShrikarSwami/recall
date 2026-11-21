@@ -31,8 +31,12 @@ WHO_THIS = re.compile(
 SCENE = re.compile(r"\b(what am i (looking at|seeing)|what('s| is) (in front of me|around me|this place look)|"
                    r"what do you see|describe (this|what))\b", re.I)
 
-YES = re.compile(r"^\W*(yes|yeah|yep|yup|sure|okay|ok|please|of course|yes please|go ahead|tell me|i do|sounds good)\b", re.I)
-NO = re.compile(r"^\W*(no|nope|nah|not now|no thanks|no thank you|i'?m (ok|okay|fine|good)|that'?s (ok|okay|fine|all))\b", re.I)
+YES = re.compile(r"^\W*(yes|yeah|yep|yup|sure|okay|ok|of course|go ahead|go on|tell me more|i do|sounds good|please|yes please)"
+                 r"([\s,]+(please|thanks|thank you|lucia|yes|sure|okay))*\W*$", re.I)
+NO = re.compile(r"^\W*(no|nope|nah|not now|no thanks|no thank you|i'?m (ok|okay|fine|good)|that'?s (ok|okay|fine|all)|"
+                r"i'?m good|maybe later)([\s,]+(thanks|thank you|lucia|please))*\W*$", re.I)
+
+ABOUT = re.compile(r"\b(tell me (more )?about|what do you know about|talk about|who is|who's)\b", re.I)
 
 SEEN_FRESH_S = 15        # a face counts as "in front of you" for this long
 TOPIC_FRESH_S = 180      # "he"/"she" refers to the last person discussed for this long
@@ -251,6 +255,8 @@ class Brain:
             self.topic = (named, self.clock())
         if named and re.search(r"\bwho\b", t, re.I) and len(matcher.normalise(t).split()) <= 5:
             return self.intro_reply(named, "who_is")
+        if named and ABOUT.search(t) and len(matcher.normalise(t).split()) <= 7:
+            return self.intro_reply(named, "who_is")   # "tell me about Abhiram": intro, then offer more
 
         cands = matcher.candidates(t, self.kb, person, self.cfg.get("currentPlace"))
         if person and cands and cands[0].entry.subject != person:
