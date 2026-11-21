@@ -1,38 +1,47 @@
 {
   "_comment": "Copy to config/app.local.json (gitignored) and fill in real values. Every user-facing string reads from here, so renaming the product is one edit.",
-
-  "appName": "Recall",
-  "wakeWord": "Hey Recall",
-  "idleHint": "Tap or say \"Hey Recall\"",
-
+  "appName": "Lucia",
+  "wakeWord": "Lucia",
+  "idleHint": "Say \"Lucia\" to ask",
   "patient": {
     "name": "Somya Gupta",
     "preferredName": "Somya",
-    "pronouns": "she/her"
+    "pronouns": "he/him"
   },
-
   "caregiver": {
     "name": "Shrikar",
     "relationship": "your grandson",
     "phone": "+1-000-000-0000"
   },
-
   "currentPlace": "city_tech",
-
   "models": {
-    "primary": { "host": "http://enverthor:11434", "text": "qwen2.5vl:7b", "vision": "qwen2.5vl:7b" },
-    "fallback": { "host": "http://localhost:11434", "text": "qwen2.5:3b" },
+    "primary": {
+      "host": "http://enverthor:11434",
+      "text": "qwen2.5vl:7b",
+      "vision": "qwen2.5vl:7b"
+    },
+    "fallback": {
+      "host": "http://localhost:11434",
+      "text": "qwen2.5:3b"
+    },
     "fallbackAfterMs": 2500
   },
-
   "faces": {
     "matchThreshold": 0.55,
-    "introCooldownSec": 120
+    "introCooldownSec": 120,
+    "runOn": "mac"
   },
-
   "voice": {
     "speakAnswers": true,
     "showText": true,
     "rate": 0.9
+  },
+  "stt": {
+    "engine": "mlx-whisper",
+    "model": "mlx-community/whisper-small.en-mlx",
+    "accurateModel": "mlx-community/whisper-large-v3-turbo"
+  },
+  "alerts": {
+    "imessage": true
   }
 }

@@ -1,7 +1,7 @@
 # Recall
 
 Glasses for people living with dementia. Put them on like your everyday glasses, tap the side (or say
-"Hey Recall") and ask "who is this?" or "where are we?". You get a calm, short answer in your ear and on
+"Lucia") and ask "who is this?" or "where are we?". You get a calm, short answer in your ear and on
 the lens. Built by **team BB** at the Worn Smart Glasses Hackathon (Nov 20–21, 2026) on MicroLumin M6 glasses.
 
 **Start here:** [docs/SPEC.md](docs/SPEC.md) (the full plan) · [docs/TEAM_TEMPLATE.md](docs/TEAM_TEMPLATE.md) (fill this in on Discord)

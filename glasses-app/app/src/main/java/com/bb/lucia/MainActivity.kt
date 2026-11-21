@@ -1,0 +1,301 @@
+package com.bb.lucia
+
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.graphics.Color
+import android.graphics.ImageFormat
+import android.graphics.Rect
+import android.graphics.SurfaceTexture
+import android.graphics.Typeface
+import android.graphics.YuvImage
+import android.hardware.Camera
+import android.media.AudioFormat
+import android.media.AudioManager
+import android.media.AudioRecord
+import android.media.AudioTrack
+import android.media.MediaRecorder
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.speech.tts.TextToSpeech
+import android.util.Log
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.MotionEvent
+import android.view.WindowManager
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
+import okio.ByteString
+import okio.ByteString.Companion.toByteString
+import org.json.JSONObject
+import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.concurrent.TimeUnit
+
+/**
+ * Lucia glasses app: a thin, dumb terminal. All intelligence lives in hub/.
+ *
+ *  glasses → hub   text  {"type":"hello", caps...} | {"type":"key","name":"tap|double_tap|long_press|..","code":n}
+ *                  binary 0x01 + PCM16 mono 16 kHz   (mic, ~100 ms chunks, always streaming)
+ *                  binary 0x02 + JPEG 640x480         (camera, ~1 fps, and on request)
+ *  hub → glasses   text  {"type":"config","hint":..} | {"type":"card","title":..,"lines":[..],"ttl_ms":n}
+ *                        {"type":"state","value":"idle|listening|thinking"} | {"type":"say","text":..}
+ *                        {"type":"snap"}  (send a frame now)
+ *                  binary PCM16 mono 22050 Hz         (answer audio, played as it arrives)
+ *
+ * Configure:  adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://<mac-ip>:8765/ws/glasses
+ * Logs:       adb logcat -s Lucia
+ */
+class MainActivity : Activity(), TextToSpeech.OnInitListener {
+    private val ui = Handler(Looper.getMainLooper())
+    private lateinit var hint: TextView
+    private lateinit var clock: TextView
+    private lateinit var status: TextView
+    private lateinit var title: TextView
+    private lateinit var body: TextView
+
+    private val http = OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build()
+    private var ws: WebSocket? = null
+    private var connected = false
+    private lateinit var hubUrl: String
+
+    private var camera: Camera? = null
+    private var lastFrameMs = 0L
+    private var frameEveryMs = 1000L
+    private var snapRequested = false
+    private val camTexture = SurfaceTexture(10)
+
+    private var recorder: AudioRecord? = null
+    @Volatile private var micOn = true
+    private var player: AudioTrack? = null
+    private var tts: TextToSpeech? = null
+    private var ttsReady = false
+    private var clearCard: Runnable? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        val prefs = getSharedPreferences("lucia", Context.MODE_PRIVATE)
+        intent.getStringExtra("hub")?.let { prefs.edit().putString("hub", it).apply() }
+        hubUrl = prefs.getString("hub", "ws://192.168.1.10:8765/ws/glasses")!!
+        buildUi()
+        tts = TextToSpeech(this, this)
+        connect()
+        startMic()
+        ui.post(tick)
+        log("start hub=$hubUrl model=${android.os.Build.MODEL} sdk=${android.os.Build.VERSION.SDK_INT}")
+    }
+
+    // ------------------------------------------------------------------ UI (black = transparent)
+    private fun tv(size: Float, bold: Boolean = false) = TextView(this).apply {
+        setTextColor(Color.rgb(0, 255, 80)); textSize = size
+        typeface = Typeface.create("sans-serif", if (bold) Typeface.BOLD else Typeface.NORMAL)
+    }
+
+    private fun buildUi() {
+        val root = FrameLayout(this).apply { setBackgroundColor(Color.BLACK) }
+        hint = tv(16f).apply { text = "Say “Lucia” to ask" }
+        clock = tv(16f)
+        status = tv(14f).apply { alpha = 0.8f }
+        title = tv(30f, true)
+        body = tv(22f).apply { maxLines = 3 }
+        val card = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER_VERTICAL
+            setPadding(56, 0, 56, 0); addView(title); addView(body)
+        }
+        root.addView(card, FrameLayout.LayoutParams(-1, -1))
+        root.addView(hint, FrameLayout.LayoutParams(-2, -2, Gravity.TOP or Gravity.START).apply { setMargins(24, 18, 0, 0) })
+        root.addView(clock, FrameLayout.LayoutParams(-2, -2, Gravity.TOP or Gravity.END).apply { setMargins(0, 18, 24, 0) })
+        root.addView(status, FrameLayout.LayoutParams(-2, -2, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL).apply { setMargins(0, 0, 0, 16) })
+        setContentView(root)
+        root.isFocusable = true; root.isFocusableInTouchMode = true; root.requestFocus()
+    }
+
+    private val tick = object : Runnable {
+        override fun run() {
+            clock.text = SimpleDateFormat("h:mm", Locale.US).format(Date())
+            if (!connected) status.text = "connecting…"
+            ui.postDelayed(this, 5000)
+        }
+    }
+
+    private fun showCard(t: String, lines: List<String>, ttlMs: Long) = ui.post {
+        title.text = t; body.text = lines.joinToString("\n")
+        clearCard?.let { ui.removeCallbacks(it) }
+        clearCard = Runnable { title.text = ""; body.text = "" }.also { ui.postDelayed(it, ttlMs) }
+    }
+
+    // ------------------------------------------------------------------ hub link
+    private fun connect() {
+        ws = http.newWebSocket(Request.Builder().url(hubUrl).build(), object : WebSocketListener() {
+            override fun onOpen(webSocket: WebSocket, response: Response) {
+                connected = true
+                ui.post { status.text = "" }
+                val caps = JSONObject().put("type", "hello").put("model", android.os.Build.MODEL)
+                    .put("sdk", android.os.Build.VERSION.SDK_INT).put("tts", ttsReady)
+                    .put("cameras", Camera.getNumberOfCameras())
+                webSocket.send(caps.toString())
+                log("connected")
+                ui.post { openCamera() }
+            }
+
+            override fun onMessage(webSocket: WebSocket, text: String) = handle(JSONObject(text))
+
+            override fun onMessage(webSocket: WebSocket, bytes: ByteString) = play(bytes.toByteArray())
+
+            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+                connected = false; log("ws failure ${t.message}"); retry()
+            }
+
+            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) { connected = false; retry() }
+        })
+    }
+
+    private fun retry() = ui.postDelayed({ connect() }, 2000)
+
+    private fun handle(m: JSONObject) {
+        when (m.optString("type")) {
+            "config" -> ui.post {
+                hint.text = m.optString("hint", hint.text.toString())
+                frameEveryMs = m.optLong("frameEveryMs", frameEveryMs)
+            }
+            "card" -> {
+                val arr = m.optJSONArray("lines")
+                val lines = (0 until (arr?.length() ?: 0)).map { arr!!.getString(it) }
+                showCard(m.optString("title"), lines, m.optLong("ttl_ms", 8000))
+            }
+            "state" -> ui.post {
+                status.text = when (m.optString("value")) {
+                    "listening" -> "● listening"; "thinking" -> "…"; else -> ""
+                }
+            }
+            "say" -> if (ttsReady) tts?.speak(m.optString("text"), TextToSpeech.QUEUE_FLUSH, null, "lucia")
+            "snap" -> snapRequested = true
+            "mic" -> micOn = m.optBoolean("on", true)
+        }
+    }
+
+    private fun sendBinary(tag: Byte, data: ByteArray, len: Int = data.size) {
+        if (!connected) return
+        val buf = ByteArray(len + 1); buf[0] = tag; System.arraycopy(data, 0, buf, 1, len)
+        ws?.send(buf.toByteString())
+    }
+
+    // ------------------------------------------------------------------ mic → hub
+    @SuppressLint("MissingPermission")
+    private fun startMic() {
+        Thread {
+            val rate = 16000
+            val min = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT)
+            try {
+                recorder = AudioRecord(MediaRecorder.AudioSource.VOICE_RECOGNITION, rate,
+                    AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, maxOf(min, 6400))
+                recorder!!.startRecording()
+                log("mic started state=${recorder!!.recordingState}")
+            } catch (e: Exception) { log("mic failed $e"); return@Thread }
+            val chunk = ByteArray(3200) // 100 ms
+            while (true) {
+                val n = recorder!!.read(chunk, 0, chunk.size)
+                if (n > 0 && micOn) sendBinary(1, chunk, n)
+            }
+        }.start()
+    }
+
+    // ------------------------------------------------------------------ camera → hub
+    private fun openCamera() {
+        if (camera != null) return
+        try {
+            camera = Camera.open(0).apply {
+                val p = parameters
+                val size = p.supportedPreviewSizes.minByOrNull { Math.abs(it.width - 640) + Math.abs(it.height - 480) }!!
+                p.setPreviewSize(size.width, size.height)
+                p.previewFormat = ImageFormat.NV21
+                parameters = p
+                log("camera preview ${size.width}x${size.height}; sizes=" + p.supportedPreviewSizes.joinToString { "${it.width}x${it.height}" })
+                setPreviewTexture(camTexture)
+                setPreviewCallback { data, cam -> onFrame(data, cam) }
+                startPreview()
+            }
+        } catch (e: Exception) { log("camera failed $e") }
+    }
+
+    private fun onFrame(nv21: ByteArray, cam: Camera) {
+        val now = System.currentTimeMillis()
+        if (!snapRequested && now - lastFrameMs < frameEveryMs) return
+        lastFrameMs = now; snapRequested = false
+        val s = cam.parameters.previewSize
+        val out = ByteArrayOutputStream()
+        YuvImage(nv21, ImageFormat.NV21, s.width, s.height, null).compressToJpeg(Rect(0, 0, s.width, s.height), 70, out)
+        sendBinary(2, out.toByteArray())
+    }
+
+    // ------------------------------------------------------------------ audio out
+    private fun play(pcm: ByteArray) {
+        if (player == null) {
+            val rate = 22050
+            player = AudioTrack(AudioManager.STREAM_MUSIC, rate, AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                maxOf(AudioTrack.getMinBufferSize(rate, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT), 8820),
+                AudioTrack.MODE_STREAM).apply { play() }
+        }
+        player!!.write(pcm, 0, pcm.size)
+    }
+
+    override fun onInit(status: Int) {
+        ttsReady = status == TextToSpeech.SUCCESS && tts?.setLanguage(Locale.US)?.let { it >= 0 } == true
+        log("tts ready=$ttsReady engine=${tts?.defaultEngine}")
+    }
+
+    // ------------------------------------------------------------------ touchpad / ring
+    private var downAt = 0L
+    private var lastTapAt = 0L
+
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        log("key code=${event.keyCode} (${KeyEvent.keyCodeToString(event.keyCode)}) action=${event.action} repeat=${event.repeatCount}")
+        if (event.keyCode == KeyEvent.KEYCODE_VOLUME_UP || event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) return super.dispatchKeyEvent(event)
+        if (event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0) downAt = event.eventTime
+        if (event.action == KeyEvent.ACTION_UP) {
+            val held = event.eventTime - downAt
+            val name = when {
+                held > 700 -> "long_press"
+                event.eventTime - lastTapAt < 350 -> "double_tap"
+                else -> "tap"
+            }
+            lastTapAt = event.eventTime
+            sendKey(name, event.keyCode)
+        }
+        return true
+    }
+
+    override fun onGenericMotionEvent(event: MotionEvent): Boolean {
+        log("motion src=${event.source} action=${event.actionMasked} x=${event.x} y=${event.y}")
+        return super.onGenericMotionEvent(event)
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (event.actionMasked == MotionEvent.ACTION_UP) sendKey("tap", -1)
+        return true
+    }
+
+    private fun sendKey(name: String, code: Int) {
+        log("input $name")
+        ws?.send(JSONObject().put("type", "key").put("name", name).put("code", code).toString())
+    }
+
+    private fun log(s: String) = Log.i("Lucia", s)
+
+    override fun onDestroy() {
+        super.onDestroy()
+        camera?.apply { setPreviewCallback(null); stopPreview(); release() }
+        recorder?.release(); player?.release(); tts?.shutdown()
+    }
+}

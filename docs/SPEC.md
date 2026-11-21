@@ -1,6 +1,6 @@
 # Recall: spec
 
-> Working name. The product name lives in `config/app.example.json` → `appName`; never hard-code it.
+> The assistant is called **Lucia**, and "Lucia" is also the wake word. The repo is `recall`. Both names live in `config/app.example.json` (`appName`, `wakeWord`, `idleHint`); never hard-code them.
 > Team **BB** · Worn Smart Glasses Hackathon · Nov 20–21, 2026 · City Tech, Brooklyn · Track: **Natural Interaction**
 > Status: draft v0.1 (Fri Nov 20). Open questions are at the bottom; edit freely.
 
@@ -12,7 +12,7 @@ A pair of glasses that a person living with dementia can put on like their every
 
 From judge D.J. Patel: **treat every single session as a brand-new user.** People living with dementia won't remember a tutorial, a menu or a gesture they learned yesterday. So:
 
-- **One visible affordance, always on screen:** `Tap or say "Hey Recall"`. Nothing else to discover.
+- **One visible affordance, always on screen:** `Say "Lucia" to ask` (pinned in a corner of the lens at all times). Nothing else to discover.
 - **No modes, no menus, no settings on the glasses.** All configuration happens on the caregiver's phone.
 - **Every answer stands alone.** It never says "as I said before". Asking the same question ten times gets the same patient answer ten times.
 - **Never contradict, never correct, never quiz.** "Somya, this is Dev. He's on your hackathon team," not "You should remember Dev."
@@ -21,32 +21,32 @@ From judge D.J. Patel: **treat every single session as a brand-new user.** Peopl
 
 ## 3. Demo story (3 minutes)
 
-The judge plays **Somya Gupta** (default patient, set in config). If we get the judge's own name in time, we swap it in so the glasses greet them personally; that's one config field.
+The judge plays **Somya Gupta** (default patient, set in config). If we get the judge's own name in time, we swap it in so the glasses greet them personally; that's one config field. Somya is **he/him**.
 
-1. The judge puts the glasses on. The lens shows `Tap or say "Hey Recall"` and a soft greeting: "Hi Somya. You're at City Tech in Brooklyn."
+1. The judge puts the glasses on. The lens shows `Say "Lucia" to ask` (pinned in a corner of the lens at all times) and a soft greeting: "Hi Somya. You're at City Tech in Brooklyn."
 2. A teammate walks up. **Unprompted**, the lens shows `DEV · on your team` and the glasses say "This is Dev, he's on your team." *(proactive face intro, the wow moment)*
 3. The judge taps and asks "Who is this?", then "Where's he from?", then "What does he do?" Each answer comes from the facts Dev filled in.
 4. "Where are we?" → "You're at City Tech in Downtown Brooklyn, at a smart-glasses hackathon with your team."
 5. "What day is it?" → "It's Saturday, November 21st. It's about 2 in the afternoon."
-6. The judge asks "who is this?" again about the same person, on purpose. Same calm answer, no "I already told you". The caregiver phone shows "Asked about Dev 2× in 5 min."
-7. The judge says "I want to go home." → "You're safe, Somya. Shrikar knows where you are. I'm letting him know now." The caregiver's phone gets an alert. *(safety moment)*
-8. We close on the caregiver phone: who she met, what she asked, all stored only on her devices.
+6. The judge asks "who is this?" again about the same person, on purpose. Same calm answer, no "I already told you". The caregiver page shows "Asked about Dev 2× in 5 min."
+7. The judge says "I want to go home." → "You're safe, Somya. Shrikar knows where you are. I'm letting him know now." The caregiver gets a real iMessage, sent from the hub Mac. *(safety moment)*
+8. We close on the caregiver phone: who he met, what he asked, all stored only on his devices.
 
 ## 4. Features and priority
 
 | P | Feature | Notes |
 |---|---|---|
-| **P0** | Always-on idle hint on lens | `Tap or say "Hey Recall"` plus the time. Must survive app restarts. |
+| **P0** | Always-on idle hint on lens | `Say "Lucia" to ask` (pinned in a corner of the lens at all times) plus the time. Must survive app restarts. |
 | **P0** | Tap-to-ask (temple touchpad / ring) | Most reliable trigger in a loud venue. Key codes: find them with `adb logcat`. |
 | **P0** | Answer = voice + short text | Both on by default; each toggled in config. |
 | **P0** | "Who is this?" via camera + face recognition | Uses [`face_id`](https://github.com/ShrikarSwami/face_id) (detect → align → ArcFace/MobileFaceNet embed → cosine match). |
 | **P0** | Knowledge-base Q&A | Questions map to answers written in `knowledge/*.md`. Paraphrases map to the same answer. |
 | **P0** | Where am I / what day / what time | Where comes from a preloaded place (demo data). Date and time come from the clock. |
-| **P1** | Wake word "Hey Recall" | Detected on the hub from the streamed mic. The button always works as a fallback. |
+| **P0** | Wake word "Lucia" | No custom wake-word model: the hub runs VAD + streaming STT and triggers when the transcript starts with the wake word, so renaming still works. The tap always works as a fallback. |
 | **P1** | Proactive face intro | When an enrolled face is seen, introduce them once. Cooldown per person (default 120 s). |
 | **P1** | Follow-up questions about the person in view | "Where's he from?" resolves "he" to the last recognised person. |
 | **P1** | Caregiver phone page | Live feed of questions, repeat counts, alerts, add/edit people and facts. |
-| **P1** | Distress / "I want to go home" handling | Reassure, plus alert on the caregiver page (the SMS is mocked in the demo). |
+| **P1** | Distress / "I want to go home" handling | Reassure, plus a real iMessage to the caregiver (macOS Messages via `osascript`) and an alert on the caregiver page. |
 | **P2** | Unknown face | "I don't think we've met them yet. You can ask their name." Never guess. |
 | **P2** | "What was I doing?" | Answer from today's log, e.g. "You just met Dev and Ana." |
 | **P2** | Scene description | VLM describes the room when there's no KB answer: "It looks like a classroom full of people with laptops." |
@@ -75,17 +75,17 @@ Questions are **intents**. Any phrasing that means the same thing hits the same 
 ┌──────────── M6 glasses (Android 9, plain APK, no glasses SDK needed) ────────────┐
 │ glasses-app/  Kotlin                                                              │
 │  • full-screen black UI: idle hint, answer card (≤2 lines), "listening…" state    │
-│  • Camera2 → JPEG frame every ~1 s (and on tap)        ─┐                         │
+│  • Camera → JPEG frame every ~1 s (and on request)     ─┐                         │
 │  • AudioRecord 16 kHz mono → PCM stream                 ├─ WebSocket over Wi-Fi ─┐│
 │  • touchpad / ring key events                           ─┘                       ││
-│  • plays answer audio (WAV/PCM from hub) or Android TextToSpeech if present      ││
+│  • plays answer audio (PCM from hub) or Android TextToSpeech if present          ││
 └──────────────────────────────────────────────────────────────────────────────────┘│
                                                                                     ▼
 ┌──────────── hub/ on the MacBook (stands in for "the patient's phone") ───────────────┐
 │ FastAPI + WebSocket                                                                  │
-│  • wake word (openWakeWord) + VAD (Silero) on the mic stream                         │
-│  • STT: faster-whisper (EnverThor GPU) → fallback whisper on Mac                     │
-│  • face_id: enroll from faces/, match frames, proactive-intro cooldowns              │
+│  • "Lucia" wake word = VAD (Silero) + STT, trigger on the name in the transcript     │
+│  • STT: mlx-whisper on the Mac (small.en 183 ms; large-v3-turbo 506 ms)               │
+│  • face_id on the Mac: ~9 ms/frame (8.6 ms detect + 0.6 ms embed, CoreML)            │
 │  • intent router: small LLM → {intent, subject}; answer from knowledge/ (grounded)    │
 │  • TTS: Piper / macOS `say` → audio back to glasses                                  │
 │  • event log (SQLite, local) → caregiver page                                        │
@@ -109,7 +109,17 @@ Questions are **intents**. Any phrasing that means the same thing hits the same 
 
 EnverThor's Ollama keeps **one model loaded at a time**: switching models costs ~5 s. So **use one model for everything: `qwen2.5vl:7b`** (text + vision), with `keep_alive` long, and warm it at startup. If a call exceeds `fallbackAfterMs` (2.5 s), the hub answers from the KB template directly with no rephrasing. That fallback is always correct, just less chatty. A local Mac model is the last resort.
 
-**Latency budget (tap → first audio):** STT 400 ms + intent/rephrase 1000 ms + TTS first chunk 300 ms + network 200 ms ≈ **< 2 s**. Faces run continuously in the background, so "who is this" doesn't wait on face matching.
+**Where each piece runs (fastest wins; measured Fri night):**
+
+| Piece | Runs on | Measured |
+|---|---|---|
+| Face detect + embed (`face_id`, buffalo_sc ONNX) | Mac, CoreML | 9 ms / frame |
+| Speech-to-text (`mlx-whisper`) | Mac, Metal | 183 ms (small.en) / 506 ms (turbo) for a 3 s question |
+| LLM intent + rephrase | EnverThor first, Mac Ollama (`qwen2.5:3b`) if > 2.5 s | ~1 s warm on EnverThor |
+| TTS | Mac (`say` / Piper) → PCM to glasses, or glasses' own TTS if present | — |
+| Caregiver alert | Mac Messages app via `osascript` (real iMessage) | — |
+
+**Latency budget (tap → first audio):** STT 200 ms + intent/rephrase 1000 ms + TTS first chunk 300 ms + network 200 ms ≈ **< 2 s**. Faces run continuously in the background, so "who is this" doesn't wait on face matching.
 
 ## 7. Knowledge base (the part everyone can edit)
 
