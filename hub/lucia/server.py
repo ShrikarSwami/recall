@@ -7,6 +7,7 @@ Glasses protocol: see glasses-app/.../MainActivity.kt. Caregiver page: /caregive
 from __future__ import annotations
 
 import asyncio
+from copy import deepcopy
 from datetime import datetime
 import json
 import time
@@ -70,6 +71,8 @@ class Hub:
         self.followup_until = 0.0
         self.answer_tasks: set[asyncio.Task] = set()
         self.falls = FallDetector()
+        self.voice_warm_task: asyncio.Task | None = None
+        self.voice_warmup = {"state": "idle", "ready": 0, "total": 0}
 
     # ------------------------------------------------------------------ recording (glasses-free dev)
     async def record_start(self, label: str, seconds: float, imu: bool):
@@ -148,6 +151,7 @@ class Hub:
 
     async def start(self):
         self.load_day()
+        self.queue_voice_warmup()
         asyncio.create_task(self.heads_up_loop())
         self.enrolled = self.faces.enroll_all() if FACES_DIR.exists() else {}
         print(f"[hub] knowledge: {len(self.kb.entries)} answers, people={list(self.kb.people)}, faces={self.enrolled}")
@@ -168,8 +172,58 @@ class Hub:
         self.stt_names()
         self.load_day()
         self.enrolled = self.faces.enroll_all() if FACES_DIR.exists() else {}
+        self.queue_voice_warmup()
         return {"answers": len(self.kb.entries), "people": list(self.kb.people), "faces": self.enrolled,
                 "schedule": len(self.brain.events), "reminder_kinds": list(self.reminders)}
+
+    def queue_voice_warmup(self):
+        """Refresh exact-text audio without holding up startup or a name change."""
+        if self.voice_warm_task and not self.voice_warm_task.done():
+            self.voice_warm_task.cancel()
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:  # reload can also be used by offline tools
+            return
+        self.voice_warm_task = loop.create_task(self.warm_voice())
+
+    async def warm_voice(self):
+        if not self.cfg["voice"].get("speakAnswers", True):
+            self.voice_warmup = {"state": "disabled", "ready": 0, "total": 0}
+            return
+        # A preview brain must never replace the wearer's last answer or open an offer.
+        preview = Brain(deepcopy(self.cfg), self.kb, clock=self.brain.clock)
+        preview.events = list(self.brain.events)
+        preview.place = deepcopy(self.brain.place)
+        texts = [preview.greeting().speech]
+        texts.extend(preview.intro_reply(pid).speech for pid in self.kb.people)
+        for question in ("where are we", "why am I here", "what is my name",
+                         "who takes care of me", "who are you", "how do I use this"):
+            preview.offer = None
+            reply = await preview.answer(question)
+            if not reply.alert:
+                texts.append(reply.speech)
+        texts = list(dict.fromkeys(text for text in texts if text))[:24]
+        status = {"state": "warming", "ready": 0, "total": len(texts)}
+        self.voice_warmup = status
+        for text in texts:  # sequential: leave the second TTS worker free for live answers
+            try:
+                if await self.voice.pcm(text):
+                    status["ready"] += 1
+            except Exception as ex:
+                print(f"[hub] voice warmup: {type(ex).__name__}")
+        status["state"] = "ready" if status["ready"] == status["total"] else "partial"
+        print(f"[hub] voice cache: {status['ready']}/{status['total']} ({status['state']})")
+
+    def alert_text(self, message: str) -> str:
+        """Use the existing phone place or configured demo place; no extra tracking."""
+        stamp = datetime.fromtimestamp(self.brain.clock()).astimezone().strftime("%b %d, %I:%M %p %Z")
+        place = self.brain.live_place()
+        if place:
+            location = "Reported place: " + str(place["name"])
+        else:
+            configured = self.kb.places.get(self.cfg.get("currentPlace", ""), {}).get("name")
+            location = "Configured place: " + configured if configured else "Place unknown"
+        return f"{self.cfg['appName']}: {message} · {stamp} · {location}"
 
     # ------------------------------------------------------------------ output
     async def event(self, kind: str, **data):
@@ -221,6 +275,7 @@ class Hub:
             await self.interrupt()
             return
         generation = self.output_generation
+        alert = self.alert_text(reply.alert) if reply.alert else None
         async with self.speak_lock:
             if generation != self.output_generation:
                 return
@@ -250,9 +305,9 @@ class Hub:
                 await self.open_offer()
         await self.event("answer", question=question, speech=reply.speech, intent=reply.intent,
                          subject=reply.subject, repeat=reply.repeat_count, score=reply.score)
-        if reply.alert:
-            status = await self.alerts.send(f"{self.cfg['appName']}: {reply.alert}")
-            await self.event("alert", text=reply.alert, status=status)
+        if alert:
+            status = await self.alerts.send(alert)
+            await self.event("alert", text=alert, status=status)
 
     # ------------------------------------------------------------------ yes/no offers (nod or say "yes")
     async def open_offer(self):
@@ -297,6 +352,7 @@ class Hub:
         vals = placeholders(self.cfg)
         text = fill(self.cfg.get("falls", {}).get(
             "message", "WARNING: {patient} may have fallen. Please check on them urgently!"), vals)
+        text = self.alert_text(text)
         await self.event("fall")
         status = await self.alerts.send(text, urgent=True)
         await self.event("alert", text=text, status=status, urgent=True)
@@ -629,6 +685,7 @@ async def api_patient(body: dict):
     if name:
         hub.cfg["patient"]["name"] = name
         hub.cfg["patient"]["preferredName"] = name.split()[0]
+        hub.queue_voice_warmup()
     return {"patient": hub.cfg["patient"]}
 
 
@@ -637,7 +694,7 @@ async def api_state():
     return {"glasses": hub.glasses is not None, "worn": hub.worn, "faces": hub.enrolled,
             "people": list(hub.kb.people), "answers": len(hub.kb.entries),
             "in_view": hub.brain.in_view(), "patient": hub.cfg["patient"]["name"],
-            "llm_ms": hub.llm.last_ms, "stt_ms": hub.stt.last_ms}
+            "llm_ms": hub.llm.last_ms, "stt_ms": hub.stt.last_ms, "voice_warmup": hub.voice_warmup}
 
 
 def main():
