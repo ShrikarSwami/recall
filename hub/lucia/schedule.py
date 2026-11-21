@@ -53,6 +53,8 @@ def say_time(t: datetime, now: datetime) -> str:
     """'at 12:30', 'at 2', 'tomorrow at 9'."""
     hm = t.strftime("%-I:%M").replace(":00", "")
     if t.date() == now.date():
+        if now.hour < 6 and t.hour < 12:          # past midnight: "at 8" alone is ambiguous
+            return f"at {hm} this morning"
         return f"at {hm}"
     if t.date() == (now + timedelta(days=1)).date():
         return f"tomorrow at {hm}"
