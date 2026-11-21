@@ -34,7 +34,7 @@
   // ---------------------------------------------------------------- glasses inputs
   function arm(why) {
     armedUntil = Date.now() + 8000;
-    if (mode === "live") return send({ type: "key", name: "tap" });
+    if (mode === "live") return send({ type: "key", name: /^(tap|long_press|swipe_back|swipe_forward)$/.test(why) ? why : "tap" });
     show({ type: "state", value: "listening" }); log("listening", why);
   }
   function hear(utterance) {
@@ -82,8 +82,10 @@
 
   // ---------------------------------------------------------------- UI wiring
   $("b-tap").onclick = function () { arm("tap"); };
-  $("b-left").onclick = function () { log("key", "swipe_back (no action yet)"); };
-  $("b-right").onclick = function () { log("key", "swipe_forward (no action yet)"); };
+  // any touch on the temple asks: the wearer never has to remember which gesture
+  $("b-hold").onclick = function () { arm("long_press"); };
+  $("b-left").onclick = function () { arm("swipe_back"); };
+  $("b-right").onclick = function () { arm("swipe_forward"); };
   $("b-back").onclick = function () { log("key", "back (swallowed: Lucia never closes)"); };
   $("b-worn").onclick = function () {
     worn = true; log("sensor", "glasses put on");
@@ -136,7 +138,7 @@
   });
 
   lens.addEventListener("load", function () {
-    show({ type: "config", hint: KB.hint || 'Say "Lucia" to ask' });
+    show({ type: "config", hint: KB.hint || 'Say "Lucia" or hold right side' });
   });
   setMode("mock");
   log("ready", Object.keys(KB.people).length + " people, " + KB.entries.length + " answers loaded from mock-kb.js");

@@ -28,6 +28,9 @@ from .speech import Segmenter, Transcriber, Voice, earcon, split_wake
 
 ARM_S = 8                 # after a tap / bare wake word, the next utterance is the question
 GREET_GAP_S = 90
+# Any touch on the temple asks (the wearer never has to remember which gesture). "back" is the system's
+# echo after a double tap, so it is not a touch of its own.
+TOUCH_KEYS = {"tap", "long_press", "double_tap", "swipe_forward", "swipe_back"}
 
 
 class Hub:
@@ -255,8 +258,8 @@ async def ws_lens(ws: WebSocket):
     try:
         while True:
             m = json.loads(await ws.receive_text())
-            if m.get("type") == "key" and m.get("name") == "tap":
-                await hub.arm("tap (lens)")
+            if m.get("type") == "key" and m.get("name") in TOUCH_KEYS:
+                await hub.arm(m.get("name") + " (lens)")
             elif m.get("type") == "ask":
                 asyncio.create_task(hub.question(m.get("text", "")))
             elif m.get("type") == "seen":
@@ -316,8 +319,8 @@ async def ws_glasses(ws: WebSocket):
                 elif t == "key":
                     hub.record_line("keys", m)
                     await hub.event("key", name=m.get("name"), code=m.get("code"), scan=m.get("scan"), device=m.get("device"))
-                    if m.get("name") == "tap":
-                        await hub.arm("tap")
+                    if m.get("name") in TOUCH_KEYS:
+                        await hub.arm(m.get("name"))
                 elif t == "worn":
                     hub.worn = bool(m.get("value"))
                     await hub.event("worn", value=hub.worn)

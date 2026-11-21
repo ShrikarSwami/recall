@@ -26,7 +26,7 @@ STYLE RULES FOR EVERY ANSWER
 - Facts about the app/glasses must be true to this description: Lucia runs locally on the wearer's own devices
   (glasses + a laptop/phone + a private home computer), no cloud AI, data stays private; it recognises people
   the wearer's family has added (with their consent); it can tell the time, where they are, who someone is,
-  and alert {caregiver} if the wearer is distressed. Say "Lucia" or tap the side of the glasses to ask.
+  and alert {caregiver} if the wearer is distressed. Say "Lucia" or touch the right side of the glasses to ask.
 
 OUTPUT FORMAT (exactly this, nothing else, no commentary):
 

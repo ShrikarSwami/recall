@@ -111,7 +111,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
 
     private fun buildUi() {
         val root = FrameLayout(this).apply { setBackgroundColor(Color.BLACK) }
-        hint = tv(16f).apply { text = "Say “Lucia” to ask" }
+        hint = tv(16f).apply { text = "Say “Lucia” or hold right side" }
         clock = tv(16f)
         status = tv(14f).apply { alpha = 0.8f }
         title = tv(30f, true)

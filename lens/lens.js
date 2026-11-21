@@ -2,7 +2,7 @@
    NO optional chaining (?.), NO nullish (??), NO top-level await, NO ES modules needed.
 
    Messages it renders (from the hub over WebSocket, or from the simulator via postMessage):
-     {"type":"config", "hint":"Say \"Lucia\" to ask", "app":"Lucia", "patient":"Somya", "now": 1795229364000, "tz": -300}
+     {"type":"config", "hint":"Say \"Lucia\" or hold right side", "app":"Lucia", "patient":"Somya", "now": 1795229364000, "tz": -300}
      {"type":"state",  "value":"idle" | "listening" | "thinking"}
      {"type":"card",   "title":"Dev", "lines":["This is Dev. He's on","your team."], "ttl_ms":8000,
                        "intent":"who_is_this" | "proactive_intro" | "greeting" | "distress" | "unknown" | "freeform" | "time" | "kb:person" | ...}

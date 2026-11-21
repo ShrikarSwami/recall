@@ -12,7 +12,7 @@ A pair of glasses that a person living with dementia can put on like their every
 
 From judge D.J. Patel: **treat every single session as a brand-new user.** People living with dementia won't remember a tutorial, a menu or a gesture they learned yesterday. So:
 
-- **One visible affordance, always on screen:** `Say "Lucia" to ask` (pinned in a corner of the lens at all times). Nothing else to discover.
+- **One visible affordance, always on screen:** `Say "Lucia" or hold right side` (pinned in a corner of the lens at all times). Nothing else to discover.
 - **No modes, no menus, no settings on the glasses.** All configuration happens on the caregiver's phone.
 - **Every answer stands alone.** It never says "as I said before". Asking the same question ten times gets the same patient answer ten times.
 - **Never contradict, never correct, never quiz.** "Somya, this is Dev. He's on your hackathon team," not "You should remember Dev."
@@ -23,7 +23,7 @@ From judge D.J. Patel: **treat every single session as a brand-new user.** Peopl
 
 The judge plays **Somya Gupta** (default patient, set in config). If we get the judge's own name in time, we swap it in so the glasses greet them personally; that's one config field. Somya is **he/him**.
 
-1. The judge puts the glasses on. The lens shows `Say "Lucia" to ask` (pinned in a corner of the lens at all times) and a soft greeting: "Hi Somya. You're at City Tech in Brooklyn."
+1. The judge puts the glasses on. The lens shows `Say "Lucia" or hold right side` (pinned in a corner of the lens at all times) and a soft greeting: "Hi Somya. You're at City Tech in Brooklyn."
 2. A teammate walks up. **Unprompted**, the lens shows `DEV · on your team` and the glasses say "This is Dev, he's on your team." *(proactive face intro, the wow moment)*
 3. The judge taps and asks "Who is this?", then "Where's he from?", then "What does he do?" Each answer comes from the facts Dev filled in.
 4. "Where are we?" → "You're at City Tech in Downtown Brooklyn, at a smart-glasses hackathon with your team."
@@ -36,7 +36,7 @@ The judge plays **Somya Gupta** (default patient, set in config). If we get the 
 
 | P | Feature | Notes |
 |---|---|---|
-| **P0** | Always-on idle hint on lens | `Say "Lucia" to ask` (pinned in a corner of the lens at all times) plus the time. Must survive app restarts. |
+| **P0** | Always-on idle hint on lens | `Say "Lucia" or hold right side` (pinned in a corner of the lens at all times) plus the time. Must survive app restarts. |
 | **P0** | Tap-to-ask (temple touchpad / ring) | Most reliable trigger in a loud venue. Key codes: find them with `adb logcat`. |
 | **P0** | Answer = voice + short text | Both on by default; each toggled in config. |
 | **P0** | "Who is this?" via camera + face recognition | Uses [`face_id`](https://github.com/ShrikarSwami/face_id) (detect → align → ArcFace/MobileFaceNet embed → cosine match). |
@@ -135,7 +135,7 @@ EnverThor's Ollama keeps **one model loaded at a time**: switching models costs 
 | Mic | Works (`AudioRecord`, 16 kHz mono, VOICE_RECOGNITION source); room audio arrives. Still to do: a deliberate speech test. |
 | Text-to-speech | **No TTS engine on the glasses** → the hub must speak (macOS `say`/Piper) and stream PCM 22.05 kHz to the app. |
 | Speaker | **Confirmed audible**: a PCM16 22.05 kHz tone streamed from the hub plays through the glasses speaker on each key press. |
-| Display | The launcher draws a status bar (clock, BT, Wi-Fi, battery) over the top ~40 px that apps can't hide. Our pinned hint `Say "Lucia" to ask` sits **bottom-left**. |
+| Display | The launcher draws a status bar (clock, BT, Wi-Fi, battery) over the top ~40 px that apps can't hide. Our pinned hint `Say "Lucia" or hold right side` sits **bottom-left**. |
 | Touchpad / ring | Instant key events (~7 ms down→up), so map by key code, not timing: **66 ENTER = tap (ask)**, 142 F12 then 4 BACK (300 ms apart) = second gesture, 22/21 DPAD_RIGHT/LEFT = swipes. BACK is swallowed so nothing can close Lucia. |
 | Sensors | Accelerometer, gyroscope, magnetometer, light, proximity, step counter, **off-body detect** (auto-greet when the glasses go on), pressure. |
 | Built-in apps | `com.mlaixr.*` launcher, assistant, camera, recorder, translator, prompter, navigation, ring, audiocare. |
