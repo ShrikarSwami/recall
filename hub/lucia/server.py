@@ -17,7 +17,7 @@ from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from . import knowledge, reminders, schedule, playback
@@ -710,6 +710,23 @@ async def api_demo_standby():
     """Operator key b: lens dark and Go-go quiet between judges (fall alerts still work)."""
     await hub.set_standby(True)
     return {"ok": True}
+
+
+@app.get("/api/frame.jpg", dependencies=[Depends(require_token)])
+async def api_frame():
+    """Latest camera frame from the glasses (for lens/view.html, the recording view). Never stored."""
+    jpeg = getattr(hub.brain, "latest_frame", None)
+    if not jpeg:
+        raise HTTPException(404, "no camera frame yet")
+    return Response(jpeg, media_type="image/jpeg", headers={"Cache-Control": "no-store"})
+
+
+@app.post("/api/camera_rate", dependencies=[Depends(require_token)])
+async def api_camera_rate(body: dict):
+    """How often the glasses send a camera frame: {"ms": 200} while recording, 1000 normally."""
+    ms = max(100, min(5000, int(body.get("ms", 1000))))
+    await hub.to_glasses({"type": "config", "frameEveryMs": ms})
+    return {"ok": True, "ms": ms}
 
 
 @app.post("/api/ask", dependencies=[Depends(require_token)])

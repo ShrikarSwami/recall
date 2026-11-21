@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Go-go view</title>
+<style>
+  /* Recording view: the glasses camera with the lens on top, the way the wearer sees it.
+     The lens is drawn for a see-through display (black = clear), so "screen" blending drops its black. */
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 640px; height: 480px; transform-origin: 0 0; }
+  #cam { position: absolute; left: 0; top: 0; width: 640px; height: 480px; object-fit: cover; background: #111; }
+  #lens { position: absolute; left: 0; top: 0; width: 640px; height: 480px; border: 0; mix-blend-mode: screen; background: transparent; }
+  #wait { position: absolute; left: 0; top: 0; width: 640px; line-height: 480px; text-align: center; color: #5a6; font: 16px -apple-system, sans-serif; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="wait">Waiting for the glasses camera…</div>
+  <img id="cam" alt="" hidden>
+  <iframe id="lens" src="index.html" width="640" height="480" scrolling="no" title="Lens"></iframe>
+</div>
+<script>
+(function () {
+  "use strict";
+  var stage = document.getElementById("stage"), cam = document.getElementById("cam");
+  function fit() {
+    var s = Math.min(window.innerWidth / 640, window.innerHeight / 480);
+    stage.style.transform = "scale(" + s + ") translate(-50%, -50%)";
+  }
+  window.addEventListener("resize", fit); fit();
+  // Ask the glasses for ~5 frames a second while this view is open; back to 1 a second when it closes.
+  function rate(ms) {
+    try { fetch("/api/camera_rate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ms: ms }), keepalive: true }); } catch (e) {}
+  }
+  rate(200);
+  window.addEventListener("pagehide", function () { rate(1000); });
+  // Swap frames only once the next one has loaded, so the picture never flashes blank.
+  var busy = false;
+  setInterval(function () {
+    if (busy) return; busy = true;
+    var next = new Image();
+    next.onload = function () { cam.src = next.src; cam.hidden = false; document.getElementById("wait").style.display = "none"; busy = false; };
+    next.onerror = function () { busy = false; };
+    next.src = "/api/frame.jpg?t=" + Date.now();
+  }, 150);
+})();
+</script>
+</body>
+</html>
