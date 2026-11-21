@@ -119,14 +119,17 @@ class Brain:
             self.unknown_face_at = self.clock()
 
     # ---------------------------------------------------------------- formatting
-    def _reply(self, speech: str, title: str, intent: str, subject: str | None = None, **kw) -> Reply:
+    def _reply(self, speech: str, title: str, intent: str, subject: str | None = None,
+               card: str | None = None, **kw) -> Reply:
+        """`card`: shorter text for the lens when the spoken sentence is too long for 3 lines."""
         speech = fill(speech, self.vals)
         key = f"{intent}:{subject}:{speech[:40]}"
         now = self.clock()
         self.history.append((now, key))
         repeats = sum(1 for t, k in self.history if k == key and now - t < 600)
-        lines = textwrap.wrap(speech, 34)[:3]
-        if len(textwrap.wrap(speech, 34)) > 3:
+        shown = fill(card, self.vals) if card else speech
+        lines = textwrap.wrap(shown, 34)[:3]
+        if len(textwrap.wrap(shown, 34)) > 3:
             lines[-1] = lines[-1][:31].rstrip() + "…"
         return Reply(speech, fill(title, self.vals)[:22], lines, intent, subject, repeat_count=repeats, **kw)
 
@@ -189,7 +192,9 @@ class Brain:
         where = self.where_line()
         nxt = schedule.next_line(self.events, datetime.fromtimestamp(self.clock()))
         parts = [f"Hi {{patient}}.", where, nxt, f'Say "{{wake}}" if you need anything.']
-        return self._reply(" ".join(p for p in parts if p), "Hi {patient}", "greeting")
+        # The lens already pins the "Say Lucia" hint, so the card keeps just where + next (fits 3 lines).
+        card = " ".join(p for p in (where, nxt.replace("Your next thing is", "Next:")) if p)
+        return self._reply(" ".join(p for p in parts if p), "Hi {patient}", "greeting", card=card or None)
 
     # ---------------------------------------------------------------- main entry
     async def answer(self, text: str) -> Reply:
