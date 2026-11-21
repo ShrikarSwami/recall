@@ -33,9 +33,10 @@ class Alerts:
         r = subprocess.run(["osascript", "-e", SCRIPT, self.phone, text], capture_output=True, text=True, timeout=20)
         return "sent" if r.returncode == 0 else f"failed: {r.stderr.strip()[:200]}"
 
-    async def send(self, text: str) -> str:
+    async def send(self, text: str, urgent: bool = False) -> str:
+        """urgent=True (a fall) skips the once-a-minute limit."""
         now = time.time()
-        if now - self.last < self.min_gap:
+        if not urgent and now - self.last < self.min_gap:
             return "rate-limited"
         self.last = now
         return await asyncio.get_running_loop().run_in_executor(None, self._send, text)

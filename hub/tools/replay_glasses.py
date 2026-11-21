@@ -34,6 +34,7 @@ import websockets
 
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from lucia.falls import synth_fall  # noqa: E402
 from lucia.gestures import synth  # noqa: E402
 
 KEYS = {"tap": 66, "double_tap": 142, "long_press": 141, "swipe_forward": 22, "swipe_back": 21, "back": 4, "worn": 301}
@@ -121,6 +122,13 @@ async def main(a):
             await replay(ws, Path(a.recording))
         for step in a.then or []:
             await asyncio.sleep(a.gap)                # let Lucia finish speaking
+            if step == "fall":
+                print("→ the wearer falls (accelerometer + gyro)")
+                rows = synth_fall(t0_ms=int(time.time() * 1000) % 10_000_000)
+                for i in range(0, len(rows), 10):
+                    await ws.send(json.dumps({"type": "imu", "rows": rows[i:i + 10]}))
+                    await asyncio.sleep(0.1)
+                continue
             if step in ("nod", "shake"):
                 print(f"→ head {step} (gyro)")
                 rows = synth(step, t0_ms=int(time.time() * 1000) % 10_000_000)
@@ -166,7 +174,7 @@ if __name__ == "__main__":
     p.add_argument("--key", action="append", help=f"gesture: {', '.join(KEYS)} (repeatable)")
     p.add_argument("--recording", help="hub/data/recordings/<step> folder to replay")
     p.add_argument("--then", action="append",
-                   help='after the answer: "nod", "shake" or "say:<words>" (repeatable, e.g. --then nod --then say:yes)')
+                   help='after the answer: "nod", "shake", "fall" or "say:<words>" (repeatable, e.g. --then nod --then say:yes)')
     p.add_argument("--gap", type=float, default=7.0, help="seconds between --then steps (Lucia speaking)")
     p.add_argument("--wait", type=float, default=6.0, help="seconds to keep listening for answers")
     asyncio.run(main(p.parse_args()))

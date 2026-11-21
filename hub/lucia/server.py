@@ -24,6 +24,7 @@ from .alerts import Alerts
 from .brain import OFFER_S, Brain, Reply
 from .config import DATA_DIR, FACES_DIR, KNOWLEDGE_DIR, ROOT, fill, load_config, placeholders
 from .faces import Faces
+from .falls import FallDetector
 from .gestures import HeadGestures
 from .llm import LLM
 from .speech import Segmenter, Transcriber, Voice, earcon, split_wake
@@ -64,6 +65,7 @@ class Hub:
         self.head = HeadGestures()
         self.imu_for_offer = False
         self.gesture_quiet_until = 0.0
+        self.falls = FallDetector()
 
     # ------------------------------------------------------------------ recording (glasses-free dev)
     async def record_start(self, label: str, seconds: float, imu: bool):
@@ -82,7 +84,7 @@ class Hub:
         r, self.rec = self.rec, None
         if not r:
             return
-        await self.to_glasses({"type": "imu", "on": False})
+        await self.imu_wanted()
         r["wav"].close(); r["imu"].close(); r["keys"].close()
         meta = {"label": r["label"], "seconds": round(time.time() - r["t0"], 1), "frames": r["frames"]}
         (r["dir"] / "meta.json").write_text(json.dumps(meta))
@@ -236,8 +238,7 @@ class Hub:
         self.brain.offer = None
         if self.imu_for_offer:
             self.imu_for_offer = False
-            if not self.rec:
-                await self.to_glasses({"type": "imu", "on": False})
+            await self.imu_wanted()
 
     async def head_gesture(self, name: str, source: str = "imu"):
         reply = self.brain.gesture(name)
@@ -246,7 +247,34 @@ class Hub:
             self.armed_until = 0
             await self.say(reply, f"({name})")
 
+    # ------------------------------------------------------------------ falls (instant caregiver alert)
+    @property
+    def falls_on(self) -> bool:
+        return bool(self.cfg.get("falls", {}).get("enabled", True))
+
+    async def imu_wanted(self):
+        """IMU streams whenever falls are on (or during an offer / a recording)."""
+        await self.to_glasses({"type": "imu", "on": bool(self.falls_on or self.imu_for_offer or self.rec)})
+
+    async def fall(self):
+        """Text first (seconds matter), then reassure the wearer."""
+        vals = placeholders(self.cfg)
+        text = fill(self.cfg.get("falls", {}).get(
+            "message", "WARNING: {patient} may have fallen. Please check on them urgently!"), vals)
+        await self.event("fall")
+        status = await self.alerts.send(text, urgent=True)
+        await self.event("alert", text=text, status=status, urgent=True)
+        r = self.brain._reply("{patient}, are you okay? I've let {caregiver} know. Help is on the way.",
+                              "Are you okay?", "fall")
+        self.armed_until = 0
+        await self.say(r)
+
     def imu(self, rows: list):
+        if self.falls_on:
+            worn = self.worn is not False
+            for row in rows:
+                if self.falls.feed(row, worn=worn) == "fall":
+                    asyncio.create_task(self.fall())
         now = time.time()
         if not self.brain.offer or now > self.brain.offer.until:
             return
@@ -414,6 +442,7 @@ async def ws_glasses(ws: WebSocket):
                 t = m.get("type")
                 if t == "hello":
                     hub.worn = m.get("worn") if m.get("worn") is not None else hub.worn
+                    await hub.imu_wanted()
                     await hub.event("hello", **{k: v for k, v in m.items() if k != "type"})
                     await hub.greet()
                 elif t == "imu":
