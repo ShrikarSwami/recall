@@ -29,7 +29,7 @@ from .faces import Faces
 from .falls import FallDetector
 from .gestures import HeadGestures
 from .llm import LLM
-from .brain import NO, YES
+from .brain import NO, WHO_THIS, YES
 from .speech import Segmenter, Transcriber, Voice, earcon, split_wake
 
 ARM_S = 8                 # after a tap / bare wake word, the next utterance is the question
@@ -452,15 +452,25 @@ class Hub:
             return
         armed = time.time() < self.armed_until
         woke, rest = split_wake(text, self.cfg["wakeWord"])
-        if armed and self.armed_by_offer and not woke and not (YES.search(text) or NO.search(text)):
+        yes_no = bool(YES.search(text) or NO.search(text))
+        if armed and self.armed_by_offer and not woke and not yes_no:
             armed = False                # bystander talk during "Want to hear more?" is not an answer
+        if not armed and not woke and yes_no and self.brain.offer is not None:
+            armed = True                 # a yes/no while Lucia is still asking "Want to hear more?"
+        if (not armed and not woke and not during_playback and WHO_THIS.search(text) and len(text.split()) <= 6
+                and (self.brain.in_view() or time.time() - self.brain.unknown_face_at < 4)):
+            armed = True                 # "who is this?" with a face in view: STT often mangles the wake word
         control = playback.command(rest if woke else text, self.cfg["wakeWord"])
         playback_finished = time.time() >= self.playing_until and not self.speak_lock.locked()
         followup = bool(control and time.time() < self.followup_until
                         and (not during_playback or playback_finished))
+        if during_playback and not armed and not (woke and control) and not followup and os.environ.get("LUCIA_DEBUG_HEARD") == "1":
+            print(f"[heard] ignored during playback: {text!r}", flush=True)
         if during_playback and not armed and not (woke and control) and not followup:
             await self.event("heard", ignored=True, words=len(text.split()))
             return
+        if os.environ.get("LUCIA_DEBUG_HEARD") == "1":
+            print(f"[heard] armed={armed} woke={woke} playback={during_playback}: {text!r}", flush=True)   # local log only
         if not (armed or woke or followup):
             # Bystander talk: never stored or shown. Only a word count, so we can debug "it didn't hear me".
             await self.event("heard", ignored=True, words=len(text.split()))

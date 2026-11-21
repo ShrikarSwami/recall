@@ -175,3 +175,28 @@ def test_natural_yes_replies_count(brain, said):
 def test_natural_no_replies_count(brain, said):
     from lucia.brain import NO
     assert NO.search(said)
+
+
+def test_who_is_this_without_wake_word_when_a_face_is_in_view():
+    import asyncio
+    from lucia import server
+    hub, asked = server.hub, []
+
+    async def fake_question(text):
+        asked.append(text)
+
+    async def run(text):
+        async def tx(pcm):
+            return text
+        hub.stt.transcribe, hub.question = tx, fake_question
+        await hub.utterance(b"")
+    try:
+        hub.brain.seen.clear()
+        asyncio.run(run("Who is this?"))
+        assert asked == []                     # nobody in view: bystander talk
+        hub.brain.saw("abhiram")
+        asyncio.run(run("Who is this?"))
+        assert asked == ["Who is this?"]
+    finally:
+        del hub.stt.transcribe, hub.question
+        hub.brain.seen.clear()
