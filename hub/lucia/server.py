@@ -215,15 +215,12 @@ class Hub:
         print(f"[hub] voice cache: {status['ready']}/{status['total']} ({status['state']})")
 
     def alert_text(self, message: str) -> str:
-        """Use the existing phone place or configured demo place; no extra tracking."""
-        stamp = datetime.fromtimestamp(self.brain.clock()).astimezone().strftime("%b %d, %I:%M %p %Z")
+        """'Lucia: <message> · 1:40 AM · City Tech, Downtown Brooklyn'. Place = the phone's fresh place, else
+        the configured demo place; left out when unknown. No extra tracking."""
+        stamp = datetime.fromtimestamp(self.brain.clock()).astimezone().strftime("%-I:%M %p")
         place = self.brain.live_place()
-        if place:
-            location = "Reported place: " + str(place["name"])
-        else:
-            configured = self.kb.places.get(self.cfg.get("currentPlace", ""), {}).get("name")
-            location = "Configured place: " + configured if configured else "Place unknown"
-        return f"{self.cfg['appName']}: {message} · {stamp} · {location}"
+        where = (place or {}).get("name") or self.kb.places.get(self.cfg.get("currentPlace", ""), {}).get("name")
+        return " · ".join(x for x in (f"{self.cfg['appName']}: {message}", stamp, where) if x)
 
     # ------------------------------------------------------------------ output
     async def event(self, kind: str, **data):

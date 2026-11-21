@@ -50,7 +50,7 @@ after `/api/reload`, and after `/api/patient` changes the name. `/api/state` inc
 Only exact text is cached; changed place/schedule wording can still need a first render. A partial
 warmup does not prevent startup; check that macOS `say` produces audio before the demo.
 Caregiver alerts use the existing iMessage path, adding the Mac's local time and either the fresh
-phone-reported place or the labeled configured demo place. `LUCIA_DRY_RUN=1` never sends a text.
+phone-reported place or the configured demo place, e.g. `Lucia: … · 1:40 AM · City Tech, Downtown Brooklyn`. `LUCIA_DRY_RUN=1` never sends a text.
 
 ## Rules
 

@@ -46,7 +46,7 @@ Enrollment photos and local configuration stay outside git. The hub keeps a loca
 - A familiar face identified with a short answer on the lens and through the speaker.
 - Everyday orientation questions answered from stored facts, with repeat/slow/stop support.
 - A distress phrase producing an iMessage with time and available place context, plus a caregiver feed entry.
-- A separate experimental fall alert, demonstrated using a synthetic event rather than requiring anyone to fall.
+- An experimental fall alert, shown with a staged fall by a teammate (onto a mat) after testing it on soft drops; the text goes out within a couple of seconds.
 
 Voice clips for the greeting, teammate introductions and common orientation answers are prepared in the background when the hub starts. Cached clips avoid repeated speech synthesis for the exact same text; recognition, networking and playback still take time. Changed names and knowledge trigger another warmup. A changed schedule or place can produce a new greeting that still needs rendering.
 

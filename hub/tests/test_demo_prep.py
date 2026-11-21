@@ -28,8 +28,8 @@ def test_distress_and_fall_include_context_in_existing_messages(tmp_path):
         assert len(h.alerts.sent) == 2
         distress, fall = h.alerts.sent
         assert distress[0].startswith(h.cfg["appName"] + ":")
-        assert "City Tech" in distress[0] and "reported" in distress[0].lower()
-        stamp = datetime.fromtimestamp(h.brain.clock()).astimezone().strftime("%b %d, %I:%M %p %Z")
+        assert "City Tech" in distress[0]
+        stamp = datetime.fromtimestamp(h.brain.clock()).astimezone().strftime("%-I:%M %p")
         assert stamp in distress[0]
         assert not distress[1] and fall[1]
         assert "may have fallen" in fall[0] and "City Tech" in fall[0]
@@ -44,9 +44,9 @@ def test_alert_does_not_present_stale_phone_place_as_current(tmp_path):
     h.brain.clock = lambda: 2000
     h.brain.place = {"name": "Old shop", "at": 1}
     assert "Old shop" not in h.alert_text("Test")
-    assert "configured" in h.alert_text("Test").lower()
+    assert h.alert_text("Test").endswith("City Tech, Downtown Brooklyn") or "City Tech" in h.alert_text("Test")
     h.cfg["currentPlace"] = "missing"
-    assert "Place unknown" in h.alert_text("Test")
+    assert h.alert_text("Test").count(" · ") == 1          # time only: no made-up place
     asyncio.run(h.llm.client.aclose())
 
 
