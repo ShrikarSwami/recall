@@ -25,10 +25,10 @@ Gestures arrive as instant key events (~7 ms down→up). **Tell them apart by ke
 | Gesture | Android keycode | scan | Lucia uses it for |
 |---|---|---|---|
 | Tap | 66 `ENTER` | 28 | ask (start listening) |
-| Double tap | 142 `F12` (system then sends 4 `BACK`) | 88 | (free) |
-| Long press | 141 `F11` | 87 | (free) |
-| Swipe forward | 22 `DPAD_RIGHT` | 106 | (free) |
-| Swipe back | 21 `DPAD_LEFT` | 105 | (free) |
+| Double tap | 142 `F12` (system then sends 4 `BACK`) | 88 | ask (any touch asks) |
+| Long press | 141 `F11` | 87 | ask (the hint says "hold right side") |
+| Swipe forward | 22 `DPAD_RIGHT` | 106 | ask (any touch asks) |
+| Swipe back | 21 `DPAD_LEFT` | 105 | ask (any touch asks) |
 | Swipe up / down | not supported (comes through as a tap) | | |
 | **Glasses put on** | **301** from device `xnm_pannel` | 184 | greeting. This is the real wear detector; the Android off-body sensor never fired |
 | Ring | **nothing received** (not paired / not present in our kit) | | |

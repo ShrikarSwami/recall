@@ -11,7 +11,7 @@ short answer while it appears on the lens.
 
 **The patient forgets how to use the app every few minutes.** Every screen must be obvious to someone
 seeing it for the first time, every time:
-- One pinned instruction, always visible: `Say "Lucia" to ask` (bottom-left of the lens).
+- One pinned instruction, always visible: `Say "Lucia" or hold right side` (bottom-left of the lens).
 - No menus, modes, settings, gestures to learn, or "as I said before". Same question → same answer.
 - At most **3 short lines** on the lens; 1–2 spoken sentences. Never contradict or quiz the patient.
 - No medical advice. Only distress ("I want to go home", "I'm scared") texts the caregiver.

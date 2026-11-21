@@ -42,7 +42,7 @@ Debug on the real glasses: with the glasses on USB, open `chrome://inspect` on t
 The lens is display-only. Input (taps, mic, camera) goes from the glasses app straight to the hub.
 
 ```js
-{"type":"config", "hint":"Say \"Lucia\" to ask", "app":"Lucia", "patient":"Somya", "now":<epoch ms>, "tz":-300}
+{"type":"config", "hint":"Say \"Lucia\" or hold right side", "app":"Lucia", "patient":"Somya", "now":<epoch ms>, "tz":-300}
 {"type":"state",  "value":"idle" | "listening" | "thinking"}
 {"type":"card",   "title":"Abhiram", "lines":["This is Abhiram. He's on","your team."], "ttl_ms":8000, "intent":"..."}
 {"type":"clear"}

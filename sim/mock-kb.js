@@ -2,7 +2,7 @@
 window.MOCK_KB = {
  "app": "Lucia",
  "wake": "Lucia",
- "hint": "Say \"Lucia\" to ask",
+ "hint": "Say \"Lucia\" or hold right side",
  "patient": "Somya",
  "caregiver": "Shrikar",
  "currentPlace": "city_tech",
