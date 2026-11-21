@@ -1986,17 +1986,6 @@ window.MOCK_KB = {
    "scope": "faq",
    "subject": "faq",
    "questions": [
-    "Where is the bathroom?",
-    "I need the toilet",
-    "Where's the restroom",
-    "Is there a washroom nearby"
-   ],
-   "answer": "Someone nearby can help you find the bathroom. At the event, you can ask a staff member."
-  },
-  {
-   "scope": "faq",
-   "subject": "faq",
-   "questions": [
     "I'd like somewhere to sit.",
     "Can I have a chair",
     "Where can I sit down",
@@ -5562,11 +5551,95 @@ window.MOCK_KB = {
   },
   {
    "scope": "place",
+   "subject": "city_tech",
+   "questions": [
+    "Where's the bathroom?",
+    "where is the restroom",
+    "where's the toilet",
+    "I need the bathroom"
+   ],
+   "answer": "Go out the door to the exit, and you will see a sign for the bathroom on your right. Shrikar can walk there with you."
+  },
+  {
+   "scope": "place",
+   "subject": "city_tech",
+   "questions": [
+    "Where can I get food?",
+    "where's the kitchen",
+    "where can I get water",
+    "where's the food"
+   ],
+   "answer": "Snacks and drinks are in the corner of this room. Shrikar can walk there with you."
+  },
+  {
+   "scope": "place",
+   "subject": "city_tech",
+   "questions": [
+    "Is there a quiet place?"
+   ],
+   "answer": "There's no quiet room here, but you can sit down with Shrikar."
+  },
+  {
+   "scope": "place",
+   "subject": "city_tech",
+   "questions": [
+    "Where's the front door?",
+    "where is the exit",
+    "how do I get outside",
+    "where's the entrance"
+   ],
+   "answer": "Leave the classroom and turn left. You will see an exit. Shrikar can walk there with you."
+  },
+  {
+   "scope": "place",
    "subject": "home",
    "questions": [
     "Where are we?"
    ],
    "answer": "You're at home in Brooklyn."
+  },
+  {
+   "scope": "place",
+   "subject": "home",
+   "questions": [
+    "Where's the bathroom?",
+    "where is the restroom",
+    "where's the toilet",
+    "I need the bathroom"
+   ],
+   "answer": "The bathroom is down the hall, the first door on your left."
+  },
+  {
+   "scope": "place",
+   "subject": "home",
+   "questions": [
+    "Where's the kitchen?",
+    "where is the kitchen",
+    "where can I get water"
+   ],
+   "answer": "The kitchen is through the living room, straight ahead."
+  },
+  {
+   "scope": "place",
+   "subject": "home",
+   "questions": [
+    "Where's my bedroom?",
+    "where is my bed",
+    "where do I sleep",
+    "I want to lie down"
+   ],
+   "answer": "Your bedroom is at the end of the hall, on the right. Your cozy bed is waiting there."
+  },
+  {
+   "scope": "place",
+   "subject": "home",
+   "questions": [
+    "Where's the front door?",
+    "where is the door",
+    "how do I get outside",
+    "where's the entrance"
+   ],
+   "answer": "The front door is next to the living room. Shrikar can walk outside with you."
   },
   {
    "scope": "faq",
