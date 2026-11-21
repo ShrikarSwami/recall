@@ -1,0 +1,48 @@
+/* Simulator shell. Written to run inside Chromium 74 too (no gap/inset/min()/max()), so the whole thing
+   can be checked in the same engine as the glasses' web view. */
+html, body { margin: 0; background: #080c09; color: #d8eadd; font: 15px/1.4 Arial, sans-serif; }
+#wrapper { display: flex; flex-wrap: wrap; align-items: flex-start; padding: 12px; }
+#left { flex: 1 1 560px; min-width: 300px; margin-right: 16px; }
+#panel { flex: 0 0 380px; width: 380px; background: #111a14; border: 1px solid #243328; border-radius: 12px; padding: 14px; box-sizing: border-box; }
+h1 { font-size: 17px; margin: 0 0 4px 0; }
+h2 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #8da697; margin: 16px 0 8px 0; }
+h2:first-child { margin-top: 0; }
+#engine { font-size: 12px; color: #8da697; margin-bottom: 8px; }
+#engine b.ok { color: #00ff50; } #engine b.warn { color: #ffd84a; }
+#stagebox { width: 100%; }
+#stage { position: relative; overflow: hidden; border-radius: 10px; background: #000; border: 1px solid #243328; }
+
+#world { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 40%, #2a302c, #0c0f0d 75%); }
+#world video, #world img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+#worldhint { position: absolute; left: 0; right: 0; top: 46%; text-align: center; color: #5d6d63; font-size: 13px; padding: 0 20px; }
+
+/* the lens: scaled 640x480 box; in "glasses look" black becomes see-through and colour becomes green */
+#scaler { position: absolute; left: 0; top: 0; width: 640px; height: 480px; transform-origin: 0 0; background: #000; }
+#lens { display: block; border: 0; width: 640px; height: 480px; background: #000; }
+#stage.glass #scaler { background: transparent; mix-blend-mode: screen; }
+#stage.glass #lens { -webkit-filter: url(#mono); filter: url(#mono); }
+
+#fakebar { position: absolute; left: 0; right: 0; top: 0; height: 8.33%; background: rgba(8,12,9,.82); color: #6f8f7a; font: 13px Arial, sans-serif;
+  display: flex; justify-content: space-between; align-items: center; padding: 0 12px; box-sizing: border-box; }
+#fakebar.off { display: none; }
+#catcher { position: absolute; left: 0; top: 8.33%; right: 0; bottom: 0; cursor: pointer; }
+#errors { margin-top: 8px; font: 12px monospace; color: #ffd84a; white-space: pre-wrap; }
+
+button, .btn { display: block; box-sizing: border-box; font: inherit; font-size: 14px; color: #d8eadd; background: #18251c; border: 1px solid #2f4535; border-radius: 10px;
+  padding: 10px; text-align: left; cursor: pointer; margin: 0 8px 8px 0; flex: 1 1 150px; min-width: 0; }
+button.wide { flex: 1 1 100%; margin-right: 0; }
+button:hover, .btn:hover { background: #20332a; }
+button.primary { background: #00ff50; color: #021a0a; border-color: #00ff50; font-weight: bold; }
+button small, .btn small { display: block; color: #8da697; font-size: 12px; font-weight: normal; }
+button.primary small { color: #0a4a22; }
+.row { display: flex; flex-wrap: wrap; }
+.row3 { display: flex; flex-wrap: wrap; }
+.row3 button { flex: 0 0 calc(33.3% - 8px); }
+#f-any { display: none; }
+.check, .slider { margin: 4px 0; font-size: 14px; }
+.slider label { display: block; font-size: 12px; color: #8da697; }
+.slider input { width: 100%; }
+.fld { display: block; flex: 1 1 140px; margin-right: 8px; font-size: 12px; color: #8da697; }
+.fld input { display: block; width: 100%; box-sizing: border-box; font: inherit; font-size: 15px; color: #d8eadd; background: #0c130e; border: 1px solid #2f4535; border-radius: 8px; padding: 8px; margin-top: 4px; }
+#msg { color: #8da697; font-size: 13px; min-height: 1.4em; }
+.note { color: #8da697; font-size: 12px; margin: 2px 0 6px 0; min-height: 1.2em; }

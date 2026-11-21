@@ -1,0 +1,1 @@
+window.SQ_BIG_MAP={"cell": 320, "cols": 10, "frames": {"idle_0": [0, 0], "idle_45": [1, 0], "idle_90": [2, 0], "idle_135": [3, 0], "idle_180": [4, 0], "emo_warm": [5, 0], "emo_happy": [6, 0], "emo_warm_talk": [7, 0], "emo_happy_talk": [8, 0], "wave_0": [9, 0], "wave_1": [0, 1], "wave_2": [1, 1], "wave_3": [2, 1], "bow_0": [3, 1], "bow_1": [4, 1]}};

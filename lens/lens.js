@@ -43,8 +43,8 @@
   }
   function clearCard() { $("prompt").textContent = ""; title.textContent = ""; lines.textContent = ""; slot.className = "empty"; slot.innerHTML = ""; }
   // hub answers carry an intent but no icon: give each a calm stamp
-  var INTENT_STAMP = { greeting: ["shield", "WITH YOU"], proactive_intro: ["person", "HELLO"], who_is_this: ["person", "HELLO"], who_is: ["person", "HELLO"],
-    "kb:person": ["person", "FRIEND"], "kb:place": ["home", "HERE"], "kb:patient": ["person", "YOU"], time: ["timer", "TODAY"], distress: ["shield", "SAFE"] };
+  var INTENT_STAMP = { greeting: ["shield", "WITH YOU"], proactive_intro: ["person-visitor", "HELLO"], who_is_this: ["person-visitor", "HELLO"], who_is: ["person-visitor", "HELLO"],
+    "kb:person": ["person-visitor", "FRIEND"], "kb:place": ["home", "HERE"], "kb:patient": ["person", "YOU"], time: ["timer", "TODAY"], distress: ["shield", "SAFE"] };
   function setCard(m) {
     if (!m.icon && m.intent && INTENT_STAMP[m.intent]) { m.icon = INTENT_STAMP[m.intent][0]; m.tag = m.tag || INTENT_STAMP[m.intent][1]; }
     if (m.ttl_ms === undefined && m.intent) m.ttl_ms = 8000;
