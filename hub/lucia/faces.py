@@ -72,3 +72,41 @@ class Faces:
     async def identify(self, jpeg: bytes) -> tuple[bool, str | None, float]:
         """(face_found, person_id_or_None, similarity)."""
         return await asyncio.get_running_loop().run_in_executor(self.pool, self._identify, jpeg)
+
+
+def check(faces_dir: Path, threshold: float = 0.45) -> None:
+    """`uv run python -m lucia.faces`: report every enrollment photo and how separable people are."""
+    f = Faces(faces_dir, threshold)
+    per_photo: dict[str, list[tuple[str, np.ndarray | None]]] = {}
+    for person_dir in sorted(p for p in faces_dir.iterdir() if p.is_dir()):
+        for img_path in sorted(person_dir.glob("*")):
+            if img_path.suffix.lower() not in (".jpg", ".jpeg", ".png"):
+                if not img_path.name.startswith("."):
+                    print(f"  skip {person_dir.name}/{img_path.name} (use .jpg/.png; convert HEIC first)")
+                continue
+            img = cv2.imread(str(img_path))
+            e = f._embed_largest(img) if img is not None else None
+            per_photo.setdefault(person_dir.name, []).append((img_path.name, e))
+    if not per_photo:
+        print(f"No photos yet. Put front.jpg / left.jpg / right.jpg in {faces_dir}/<person_id>/")
+        return
+    print("Photos (face found?):")
+    for pid, items in per_photo.items():
+        marks = ", ".join(f"{n} {'ok' if e is not None else 'NO FACE'}" for n, e in items)
+        print(f"  {pid:10s} {marks}")
+    counts = f.enroll_all()
+    print(f"\nEnrolled: {counts}   (match threshold {threshold})")
+    print("\nEach photo vs every person's prototype (want: own row high, others < threshold):")
+    for pid, items in per_photo.items():
+        for name, e in items:
+            if e is None:
+                continue
+            scores = {other: float(p @ e) for other, p in f.protos.items()}
+            best = max(scores, key=scores.get)
+            flag = "" if best == pid and scores[best] >= threshold else "   <-- would NOT match " + pid
+            print(f"  {pid}/{name:12s} " + "  ".join(f"{o}={s:.2f}" for o, s in scores.items()) + flag)
+
+
+if __name__ == "__main__":
+    from .config import FACES_DIR, load_config
+    check(FACES_DIR, load_config().get("faces", {}).get("matchThreshold", 0.45))
