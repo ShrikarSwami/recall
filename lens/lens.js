@@ -5,7 +5,8 @@
      {"type":"config", "hint":"Say \"Lucia\" or hold right side", "app":"Lucia", "patient":"Somya", "now": 1795229364000, "tz": -300}
      {"type":"state",  "value":"idle" | "listening" | "thinking"}
      {"type":"card",   "title":"Dev", "lines":["This is Dev. He's on","your team."], "ttl_ms":8000,
-                       "intent":"who_is_this" | "proactive_intro" | "greeting" | "distress" | "unknown" | "freeform" | "time" | "kb:person" | ...}
+                       "intent":"who_is_this" | "proactive_intro" | "greeting" | "distress" | "unknown" | "freeform" | "time" | "kb:person" | ...,
+                       "prompt":"Hear more about Dev?\nNod or say \"yes\"  ·  shake or say \"no\""}   (optional: Lucia asked a yes/no question)
      {"type":"clear"}
      {"type":"conn",   "value":true|false}       (simulator only; real lens derives it from the socket)
 
@@ -17,7 +18,7 @@
   "use strict";
 
   var el = function (id) { return document.getElementById(id); };
-  var card = el("card"), title = el("card-title"), body = el("card-body");
+  var card = el("card"), title = el("card-title"), body = el("card-body"), prompt = el("card-prompt");
   var status = el("status"), statusText = el("status-text");
   var hint = el("hint"), clock = el("clock"), offline = el("offline");
   var hideTimer = null;
@@ -27,6 +28,8 @@
   function setCard(msg) {
     title.textContent = msg.title || "";
     body.textContent = (msg.lines || []).join("\n");
+    prompt.textContent = msg.prompt || "";
+    prompt.className = msg.prompt ? "" : "hidden";
     card.className = "intent-" + String(msg.intent || "none").replace(/[^a-z_]/gi, "_");
     if (hideTimer) clearTimeout(hideTimer);
     hideTimer = setTimeout(function () { card.className += " hidden"; }, msg.ttl_ms || 8000);

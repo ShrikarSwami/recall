@@ -54,6 +54,14 @@ html, body {
   overflow: hidden;
 }
 
+#card-prompt {
+  margin: 14px 0 0 0;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--ink-dim);
+  white-space: pre-line;
+}
+
 /* intent-specific looks (set as a class on #card) */
 #card.intent-distress #card-title { color: var(--warn); }
 #card.intent-proactive_intro #card-title:before { content: "\2192  "; }  /* → someone is here */

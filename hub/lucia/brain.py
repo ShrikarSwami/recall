@@ -29,8 +29,14 @@ WHO_THIS = re.compile(
 SCENE = re.compile(r"\b(what am i (looking at|seeing)|what('s| is) (in front of me|around me|this place look)|"
                    r"what do you see|describe (this|what))\b", re.I)
 
+YES = re.compile(r"^\W*(yes|yeah|yep|yup|sure|okay|ok|please|of course|yes please|go ahead|tell me|i do|sounds good)\b", re.I)
+NO = re.compile(r"^\W*(no|nope|nah|not now|no thanks|no thank you|i'?m (ok|okay|fine|good)|that'?s (ok|okay|fine|all))\b", re.I)
+
 SEEN_FRESH_S = 15        # a face counts as "in front of you" for this long
 TOPIC_FRESH_S = 180      # "he"/"she" refers to the last person discussed for this long
+OFFER_S = 10             # a yes/no offer stays open this long (the hub extends it past the spoken audio)
+MORE_MAX = 3             # "want to hear more?" chains at most this many facts
+OFFER_HOW = 'Nod or say "yes"  ·  shake or say "no"'
 
 
 @dataclass
@@ -43,6 +49,17 @@ class Reply:
     alert: str | None = None
     repeat_count: int = 1
     score: float | None = None
+    offer: str | None = None       # "more" | "tell_caregiver": Lucia asked a yes/no question
+    prompt: str | None = None      # lens line while an offer is open
+
+
+@dataclass
+class Offer:
+    kind: str                      # "more" | "tell_caregiver"
+    subject: str | None
+    until: float
+    question: str = ""             # what the wearer asked (for tell_caregiver)
+    told: list = field(default_factory=list)   # fact keys already read out in this chain
 
 
 @dataclass
@@ -56,6 +73,7 @@ class Brain:
     history: deque = field(default_factory=lambda: deque(maxlen=200))
     latest_frame: bytes | None = None
     clock: object = time.time
+    offer: Offer | None = None
 
     # ---------------------------------------------------------------- context
     @property
@@ -100,6 +118,54 @@ class Brain:
                 return e.answer
         return p.intro or f"This is {p.first}."
 
+    # ---------------------------------------------------------------- yes/no offers
+    def _more_facts(self, pid: str, told: list) -> list:
+        skip = ("who is this", "who is that", "how do i know")
+        return [e for e in self.kb.for_subject(pid)
+                if not matcher.normalise(e.questions[0]).startswith(skip) and e.key not in told]
+
+    def _with_offer(self, r: Reply, kind: str, subject: str | None, question: str = "",
+                    told: list | None = None) -> Reply:
+        """Append a yes/no question to the spoken answer (the lens keeps the answer + a nod/yes prompt)."""
+        if kind == "more":
+            if not self._more_facts(subject, told or []) or len(told or []) >= MORE_MAX:
+                self.offer = None
+                return r
+            first = self.kb.people[subject].first
+            ask, short = f" Want to hear more about {first}?", f"Hear more about {first}?"
+        else:
+            ask, short = " Should I let {caregiver} know?", "Tell {caregiver}?"
+        r.speech += fill(ask, self.vals)
+        r.offer, r.prompt = kind, fill(short, self.vals) + "\n" + OFFER_HOW
+        self.offer = Offer(kind, subject, self.clock() + OFFER_S, question, list(told or []))
+        return r
+
+    def intro_reply(self, pid: str, intent: str = "who_is_this") -> Reply:
+        r = self._reply(self.intro(pid), self.kb.people[pid].first, intent, pid)
+        return self._with_offer(r, "more", pid)
+
+    def gesture(self, name: str) -> Reply | None:
+        """A nod/shake from the IMU. Only means something while an offer is open."""
+        if not self.offer or self.clock() > self.offer.until:
+            return None
+        return self._resolve(name == "nod")
+
+    def _resolve(self, yes: bool) -> Reply:
+        o, self.offer = self.offer, None
+        if not yes:
+            return self._reply("Okay. I'm here whenever you need me.", "Okay", "offer_no", o.subject)
+        if o.kind == "more":
+            facts = self._more_facts(o.subject, o.told)
+            if not facts:
+                return self._reply("That's all I know for now.", self.kb.people[o.subject].first, "offer_yes", o.subject)
+            e = facts[0]
+            self.topic = (o.subject, self.clock())
+            r = self._reply(e.answer, self.kb.people[o.subject].first, "offer_yes", o.subject)
+            return self._with_offer(r, "more", o.subject, told=o.told + [e.key])
+        r = self._reply("Okay. I've let {caregiver} know.", "Done", "offer_yes")
+        r.alert = f"{self.vals['patient']} asked something I couldn't answer: \"{o.question}\""
+        return r
+
     def greeting(self) -> Reply:
         place = self.kb.places.get(self.cfg.get("currentPlace", ""), {})
         where = f" You're at {place['name']}." if place.get("name") else ""
@@ -108,6 +174,13 @@ class Brain:
     # ---------------------------------------------------------------- main entry
     async def answer(self, text: str) -> Reply:
         t = text.strip()
+        if self.offer and self.clock() <= self.offer.until and len(t.split()) <= 5:
+            if YES.search(t):
+                return self._resolve(True)
+            if NO.search(t):
+                return self._resolve(False)
+        self.offer = None
+
         if DISTRESS.search(t):
             r = self._reply("You're safe, {patient}. {caregiver} knows where you are, and I'm letting him know now.",
                             "You're safe", "distress")
@@ -129,7 +202,7 @@ class Brain:
             pid = self.in_view()
             if pid:
                 self.topic = (pid, self.clock())
-                return self._reply(self.intro(pid), self.kb.people[pid].first, "who_is_this", pid)
+                return self.intro_reply(pid)
             if self.clock() - self.unknown_face_at < SEEN_FRESH_S:
                 return self._reply("I don't think we've met them yet. It's okay to ask their name.",
                                    "Someone new", "who_is_this")
@@ -144,7 +217,7 @@ class Brain:
         if named and named != (self.topic or ("", 0))[0]:
             self.topic = (named, self.clock())
         if named and re.search(r"\bwho\b", t, re.I) and len(matcher.normalise(t).split()) <= 5:
-            return self._reply(self.intro(named), self.kb.people[named].first, "who_is", named)
+            return self.intro_reply(named, "who_is")
 
         cands = matcher.candidates(t, self.kb, person, self.cfg.get("currentPlace"))
         best = cands[0] if cands else None
@@ -176,5 +249,5 @@ class Brain:
             free = await self.llm.freeform(t, self.vals["patient"], recent)
             if free:
                 return self._reply(free, "{app}", "freeform", score=best.score if best else None)
-        return self._reply("I'm not sure about that one. {caregiver} can help you with it.",
-                           "Not sure", "unknown", score=best.score if best else None)
+        r = self._reply("I'm not sure about that one.", "Not sure", "unknown", score=best.score if best else None)
+        return self._with_offer(r, "tell_caregiver", None, question=t)
