@@ -31,6 +31,7 @@ from .speech import Segmenter, Transcriber, Voice, earcon, split_wake
 
 ARM_S = 8                 # after a tap / bare wake word, the next utterance is the question
 GREET_GAP_S = 90
+AUDIO_LEAD_S = 0.6        # how far audio streaming runs ahead of playback (stop flushes at most this much)
 # Any touch on the temple asks (the wearer never has to remember which gesture). "back" is the system's
 # echo after a double tap, so it is not a touch of its own.
 TOUCH_KEYS = {"tap", "long_press", "double_tap", "swipe_forward", "swipe_back"}
@@ -232,12 +233,16 @@ class Hub:
                 if generation != self.output_generation:
                     return
                 self.playing_until = time.time() + len(pcm) / 2 / Voice.OUT_RATE + 0.4
-                for i in range(0, len(pcm), 8820):  # Pace chunks so stop can flush a small device buffer.
+                # Pace chunks so "stop" only has a small device buffer to flush, but stay ~0.6 s ahead of
+                # playback so Wi-Fi jitter never starves the speaker (exact real-time pacing stutters).
+                t_start = time.monotonic()
+                for i in range(0, len(pcm), 8820):
                     if generation != self.output_generation:
                         return
-                    chunk = pcm[i:i + 8820]
-                    await self.to_glasses(chunk)
-                    await asyncio.sleep(len(chunk) / (2 * Voice.OUT_RATE))
+                    await self.to_glasses(pcm[i:i + 8820])
+                    ahead = (i + 8820) / (2 * Voice.OUT_RATE) - (time.monotonic() - t_start)
+                    if ahead > AUDIO_LEAD_S:
+                        await asyncio.sleep(ahead - AUDIO_LEAD_S)
             if generation != self.output_generation:
                 return
             self.followup_until = max(time.time(), self.playing_until) + 15
@@ -297,7 +302,7 @@ class Hub:
         await self.event("alert", text=text, status=status, urgent=True)
         r = self.brain._reply("{patient}, are you okay? I've let {caregiver} know. Help is on the way.",
                               "Are you okay?", "fall")
-        self.armed_until = 0
+        await self.interrupt()          # cut off whatever Lucia was saying; the fall comes first
         await self.say(r)
 
     def imu(self, rows: list):
