@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- The lens: exactly what the wearer sees. 640x480 @ 160 dpi, black = see-through. -->
+<meta name="viewport" content="width=640, height=480, initial-scale=1, user-scalable=no">
+<title>Lucia lens</title>
+<link rel="stylesheet" href="lens.css">
+</head>
+<body>
+  <!-- Top 40px belong to the glasses' own status bar (clock, Bluetooth, battery). Keep it empty. -->
+  <div id="safe-top"></div>
+
+  <main id="stage">
+    <!-- Answer / intro / greeting / distress card. Hidden when there's nothing to say. -->
+    <section id="card" class="hidden" aria-live="polite">
+      <h1 id="card-title"></h1>
+      <p id="card-body"></p>
+    </section>
+
+    <!-- Listening / thinking indicator -->
+    <div id="status" class="hidden"><span class="dot"></span><span id="status-text"></span></div>
+  </main>
+
+  <!-- Always visible: the one thing a brand-new user needs to know. -->
+  <footer id="footer">
+    <span id="hint">Say "Lucia" to ask</span>
+    <span id="clock"></span>
+  </footer>
+
+  <div id="offline" class="hidden">Reconnecting…</div>
+
+  <script src="lens.js"></script>
+</body>
+</html>

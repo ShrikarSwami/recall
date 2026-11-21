@@ -37,6 +37,7 @@ def test_loader_skips_blank_answers_and_examples(brain):
     assert {"dev", "ana", "patient", "faq", "city_tech"} <= subjects
     assert "example" not in subjects
     assert not any("pets" in e.questions[0] for e in brain.kb.entries)
+    assert not any("AGENTS" in e.source or "README" in e.source for e in brain.kb.entries)
 
 
 def test_who_is_this_uses_face_in_view(brain):
@@ -99,3 +100,9 @@ def test_repeats_are_counted_and_answer_is_identical(brain):
 def test_card_lines_fit_lens(brain):
     r = ask(brain, "what are these glasses")
     assert 1 <= len(r.lines) <= 3 and all(len(l) <= 34 for l in r.lines)
+
+
+def test_how_do_i_know_him_is_not_who_is_this(brain):
+    brain.saw("dev")
+    r = ask(brain, "how do I know him?")
+    assert r.intent.startswith("kb") and "hackathon" in r.speech

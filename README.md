@@ -1,4 +1,4 @@
-# Recall
+# Recall (Lucia)
 
 Glasses for people living with dementia. Put them on like your everyday glasses, tap the side (or say
 "Lucia") and ask "who is this?" or "where are we?". You get a calm, short answer in your ear and on
@@ -8,16 +8,20 @@ the lens. Built by **team BB** at the Worn Smart Glasses Hackathon (Nov 20–21,
 
 ## Status
 
-Spec stage. Nothing runs yet. The layout:
+Working end to end on real M6 glasses (Fri night): tap or say "Lucia", ask, get a spoken + on-lens answer.
 
 | Folder | What goes here |
 |---|---|
-| `glasses-app/` | Kotlin app that runs on the glasses (Android 9, installed with `adb`) |
-| `hub/` | Python server on the laptop: speech, faces, answers, voice |
-| `caregiver-web/` | Phone page for the caregiver (rough first; the frontend devs polish it) |
-| `knowledge/` | Everything the glasses know, in plain markdown. **Anyone can edit.** |
-| `config/` | App name, patient, caregiver, model hosts. Copy `app.example.json` → `app.local.json`. |
+| `lens/` | **The UI on the glasses** (HTML/CSS/JS). Frontend devs start here. |
+| `sim/` | Browser simulator. Open `sim/index.html`; no glasses needed. |
+| `hub/` | Python server on the Mac: speech, faces, answers, voice, alerts |
+| `glasses-app/` | Thin Android app on the glasses (camera, mic, keys → hub; shows `lens/`) |
+| `caregiver-web/` | Caregiver phone page (distress alerts, what was asked) |
+| `knowledge/` | Everything Lucia knows, in plain markdown. **Anyone can edit.** |
+| `config/` | App name, wake word, patient, caregiver, model hosts. Copy `app.example.json` → `app.local.json`. |
 | `faces/` | Enrollment photos. Local only, never committed. |
+
+**Coding agents and new teammates: read [AGENTS.md](AGENTS.md).**
 
 ## ⚠️ Two rules
 

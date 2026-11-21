@@ -120,8 +120,8 @@ def _places(text: str, source: str) -> tuple[dict[str, dict], list[Entry]]:
 def load(knowledge_dir: Path) -> Knowledge:
     kb = Knowledge()
     for path in sorted(knowledge_dir.rglob("*.md")):
-        if path.name.startswith("_") or path.name.upper().startswith("README"):
-            continue
+        if path.name.startswith("_") or path.stem.upper() in ("README", "AGENTS", "CLAUDE"):
+            continue  # templates and docs, not knowledge
         text = _COMMENT.sub("", path.read_text())
         rel = str(path.relative_to(knowledge_dir))
         if path.parent.name == "people":

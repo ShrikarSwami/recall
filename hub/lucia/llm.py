@@ -63,5 +63,21 @@ class LLM:
             "are or what is in front of them. Don't mention the camera. Don't identify anyone by name.",
             image=jpeg, n=40, timeout=8)
 
+    async def freeform(self, question: str, patient: str, recent: list[str] | None = None) -> str | None:
+        """Off-script questions (a judge asks something we never wrote down). Short, kind, no invented
+        personal facts, no medical advice."""
+        context = ("\nEarlier in this conversation:\n" + "\n".join(recent[-4:])) if recent else ""
+        prompt = (
+            f"You are Lucia, a gentle voice assistant inside smart glasses worn by {patient}, who has memory loss. "
+            "Answer in at most 2 short sentences (under 30 words), warm and calm, plain words, no lists or markdown. "
+            "Never give medical advice; for health questions say a doctor or their caregiver can help. "
+            f"Never make up facts about {patient}, their family, friends, plans or past; if asked something "
+            "personal you don't know, say you're not sure." + context +
+            f"\n\nThey asked: \"{question}\"\nLucia says:")
+        out = await self.ask(prompt, n=70, timeout=6)
+        if not out:
+            return None
+        return out.strip().strip('"').split("\n")[0][:240]
+
     async def warm(self) -> None:
         await self.ask("Say OK.", n=2, timeout=30)

@@ -13,9 +13,12 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
 
 from . import knowledge
+from .export_kb import export_kb
 from .alerts import Alerts
 from .brain import Brain, Reply
 from .config import DATA_DIR, FACES_DIR, KNOWLEDGE_DIR, ROOT, fill, load_config, placeholders
@@ -40,6 +43,7 @@ class Hub:
         self.enrolled: dict[str, int] = {}
         self.glasses: WebSocket | None = None
         self.caregivers: set[WebSocket] = set()
+        self.lenses: set[WebSocket] = set()      # lens pages (glasses WebView, simulator)
         self.armed_until = 0.0
         self.playing_until = 0.0
         self.worn: bool | None = None
@@ -80,6 +84,13 @@ class Hub:
             self.caregivers.discard(ws)
 
     async def to_glasses(self, msg: dict | bytes):
+        """Audio + control go to the glasses app; display messages also go to every lens page."""
+        if not isinstance(msg, bytes):
+            for ws in list(self.lenses):
+                try:
+                    await ws.send_text(json.dumps(msg))
+                except Exception:
+                    self.lenses.discard(ws)
         if self.glasses is None:
             return
         try:
@@ -92,7 +103,7 @@ class Hub:
 
     async def say(self, reply: Reply, question: str = ""):
         async with self.speak_lock:
-            await self.to_glasses({"type": "card", "title": reply.title, "lines": reply.lines,
+            await self.to_glasses({"type": "card", "title": reply.title, "lines": reply.lines, "intent": reply.intent,
                                    "ttl_ms": max(6000, 450 * len(reply.speech.split()) + 3000)})
             await self.to_glasses({"type": "state", "value": "idle"})
             if self.cfg["voice"].get("speakAnswers", True):
@@ -184,7 +195,46 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Lucia hub", lifespan=lifespan)
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 WEB = ROOT / "caregiver-web"
+app.mount("/lens", StaticFiles(directory=ROOT / "lens", html=True), name="lens")
+app.mount("/sim", StaticFiles(directory=ROOT / "sim", html=True), name="sim")
+
+
+@app.websocket("/ws/lens")
+async def ws_lens(ws: WebSocket):
+    """Display-only feed for the lens page: config, card, state, tick. Lens pages may also send
+    {"type":"key","name":"tap"} and {"type":"ask","text":...} (simulator controls)."""
+    await ws.accept()
+    hub.lenses.add(ws)
+    await ws.send_text(json.dumps({"type": "config", "hint": fill(hub.cfg["idleHint"], placeholders(hub.cfg)),
+                                   "app": hub.cfg["appName"], "patient": placeholders(hub.cfg)["patient"],
+                                   "now": int(time.time() * 1000),  # the glasses' clock/timezone are wrong (set to China)
+                                   "tz": int(__import__("datetime").datetime.now().astimezone().utcoffset().total_seconds() // 60)}))
+    try:
+        while True:
+            m = json.loads(await ws.receive_text())
+            if m.get("type") == "key" and m.get("name") == "tap":
+                await hub.arm("tap (lens)")
+            elif m.get("type") == "ask":
+                asyncio.create_task(hub.question(m.get("text", "")))
+            elif m.get("type") == "seen":
+                hub.brain.saw(m.get("person"))
+                if m.get("person"):
+                    await hub.maybe_introduce(m["person"])
+            elif m.get("type") == "worn" and m.get("value"):
+                hub.worn = True
+                await hub.greet()
+    except WebSocketDisconnect:
+        pass
+    finally:
+        hub.lenses.discard(ws)
+
+
+@app.get("/api/kb")
+async def api_kb():
+    """The whole knowledge base as JSON (the simulator's mock mode uses an exported copy)."""
+    return export_kb(hub.kb, hub.cfg)
 
 
 @app.websocket("/ws/glasses")
@@ -249,6 +299,10 @@ async def ws_caregiver(ws: WebSocket):
 
 
 @app.get("/")
+async def root():
+    return RedirectResponse("/sim/")
+
+
 @app.get("/caregiver")
 async def caregiver_page():
     return FileResponse(WEB / "index.html")

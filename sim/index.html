@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucia simulator</title>
+<link rel="stylesheet" href="sim.css">
+</head>
+<body>
+<header>
+  <h1>Lucia simulator</h1>
+  <div class="mode">
+    <label><input type="radio" name="mode" value="mock" checked> Mock (offline, scripted)</label>
+    <label><input type="radio" name="mode" value="live"> Live hub</label>
+    <input id="hub-url" value="http://localhost:9100" title="Hub URL: your own (localhost) or Shrikar's Mac on the venue Wi-Fi">
+    <span id="conn-pill" class="pill">offline</span>
+  </div>
+</header>
+
+<main>
+  <!-- ======================= LENS ======================= -->
+  <section class="lens-col">
+    <div id="lens-frame" class="see-through green">
+      <iframe id="lens" src="../lens/index.html?ws=off" width="640" height="480" scrolling="no" title="Lens"></iframe>
+      <div id="statusbar"><span id="sb-clock"></span><span class="sb-icons">⚙ ᛒ ≋ ▮ 85%</span></div>
+    </div>
+    <div class="row toggles">
+      <label><input type="checkbox" id="t-green" checked> Green waveguide</label>
+      <label><input type="checkbox" id="t-see" checked> See-through (black = transparent)</label>
+      <label><input type="checkbox" id="t-bar" checked> System status bar</label>
+      <label><input type="checkbox" id="t-zoom"> 1.5×</label>
+    </div>
+    <p class="note">The iframe is the real <code>lens/index.html</code>. Edit <code>lens/</code> and reload: that's what the glasses show.</p>
+  </section>
+
+  <!-- ======================= CONTROLS ======================= -->
+  <section class="controls">
+    <h2>Glasses input</h2>
+    <div class="row">
+      <button id="b-tap" title="Enter / Space">Tap temple <kbd>⏎</kbd></button>
+      <button id="b-left">Swipe ← <kbd>←</kbd></button>
+      <button id="b-right">Swipe → <kbd>→</kbd></button>
+      <button id="b-back">Back <kbd>Esc</kbd></button>
+    </div>
+    <div class="row">
+      <button id="b-worn">Put glasses on</button>
+      <select id="person"><option value="">Someone walks in…</option></select>
+      <button id="b-stranger">Stranger walks in</button>
+    </div>
+
+    <h2>Say something <small>(starts with "Lucia" = wake word)</small></h2>
+    <form id="say-form" class="row">
+      <input id="say" placeholder='Lucia, who is this?' autocomplete="off">
+      <button>Say</button>
+    </form>
+    <div id="chips"></div>
+
+    <h2>Force a screen state</h2>
+    <div class="row">
+      <button data-state="listening">Listening</button>
+      <button data-state="thinking">Thinking</button>
+      <button data-state="clear">Clear</button>
+      <button id="b-disc">Disconnected</button>
+      <button id="b-distress">Distress</button>
+      <button id="b-unknown">Unknown person</button>
+      <button id="b-long">Long answer</button>
+    </div>
+
+    <h2>Caregiver phone <small>(only gets a text on distress)</small></h2>
+    <div id="phone"><div class="phone-head">Messages · Lucia</div><div id="texts"><p class="muted">No alerts.</p></div></div>
+  </section>
+
+  <!-- ======================= LOG ======================= -->
+  <section class="log-col">
+    <h2>Event log</h2>
+    <ol id="log"></ol>
+  </section>
+</main>
+
+<script src="mock-kb.js"></script>
+<script src="mock-brain.js"></script>
+<script src="sim.js"></script>
+</body>
+</html>

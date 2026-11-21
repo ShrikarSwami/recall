@@ -19,7 +19,7 @@ FRAME = 480                 # 30 ms @ 16 kHz
 FRAME_BYTES = FRAME * 2
 
 # Whisper's favourite hallucinations on silence/noise.
-JUNK = re.compile(r"^\W*(thank you\.?|thanks for watching!?|you|bye\.?|\.+|\[.*\]|\(.*\))\W*$", re.I)
+JUNK = re.compile(r"^\W*$|^\W*(thank you\.?|thanks for watching!?|you|bye\.?|\.+|\[.*\]|\(.*\))\W*$", re.I)
 
 
 class Segmenter:

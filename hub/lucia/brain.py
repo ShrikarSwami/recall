@@ -24,7 +24,7 @@ TIME = re.compile(r"\b(what )?(time|day|date|year|month)\b.*\b(is it|today|now)\
                   r"\bwhat('s| is) the date\b|\bwhat year\b|\bwhat month\b|\btoday's date\b", re.I)
 WHO_THIS = re.compile(
     r"\b(who('s| is| are)? (this|that|he|she|they|it|in front of me|next to me|talking)|"
-    r"who am i (talking|speaking) (to|with)|do i know (him|her|them|this|that)|"
+    r"who am i (talking|speaking) (to|with)|(?<!how )do i know (him|her|them|this|that)|"
     r"have we met|what('s| is) (his|her|their) name|who('s| is) (this|that) (person|guy|man|woman|lady|girl))\b", re.I)
 SCENE = re.compile(r"\b(what am i (looking at|seeing)|what('s| is) (in front of me|around me|this place look)|"
                    r"what do you see|describe (this|what))\b", re.I)
@@ -116,11 +116,12 @@ class Brain:
 
         if TIME.search(t) and not matcher.person_mentioned(t, self.kb):
             now = datetime.fromtimestamp(self.clock())
-            part = "morning" if now.hour < 12 else "afternoon" if now.hour < 17 else "evening" if now.hour < 21 else "night"
+            part = ("in the morning" if now.hour < 12 else "in the afternoon" if now.hour < 17
+                    else "in the evening" if now.hour < 21 else "at night")
             day = now.day
             suffix = "th" if 11 <= day <= 13 else {1: "st", 2: "nd", 3: "rd"}.get(day % 10, "th")
             hm = now.strftime("%-I:%M").replace(":00", " o'clock")
-            return self._reply(f"It's {now:%A}, {now:%B} {day}{suffix}. It's about {hm} in the {part}.",
+            return self._reply(f"It's {now:%A}, {now:%B} {day}{suffix}. It's about {hm} {part}.",
                                f"{now:%a} {now:%-I:%M}", "time")
 
         named = matcher.person_mentioned(t, self.kb)
@@ -150,7 +151,7 @@ class Brain:
         chosen = None
         if best and best.score >= matcher.SURE:
             chosen = best
-        elif best and self.llm is not None:
+        elif best and best.score >= 45 and self.llm is not None:
             top = cands[:6]
             k = await self.llm.choose(t, [c.phrase if c.entry.scope != "person" else
                                           f"{c.phrase} (about {self.kb.people[c.entry.subject].first})" for c in top])
@@ -170,5 +171,10 @@ class Brain:
                 title = {"place": "Where you are", "patient": "{patient}", "faq": "{app}"}[e.scope]
             return self._reply(e.answer, title, f"kb:{e.scope}", e.subject, score=chosen.score)
 
-        return self._reply("I'm not sure about that. {caregiver} can help, and I'll let him know you asked.",
+        if self.llm is not None:
+            recent = [k for _, k in list(self.history)[-4:]]
+            free = await self.llm.freeform(t, self.vals["patient"], recent)
+            if free:
+                return self._reply(free, "{app}", "freeform", score=best.score if best else None)
+        return self._reply("I'm not sure about that one. {caregiver} can help you with it.",
                            "Not sure", "unknown", score=best.score if best else None)

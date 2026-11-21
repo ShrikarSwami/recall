@@ -1,0 +1,252 @@
+{
+ "app": "Lucia",
+ "wake": "Lucia",
+ "hint": "Say \"Lucia\" to ask",
+ "patient": "Somya",
+ "caregiver": "Shrikar",
+ "currentPlace": "city_tech",
+ "people": {
+  "abhiram": {
+   "name": "Abhiram",
+   "first": "Abhiram",
+   "aliases": [],
+   "intro": "This is Abhiram. They're on your team, BB."
+  },
+  "isha": {
+   "name": "Isha",
+   "first": "Isha",
+   "aliases": [],
+   "intro": "This is Isha. They're on your team, BB."
+  },
+  "shrikar": {
+   "name": "Shrikar Swami",
+   "first": "Shrikar",
+   "aliases": [],
+   "intro": "This is Shrikar. They're on your team, BB."
+  },
+  "sid": {
+   "name": "Sid",
+   "first": "Sid",
+   "aliases": [],
+   "intro": "This is Sid. They're on your team, BB."
+  }
+ },
+ "places": {
+  "city_tech": {
+   "name": "City Tech, Downtown Brooklyn",
+   "address": "285 Jay Street, Brooklyn",
+   "why_here": "You're at a smart-glasses hackathon called Worn, with your team, BB."
+  },
+  "home": {
+   "name": "Home",
+   "address": "Brooklyn",
+   "why_here": "You're at home."
+  }
+ },
+ "entries": [
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What are these glasses?",
+    "what am I wearing",
+    "what is this thing"
+   ],
+   "answer": "These are your Lucia glasses. Tap the side or say \"Lucia\" and ask me anything."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How do I use you?",
+    "what can you do",
+    "help"
+   ],
+   "answer": "Just tap the side of your glasses or say \"Lucia\", then ask. Like \"who is this?\" or \"where are we?\""
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Is my information private?",
+    "who can see this",
+    "are you recording me"
+   ],
+   "answer": "Yes. Everything stays on your glasses and your phone. Nothing goes to the internet."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Should I take my medicine?",
+    "what medicine do I take",
+    "am I sick"
+   ],
+   "answer": "That's a good question for your doctor. I can let Shrikar know you asked."
+  },
+  {
+   "scope": "patient",
+   "subject": "patient",
+   "questions": [
+    "What's my name?",
+    "who am I",
+    "what is my name"
+   ],
+   "answer": "You're Somya."
+  },
+  {
+   "scope": "patient",
+   "subject": "patient",
+   "questions": [
+    "Who takes care of me?",
+    "who's my caregiver",
+    "who looks after me",
+    "who can I call"
+   ],
+   "answer": "Shrikar, your grandson, looks after you. I can let him know if you need him."
+  },
+  {
+   "scope": "patient",
+   "subject": "patient",
+   "questions": [
+    "Where do I live?",
+    "what's my address",
+    "where is home"
+   ],
+   "answer": "You live in Brooklyn. Shrikar can take you home later."
+  },
+  {
+   "scope": "patient",
+   "subject": "patient",
+   "questions": [
+    "Did I eat?",
+    "have I had lunch",
+    "am I hungry"
+   ],
+   "answer": "You had lunch with your team at 12:30."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "Who is this?",
+    "who's that",
+    "who am I talking to",
+    "do I know them"
+   ],
+   "answer": "This is Abhiram. They're on your team, BB."
+  },
+  {
+   "scope": "person",
+   "subject": "abhiram",
+   "questions": [
+    "How do I know them?",
+    "how do we know each other",
+    "where did we meet"
+   ],
+   "answer": "You met Abhiram at the Worn hackathon. They're on your team."
+  },
+  {
+   "scope": "person",
+   "subject": "isha",
+   "questions": [
+    "Who is this?",
+    "who's that",
+    "who am I talking to",
+    "do I know them"
+   ],
+   "answer": "This is Isha. They're on your team, BB."
+  },
+  {
+   "scope": "person",
+   "subject": "isha",
+   "questions": [
+    "How do I know them?",
+    "how do we know each other",
+    "where did we meet"
+   ],
+   "answer": "You met Isha at the Worn hackathon. They're on your team."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "Who is this?",
+    "who's that",
+    "who am I talking to",
+    "do I know them"
+   ],
+   "answer": "This is Shrikar. They're on your team, BB."
+  },
+  {
+   "scope": "person",
+   "subject": "shrikar",
+   "questions": [
+    "How do I know them?",
+    "how do we know each other",
+    "where did we meet"
+   ],
+   "answer": "You met Shrikar at the Worn hackathon. They're on your team."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "Who is this?",
+    "who's that",
+    "who am I talking to",
+    "do I know them"
+   ],
+   "answer": "This is Sid. They're on your team, BB."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "How do I know them?",
+    "how do we know each other",
+    "where did we meet"
+   ],
+   "answer": "You met Sid at the Worn hackathon. They're on your team."
+  },
+  {
+   "scope": "place",
+   "subject": "city_tech",
+   "questions": [
+    "Where are we?",
+    "where am I",
+    "what is this place",
+    "what building is this"
+   ],
+   "answer": "You're at City Tech in Downtown Brooklyn, at a smart-glasses hackathon with your team."
+  },
+  {
+   "scope": "place",
+   "subject": "city_tech",
+   "questions": [
+    "Why am I here?",
+    "what am I doing here",
+    "what is this event"
+   ],
+   "answer": "You're at Worn, a smart-glasses hackathon. Your team, BB, is showing the judges these glasses."
+  },
+  {
+   "scope": "place",
+   "subject": "city_tech",
+   "questions": [
+    "How do I get home?",
+    "how am I getting home",
+    "when do we leave"
+   ],
+   "answer": "Shrikar is taking you home after the awards, around 6 o'clock."
+  },
+  {
+   "scope": "place",
+   "subject": "home",
+   "questions": [
+    "Where are we?"
+   ],
+   "answer": "You're at home in Brooklyn."
+  }
+ ]
+}

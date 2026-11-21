@@ -86,6 +86,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val prefs = getSharedPreferences("lucia", Context.MODE_PRIVATE)
         intent.getStringExtra("hub")?.let { prefs.edit().putString("hub", it).apply() }
+        intent.getStringExtra("lens")?.let { prefs.edit().putString("lens", it).apply() }  // e.g. a teammate's dev server
         hubUrl = prefs.getString("hub", "ws://127.0.0.1:9100/ws/glasses")!!
         buildUi()
         tts = TextToSpeech(this, this)
@@ -125,11 +126,57 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
         root.addView(hint, FrameLayout.LayoutParams(-2, -2, Gravity.BOTTOM or Gravity.START).apply { setMargins(24, 0, 0, 18) })
         root.addView(clock, FrameLayout.LayoutParams(-2, -2, Gravity.BOTTOM or Gravity.END).apply { setMargins(0, 0, 24, 18) })
         root.addView(status, FrameLayout.LayoutParams(-2, -2, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL).apply { setMargins(0, 0, 0, 52) })
+        // The real UI is the web lens (lens/ in the repo, served by the hub at /lens/), owned by the
+        // frontend devs. The native views above are only a fallback while the hub is unreachable.
+        root.addView(buildLens(), FrameLayout.LayoutParams(-1, -1))
         setContentView(root)
         @Suppress("DEPRECATION")
         root.systemUiVisibility = (android.view.View.SYSTEM_UI_FLAG_FULLSCREEN or android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             or android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         root.isFocusable = true; root.isFocusableInTouchMode = true; root.requestFocus()
+    }
+
+    private lateinit var lens: android.webkit.WebView
+    private var lensOk = false
+
+    private fun lensUrl(): String {
+        val override = getSharedPreferences("lucia", Context.MODE_PRIVATE).getString("lens", null)
+        if (override != null) return override
+        // ws://host:port/ws/glasses -> http://host:port/lens/
+        return hubUrl.replaceFirst("ws://", "http://").replaceFirst("wss://", "https://").substringBefore("/ws/") + "/lens/"
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun buildLens(): android.webkit.WebView {
+        lens = android.webkit.WebView(this).apply {
+            setBackgroundColor(Color.BLACK)
+            visibility = android.view.View.INVISIBLE
+            isFocusable = false            // keys stay with the activity -> hub
+            settings.javaScriptEnabled = true
+            settings.domStorageEnabled = true
+            settings.cacheMode = android.webkit.WebSettings.LOAD_NO_CACHE
+            webViewClient = object : android.webkit.WebViewClient() {
+                override fun onPageFinished(view: android.webkit.WebView, url: String) {
+                    if (lensOk) view.visibility = android.view.View.VISIBLE
+                    log("lens loaded ok=$lensOk $url")
+                }
+                override fun onPageStarted(view: android.webkit.WebView, url: String, favicon: android.graphics.Bitmap?) { lensOk = true }
+                @Suppress("DEPRECATION")
+                override fun onReceivedError(view: android.webkit.WebView, code: Int, desc: String?, failing: String?) {
+                    lensOk = false; view.visibility = android.view.View.INVISIBLE
+                    log("lens error $code $desc; retrying")
+                    ui.postDelayed({ view.loadUrl(lensUrl()) }, 3000)
+                }
+            }
+            webChromeClient = object : android.webkit.WebChromeClient() {
+                override fun onConsoleMessage(m: android.webkit.ConsoleMessage): Boolean {
+                    log("lens console: ${m.message()} (${m.sourceId()}:${m.lineNumber()})"); return true
+                }
+            }
+        }
+        android.webkit.WebView.setWebContentsDebuggingEnabled(true)  // chrome://inspect from the laptop
+        lens.loadUrl(lensUrl())
+        return lens
     }
 
     private val tick = object : Runnable {
