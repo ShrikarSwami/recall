@@ -25,7 +25,7 @@ A: This is Sid. They're on your team, BB.
 A: You met Sid at the Worn hackathon. They're on your team.
 
 # Q: What do they do on the team?
-- also: what's their role / what are they working on
+- also: what's their role / what are they working on / what do they do / what does he do / what does she do
 A:
 
 # Q: Where are they from?

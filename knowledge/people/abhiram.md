@@ -17,7 +17,7 @@ A: This is Abhiram. Abhiram is on your team, BB.
 A: You met Abhiram at the Worn hackathon. Abhiram is on your team.
 
 # Q: What do they do on the team?
-- also: what's their role / what are they working on
+- also: what's their role / what are they working on / what do they do / what does he do / what does she do
 A: Abhiram is the backend developer for the wearable hackathon.
 
 # Q: Where are they from?
