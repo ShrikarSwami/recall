@@ -8,11 +8,13 @@ import json
 
 from .config import KNOWLEDGE_DIR, ROOT, fill, load_config, placeholders
 from .knowledge import Knowledge, load
+from .playback import GRAMMAR
 
 
 def export_kb(kb: Knowledge, cfg: dict) -> dict:
     vals = placeholders(cfg)
     return {
+        "speechControls": GRAMMAR,
         "app": cfg["appName"], "wake": cfg["wakeWord"], "hint": fill(cfg["idleHint"], vals),
         "patient": vals["patient"], "caregiver": vals["caregiver"], "currentPlace": cfg.get("currentPlace"),
         "people": {pid: {"name": p.name, "first": p.first, "aliases": p.aliases, "intro": fill(p.intro, vals)}

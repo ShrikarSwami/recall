@@ -25,7 +25,7 @@ JUNK = re.compile(r"^\W*$|^\W*(thank you\.?|thanks for watching!?|you|bye\.?|\.+
 class Segmenter:
     """Cuts a continuous PCM16 stream into utterances with WebRTC VAD."""
 
-    def __init__(self, aggressiveness: int = 2, end_silence_ms: int = 700, max_ms: int = 9000, min_ms: int = 350):
+    def __init__(self, aggressiveness: int = 2, end_silence_ms: int = 700, max_ms: int = 9000, min_ms: int = 120):
         self.vad = webrtcvad.Vad(aggressiveness)
         self.buf = b""
         self.voiced: list[bytes] = []
@@ -45,7 +45,7 @@ class Segmenter:
             if not self.active:
                 self.ring = (self.ring + [speech])[-8:]
                 self.voiced = (self.voiced + [f])[-8:]  # keep ~240 ms of lead-in
-                if sum(self.ring) >= 5:
+                if sum(self.ring) >= 3:  # Keep short words such as "huh", "what", and "stop".
                     self.active, self.silence = True, 0
             else:
                 self.voiced.append(f)
@@ -125,24 +125,26 @@ class Voice:
     def __init__(self, name: str = "Samantha", rate_wpm: int = 165):
         self.name, self.wpm = name, rate_wpm
         self.pool = ThreadPoolExecutor(max_workers=2)
-        self.cache: dict[str, bytes] = {}
+        self.cache: dict[tuple[str, int, str], bytes] = {}
 
-    def _render(self, text: str) -> bytes:
-        if text in self.cache:
-            return self.cache[text]
+    def _render(self, text: str, rate: float = 1.0) -> bytes:
+        wpm = max(80, min(260, round(self.wpm * rate)))
+        key = (self.name, wpm, text)
+        if key in self.cache:
+            return self.cache[key]
         with tempfile.TemporaryDirectory() as d:
             out = Path(d) / "s.wav"
-            subprocess.run(["say", "-v", self.name, "-r", str(self.wpm),
+            subprocess.run(["say", "-v", self.name, "-r", str(wpm),
                             f"--data-format=LEI16@{self.OUT_RATE}", "-o", str(out), text],
                            check=True, capture_output=True, timeout=20)
             with wave.open(str(out)) as w:
                 pcm = w.readframes(w.getnframes())
         if len(self.cache) < 300:
-            self.cache[text] = pcm
+            self.cache[key] = pcm
         return pcm
 
-    async def pcm(self, text: str) -> bytes:
-        return await asyncio.get_running_loop().run_in_executor(self.pool, self._render, text)
+    async def pcm(self, text: str, rate: float = 1.0) -> bytes:
+        return await asyncio.get_running_loop().run_in_executor(self.pool, self._render, text, rate)
 
 
 def earcon(hz: float = 880, ms: int = 120, rate: int = Voice.OUT_RATE) -> bytes:

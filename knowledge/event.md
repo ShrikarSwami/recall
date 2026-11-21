@@ -35,7 +35,7 @@ A: It's brought to you by MicroLumin, Waftech, localhost:nyc and Wardah, with Co
 
 # Q: Who are the judges?
 - also: who is judging / who's on the judging panel
-A: Ten judges, including Dr. Dai Zhaoen of MicroLumin, Sam Shear of Yes Hearing, and D.J. Patel.
+A: The event site lists nine judge profiles, including Dr. Dai Zhaoen, Sam Shear, and Michael Barone. Organizers can confirm the final panel.
 
 # Q: How is it judged?
 - also: how do the judges score / what are the judging criteria
@@ -74,11 +74,11 @@ A: Sam Shear co-founded Yes Hearing, which brings hearing care to people at home
 
 # Q: Who is D.J. Patel?
 - also: who is DJ Patel / who is DJP
-A: D.J. Patel is a venture investor and three-time founder. He's a judge today.
+A: Luma lists D.J. Patel as a venture investor, three-time founder, and judge. Organizers can confirm the final panel.
 
 # Q: Who is Yiting Liu?
 A: Yiting Liu is a creative technologist who builds immersive experiences. She's a judge today.
 
 # Q: When do the glasses go back?
 - also: do we keep the glasses / when is hardware return
-A: The glasses go back to the staff at 6 o'clock, after the awards.
+A: Return the glasses to staff after each use. Final hardware return and wrap-up are scheduled for 6 o'clock on November 21.

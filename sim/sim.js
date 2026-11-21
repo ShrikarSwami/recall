@@ -5,7 +5,7 @@
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var lens = $("lens"), frame = $("lens-frame"), KB = window.MockBrain.kb;
-  var mode = "mock", live = null, armedUntil = 0, worn = false;
+  var mode = "mock", live = null, armedUntil = 0, followupUntil = 0, playbackGeneration = 0, worn = false;
 
   // ---------------------------------------------------------------- helpers
   function log(kind, text) {
@@ -16,13 +16,19 @@
     $("log").insertBefore(li, $("log").firstChild);
   }
   function show(msg) { if (mode === "mock") lens.contentWindow.postMessage(msg, "*"); }
-  function speak(text) {
+  function speak(text, rate) {
     if (!window.speechSynthesis || mode !== "mock") return;
+    var generation = ++playbackGeneration;
     speechSynthesis.cancel();
-    var u = new SpeechSynthesisUtterance(text); u.rate = 0.95; speechSynthesis.speak(u);
+    var u = new SpeechSynthesisUtterance(text);
+    u.onend = function () { if (generation === playbackGeneration) followupUntil = Date.now() + 15000; };
+    u.rate = 0.95 * (rate || 1); speechSynthesis.speak(u);
   }
   function respond(r) {
-    show(r); speak(r.speech); log("lucia", r.speech + "  [" + r.intent + "]");
+    show(r);
+    if (r.intent === "speech_stop") { playbackGeneration++; if (window.speechSynthesis) speechSynthesis.cancel(); followupUntil = 0; }
+    else { speak(r.speech, r.speech_rate); followupUntil = Date.now() + 15000; }
+    log("lucia", r.speech + "  [" + r.intent + "]");
     if (r.alert) text(r.alert);
   }
   function text(msg) {
@@ -41,9 +47,10 @@
     log("heard", utterance);
     var m = utterance.match(/^\s*(lucia|lucía|lucy a)[\s,.!?-]*(.*)$/i);
     var armed = Date.now() < armedUntil, q = m ? m[2] : utterance;
-    if (!m && !armed) return log("ignored", "no wake word and not armed (tap first or start with “Lucia”)");
+    var control = window.MockBrain.control(q);
+    if (!m && !armed && !(control && Date.now() < followupUntil)) return log("ignored", "no wake word and not armed (tap first or start with “Lucia”)");
     if (mode === "live") return send({ type: "ask", text: q || utterance });
-    if (!q || q.split(" ").length < 2) return arm("wake word");
+    if (!q || (!control && q.split(" ").length < 2)) return arm("wake word");
     armedUntil = 0;
     show({ type: "state", value: "thinking" });
     setTimeout(function () { respond(window.MockBrain.answer(q)); }, 350);

@@ -183,6 +183,12 @@ The bank now includes comparison and independence questions, pantry questions wi
 
 See [Independence, comparisons, and pantry demonstration](COMPARISONS_AND_PANTRY.md) for the source review, fair comparison table, sample questions, and [fictional pantry fixture](fixtures/pantry_demo.json). No household inventory is added to the public knowledge files.
 
+## 7c. Speech controls and event knowledge (Nov 21 implementation)
+
+Replay, slower replay, and silent stop use an anchored command grammar, saved answers, and the existing lens card. Short follow-ups are accepted briefly after a reply; substantive questions keep their normal routing. The matching hub and glasses app must be deployed together for audio flushing. No new panels or menus are added.
+
+See [Speech controls and event Q&A](SPEECH_CONTROLS_AND_EVENT_QA.md) for supported phrasings, tests, deployment limits, public sources, the judge-roster discrepancy, and the voice-first policy for future recap and comfort features.
+
 ## 8. Faces
 
 - Enroll each teammate from 3 photos (front, slight left, slight right) taken **at the venue, in venue lighting**. Photos go in `faces/<person_id>/` (gitignored, never pushed).

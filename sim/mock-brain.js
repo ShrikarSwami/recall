@@ -30,7 +30,30 @@
     if (cur.trim()) lines.push(cur.trim());
     return lines.slice(0, 3);
   }
-  function card(speech, title, intent) { return { type: "card", title: title, lines: wrap(speech), intent: intent, ttl_ms: 9000, speech: speech }; }
+  var lastAnswer = null;
+  function card(speech, title, intent) {
+    var r = { type: "card", title: title, lines: wrap(speech), intent: intent, ttl_ms: 9000, speech: speech };
+    if (speech && intent.indexOf("speech_") !== 0) lastAnswer = JSON.parse(JSON.stringify(r));
+    return r;
+  }
+  function control(text) {
+    var g = KB.speechControls;
+    if (!g) return null;
+    var t = text.toLowerCase().replace(/’/g, "'");
+    var contractions = {"didn't":"did not", "couldn't":"could not", "you're":"you are", "that's":"that is", "i've":"i have", "don't":"do not", "that'll":"that will", "i'm":"i am", "we're":"we are"};
+    Object.keys(contractions).forEach(function (k) { t = t.replace(new RegExp("\\b" + k + "\\b", "g"), contractions[k]); });
+    t = t.replace(/[^a-z0-9' ]/g, " ").replace(/\s+/g, " ").trim();
+    var wake = String(KB.wake || "").toLowerCase().replace(/[^a-z0-9' ]/g, " ").trim();
+    if (wake && t.indexOf(wake + " ") === 0) t = t.slice(wake.length).trim();
+    for (var i = 0; i < 4; i++) {
+      var old = t; t = t.replace(new RegExp(g.prefix), "");
+      if (!/ for now$/.test(t)) t = t.replace(new RegExp(g.suffix), "");
+      if (t === old) break;
+    }
+    var kinds = ["stop", "slow", "repeat"];
+    for (var k = 0; k < kinds.length; k++) if (new RegExp("^(?:" + g[kinds[k]] + ")$").test(t)) return kinds[k];
+    return null;
+  }
 
   var state = { inView: null, inViewAt: 0, strangerAt: 0, topic: null };
 
@@ -55,6 +78,16 @@
   function inView() { return Date.now() - state.inViewAt < 15000 ? state.inView : null; }
 
   function answer(text) {
+    var c = control(text);
+    if (c === "stop") return {type: "clear", speech: "", intent: "speech_stop"};
+    if (c) {
+      if (!lastAnswer) return card("There isn't an earlier answer to repeat yet.", "Ask a question", "speech_repeat_empty");
+      var replay = JSON.parse(JSON.stringify(lastAnswer));
+      replay.intent = c === "slow" ? "speech_slow" : "speech_repeat";
+      replay.speech_rate = c === "slow" ? 0.72 : 1;
+      delete replay.alert;
+      return replay;
+    }
     var t = text.trim();
     if (DISTRESS.test(t)) {
       var r = card("You're safe, " + KB.patient + ". " + KB.caregiver + " knows where you are, and I'm letting him know now.", "You're safe", "distress");
@@ -97,6 +130,7 @@
 
   window.MockBrain = {
     answer: answer,
+    control: control,
     see: function (id) { if (id) { state.inView = id; state.inViewAt = Date.now(); } else state.strangerAt = Date.now(); },
     intro: intro,
     introCard: function (id) { return card(intro(id), KB.people[id].first, "proactive_intro"); },

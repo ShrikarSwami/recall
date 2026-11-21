@@ -255,6 +255,16 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
                     "listening" -> "● listening"; "thinking" -> "…"; else -> ""
                 }
             }
+            "audio_stop" -> {
+                player?.pause()
+                player?.flush()
+                player?.play()
+                tts?.stop()
+            }
+            "clear" -> ui.post {
+                clearCard?.let { ui.removeCallbacks(it) }
+                title.text = ""; body.text = ""; status.text = ""
+            }
             "say" -> if (ttsReady) tts?.speak(m.optString("text"), TextToSpeech.QUEUE_FLUSH, null, "lucia")
             "snap" -> snapRequested = true
             "mic" -> micOn = m.optBoolean("on", true)

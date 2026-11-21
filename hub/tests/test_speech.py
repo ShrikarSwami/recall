@@ -42,3 +42,49 @@ def test_segmenter_cuts_one_utterance():
         for i in range(0, len(chunk), 3200):
             out += seg.feed(chunk[i:i + 3200])
     assert len(out) == 1 and 1.2 < len(out[0]) / 2 / RATE < 2.6
+
+
+def test_voice_rate_keeps_rendered_audio_separate(monkeypatch):
+    """Changing rate must affect the renderer and must not reuse the normal-speed clip."""
+    import asyncio
+    import wave
+    from lucia.speech import Voice
+
+    def render_file(args, **kwargs):
+        rate = int(args[args.index('-r') + 1])
+        with wave.open(args[args.index('-o') + 1], 'wb') as out:
+            out.setnchannels(1)
+            out.setsampwidth(2)
+            out.setframerate(22050)
+            out.writeframes(bytes([rate % 255]) * 200)
+
+    monkeypatch.setattr('lucia.speech.subprocess.run', render_file)
+
+    async def run():
+        voice = Voice()
+        try:
+            normal = await voice.pcm('An answer.')
+            slow = await voice.pcm('An answer.', rate=0.72)
+            assert normal != slow
+            assert await voice.pcm('An answer.') == normal
+        finally:
+            voice.pool.shutdown(wait=True)
+
+    asyncio.run(run())
+
+
+def test_segmenter_keeps_a_short_huh_or_what():
+    """A 120 ms word must not vanish before the command recognizer sees it."""
+    class ClassifiedFrames:
+        def is_speech(self, frame, rate):
+            return any(frame)
+
+    seg = Segmenter()
+    seg.vad = ClassifiedFrames()  # Controlled VAD decisions; exercise our real onset/end buffering.
+    silence = b'\0' * 960
+    voice = b'\1\0' * 480
+    utterances = []
+    for frame in [silence] * 10 + [voice] * 4 + [silence] * 30:
+        utterances.extend(seg.feed(frame))
+    assert len(utterances) == 1
+    assert voice * 4 in utterances[0]
