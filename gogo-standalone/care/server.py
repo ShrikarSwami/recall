@@ -24,18 +24,11 @@ DATA_FILE = os.path.join(HERE, "data.json")
 LOCK = threading.Lock()
 
 DEFAULTS = {
-    "profile": {
-        "name": "Mike", "age": 74, "gender": "man", "stage": "Middle",
-        "limitations": "Forgets recent events. Needs one short instruction at a time. Can get anxious in crowds.",
-        "remembers": "His wife Anna, old songs, fishing trips, his daughter's name.",
-        "forgets": "What day it is, where he left his things, faces he met today.",
-        "easy": "Walking short distances, washing his hands, sitting down at a table, drinking water.",
-        "caregiver": "Anna (wife)", "notes": "Demo data. Likes to be called Mike."
-    },
+    "profile": {"name": "Somya", "age": 74, "gender": "woman", "stage": "Middle", "limitations": "Forgets recent events. Needs one short instruction at a time. Can get anxious in crowds.", "remembers": "Shrikar, old songs, family dinners, the neighborhood where they grew up.", "forgets": "What day it is, where they left their things, faces they met today.", "easy": "Walking short distances, washing their hands, sitting down at a table, drinking water.", "caregiver": "Shrikar (grandson)", "notes": "Demo persona. Likes to be called Somya."},
     "goals": [
         {"day": 1, "items": ["Freshen up and wash hands", "Get back to your seat", "Drink a glass of water"]},
         {"day": 2, "items": ["Short walk with a friend", "Lunch at the table"]},
-        {"day": 3, "items": ["Call Anna", "Look through the photo album"]},
+        {"day": 3, "items": ["Call Shrikar", "Look through the photo album"]},
         {"day": 4, "items": ["Morning stretch", "Help set the table"]},
         {"day": 5, "items": ["Visit from Priya", "Afternoon tea"]},
         {"day": 6, "items": ["Garden walk", "Early dinner"]}
