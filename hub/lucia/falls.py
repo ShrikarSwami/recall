@@ -23,7 +23,7 @@ IMPACT_G = 2.5                # accel magnitude above this = impact
 IMPACT_WITHIN_MS = 1000       # impact must come this soon after free fall ends
 STILL_G_BAND = 0.15           # still = accel magnitude within 1 g +/- this
 STILL_GYRO = 0.5              # rad/s (~29 deg/s): gyro magnitude below this = still head
-STILL_MS = 2000               # must stay still this long ...
+STILL_MS = 1000               # must stay still this long (short: the caregiver text should be near-instant) ...
 STILL_WINDOW_MS = 4000        # ... and finish within this long after the impact
 COOLDOWN_MS = 60_000          # after a "fall" event, stay quiet this long
 
@@ -98,3 +98,13 @@ class FallDetector:
         gyro = self.gyro
         self.reset()
         self.gyro, self.last_t = gyro, t
+
+
+def synth_fall(t0_ms: int = 0, rate: int = 50) -> list[list]:
+    """Fake IMU rows for a fall (replay tool, demos): standing, free fall, impact, bounce, lying still."""
+    rows, t, dt = [], t0_ms, 1000 // rate
+    for secs, g, w in [(0.6, 1.0, 0.02), (0.3, 0.1, 0.3), (0.06, 3.5, 2.0), (0.2, 1.3, 1.5), (2.0, 1.0, 0.05)]:
+        for _ in range(max(1, round(secs * rate))):
+            rows += [[GYRO, t, w, 0.0, 0.0], [ACCEL, t, 0.0, 0.0, g * G]]
+            t += dt
+    return rows

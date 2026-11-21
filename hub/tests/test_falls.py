@@ -94,3 +94,12 @@ def test_fall_after_cooldown_fires_again():
     first = fall_rows(t0=10_000)
     second = fall_rows(t0=first[-1][1] + 61_000)
     assert run(first + stream([(61, 1.0, 0.02)], t0=first[-1][1] + DT) + second)[0] == ["fall", "fall"]
+
+
+def test_synth_fall_triggers_within_two_seconds():
+    from lucia.falls import synth_fall
+    det = FallDetector()
+    rows = synth_fall(t0_ms=10_000)
+    hit = next(r[1] for r in rows if det.feed(r) == "fall")
+    impact = 10_000 + round((0.6 + 0.3) * 50) * 20
+    assert hit - impact <= 1500

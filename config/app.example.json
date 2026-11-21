@@ -43,5 +43,9 @@
   },
   "alerts": {
     "imessage": true
+  },
+  "falls": {
+    "enabled": true,
+    "message": "WARNING: {patient} may have fallen. Please check on them urgently!"
   }
 }

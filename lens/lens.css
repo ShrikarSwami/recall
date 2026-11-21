@@ -63,7 +63,7 @@ html, body {
 }
 
 /* intent-specific looks (set as a class on #card) */
-#card.intent-distress #card-title { color: var(--warn); }
+#card.intent-distress #card-title, #card.intent-fall #card-title { color: var(--warn); }
 #card.intent-proactive_intro #card-title:before { content: "\2192  "; }  /* → someone is here */
 #card.intent-unknown #card-body, #card.intent-freeform #card-body { color: var(--ink-dim); }
 
