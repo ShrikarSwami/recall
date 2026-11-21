@@ -86,17 +86,33 @@ class Transcriber:
         self._run(np.zeros(RATE, dtype=np.int16).tobytes())
 
 
+def _is_wake(chunk: str, w: str, strict: bool) -> bool:
+    squashed = re.sub(r"[^a-z]", "", chunk.lower())
+    if not squashed:
+        return False
+    if fuzz.ratio(squashed, w) >= (80 if strict else 75):
+        return True
+    return not strict and len(squashed) >= 4 and fuzz.ratio(squashed[: len(w) + 1], w) >= 80
+
+
 def split_wake(text: str, wake: str) -> tuple[bool, str]:
     """('Lucia, who is this?', 'Lucia') -> (True, 'who is this?'). Fuzzy, because STT hears
-    'Lucia' as 'Lucy a', 'Lucía', 'Lucha', 'Luisa'... Looks at the first 3 words only."""
+    'Lucia' as 'Lucy a', 'Lucía', 'Lucio', 'Luisa'...
+
+    Checks the first 3 words (lenient), then anywhere in the sentence (stricter), e.g.
+    'Team BB, who is this? Lucio, who is this?' -> (True, 'who is this?'). Uses the LAST mention,
+    because that's usually the real question."""
     words = text.strip().split()
     w = wake.lower()
     for n in (1, 2, 3):
-        head = re.sub(r"[^a-z ]", "", " ".join(words[:n]).lower())
-        squashed = head.replace(" ", "")
-        if fuzz.ratio(squashed, w) >= 75 or (len(squashed) >= 4 and fuzz.ratio(squashed[: len(w) + 1], w) >= 80):
-            rest = " ".join(words[n:]).lstrip(" ,.!?-")
-            return True, rest
+        if _is_wake(" ".join(words[:n]), w, strict=False):
+            return True, " ".join(words[n:]).lstrip(" ,.!?-")
+    for i in range(len(words) - 1, 2, -1):          # later in the sentence, last mention first
+        for n in (1, 2):
+            if i + n <= len(words) and _is_wake(" ".join(words[i:i + n]), w, strict=True):
+                rest = " ".join(words[i + n:]).lstrip(" ,.!?-")
+                if len(rest.split()) >= 2:          # mid-sentence only counts if a question follows
+                    return True, rest
     return False, text
 
 

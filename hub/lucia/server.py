@@ -141,6 +141,10 @@ class Hub:
             return
         armed = time.time() < self.armed_until
         woke, rest = split_wake(text, self.cfg["wakeWord"])
+        if not (armed or woke):
+            # Bystander talk: never stored or shown. Only a word count, so we can debug "it didn't hear me".
+            await self.event("heard", ignored=True, words=len(text.split()))
+            return
         await self.event("heard", text=text, armed=armed, wake=woke)
         if armed:
             await self.question(rest if woke else text)

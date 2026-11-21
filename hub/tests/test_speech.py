@@ -10,13 +10,18 @@ from lucia.speech import RATE, Segmenter, split_wake
     ("Lucía, where are we?", "where are we?"),
     ("Lucy a, what day is it", "what day is it"),
     ("Lucia.", ""),
+    ("Yo Lucia, who is this?", "who is this?"),
+    ("Team BB, who is this? Lucio, who is this?", "who is this?"),   # heard live on the glasses
+    ("okay so um Lucia where are we", "where are we"),
 ])
 def test_wake_word_variants(text, rest):
     woke, r = split_wake(text, "Lucia")
     assert woke and r == rest
 
 
-@pytest.mark.parametrize("text", ["who is this", "let's get lunch", "I lost my keys", "Louis is here"])
+@pytest.mark.parametrize("text", ["who is this", "let's get lunch", "I lost my keys", "Louis is here",
+                                  "We used to work on improving that, but that should shoot the life by in front of us.",
+                                  "I think we should ask Lucia.", "Can you see it? It should be able to see a person."])
 def test_no_false_wake(text):
     assert split_wake(text, "Lucia")[0] is False
 
