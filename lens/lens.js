@@ -16,6 +16,7 @@
      {"type":"battery", "on":true, "pct":15}
    Messages from the Lucia hub (all supported, so this lens is a drop-in for lens/ on the glasses):
      {"type":"state", "value":"idle|listening|thinking"}   {"type":"conn", "value":true|false}
+     {"type":"avatar", "talking":true|false, "perk":true}   (talking follows Lucia's audio; perk = she was interrupted)
      {"type":"card", "title", "lines", "intent":"greeting|who_is_this|kb:place|time|distress|...", "prompt":"Nod or say yes", "ttl_ms"}
        (a card with no icon gets a stamp chosen from its intent, see INTENT_STAMP)
    URL params: ?ws=ws://host:9100/ws/lens (default: the host that served this page), ?ws=off = postMessage only
@@ -41,11 +42,24 @@
       art + '<text class="stag" x="48" y="98" text-anchor="middle"' + (t.length > 8 ? ' textLength="62" lengthAdjust="spacingAndGlyphs"' : "") + "></text></svg></div>";
     slot.querySelector(".stag").textContent = t;
   }
-  function clearCard() { $("prompt").textContent = ""; title.textContent = ""; lines.textContent = ""; slot.className = "empty"; slot.innerHTML = ""; }
+  // the squirrel is Lucia: each kind of answer gets a mood (the hub's card intent is the source of truth)
+  var REACT = { greeting: { act: "greet", emo: "happy" }, proactive_intro: { act: "greet", emo: "happy" }, who_is_this: { act: "greet", emo: "happy" },
+    who_is: { act: "greet", emo: "happy" }, "kb:person": { emo: "happy" }, offer_yes: { emo: "happy" },
+    arrival: { pose: "point", emo: "warm" }, schedule: { pose: "point", emo: "warm" }, heads_up: { pose: "point", emo: "warm" },
+    fall: { emo: "concerned" }, distress: { emo: "concerned" } };
+  var cardMood = null;
+  function react(intent) {
+    var r = REACT[intent] || {};
+    cardMood = r.emo || null; AV.emo = cardMood; AV.pose = r.pose || "idle";
+    if (r.act) ACT = { name: r.act, t0: performance.now(), hopped: false };
+  }
+  function clearCard() { cardMood = null; AV.emo = null; AV.pose = "idle"; $("prompt").textContent = ""; title.textContent = ""; lines.textContent = ""; slot.className = "empty"; slot.innerHTML = ""; }
   // hub answers carry an intent but no icon: give each a calm stamp
   var INTENT_STAMP = { greeting: ["shield", "WITH YOU"], proactive_intro: ["person-visitor", "HELLO"], who_is_this: ["person-visitor", "HELLO"], who_is: ["person-visitor", "HELLO"],
-    "kb:person": ["person-visitor", "FRIEND"], "kb:place": ["home", "HERE"], "kb:patient": ["person", "YOU"], time: ["timer", "TODAY"], distress: ["shield", "SAFE"] };
+    "kb:person": ["person-visitor", "FRIEND"], "kb:place": ["home", "HERE"], "kb:patient": ["person", "YOU"], time: ["timer", "TODAY"], distress: ["shield", "SAFE"],
+    arrival: ["bag", "SHOPPING"], schedule: ["timer", "TODAY"], heads_up: ["timer", "SOON"], fall: ["warn", "HELP"] };
   function setCard(m) {
+    if (m.intent) react(m.intent);
     if (!m.icon && m.intent && INTENT_STAMP[m.intent]) { m.icon = INTENT_STAMP[m.intent][0]; m.tag = m.tag || INTENT_STAMP[m.intent][1]; }
     if (m.ttl_ms === undefined && m.intent) m.ttl_ms = 8000;
     $("prompt").textContent = m.prompt || "";
@@ -187,6 +201,7 @@
       if (msg.far !== undefined) TG.far = msg.far;
       if (msg.face !== undefined) TG.face = msg.face === "away" ? "away" : "user";
       if (msg.size !== undefined) wantBig = msg.size === "big";
+      if (msg.perk) { AV.pose = "alert"; setTimeout(function () { if (AV.pose === "alert") AV.pose = "idle"; }, 1200); }   // interrupted: perk up
       if (msg.action === "twirl" || msg.action === "greet") ACT = { name: msg.action, t0: performance.now(), hopped: false };
     }
     else if (t === "splash") {
@@ -199,7 +214,7 @@
       var st = $("status"), v = msg.value;
       st.textContent = v === "listening" ? "Listening…" : v === "thinking" ? "One moment…" : "";
       st.className = v === "listening" || v === "thinking" ? "on" : "";
-      AV.emo = v === "listening" ? "curious" : v === "thinking" ? "calm" : null;
+      AV.emo = v === "listening" ? "curious" : v === "thinking" ? "calm" : cardMood;
     }
     else if (t === "conn") $("offline").className = msg.value ? "" : "on";
     else if (t === "arrows") setArrows(msg.value || "");

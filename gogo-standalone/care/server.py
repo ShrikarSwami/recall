@@ -211,6 +211,11 @@ class Handler(SimpleHTTPRequestHandler):
                 msg = {"id": SEQ["inbox"], "ts": time.time(), "kind": b.get("kind", "message"), "text": text, "speak": b.get("speak", True)}
                 INBOX.append(msg)
             add_event("instruction", text=text, kind=msg["kind"], by=b.get("by", "Family dashboard"))
+            if HUB_LIVE["on"] and msg["speak"]:
+                try:
+                    hub_post("/api/say", {"text": text, "title": "From family"})
+                except Exception:
+                    pass
             return self._json({"ok": True, "id": msg["id"]})
         if u.path == "/api/reset":
             with LOCK:
@@ -218,6 +223,85 @@ class Handler(SimpleHTTPRequestHandler):
                 LIVE.update({"location": "seat", "step": "", "lastLucia": "", "scene": "idle"})
             return self._json({"ok": True})
         return self._json({"error": "not found"}, 404)
+
+
+# ---------------------------------------------------------------- Lucia hub bridge (optional)
+# With the Lucia hub running (hub/lucia/server.py, default http://127.0.0.1:9100), the dashboard shows the
+# real glasses: what the wearer asked and Lucia said, who Lucia recognised, caregiver alerts and falls, and
+# whether the glasses are connected. "Send to Lucia" is also spoken on the glasses. No hub: nothing changes.
+HUB = os.environ.get("LUCIA_HUB", "http://127.0.0.1:9100").rstrip("/")
+HUB_EVENTS = os.environ.get("LUCIA_EVENTS", os.path.join(ROOT, "..", "hub", "data", "events.jsonl"))
+HUB_LIVE = {"on": False, "patient": None}
+
+
+def hub_get(path, timeout=2):
+    with urllib.request.urlopen(HUB + path, timeout=timeout) as r:
+        return json.load(r)
+
+
+def hub_post(path, body):
+    req = urllib.request.Request(HUB + path, data=json.dumps(body).encode("utf-8"),
+                                 headers={"Content-Type": "application/json"}, method="POST")
+    with urllib.request.urlopen(req, timeout=4) as r:
+        return json.load(r)
+
+
+def from_hub(ev, last_seen):
+    """One hub event -> dashboard events."""
+    t = ev.get("type")
+    if t == "answer":
+        q = (ev.get("question") or "").strip()
+        out = []
+        if q and not q.startswith("("):
+            out.append(("patient", {"text": q}))
+        if ev.get("speech"):
+            out.append(("lucia", {"text": ev["speech"]}))
+        return out
+    if t == "seen" and ev.get("person") and ev["person"] != last_seen[0]:
+        last_seen[0] = ev["person"]
+        return [("gaze", {"label": ev["person"].capitalize()})]
+    if t == "fall":
+        return [("alert", {"text": "Possible fall detected" + (" (demo trigger)" if ev.get("source") == "api" else "")})]
+    if t == "alert":
+        sent = ev.get("status") in ("sent", "ok", True)
+        return [("alert", {"text": ("Text sent to caregiver: " if sent else "Caregiver text (%s): " % ev.get("status")) + (ev.get("text") or "")})]
+    if t == "place" and ev.get("name"):
+        return [("system", {"text": "Arrived at " + ev["name"]})]
+    return []
+
+
+def hub_bridge():
+    pos, last_seen = None, [None]
+    while True:
+        try:
+            st = hub_get("/api/state")
+            HUB_LIVE["on"] = True
+            with LOCK:
+                if st.get("glasses"):
+                    LIVE["lensSeen"] = time.time()
+            if st.get("patient") and st["patient"] != HUB_LIVE["patient"]:
+                HUB_LIVE["patient"] = st["patient"]
+                with LOCK:
+                    STATE["profile"]["name"] = st["patient"].split()[0]
+        except Exception:
+            HUB_LIVE["on"] = False
+        try:
+            if os.path.exists(HUB_EVENTS):
+                with open(HUB_EVENTS, encoding="utf-8") as f:
+                    if pos is None:
+                        f.seek(0, 2)          # only what happens from now on
+                    else:
+                        f.seek(pos)
+                    for line in f:
+                        try:
+                            for kind, kw in from_hub(json.loads(line), last_seen):
+                                add_event(kind, **kw)
+                        except ValueError:
+                            pass
+                    pos = f.tell()
+        except OSError:
+            pass
+        time.sleep(1)
 
 
 def main():
@@ -229,6 +313,7 @@ def main():
         host = a[a.index("--host") + 1]
     load()
     save()
+    threading.Thread(target=hub_bridge, daemon=True).start()
     srv = ThreadingHTTPServer((host, port), Handler)
     print("Lucia care server on http://%s:%d  (dashboard: /dashboard/, simulator: /glasses/sim/)" % (host, port), flush=True)
     srv.serve_forever()

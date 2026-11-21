@@ -76,6 +76,7 @@
   .ev:last-child { border-bottom: 0; }
   .ev time { color: var(--muted); font-size: 13px; padding-top: 2px; }
   .ev .ic { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 14px; background: var(--soft); }
+  .ev.alert { background: var(--danger-soft); color: var(--ink); font-weight: 600; } .ev.alert .ic { background: var(--danger); }
   .ev.patient .ic { background: var(--info-soft); } .ev.instruction .ic { background: var(--warn-soft); } .ev.location .ic { background: var(--bg); }
   .bubbles { display: flex; flex-direction: column; gap: 8px; max-height: 330px; overflow: auto; }
   .b { max-width: 88%; padding: 9px 13px; border-radius: 14px; font-size: 15px; }
@@ -143,7 +144,7 @@
     <!-- ============ LIVE ============ -->
     <section class="tab on" id="tab-live">
       <h1 id="h-live">Mike is at his seat</h1>
-      <p class="sub">What Lucia is doing with him right now, where he is, and what he is paying attention to.</p>
+      <p class="sub">What Lucia is doing right now, where they are, and what they are paying attention to.</p>
       <div class="grid g2">
         <div class="card">
           <div class="now">
@@ -167,7 +168,7 @@
             <div id="attn-rows"></div>
             <p class="sub" style="margin:10px 0 0;font-size:14px" id="attn-note">Looking around vs walking straight without looking is measured from the glasses' head-motion sensor.</p>
           </div>
-          <div class="card"><h2>What he is looking at</h2><div class="chips" id="gaze"><span class="empty">Nothing recorded yet.</span></div></div>
+          <div class="card"><h2>Who and what they see</h2><div class="chips" id="gaze"><span class="empty">Nothing recorded yet.</span></div></div>
         </div>
       </div>
       <div class="grid g2" style="margin-top:18px">
@@ -261,7 +262,7 @@
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var state = null, events = [], since = 0;
-  var LOC = { seat: "At his seat", walking: "Walking", gate: "At the gate", bathroom: "In the bathroom" };
+  var LOC = { seat: "At their seat", walking: "Walking", gate: "At the gate", bathroom: "In the bathroom" };
   var POS = { seat: [115, 235], walking: [300, 235], gate: [420, 85], bathroom: [530, 85] };
   var MODE = { looking_around: ["Looking around", "#0a8f3c"], walking_straight: ["Walking straight, not looking", "#c77d0a"], still: ["Sitting still", "#7a8c82"] };
 
@@ -363,7 +364,7 @@
     $("bubbles").innerHTML = talk.length ? talk.map(function (e) { return '<div class="b ' + e.type + '">' + (e.type === "lucia" ? "<b>Lucia</b> " : "<b>" + esc(p.name) + "</b> ") + esc(e.text) + "</div>"; }).join("") : '<span class="empty">No conversation yet.</span>';
     var bb = $("bubbles"); bb.scrollTop = bb.scrollHeight;
     // activity
-    var ICON = { step: "▶", lucia: "💬", patient: "🗣", location: "📍", attention: "👀", gaze: "👁", instruction: "✉", system: "⚙" };
+    var ICON = { alert: "🚨", step: "▶", lucia: "💬", patient: "🗣", location: "📍", attention: "👀", gaze: "👁", instruction: "✉", system: "⚙" };
     var feed = events.slice(-40).reverse().map(function (e) {
       var text = e.type === "location" ? "Moved: " + (LOC[e.place] || e.place) : e.type === "attention" ? (MODE[e.mode] ? MODE[e.mode][0] : e.mode) + " (" + (e.secs || 0) + " s)" :
         e.type === "gaze" ? "Looked at " + e.label : e.type === "step" ? "Step: " + e.text : e.type === "instruction" ? esc((e.kind || "message")) + " sent: " + e.text : e.text || e.type;

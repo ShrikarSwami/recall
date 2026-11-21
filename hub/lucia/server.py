@@ -263,9 +263,15 @@ class Hub:
             task.cancel()
         await self.to_glasses({"type": "audio_stop"})
         await self.to_glasses({"type": "clear"})
+        await self.to_glasses({"type": "avatar", "talking": False, "perk": True})   # lens character perks up
         if self.imu_for_offer:
             self.imu_for_offer = False
             await self.imu_wanted()
+
+    async def _stop_talking(self, generation: int, until: float):
+        await asyncio.sleep(max(0.0, until - time.time()))
+        if generation == self.output_generation and time.time() >= self.playing_until - 0.05:
+            await self.to_glasses({"type": "avatar", "talking": False})
 
     async def say(self, reply: Reply, question: str = ""):
         if reply.intent == "speech_stop":
@@ -285,6 +291,8 @@ class Hub:
                 if generation != self.output_generation:
                     return
                 self.playing_until = time.time() + len(pcm) / 2 / Voice.OUT_RATE + 0.4
+                await self.to_glasses({"type": "avatar", "talking": True})   # lens character talks while audio plays
+                asyncio.create_task(self._stop_talking(generation, self.playing_until))
                 # Pace chunks so "stop" only has a small device buffer to flush, but stay ~0.6 s ahead of
                 # playback so Wi-Fi jitter never starves the speaker (exact real-time pacing stutters).
                 t_start = time.monotonic()
