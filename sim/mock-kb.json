@@ -1754,6 +1754,215 @@
    "scope": "faq",
    "subject": "faq",
    "questions": [
+    "What is this event?",
+    "what's going on here",
+    "what is Worn",
+    "what is this hackathon",
+    "why is everyone here"
+   ],
+   "answer": "This is Worn, a smart-glasses hackathon. Teams build apps for MicroLumin's M6 glasses over two days."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What is the theme?",
+    "what's the challenge",
+    "what's the hackathon theme"
+   ],
+   "answer": "The theme is \"Second nature\": wearable AI that understands you and feels effortless."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What are the tracks?",
+    "what tracks are there",
+    "which categories can teams pick"
+   ],
+   "answer": "There are three tracks: Personal Insight, Seamless Handoff, and Natural Interaction."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Which track is our team in?",
+    "what track are we",
+    "what track did BB pick"
+   ],
+   "answer": "Your team, BB, is in Natural Interaction: so natural you forget it's there."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What room are we in?",
+    "which room is this",
+    "where is the hackathon",
+    "what rooms is it in"
+   ],
+   "answer": "The hackathon is in rooms A105 and A103 at City Tech, 285 Jay Street."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who organized this?",
+    "who's running the event",
+    "who are the organizers",
+    "who put this on"
+   ],
+   "answer": "Worn is run by localhost:nyc, led by Stephen Jin, with Somya Gupta, Vishal Kharker and Olivia Iarmak."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who made these glasses?",
+    "who makes the M6",
+    "what company makes the glasses"
+   ],
+   "answer": "MicroLumin, a team from Shenzhen, makes these M6 glasses. They won awards at CES 2026."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who are the sponsors?",
+    "who is sponsoring this",
+    "who brought this event"
+   ],
+   "answer": "It's brought to you by MicroLumin, Waftech, localhost:nyc and Wardah, with Cornell Tech student groups."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who are the judges?",
+    "who is judging",
+    "who's on the judging panel"
+   ],
+   "answer": "Ten judges, including Dr. Dai Zhaoen of MicroLumin, Sam Shear of Yes Hearing, and D.J. Patel."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How is it judged?",
+    "how do the judges score",
+    "what are the judging criteria"
+   ],
+   "answer": "Five things, two points each: understands you, phone-to-glasses flow, ease of use, works on the glasses, and the pitch."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What are the prizes?",
+    "what can we win",
+    "what's the prize money"
+   ],
+   "answer": "First place wins a thousand dollars and three pairs of M6 glasses. Second and third win too."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "When are submissions due?",
+    "what's the deadline",
+    "when do we have to submit"
+   ],
+   "answer": "Submissions close at 2 o'clock today. No late submissions."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where do we submit?",
+    "how do we turn in the project"
+   ],
+   "answer": "The team submits through the event's Airtable form, before 2 o'clock."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "How does judging work?",
+    "what happens at judging",
+    "do we present on stage"
+   ],
+   "answer": "At 2:15 judges visit each table. Finalists then give a three-minute demo on stage at 4."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Where can I get help with the glasses?",
+    "who can help with the glasses",
+    "who do I ask for help"
+   ],
+   "answer": "Dean from MicroLumin helps in the Discord's ask-for-help channel, or find a volunteer in a green lanyard."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "What's the Wi-Fi?",
+    "what's the wifi network",
+    "how do I get online"
+   ],
+   "answer": "The Wi-Fi network here is called \"event\"."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who is Dr. Dai?",
+    "who is Dai Zhaoen",
+    "who founded MicroLumin"
+   ],
+   "answer": "Dr. Dai Zhaoen founded MicroLumin, the company that makes these glasses. He's also a judge."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who is Sam Shear?"
+   ],
+   "answer": "Sam Shear co-founded Yes Hearing, which brings hearing care to people at home. He's a judge today."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who is D.J. Patel?",
+    "who is DJ Patel",
+    "who is DJP"
+   ],
+   "answer": "D.J. Patel is a venture investor and three-time founder. He's a judge today."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "Who is Yiting Liu?"
+   ],
+   "answer": "Yiting Liu is a creative technologist who builds immersive experiences. She's a judge today."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
+    "When do the glasses go back?",
+    "do we keep the glasses",
+    "when is hardware return"
+   ],
+   "answer": "The glasses go back to the staff at 6 o'clock, after the awards."
+  },
+  {
+   "scope": "faq",
+   "subject": "faq",
+   "questions": [
     "I'm thirsty.",
     "I'd like some water",
     "Could I have a drink",
@@ -2001,7 +2210,7 @@
     "Where are people getting food",
     "Is there somewhere to eat here"
    ],
-   "answer": "Ask a staff member where food is available. I don't have a live meal schedule."
+   "answer": "Lunch is at 12:30. Ask a staff member where the food table is."
   },
   {
    "scope": "faq",
@@ -2528,7 +2737,7 @@
     "Where do I find the event timings",
     "I'd like to see the event timetable"
    ],
-   "answer": "A staff member can help you find the latest event schedule."
+   "answer": "Ask me \"what's next?\" and I'll tell you. A staff member has the full schedule too."
   },
   {
    "scope": "faq",
@@ -2558,7 +2767,7 @@
     "Where is the judging area",
     "I'd like to speak with a judge"
    ],
-   "answer": "A team member or event staff can help you find the judges."
+   "answer": "Judges walk table to table from 2:15. A team member can point them out."
   },
   {
    "scope": "faq",

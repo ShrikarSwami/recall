@@ -24,6 +24,8 @@ plus its `buffalo_sc` weights (see `vendor/face_id/models/README.md`).
 | `speech.py` | VAD segmentation, mlx-whisper STT (~120–180 ms), fuzzy "Lucia" wake word, macOS `say` → PCM for the glasses speaker (the glasses have no TTS engine) |
 | `faces.py` | `face_id` (ArcFace/MobileFaceNet ONNX, ~9 ms/frame on the Mac); enrolls `faces/<person_id>/*.jpg` |
 | `alerts.py` | Caregiver iMessage through the Mac's Messages app (`osascript`), rate-limited |
+| `schedule.py` | `knowledge/schedule.md` → "what's next", "when is lunch", 15-min heads-ups, next item in the greeting |
+| `reminders.py` | `config/reminders.local.md` (private) / `.example.md`: read once on arrival via `POST /api/place` (iPhone Shortcut, `docs/SHORTCUT_API.md`) |
 | `export_kb.py` | Knowledge → JSON for the simulator (always uses `app.example.json`, never the private config) |
 
 ## Testing without glasses
@@ -43,6 +45,8 @@ curl -XPOST localhost:9100/api/ask -H 'content-type: application/json' -d '{"tex
 Or use the simulator in **Live hub** mode.
 
 ## Rules
+
+- Write endpoints (`/api/place`, `/api/say`, `/api/ask`, `/api/record`, `/api/reload`, `/api/patient`) are open to this Mac but need `X-Lucia-Token` (= `apiToken` in `config/app.local.json`) from anywhere else.
 
 - Answers about people and places come **only** from `knowledge/`. The LLM may *choose* between stored answers,
   describe the scene, or answer general off-script questions. It never invents facts about the patient or people.

@@ -27,7 +27,7 @@ seeing it for the first time, every time:
 | `glasses-app/` | Thin Android 9 app: camera/mic/keys → hub, shows `lens/` in a WebView | `glasses-app/AGENTS.md` |
 | `knowledge/` | Everything Lucia knows, in markdown Q&A. **Anyone can edit.** | `knowledge/AGENTS.md` |
 | `config/` | App name, wake word, patient, caregiver, model hosts | `config/app.example.json` |
-| `docs/` | `SPEC.md` (full plan), **`HARDWARE.md` (measured M6 facts: keys, sensors, camera)**, `CHATGPT_KB_PROMPT.md` | |
+| `docs/` | `SPEC.md` (full plan), **`HARDWARE.md` (measured M6 facts: keys, sensors, camera)**, `CHATGPT_KB_PROMPT.md`, `SHORTCUT_API.md` (iPhone → hub), `PILLS_OUTLINE.md`, `CAREGIVER_DATA.md` | |
 
 ## Quick start by role
 

@@ -64,7 +64,10 @@
   }
   $("pf").onsubmit = function (e) {
     e.preventDefault();
-    fetch("/api/patient", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: $("pname").value }) });
+    // Open this page as /caregiver?token=<apiToken> on a phone; write calls from the network need it.
+    var token = (location.search.match(/[?&]token=([^&]+)/) || [])[1] || "";
+    fetch("/api/patient", { method: "POST", headers: { "content-type": "application/json", "x-lucia-token": decodeURIComponent(token) },
+                            body: JSON.stringify({ name: $("pname").value }) });
   };
   connect(); refresh(); setInterval(refresh, 5000);
 })();
