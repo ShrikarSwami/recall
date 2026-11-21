@@ -63,6 +63,7 @@ class Hub:
         self.arrived_at: dict[str, float] = {}   # active hardware recording (see /api/record)
         self.head = HeadGestures()
         self.imu_for_offer = False
+        self.gesture_quiet_until = 0.0
 
     # ------------------------------------------------------------------ recording (glasses-free dev)
     async def record_start(self, label: str, seconds: float, imu: bool):
@@ -144,14 +145,21 @@ class Hub:
         asyncio.create_task(self.heads_up_loop())
         self.enrolled = self.faces.enroll_all() if FACES_DIR.exists() else {}
         print(f"[hub] knowledge: {len(self.kb.entries)} answers, people={list(self.kb.people)}, faces={self.enrolled}")
+        self.stt_names()
         loop = asyncio.get_running_loop()
         await loop.run_in_executor(self.stt.pool, self.stt.warm)
         asyncio.create_task(self.llm.warm())
+
+    def stt_names(self):
+        """Bias speech-to-text toward names it would otherwise mangle ("Abhiram" -> "a pyrom")."""
+        names = [self.cfg["wakeWord"]] + [n for p in self.kb.people.values() for n in [p.name] + p.aliases if n]
+        self.stt.hint = ", ".join(dict.fromkeys(names)) + "."
 
     def reload(self):
         self.cfg = load_config()
         self.kb = knowledge.load(KNOWLEDGE_DIR)
         self.brain.cfg, self.brain.kb = self.cfg, self.kb
+        self.stt_names()
         self.load_day()
         self.enrolled = self.faces.enroll_all() if FACES_DIR.exists() else {}
         return {"answers": len(self.kb.entries), "people": list(self.kb.people), "faces": self.enrolled,
@@ -239,10 +247,16 @@ class Hub:
             await self.say(reply, f"({name})")
 
     def imu(self, rows: list):
-        if self.brain.offer and time.time() < self.brain.offer.until:
-            g = self.head.feed(rows)
-            if g:
-                asyncio.create_task(self.head_gesture(g))
+        now = time.time()
+        if not self.brain.offer or now > self.brain.offer.until:
+            return
+        if now < self.gesture_quiet_until or now < self.playing_until - 1.5:
+            self.head.reset()   # one nod = one answer; ignore motion while the reply is being made/spoken
+            return
+        g = self.head.feed(rows)
+        if g:
+            self.gesture_quiet_until = now + 3.0
+            asyncio.create_task(self.head_gesture(g))
 
     # ------------------------------------------------------------------ input
     async def arm(self, why: str):
