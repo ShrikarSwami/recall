@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucia Care dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+  /* Lucia Care: for family, friends and clinicians. Calm, high-contrast, large type. */
+  :root {
+    --bg: #f3f6f4; --surface: #ffffff; --ink: #10241a; --muted: #55695d; --line: #d9e4de; --accent: #0a8f3c; --accent-ink: #ffffff;
+    --soft: #e4f3e9; --warn: #a15c07; --warn-soft: #fdf0d9; --danger: #b42318; --danger-soft: #fde8e6; --info: #1d5fa8; --info-soft: #e5eefa;
+    --shadow: 0 1px 2px rgba(16,36,26,.06), 0 6px 18px rgba(16,36,26,.05);
+    --font: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a110d; --surface: #121b16; --ink: #e5f0e9; --muted: #98ada1; --line: #243229; --accent: #35d06a; --accent-ink: #04170a;
+      --soft: #12301d; --warn: #f0b04a; --warn-soft: #33260c; --danger: #ff8c84; --danger-soft: #3a1512; --info: #7fb4ee; --info-soft: #13253c; --shadow: none; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a110d; --surface: #121b16; --ink: #e5f0e9; --muted: #98ada1; --line: #243229; --accent: #35d06a; --accent-ink: #04170a;
+    --soft: #12301d; --warn: #f0b04a; --warn-soft: #33260c; --danger: #ff8c84; --danger-soft: #3a1512; --info: #7fb4ee; --info-soft: #13253c; --shadow: none; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--font); }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  .app { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: 100vh; }
+  aside { background: var(--surface); border-right: 1px solid var(--line); padding: 22px 16px; display: flex; flex-direction: column; gap: 18px; position: sticky; top: 0; height: 100vh; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; letter-spacing: .2px; }
+  .logo { width: 34px; height: 34px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; }
+  .patient { background: var(--soft); border-radius: 14px; padding: 14px; }
+  .patient b { display: block; font-size: 18px; }
+  .patient span { color: var(--muted); font-size: 14px; }
+  nav { display: flex; flex-direction: column; gap: 4px; }
+  nav button { text-align: left; background: none; border: 0; padding: 11px 12px; border-radius: 10px; cursor: pointer; font-size: 16px; color: var(--muted); display: flex; gap: 10px; align-items: center; }
+  nav button:hover { background: var(--bg); color: var(--ink); }
+  nav button.on { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  .side-foot { margin-top: auto; font-size: 13px; color: var(--muted); }
+  main { padding: 26px 30px 60px; max-width: 1180px; width: 100%; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 0 0 12px; }
+  .sub { color: var(--muted); margin: 0 0 22px; }
+  .top { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; align-items: center; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 14px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+  .dot.on { background: var(--accent); box-shadow: 0 0 0 4px var(--soft); }
+  .grid { display: grid; gap: 18px; }
+  .g2 { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .now { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+  .now .big { font-size: 22px; font-weight: 700; }
+  .now small { display: block; color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+  .said { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: var(--soft); }
+  .tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--info-soft); color: var(--info); margin-left: 8px; white-space: nowrap; }
+  .tag.demo { background: var(--warn-soft); color: var(--warn); }
+  svg.map { width: 100%; height: auto; display: block; }
+  .map .room { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .map .room.on { fill: var(--soft); stroke: var(--accent); }
+  .map text { fill: var(--muted); font: 700 13px var(--font); }
+  .map .path { stroke: var(--line); stroke-width: 6; fill: none; stroke-dasharray: 2 10; stroke-linecap: round; }
+  .map .me { fill: var(--accent); stroke: var(--surface); stroke-width: 4; transition: cx .9s ease, cy .9s ease; }
+  .bar { display: flex; height: 16px; border-radius: 8px; overflow: hidden; background: var(--bg); margin: 10px 0 14px; }
+  .bar i { display: block; height: 100%; }
+  .row { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: 0; }
+  .sw { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .feed { display: flex; flex-direction: column; }
+  .ev { display: grid; grid-template-columns: 70px 28px minmax(0, 1fr); gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .ev:last-child { border-bottom: 0; }
+  .ev time { color: var(--muted); font-size: 13px; padding-top: 2px; }
+  .ev .ic { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 14px; background: var(--soft); }
+  .ev.patient .ic { background: var(--info-soft); } .ev.instruction .ic { background: var(--warn-soft); } .ev.location .ic { background: var(--bg); }
+  .bubbles { display: flex; flex-direction: column; gap: 8px; max-height: 330px; overflow: auto; }
+  .b { max-width: 88%; padding: 9px 13px; border-radius: 14px; font-size: 15px; }
+  .b.lucia { background: var(--soft); align-self: flex-start; border-bottom-left-radius: 4px; }
+  .b.patient { background: var(--info-soft); align-self: flex-end; border-bottom-right-radius: 4px; }
+  .empty { color: var(--muted); font-style: italic; }
+  label.f { display: block; margin-bottom: 14px; font-weight: 700; font-size: 14px; }
+  label.f span { display: block; color: var(--muted); font-weight: 400; font-size: 13px; margin-top: 2px; }
+  input[type=text], input[type=number], select, textarea { width: 100%; margin-top: 6px; padding: 11px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); font-size: 16px; font-weight: 400; }
+  textarea { min-height: 84px; resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .btn { background: var(--accent); color: var(--accent-ink); border: 0; padding: 12px 20px; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 16px; }
+  .btn.ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+  .btn.warn { background: var(--danger); color: #fff; }
+  .days { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .day h3 { margin: 0 0 8px; font-size: 16px; display: flex; justify-content: space-between; }
+  .goal { display: flex; gap: 6px; margin-bottom: 6px; }
+  .goal input { margin: 0; padding: 8px 10px; font-size: 15px; }
+  .goal button { background: none; border: 0; cursor: pointer; color: var(--muted); font-size: 18px; padding: 0 6px; }
+  .seg { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; }
+  .seg label { cursor: pointer; }
+  .seg input { position: absolute; opacity: 0; }
+  .seg span { display: inline-block; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+  .seg input:checked + span { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+  .seg input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .quick { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 16px; }
+  .quick button { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; font-size: 14px; }
+  .quick button:hover { border-color: var(--accent); }
+  .note { background: var(--info-soft); color: var(--info); padding: 10px 14px; border-radius: 12px; font-size: 14px; margin-bottom: 16px; }
+  .toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 11px 20px; border-radius: 12px; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 9; }
+  .toast.on { opacity: 1; }
+  .tab { display: none; } .tab.on { display: block; }
+  @media (max-width: 1000px) { .g2, .g3, .days { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 780px) {
+    .app { grid-template-columns: minmax(0, 1fr); }
+    aside { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 12px; }
+    nav { flex-direction: row; flex-wrap: wrap; } .patient, .side-foot { display: none; }
+    main { padding: 18px 16px 50px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .map .me { transition: none; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand"><div class="logo">L</div> Lucia Care</div>
+    <div class="patient"><b id="sp-name">Mike</b><span id="sp-meta">74 · Middle stage</span></div>
+    <nav id="nav">
+      <button data-tab="live" class="on">● Live</button>
+      <button data-tab="profile">☺ About Mike</button>
+      <button data-tab="plan">▤ 6-day plan</button>
+      <button data-tab="places">⌂ Places &amp; route</button>
+      <button data-tab="send">✉ Send to Lucia</button>
+    </nav>
+    <div class="side-foot">Demo data. Nothing here leaves this computer.<br><a href="../glasses/sim/index.html" style="color:inherit">Open the glasses simulator</a></div>
+  </aside>
+
+  <main>
+    <div class="top">
+      <span class="chip"><span class="dot" id="d-glasses"></span><span id="t-glasses">Glasses offline</span></span>
+      <span class="chip" id="t-weather">Weather: …</span>
+      <span class="chip" id="t-clock"></span>
+    </div>
+
+    <!-- ============ LIVE ============ -->
+    <section class="tab on" id="tab-live">
+      <h1 id="h-live">Mike is at his seat</h1>
+      <p class="sub">What Lucia is doing with him right now, where he is, and what he is paying attention to.</p>
+      <div class="grid g2">
+        <div class="card">
+          <div class="now">
+            <div><small>Right now</small><div class="big" id="l-step">Waiting for the glasses</div></div>
+            <div><small>Location</small><div class="big" id="l-loc">At the seat</div></div>
+          </div>
+          <div class="said" id="l-said"><span class="empty">Lucia hasn't said anything yet.</span></div>
+          <svg class="map" viewBox="0 0 620 300" role="img" aria-label="Venue map showing where Mike is" style="margin-top:14px">
+            <path class="path" d="M120 235 C230 235 320 235 380 150 C410 105 430 85 470 70"/>
+            <rect class="room" id="r-seat" x="30" y="190" width="170" height="90" rx="14"/><text x="48" y="262">YOUR SEAT</text>
+            <rect class="room" id="r-gate" x="390" y="30" width="60" height="110" rx="10"/><text x="388" y="158">GATE</text>
+            <rect class="room" id="r-bathroom" x="470" y="30" width="120" height="110" rx="14"/><text x="488" y="158">BATHROOM</text>
+            <text x="260" y="276">walkway</text>
+            <circle class="me" id="me" cx="115" cy="235" r="13"/>
+          </svg>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h2>Attention <span class="tag demo" id="attn-demo" style="display:none">demo data</span></h2>
+            <div class="bar" id="attn-bar"></div>
+            <div id="attn-rows"></div>
+            <p class="sub" style="margin:10px 0 0;font-size:14px" id="attn-note">Looking around vs walking straight without looking is measured from the glasses' head-motion sensor.</p>
+          </div>
+          <div class="card"><h2>What he is looking at</h2><div class="chips" id="gaze"><span class="empty">Nothing recorded yet.</span></div></div>
+        </div>
+      </div>
+      <div class="grid g2" style="margin-top:18px">
+        <div class="card"><h2>Conversation</h2><div class="bubbles" id="bubbles"><span class="empty">No conversation yet.</span></div></div>
+        <div class="card"><h2>Activity</h2><div class="feed" id="feed"><span class="empty">No activity yet. Run the demo day in the simulator.</span></div></div>
+      </div>
+    </section>
+
+    <!-- ============ PROFILE ============ -->
+    <section class="tab" id="tab-profile">
+      <h1>About Mike</h1>
+      <p class="sub">Lucia uses this to talk to him in the right way. Short, plain answers help most.</p>
+      <div class="card">
+        <div class="grid g3">
+          <label class="f">Name<input type="text" id="p-name"></label>
+          <label class="f">Age<input type="number" id="p-age" min="1" max="120"></label>
+          <label class="f">Gender (changes the quirky line)<select id="p-gender"><option value="man">Man (handsome)</option><option value="woman">Woman (beautiful)</option></select></label>
+        </div>
+        <div class="grid g3">
+          <label class="f">Stage of dementia<select id="p-stage"><option>Early</option><option>Middle</option><option>Late</option></select></label>
+          <label class="f">Main carer<input type="text" id="p-caregiver"></label>
+          <span></span>
+        </div>
+        <label class="f">Limitations<span>What is hard for him right now.</span><textarea id="p-limitations"></textarea></label>
+        <label class="f">What he remembers<span>Lucia can use these to comfort him.</span><textarea id="p-remembers"></textarea></label>
+        <label class="f">What he doesn't remember<span>Lucia will gently tell him these each time.</span><textarea id="p-forgets"></textarea></label>
+        <label class="f">Things he can do easily<span>Lucia builds goals from these.</span><textarea id="p-easy"></textarea></label>
+        <label class="f">Notes<textarea id="p-notes"></textarea></label>
+        <button class="btn" id="save-profile">Save profile</button>
+      </div>
+    </section>
+
+    <!-- ============ PLAN ============ -->
+    <section class="tab" id="tab-plan">
+      <h1>6-day plan</h1>
+      <p class="sub">Goals for each day. Lucia tells Mike today's first goal when he puts the glasses on.</p>
+      <div class="days" id="days"></div>
+      <p style="margin-top:18px"><button class="btn" id="save-goals">Save plan</button></p>
+    </section>
+
+    <!-- ============ PLACES ============ -->
+    <section class="tab" id="tab-places">
+      <h1>Places &amp; route</h1>
+      <p class="sub">Each line below becomes one instruction on the glasses, one at a time.</p>
+      <div class="grid g2">
+        <div class="card">
+          <h2>Where he is</h2>
+          <label class="f">Place name<span>What Lucia says: "You're at …"</span><input type="text" id="pl-city"></label>
+          <div class="grid g3"><label class="f">Latitude<input type="number" step="0.0001" id="pl-lat"></label><label class="f">Longitude<input type="number" step="0.0001" id="pl-lon"></label><span></span></div>
+          <div class="note" id="pl-weather">Live weather: …</div>
+          <label class="f">Where the gate is<select id="pl-gate"><option>top right</option><option>top left</option><option>bottom right</option><option>bottom left</option></select></label>
+          <label class="f">Where his bag is<span>Lucia says: "Your bag is …"</span><input type="text" id="pl-bag"></label>
+          <label class="f">His seat<input type="text" id="pl-seat"></label>
+        </div>
+        <div class="card">
+          <h2>Route to the bathroom</h2>
+          <label class="f"><span>One instruction per line.</span><textarea id="pl-to" style="min-height:150px"></textarea></label>
+          <h2>Route back to his seat</h2>
+          <label class="f"><span>One instruction per line.</span><textarea id="pl-back" style="min-height:130px"></textarea></label>
+          <button class="btn" id="save-places">Save places</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SEND ============ -->
+    <section class="tab" id="tab-send">
+      <h1>Send to Lucia</h1>
+      <p class="sub">Lucia says it on the glasses within a couple of seconds, in her own calm voice.</p>
+      <div class="note">Lucia only guides and warns. She never stops Mike or blocks his way. A warning also shows on this page.</div>
+      <div class="grid g2">
+        <div class="card">
+          <h2>New message</h2>
+          <div class="seg" id="kind">
+            <label><input type="radio" name="kind" value="reminder" checked><span>Reminder</span></label>
+            <label><input type="radio" name="kind" value="warning"><span>Warning</span></label>
+            <label><input type="radio" name="kind" value="message"><span>Friendly message</span></label>
+          </div>
+          <label class="f">What should Lucia say?<textarea id="s-text" placeholder="Keep it short and kind."></textarea></label>
+          <div class="quick" id="quick"></div>
+          <button class="btn" id="send">Send to Lucia</button>
+        </div>
+        <div class="card"><h2>Sent</h2><div class="feed" id="sent"><span class="empty">Nothing sent yet.</span></div></div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var state = null, events = [], since = 0;
+  var LOC = { seat: "At his seat", walking: "Walking", gate: "At the gate", bathroom: "In the bathroom" };
+  var POS = { seat: [115, 235], walking: [300, 235], gate: [420, 85], bathroom: [530, 85] };
+  var MODE = { looking_around: ["Looking around", "#0a8f3c"], walking_straight: ["Walking straight, not looking", "#c77d0a"], still: ["Sitting still", "#7a8c82"] };
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function toast(t) { var e = $("toast"); e.textContent = t; e.className = "toast on"; setTimeout(function () { e.className = "toast"; }, 2000); }
+  function api(path, body) {
+    var o = body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : { cache: "no-store" };
+    return fetch(path, o).then(function (r) { return r.json(); });
+  }
+  function hhmm(ts) { var d = new Date(ts * 1000); return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", second: "2-digit" }); }
+
+  // ---------------------------------------------------------------- tabs
+  Array.prototype.forEach.call(document.querySelectorAll("#nav button"), function (b) {
+    b.addEventListener("click", function () {
+      Array.prototype.forEach.call(document.querySelectorAll("#nav button"), function (x) { x.className = ""; });
+      Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (x) { x.className = "tab"; });
+      b.className = "on"; $("tab-" + b.getAttribute("data-tab")).className = "tab on";
+    });
+  });
+
+  // ---------------------------------------------------------------- forms (filled once, then left alone while you type)
+  var filled = false;
+  function fillForms() {
+    var p = state.profile, pl = state.places;
+    ["name", "age", "stage", "caregiver", "limitations", "remembers", "forgets", "easy", "notes", "gender"].forEach(function (k) { if ($("p-" + k)) $("p-" + k).value = p[k] == null ? "" : p[k]; });
+    $("pl-city").value = pl.city; $("pl-lat").value = pl.lat; $("pl-lon").value = pl.lon; $("pl-gate").value = pl.gate; $("pl-bag").value = pl.bag; $("pl-seat").value = pl.seat;
+    $("pl-to").value = (pl.routeToBathroom || []).join("\n"); $("pl-back").value = (pl.routeBack || []).join("\n");
+    drawDays();
+    var q = ["Take your pills with a glass of water", "Please stay away from the stairs", "It's lunch time, come and sit down", state.profile.caregiver.split(" ")[0] + " is on her way", "You're doing really well"];
+    $("quick").innerHTML = q.map(function (t) { return '<button type="button">' + esc(t) + "</button>"; }).join("");
+    Array.prototype.forEach.call($("quick").children, function (b) { b.addEventListener("click", function () { $("s-text").value = b.textContent; }); });
+    filled = true;
+  }
+  function drawDays() {
+    $("days").innerHTML = state.goals.map(function (d, i) {
+      return '<div class="card day" data-i="' + i + '"><h3>Day ' + d.day + (i === 0 ? ' <span class="tag">today</span>' : "") + "</h3>" +
+        d.items.map(function (g, j) { return '<div class="goal"><input type="text" value="' + esc(g) + '" data-j="' + j + '"><button type="button" data-del="' + j + '" aria-label="Remove goal">×</button></div>'; }).join("") +
+        '<div class="goal"><input type="text" placeholder="Add a goal" data-new="1"></div></div>';
+    }).join("");
+  }
+  function readDays() {
+    return Array.prototype.map.call(document.querySelectorAll("#days .day"), function (card, i) {
+      var items = [];
+      Array.prototype.forEach.call(card.querySelectorAll("input"), function (inp) { var v = inp.value.replace(/^\s+|\s+$/g, ""); if (v) items.push(v); });
+      return { day: i + 1, items: items };
+    });
+  }
+  $("days").addEventListener("click", function (e) {
+    var del = e.target.getAttribute && e.target.getAttribute("data-del"); if (del == null) return;
+    var card = e.target.closest(".day"); card.querySelectorAll("input")[+del].value = ""; card.querySelectorAll("input")[+del].parentNode.style.display = "none";
+  });
+  $("save-profile").addEventListener("click", function () {
+    var p = {}; ["name", "stage", "caregiver", "limitations", "remembers", "forgets", "easy", "notes", "gender"].forEach(function (k) { p[k] = $("p-" + k).value; });
+    p.age = parseInt($("p-age").value, 10) || 74;
+    api("/api/profile", p).then(function () { state.profile = p; header(); toast("Profile saved"); });
+  });
+  $("save-goals").addEventListener("click", function () { var g = readDays(); api("/api/goals", { goals: g }).then(function () { state.goals = g; toast("Plan saved"); }); });
+  $("save-places").addEventListener("click", function () {
+    var lines = function (id) { return $(id).value.split("\n").map(function (x) { return x.replace(/^\s+|\s+$/g, ""); }).filter(Boolean); };
+    var pl = { city: $("pl-city").value, lat: parseFloat($("pl-lat").value), lon: parseFloat($("pl-lon").value), gate: $("pl-gate").value, bag: $("pl-bag").value, seat: $("pl-seat").value, routeToBathroom: lines("pl-to"), routeBack: lines("pl-back") };
+    api("/api/places", pl).then(function () { state.places = pl; toast("Places saved"); loadWeather(); });
+  });
+  $("send").addEventListener("click", function () {
+    var text = $("s-text").value.replace(/^\s+|\s+$/g, ""); if (!text) { toast("Write something first"); return; }
+    var kind = document.querySelector("input[name=kind]:checked").value;
+    api("/api/instruct", { kind: kind, text: text, by: "Family dashboard" }).then(function () { $("s-text").value = ""; toast("Sent to Lucia"); poll(); });
+  });
+
+  // ---------------------------------------------------------------- live view
+  function header() {
+    var p = state.profile;
+    $("sp-name").textContent = p.name; $("sp-meta").textContent = p.age + " · " + p.stage + " stage";
+    document.title = p.name + " · Lucia Care";
+  }
+  function renderLive() {
+    var live = state.live, p = state.profile, loc = live.location || "seat";
+    $("h-live").textContent = p.name + " is " + (LOC[loc] || "here").toLowerCase().replace("at his", "at his").replace("in the", "in the");
+    $("l-step").textContent = live.step || "Waiting for the glasses";
+    $("l-loc").textContent = LOC[loc] || loc;
+    $("l-said").innerHTML = live.lastLucia ? "<b>Lucia:</b> “" + esc(live.lastLucia) + "”" : '<span class="empty">Lucia hasn\'t said anything yet.</span>';
+    var pos = POS[loc] || POS.seat; $("me").setAttribute("cx", pos[0]); $("me").setAttribute("cy", pos[1]);
+    ["seat", "gate", "bathroom"].forEach(function (k) { $("r-" + k).setAttribute("class", "room" + (k === loc ? " on" : "")); });
+    $("d-glasses").className = "dot" + (live.lensOnline ? " on" : ""); $("t-glasses").textContent = live.lensOnline ? "Glasses online" : "Glasses offline";
+    // attention
+    var sums = { looking_around: 0, walking_straight: 0, still: 0 }, any = false, sim = false;
+    events.forEach(function (e) { if (e.type === "attention" && sums[e.mode] != null) { sums[e.mode] += e.secs || 0; any = true; if (e.sim) sim = true; } });
+    var total = sums.looking_around + sums.walking_straight + sums.still;
+    $("attn-demo").style.display = sim ? "" : "none";
+    if (!any) { $("attn-bar").innerHTML = ""; $("attn-rows").innerHTML = '<span class="empty">No attention data yet.</span>'; }
+    else {
+      $("attn-bar").innerHTML = Object.keys(MODE).map(function (k) { return '<i style="width:' + (100 * sums[k] / total) + "%;background:" + MODE[k][1] + '"></i>'; }).join("");
+      $("attn-rows").innerHTML = Object.keys(MODE).map(function (k) { return '<div class="row"><span><span class="sw" style="background:' + MODE[k][1] + '"></span>' + MODE[k][0] + "</span><b>" + sums[k] + " s</b></div>"; }).join("");
+    }
+    // gaze
+    var g = {}; events.forEach(function (e) { if (e.type === "gaze" && e.label) g[e.label] = (g[e.label] || 0) + 1; });
+    var gk = Object.keys(g); $("gaze").innerHTML = gk.length ? gk.map(function (k) { return '<span class="chip">' + esc(k) + (g[k] > 1 ? " ×" + g[k] : "") + "</span>"; }).join("") : '<span class="empty">Nothing recorded yet.</span>';
+    // conversation
+    var talk = events.filter(function (e) { return e.type === "lucia" || e.type === "patient"; }).slice(-14);
+    $("bubbles").innerHTML = talk.length ? talk.map(function (e) { return '<div class="b ' + e.type + '">' + (e.type === "lucia" ? "<b>Lucia</b> " : "<b>" + esc(p.name) + "</b> ") + esc(e.text) + "</div>"; }).join("") : '<span class="empty">No conversation yet.</span>';
+    var bb = $("bubbles"); bb.scrollTop = bb.scrollHeight;
+    // activity
+    var ICON = { step: "▶", lucia: "💬", patient: "🗣", location: "📍", attention: "👀", gaze: "👁", instruction: "✉", system: "⚙" };
+    var feed = events.slice(-40).reverse().map(function (e) {
+      var text = e.type === "location" ? "Moved: " + (LOC[e.place] || e.place) : e.type === "attention" ? (MODE[e.mode] ? MODE[e.mode][0] : e.mode) + " (" + (e.secs || 0) + " s)" :
+        e.type === "gaze" ? "Looked at " + e.label : e.type === "step" ? "Step: " + e.text : e.type === "instruction" ? esc((e.kind || "message")) + " sent: " + e.text : e.text || e.type;
+      return '<div class="ev ' + e.type + '"><time>' + hhmm(e.ts) + '</time><span class="ic">' + (ICON[e.type] || "•") + "</span><span>" + (e.type === "lucia" ? "Lucia said: “" + esc(text) + "”" : e.type === "patient" ? esc(p.name) + " asked: “" + esc(text) + "”" : esc(text)) +
+        (e.sim ? '<span class="tag demo">demo</span>' : "") + "</span></div>";
+    }).join("");
+    $("feed").innerHTML = feed || '<span class="empty">No activity yet. Run the demo day in the simulator.</span>';
+    // sent
+    var sent = events.filter(function (e) { return e.type === "instruction"; }).slice(-8).reverse();
+    $("sent").innerHTML = sent.length ? sent.map(function (e) { return '<div class="ev instruction"><time>' + hhmm(e.ts) + '</time><span class="ic">✉</span><span><b>' + esc(e.kind) + ":</b> " + esc(e.text) + "</span></div>"; }).join("") : '<span class="empty">Nothing sent yet.</span>';
+  }
+
+  // ---------------------------------------------------------------- polling
+  function poll() {
+    return api("/api/state").then(function (st) {
+      var first = !state; state = st; if (!filled) { fillForms(); } header();
+      return api("/api/events?since=" + since);
+    }).then(function (r) {
+      if (r.events.length) { events = events.concat(r.events); since = events[events.length - 1].id; if (events.length > 600) events = events.slice(-400); }
+      renderLive();
+    }).catch(function () { $("t-glasses").textContent = "Server not reachable"; $("d-glasses").className = "dot"; });
+  }
+  function loadWeather() {
+    api("/api/weather").then(function (w) {
+      var t = w.ok ? w.sky + ", " + w.tempF + "°F" + (w.chill ? " (" + w.chill + ")" : "") : "unavailable (no internet)";
+      $("t-weather").textContent = "Weather: " + t; $("pl-weather").textContent = "Live weather at this place: " + t + (w.ok ? ". Lucia tells Mike this." : ".");
+    }).catch(function () {});
+  }
+  function clock() { $("t-clock").textContent = new Date().toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" }); }
+  clock(); setInterval(clock, 20000);
+  poll(); setInterval(poll, 1500); loadWeather(); setInterval(loadWeather, 600000);
+})();
+</script>
+</body>
+</html>

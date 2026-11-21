@@ -1,0 +1,78 @@
+{
+ "profile": {
+  "name": "Mike",
+  "age": 74,
+  "gender": "man",
+  "stage": "Middle",
+  "limitations": "Forgets recent events. Needs one short instruction at a time. Can get anxious in crowds.",
+  "remembers": "His wife Anna, old songs, fishing trips, his daughter's name.",
+  "forgets": "What day it is, where he left his things, faces he met today.",
+  "easy": "Walking short distances, washing his hands, sitting down at a table, drinking water.",
+  "caregiver": "Anna (wife)",
+  "notes": "Demo data. Likes to be called Mike."
+ },
+ "goals": [
+  {
+   "day": 1,
+   "items": [
+    "Freshen up and wash hands",
+    "Get back to your seat",
+    "Drink a glass of water"
+   ]
+  },
+  {
+   "day": 2,
+   "items": [
+    "Short walk with a friend",
+    "Lunch at the table"
+   ]
+  },
+  {
+   "day": 3,
+   "items": [
+    "Call Anna",
+    "Look through the photo album"
+   ]
+  },
+  {
+   "day": 4,
+   "items": [
+    "Morning stretch",
+    "Help set the table"
+   ]
+  },
+  {
+   "day": 5,
+   "items": [
+    "Visit from Priya",
+    "Afternoon tea"
+   ]
+  },
+  {
+   "day": 6,
+   "items": [
+    "Garden walk",
+    "Early dinner"
+   ]
+  }
+ ],
+ "places": {
+  "city": "CUNY, Brooklyn",
+  "lat": 40.6955,
+  "lon": -73.9872,
+  "gate": "top right",
+  "bag": "Right behind you",
+  "seat": "Your seat, next to your bag",
+  "routeToBathroom": [
+   "Stand up slowly. Step back a little.",
+   "Head to the gate, in the top right corner.",
+   "Go through the gate, then turn left.",
+   "The bathroom is the first door on your right."
+  ],
+  "routeBack": [
+   "Turn around and head back to the gate.",
+   "Walk straight, toward your friends.",
+   "Your seat is the one with your bag."
+  ]
+ }
+}

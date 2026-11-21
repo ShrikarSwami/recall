@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucia glasses simulator</title>
+<link rel="stylesheet" href="sim.css">
+</head>
+<body>
+<div id="wrapper">
+  <div id="left">
+    <h1>Lucia glasses simulator</h1>
+    <div id="engine"></div>
+    <div id="stagebox">
+      <div id="stage" class="glass">
+        <div id="world">
+          <video id="wv" playsinline muted autoplay></video>
+          <img id="wi" alt="">
+          <div id="worldhint">Turn on your camera, or add a photo or video of the room.</div>
+        </div>
+        <div id="scaler"><iframe id="lens" src="../lens/index.html?ws=off" width="640" height="480" scrolling="no" frameborder="0"></iframe></div>
+        <div id="fakebar"><span id="sbclock"></span><span>BT &nbsp; Wi-Fi &nbsp; 85%</span></div>
+        <div id="catcher" title="Tap to go to the next step"></div>
+      </div>
+    </div>
+    <div id="errors"></div>
+  </div>
+
+  <div id="panel">
+    <h2>Behind the lens</h2>
+    <div class="row">
+      <button id="b-live" type="button">Live camera<small>your webcam</small></button>
+      <label class="btn" for="f-any">Photo or video<small>from a file</small></label>
+    </div>
+    <input id="f-any" type="file" accept="image/*,video/*">
+    <div id="msg"></div>
+
+    <h2>The demo day</h2>
+    <div class="row">
+      <button id="s-demo" class="primary" type="button">Run the demo day<small>hello, bathroom, wash hands, back to seat</small></button>
+      <button id="s-stop" type="button">Stop<small>back to idle</small></button>
+    </div>
+    <div class="row">
+      <button id="b-ask" type="button">Mike asks: &ldquo;Where is the bathroom?&rdquo;<small>the voice question</small></button>
+      <button id="b-reset" type="button">Clear dashboard data<small>start fresh</small></button>
+    </div>
+    <div class="row">
+      <button id="b-look" type="button">Mike looks around<small>for the dashboard</small></button>
+      <button id="b-straight" type="button">Mike walks straight<small>not looking around</small></button>
+    </div>
+    <div class="check"><label><input id="c-start" type="checkbox" checked> Start by itself when the camera turns on</label></div>
+    <div class="check"><label><input id="c-auto" type="checkbox"> Auto-advance &ldquo;tap&rdquo; steps after 6 seconds</label></div>
+
+    <h2>Other moments</h2>
+    <div class="row">
+      <button id="s-onboard" type="button">Just the hello<small>Hi, I'm Lucia</small></button>
+      <button id="s-morning" type="button">Wake up, new day<small>the at-home version</small></button>
+    </div>
+    <div class="row">
+      <button id="s-short" type="button">Glasses back on<small>after 5 minutes</small></button>
+      <button id="s-long" type="button">Glasses back on<small>after a nap</small></button>
+    </div>
+    <div class="row">
+      <button id="s-new" type="button">Someone new walks up<small>on the right</small></button>
+      <button id="s-known" type="button">Family walks up<small>on the left</small></button>
+    </div>
+    <div class="row">
+      <button id="s-batt" type="button">Battery is low<small>charge it, step by step</small></button>
+      <button id="s-danger" type="button">Danger sticker<small>the stove is on</small></button>
+    </div>
+    <div class="row">
+      <button id="s-scared" type="button">&ldquo;I'm scared&rdquo;<small>calm and safe</small></button>
+      <button id="s-walk" type="button">Run ahead and turn<small>back view, then faces you</small></button>
+    </div>
+    <div class="row"><button id="b-skip" type="button" class="wide">Next step &#9656;<small>or click the lens</small></button></div>
+
+    <h2>Guide moods</h2>
+    <div class="row3">
+      <button data-mood="idle|warm" type="button">Smile</button>
+      <button data-mood="wave|happy" type="button">Wave</button>
+      <button data-mood="cheer|proud" type="button">Jump</button>
+      <button data-mood="idle|curious" type="button">Curious</button>
+      <button data-mood="idle|concerned" type="button">Worried</button>
+      <button data-mood="sleepy|sleepy" type="button">Sleepy</button>
+      <button data-mood="alert|alert" type="button">Alert</button>
+      <button data-mood="point|warm|right" type="button">Point right</button>
+      <button data-mood="idle|calm" type="button">Calm</button>
+      <button id="b-twirl" type="button">Lucia twirl<small>her signature move</small></button>
+    </div>
+
+    <h2>How the glasses will look</h2>
+    <div class="check"><label><input id="c-glass" type="checkbox" checked> Glasses look: green only, black is see-through</label></div>
+    <div class="check"><label><input id="c-bar" type="checkbox" checked> Show the system status bar that covers the top 40 px</label></div>
+    <div class="slider"><label>Room brightness behind the lens<input id="c-bright" type="range" min="20" max="100" value="80"></label></div>
+    <div class="slider"><label>Display strength<input id="c-str" type="range" min="40" max="100" value="90"></label></div>
+
+    <h2>Make it theirs</h2>
+    <div class="row">
+      <label class="fld">Patient's name<input id="c-name" type="text" value="Mike" autocomplete="off"></label>
+      <label class="fld">Partner's name<input id="c-partner" type="text" value="Anna" autocomplete="off"></label>
+    </div>
+    <div class="row">
+      <label class="fld">Age<input id="c-age" type="text" value="74" autocomplete="off"></label>
+      <label class="fld">Describe them
+        <select id="c-charm"><option value="handsome">74-year-old handsome man</option><option value="beautiful">74-year-old beautiful woman</option></select>
+      </label>
+    </div>
+    <div class="row">
+      <label class="fld">Where are they<input id="c-place" type="text" value="at City Tech in Brooklyn" autocomplete="off"></label>
+      <label class="fld">Weather
+        <select id="c-weather"><option value="sunny">Sunny</option><option value="cloudy">Cloudy</option><option value="rainy">Rainy</option></select>
+      </label>
+    </div>
+    <div id="wstatus" class="note"></div>
+    <div class="check"><label><input id="c-voice" type="checkbox" checked> Speak aloud (the browser's voice)</label></div>
+  </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="mono" color-interpolation-filters="sRGB">
+    <!-- keep only brightness, paint it green: what a monochrome green waveguide shows -->
+    <feColorMatrix type="matrix" values="0 0 0 0 0   0.45 0.90 0.17 0 0   0 0 0 0 0   0 0 0 1 0"/>
+  </filter>
+</svg>
+
+<script src="flow.js"></script>
+</body>
+</html>
