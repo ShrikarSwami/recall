@@ -1,6 +1,6 @@
-# knowledge/: everything Lucia knows (anyone can edit)
+# knowledge/: everything Go-go knows (anyone can edit)
 
-Lucia only states facts written here. More good answers = a better demo, since the judges will try to stump it.
+Go-go only states facts written here. More good answers = a better demo, since the judges will try to stump it.
 
 ## Files
 

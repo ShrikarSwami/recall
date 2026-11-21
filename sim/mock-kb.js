@@ -7,9 +7,9 @@ window.MOCK_KB = {
   "slow": "(?:a tad slower|repeat that at a slower pace|slower|(?:a little|a bit) slower|more slowly|less quickly|not so fast|too fast|that was too fast|slow (?:down(?: a bit)?|it down|your (?:speech|voice) down)|(?:speak|talk)(?: a little| a bit)?(?: more)? (?:slowly|slower)|(?:say|read|repeat) (?:it|that|your answer|the answer)(?: again)?(?: but)?(?: a little| a bit)? (?:more slowly|slower|slowly)|you are (?:speaking|talking) too fast|take your time saying that|go a little slower|speak at a slower pace|use a slower voice|speaking more slowly)",
   "stop": "(?:that is all|all done|we are done|i am done|cut it(?: out)?|turn (?:it|that) off|quiet down|stop saying that|stop(?: (?:talking|speaking|reading(?: (?:that|it))?|answering|that|it|the (?:audio|voice|explanation|playback)))?(?: for (?:a moment|now))?|cancel(?: (?:that|the (?:answer|reply|response)|what i asked))?|be quiet|quiet|silence|hush|shush|shut up|enough|that is enough|no more(?: (?:talking|audio))?|i (?:have )?heard enough|you can (?:stop(?: talking)?|be quiet)|never ?mind|forget it|leave it(?: there| at that)?|drop it|i changed my mind|i do not want to hear more|i need (?:some silence|quiet)|pause(?: (?:that|the audio))?|hold on(?: a second)?|hang on|wait a second|give me a moment|give me some quiet|mute(?: (?:yourself|the voice|the audio))?|turn off the voice|do not (?:continue|say any more)|that will do)"
  },
- "app": "Lucia",
- "wake": "Lucia",
- "hint": "Say \"Lucia\" or hold right side",
+ "app": "Go-go",
+ "wake": "Go-go",
+ "hint": "Say \"Go-go\" or hold right side",
  "patient": "Somya",
  "caregiver": "Shrikar",
  "currentPlace": "city_tech",
@@ -2366,7 +2366,7 @@ window.MOCK_KB = {
     "Is pardon a way to repeat the answer",
     "Can a short what repeat the last answer"
    ],
-   "answer": "Try saying \"say that again\" or \"huh\" just after an answer. You can also say \"Lucia, repeat that.\""
+   "answer": "Try saying \"say that again\" or \"huh\" just after an answer. You can also say \"Go-go, repeat that.\""
   },
   {
    "scope": "faq",
@@ -2396,7 +2396,7 @@ window.MOCK_KB = {
     "What words pause the answer audio",
     "How do I ask for quiet from the glasses"
    ],
-   "answer": "Say \"Lucia, stop talking,\" or hold the right side to interrupt. After an answer, \"enough\" also works briefly."
+   "answer": "Say \"Go-go, stop talking,\" or hold the right side to interrupt. After an answer, \"enough\" also works briefly."
   },
   {
    "scope": "faq",
@@ -3315,7 +3315,7 @@ window.MOCK_KB = {
     "The demo glasses aren't replying",
     "This pair doesn't seem to respond"
    ],
-   "answer": "Try saying \"Lucia\" and asking again. A team member can check the glasses if there's still no answer."
+   "answer": "Try saying \"Go-go\" and asking again. A team member can check the glasses if there's still no answer."
   },
   {
    "scope": "faq",
@@ -3339,7 +3339,7 @@ window.MOCK_KB = {
     "Wait, who is this voice?",
     "Who are ya?"
    ],
-   "answer": "I'm Lucia, the assistant in your glasses. I'm here to offer gentle reminders and help you find your way."
+   "answer": "I'm Go-go, the assistant in your glasses. I'm here to offer gentle reminders and help you find your way."
   },
   {
    "scope": "faq",
@@ -3351,7 +3351,7 @@ window.MOCK_KB = {
     "Wait, how do I ask something?",
     "How'd I use this?"
    ],
-   "answer": "Say \"Lucia,\" then ask your question. You can also tap the side of the glasses to ask."
+   "answer": "Say \"Go-go,\" then ask your question. You can also tap the side of the glasses to ask."
   },
   {
    "scope": "faq",
@@ -3360,10 +3360,10 @@ window.MOCK_KB = {
     "What word do I say to start?",
     "What's the wake word?",
     "What name wakes you up?",
-    "Do I say Lucy or Lucia?",
+    "Do I say Gogo or Go-go?",
     "What's your wake up word?"
    ],
-   "answer": "Say \"Lucia,\" then ask what you'd like to know. There's no hurry."
+   "answer": "Say \"Go-go,\" then ask what you'd like to know. There's no hurry."
   },
   {
    "scope": "faq",
@@ -3375,7 +3375,7 @@ window.MOCK_KB = {
     "Wait, where's the button?",
     "Where do I tab?"
    ],
-   "answer": "Tap the side of the glasses to ask a question. You can also say \"Lucia.\""
+   "answer": "Tap the side of the glasses to ask a question. You can also say \"Go-go.\""
   },
   {
    "scope": "faq",
@@ -3395,7 +3395,7 @@ window.MOCK_KB = {
     "What should I ask you?",
     "Can you give me an example?"
    ],
-   "answer": "Say \"Lucia,\" then ask \"Who is this?\" or \"Where am I?\" You can ask again whenever you need a reminder."
+   "answer": "Say \"Go-go,\" then ask \"Who is this?\" or \"Where am I?\" You can ask again whenever you need a reminder."
   },
   {
    "scope": "faq",
@@ -3407,7 +3407,7 @@ window.MOCK_KB = {
     "Did you hear what I said?",
     "Can you here me?"
    ],
-   "answer": "Your glasses use a microphone for your questions. Say \"Lucia,\" then ask something."
+   "answer": "Your glasses use a microphone for your questions. Say \"Go-go,\" then ask something."
   },
   {
    "scope": "faq",
@@ -3563,7 +3563,7 @@ window.MOCK_KB = {
     "Do I need to talk really loud?",
     "Should I speak loader?"
    ],
-   "answer": "Try your usual speaking voice. Say \"Lucia,\" then ask your question."
+   "answer": "Try your usual speaking voice. Say \"Go-go,\" then ask your question."
   },
   {
    "scope": "faq",
@@ -3575,7 +3575,7 @@ window.MOCK_KB = {
     "Wait, why is it quiet?",
     "Why didn't you an sir?"
    ],
-   "answer": "I may have missed your words. Try saying \"Lucia,\" then ask again, or tap the side of the glasses."
+   "answer": "I may have missed your words. Try saying \"Go-go,\" then ask again, or tap the side of the glasses."
   },
   {
    "scope": "faq",
@@ -3755,7 +3755,7 @@ window.MOCK_KB = {
     "Am I talking to a human?",
     "Are you a reel person?"
    ],
-   "answer": "You're hearing a computer voice from Lucia. Your family and people nearby can offer human company and support."
+   "answer": "You're hearing a computer voice from Go-go. Your family and people nearby can offer human company and support."
   },
   {
    "scope": "faq",
@@ -3863,7 +3863,7 @@ window.MOCK_KB = {
     "Wait, how do I start again?",
     "What if I forget how to use ya?"
    ],
-   "answer": "That's okay. Say \"Lucia,\" then ask your question, or tap the side of the glasses."
+   "answer": "That's okay. Say \"Go-go,\" then ask your question, or tap the side of the glasses."
   },
   {
    "scope": "faq",
@@ -5897,7 +5897,7 @@ window.MOCK_KB = {
     "what is Shrikar building",
     "tell me about his hackathon project"
    ],
-   "answer": "He's building Lucia, an AI assistant on smart glasses that identifies familiar people and answers questions about them aloud."
+   "answer": "He's building Go-go, an AI assistant on smart glasses that identifies familiar people and answers questions about them aloud."
   },
   {
    "scope": "person",

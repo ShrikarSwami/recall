@@ -1,4 +1,4 @@
-Hi Isha! This is your folder for Lucia (team BB). Two things to do, ~10 minutes total.
+Hi Isha! This is your folder for Go-go (team BB). Two things to do, ~10 minutes total.
 
 1) YOUR FACE (so the glasses recognise you)
    - Take 3 photos at the venue, in venue lighting, no sunglasses or hat:
@@ -7,7 +7,7 @@ Hi Isha! This is your folder for Lucia (team BB). Two things to do, ~10 minutes 
    - Put them in THIS folder (faces/isha/). Any filename. HEIC from an iPhone is fine; Shrikar converts it.
    - Photos stay on Shrikar's Mac only. They are never pushed to GitHub and get deleted after the event.
 
-2) WHAT LUCIA SAYS ABOUT YOU (judges will ask!)
+2) WHAT GO-GO SAYS ABOUT YOU (judges will ask!)
    - Open knowledge/people/isha.md in the repo.
    - Fill in pronouns, a short intro ("This is Isha. He/She/They ..."), and as many A: answers as you can.
      1-2 short, friendly sentences each. Blank answers are skipped, so partial is fine.

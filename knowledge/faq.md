@@ -13,7 +13,7 @@ A: I'm {app}, the assistant in your glasses. I'm here to offer gentle reminders 
 A: Say "{wake}," then ask your question. You can also tap the side of the glasses to ask.
 
 # Q: What word do I say to start?
-- also: What's the wake word? / What name wakes you up? / Do I say Lucy or Lucia? / What's your wake up word?
+- also: What's the wake word? / What name wakes you up? / Do I say Gogo or Go-go? / What's your wake up word?
 A: Say "{wake}," then ask what you'd like to know. There's no hurry.
 
 # Q: Where do I tap?

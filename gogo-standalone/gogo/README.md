@@ -1,6 +1,6 @@
 # Gogo standalone server
 
-No Lucia hub needed. One Python server that serves the lens, the dashboard and the simulator, keeps the care data, and runs Gogo's guided flow.
+No Go-go hub needed. One Python server that serves the lens, the dashboard and the simulator, keeps the care data, and runs Gogo's guided flow.
 
 ```
 mockup\gogo\.venv\Scripts\python.exe mockup\gogo\main.py --port 9310

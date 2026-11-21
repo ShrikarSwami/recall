@@ -1,4 +1,4 @@
-/* Lucia lens renderer. Plain ES5 + a few ES2015 bits, all fine in Chrome 74 (Android 9 WebView).
+/* Go-go lens renderer. Plain ES5 + a few ES2015 bits, all fine in Chrome 74 (Android 9 WebView).
    NO optional chaining (?.), NO nullish (??), NO replaceAll/.at()/structuredClone.
 
    Messages (from the hub over WebSocket later, or from the simulator via postMessage):
@@ -14,9 +14,9 @@
      {"type":"ring",    "phase":"in|out", "label":"Breathe in..."}
      {"type":"tapnote", "text":"Tap when you're ready"}     (empty text hides it)
      {"type":"battery", "on":true, "pct":15}
-   Messages from the Lucia hub (all supported, so this lens is a drop-in for lens/ on the glasses):
+   Messages from the Go-go hub (all supported, so this lens is a drop-in for lens/ on the glasses):
      {"type":"state", "value":"idle|listening|thinking"}   {"type":"conn", "value":true|false}
-     {"type":"avatar", "talking":true|false, "perk":true}   (talking follows Lucia's audio; perk = she was interrupted)
+     {"type":"avatar", "talking":true|false, "perk":true}   (talking follows Go-go's audio; perk = she was interrupted)
      {"type":"card", "title", "lines", "intent":"greeting|who_is_this|kb:place|time|distress|...", "prompt":"Nod or say yes", "ttl_ms"}
        (a card with no icon gets a stamp chosen from its intent, see INTENT_STAMP)
    URL params: ?ws=ws://host:9100/ws/lens (default: the host that served this page), ?ws=off = postMessage only
@@ -42,7 +42,7 @@
       art + '<text class="stag" x="48" y="98" text-anchor="middle"' + (t.length > 8 ? ' textLength="62" lengthAdjust="spacingAndGlyphs"' : "") + "></text></svg></div>";
     slot.querySelector(".stag").textContent = t;
   }
-  // the squirrel is Lucia: each kind of answer gets a mood (the hub's card intent is the source of truth)
+  // the squirrel is Go-go: each kind of answer gets a mood (the hub's card intent is the source of truth)
   var REACT = { greeting: { act: "greet", emo: "happy" }, proactive_intro: { act: "greet", emo: "happy" }, who_is_this: { act: "greet", emo: "happy" },
     who_is: { act: "greet", emo: "happy" }, "kb:person": { emo: "happy" }, offer_yes: { emo: "happy" },
     arrival: { pose: "point", emo: "warm" }, schedule: { pose: "point", emo: "warm" }, heads_up: { pose: "point", emo: "warm" },
@@ -61,7 +61,7 @@
     else if (intent === "fall" || intent === "distress") TG.x = 0;   // come straight back, concerned
     else hop();                                                      // any other new answer: a little bound
   }
-  // while Lucia talks, wander a little (walk a few steps, the odd hop), then come back to the middle
+  // while Go-go talks, wander a little (walk a few steps, the odd hop), then come back to the middle
   var wander = 0;
   setInterval(function () {
     if (!AV.talking || ACT || AV.pose === "point") { if (!AV.talking && AV.pose !== "point" && !ACT) { TG.x = 0; wander = 0; } return; }
@@ -111,7 +111,7 @@
   var BK = 1, wantBig = false;
   var yaw = 0, lastYawStep = 0, runT = 0, lastDraw = "", lastXform = "", lastT = (window.performance && performance.now) ? performance.now() : 0;
   var moving = false, lastDip = "";
-  // a short scripted move: the Lucia twirl = wave, hop, spin all the way round, bow, wave
+  // a short scripted move: the Go-go twirl = wave, hop, spin all the way round, bow, wave
   var ACT = null, TWIRL = [0, 45, 90, 135, 180, 225, 270, 315, 0];
   // the greeting: a bow, then a wave. 4 seconds in all.
   function greetFrame(now) {

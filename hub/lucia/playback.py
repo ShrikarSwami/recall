@@ -40,7 +40,7 @@ def command(text: str, wake: str = '') -> str | None:
     t = ' '.join(t.split())
     w = ' '.join(re.sub(r"[^a-z0-9' ]",' ',wake.lower()).split())
     if w:
-        t = re.sub(r'^(?:hey )?'+re.escape(w)+r'\b\s*','',t)
+        t = re.sub(r'^(?:hey )?'+re.escape(w).replace(r'\ ', ' ?')+r'\b\s*','',t)
     for _ in range(4):
         old=t; t=_PREFIX.sub('',t)
         if not t.endswith(' for now'): t=_SUFFIX.sub('',t)

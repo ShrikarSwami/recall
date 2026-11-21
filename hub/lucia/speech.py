@@ -68,7 +68,7 @@ class Transcriber:
         self.model = model
         self.pool = ThreadPoolExecutor(max_workers=1)
         self.last_ms = 0.0
-        self.hint = ""      # names Whisper should expect (wake word, teammates), e.g. "Lucia. Abhiram, Sid."
+        self.hint = ""      # names Whisper should expect (wake word, teammates), e.g. "Go-go. Abhiram, Sid."
 
     def _run(self, pcm: bytes) -> str:
         import mlx_whisper
@@ -92,20 +92,22 @@ def _is_wake(chunk: str, w: str, strict: bool) -> bool:
     squashed = re.sub(r"[^a-z]", "", chunk.lower())
     if not squashed:
         return False
+    if len(w) <= 4:                                   # short names ("gogo"): near-exact, so "go to" isn't a wake
+        return fuzz.ratio(squashed, w) >= 85 or (squashed.endswith(w) and len(squashed) - len(w) <= 3)  # "hey gogo"
     if fuzz.ratio(squashed, w) >= (80 if strict else 75):
         return True
     return not strict and len(squashed) >= 4 and fuzz.ratio(squashed[: len(w) + 1], w) >= 80
 
 
 def split_wake(text: str, wake: str) -> tuple[bool, str]:
-    """('Lucia, who is this?', 'Lucia') -> (True, 'who is this?'). Fuzzy, because STT hears
-    'Lucia' as 'Lucy a', 'Lucía', 'Lucio', 'Luisa'...
+    """('Go-go, who is this?', 'Go-go') -> (True, 'who is this?'). Fuzzy, because STT hears
+    'Go-go' as 'Lucy a', 'Lucía', 'Lucio', 'Luisa'...
 
     Checks the first 3 words (lenient), then anywhere in the sentence (stricter), e.g.
     'Team BB, who is this? Lucio, who is this?' -> (True, 'who is this?'). Uses the LAST mention,
     because that's usually the real question."""
     words = text.strip().split()
-    w = wake.lower()
+    w = re.sub(r"[^a-z]", "", wake.lower())        # "Go-go" -> "gogo" (STT writes Gogo / Go go / Go-go)
     for n in (1, 2, 3):
         if _is_wake(" ".join(words[:n]), w, strict=False):
             return True, " ".join(words[n:]).lstrip(" ,.!?-")

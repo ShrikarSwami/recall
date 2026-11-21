@@ -1,4 +1,4 @@
-"""Lucia care server: one small Python server (standard library only) for the demo.
+"""Go-go care server: one small Python server (standard library only) for the demo.
 
     python care/server.py [--port 9300] [--host 127.0.0.1]
 
@@ -224,10 +224,10 @@ class Handler(SimpleHTTPRequestHandler):
         return self._json({"error": "not found"}, 404)
 
 
-# ---------------------------------------------------------------- Lucia hub bridge (optional)
-# With the Lucia hub running (hub/lucia/server.py, default http://127.0.0.1:9100), the dashboard shows the
-# real glasses: what the wearer asked and Lucia said, who Lucia recognised, caregiver alerts and falls, and
-# whether the glasses are connected. "Send to Lucia" is also spoken on the glasses. No hub: nothing changes.
+# ---------------------------------------------------------------- Go-go hub bridge (optional)
+# With the Go-go hub running (hub/lucia/server.py, default http://127.0.0.1:9100), the dashboard shows the
+# real glasses: what the wearer asked and Go-go said, who Go-go recognised, caregiver alerts and falls, and
+# whether the glasses are connected. "Send to Go-go" is also spoken on the glasses. No hub: nothing changes.
 HUB = os.environ.get("LUCIA_HUB", "http://127.0.0.1:9100").rstrip("/")
 HUB_EVENTS = os.environ.get("LUCIA_EVENTS", os.path.join(ROOT, "..", "hub", "data", "events.jsonl"))
 HUB_LIVE = {"on": False, "patient": None}
@@ -333,7 +333,7 @@ def main():
     save()
     threading.Thread(target=hub_bridge, daemon=True).start()
     srv = ThreadingHTTPServer((host, port), Handler)
-    print("Lucia care server on http://%s:%d  (dashboard: /dashboard/, simulator: /glasses/sim/)" % (host, port), flush=True)
+    print("Go-go care server on http://%s:%d  (dashboard: /dashboard/, simulator: /glasses/sim/)" % (host, port), flush=True)
     srv.serve_forever()
 
 

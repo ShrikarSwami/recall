@@ -16,7 +16,7 @@ Content-Type: application/json
 
 | Field | Required | Notes |
 |---|---|---|
-| `name` | yes | What Lucia says: "You're at **Whole Foods in Hoboken**." Max 60 chars. |
+| `name` | yes | What Go-go says: "You're at **Whole Foods in Hoboken**." Max 60 chars. |
 | `kind` | no (default `place`) | Picks the reminder section in `config/reminders*.md`: `grocery`, `home`, `pharmacy`, `work`, … |
 | `home_min` | no | Minutes to home, a number (string numbers are fine). Omit if unknown. |
 
@@ -28,7 +28,7 @@ Errors: `401` wrong/missing token · `400` no name. Requests from the hub Mac it
 
 - **On arrival** (new place, or same place after 30 min): the glasses say where they are, how far home is,
   and that place kind's reminders once. For `grocery`, the reminders are read as a shopping list.
-- **"Lucia, where am I?"** for the next 15 minutes answers from this place:
+- **"Go-go, where am I?"** for the next 15 minutes answers from this place:
   "You're at Whole Foods in Hoboken. Home is about 10 minutes away." After that it falls back to the preset
   place in config (City Tech for the demo).
 

@@ -1,6 +1,6 @@
 """Head nod / shake from the M6 gyroscope.
 
-Only used while Lucia has just offered something ("Want to hear more about Sid?"), so a natural nod while
+Only used while Go-go has just offered something ("Want to hear more about Sid?"), so a natural nod while
 chatting is never misread. Calibrated on our real recordings (docs/HARDWARE.md, hub/data/recordings):
 M6 gyro axes are x = yaw (shake "no"), y = pitch (nod "yes"). Nods peak ~50-120 deg/s RMS on y, shakes
 ~230-290 deg/s on x; temple touches, the ring test and putting the glasses on never cross these rules.

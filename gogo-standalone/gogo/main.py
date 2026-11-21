@@ -1,4 +1,4 @@
-r"""Gogo standalone server (no Lucia hub needed).
+r"""Gogo standalone server (no Go-go hub needed).
 
     gogo\.venv\Scripts\python.exe gogo\main.py [--port 9300] [--host 0.0.0.0]
 

@@ -1,8 +1,8 @@
 {
   "_comment": "Copy to config/app.local.json (gitignored) and fill in real values. Every user-facing string reads from here, so renaming the product is one edit.",
-  "appName": "Lucia",
-  "wakeWord": "Lucia",
-  "idleHint": "Say \"Lucia\" or hold right side",
+  "appName": "Go-go",
+  "wakeWord": "Go-go",
+  "idleHint": "Say \"Go-go\" or hold right side",
   "patient": {
     "name": "Somya Gupta",
     "preferredName": "Somya",

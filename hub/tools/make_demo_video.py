@@ -1,6 +1,6 @@
 """Record a ~3-minute demo video with no glasses and no screen recording.
 
-Drives the real hub exactly like the glasses (fake mic, camera frames, IMU, keys), captures what Lucia actually
+Drives the real hub exactly like the glasses (fake mic, camera frames, IMU, keys), captures what Go-go actually
 shows and says, renders the real lens page (headless Chrome) and muxes it all with ffmpeg:
 
     cd hub && uv run python tools/make_demo_video.py            # hub must be running on 9100 (dry-run is fine)
@@ -33,7 +33,7 @@ from lucia.gestures import synth  # noqa: E402
 from replay_glasses import CHUNK, KEYS  # noqa: E402
 
 OUT = HUB / "data" / "video"
-SR = 22050                 # output audio rate (= Lucia's voice rate)
+SR = 22050                 # output audio rate (= Go-go's voice rate)
 W, H = 1280, 720
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 JUDGE_VOICE, NARRATOR_VOICE = "Fred", "Daniel"
@@ -113,7 +113,7 @@ async def caregiver_listener(rec: Recorder):
                 continue                       # history replayed on connect
             t = rec.now()
             if ev.get("type") == "answer" and ev.get("speech"):
-                rec.captions.append((t, "Lucia", ev["speech"]))
+                rec.captions.append((t, "Go-go", ev["speech"]))
                 if ev.get("repeat", 1) > 1 and ev.get("subject"):
                     rec.repeat_note.append((t, f"Asked about {ev['subject'].title()} {ev['repeat']}× in 10 min"))
             elif ev.get("type") == "alert":
@@ -121,7 +121,7 @@ async def caregiver_listener(rec: Recorder):
 
 
 async def wait_quiet(rec: Recorder, extra: float = 1.0, timeout: float = 25):
-    """Wait until Lucia has finished speaking (audio arrives faster than real time)."""
+    """Wait until Go-go has finished speaking (audio arrives faster than real time)."""
     start = time.time()
     await asyncio.sleep(1.2)
     while time.time() - start < timeout:
@@ -199,8 +199,8 @@ async def scenario(rec: Recorder):
     await asyncio.sleep(0.5)
     async with websockets.connect("ws://localhost:9100/ws/glasses", max_size=None) as ws:
         lis = asyncio.create_task(glasses_listener(ws, rec))
-        await narrate(rec, "Lucia", "Smart glasses for people living with dementia\nTeam BB · Worn Smart Glasses Hackathon",
-                      "Lucia. Smart glasses for people living with dementia.", 5)
+        await narrate(rec, "Go-go", "Smart glasses for people living with dementia\nTeam BB · Worn Smart Glasses Hackathon",
+                      "Go-go. Smart glasses for people living with dementia.", 5)
         await narrate(rec, "Before we start",
                       "We won't introduce ourselves.\nYou might have known us once.\nPut yourself in the shoes of someone who forgot.",
                       "Before we start, we're not going to introduce ourselves. You might have known us at some point. "
@@ -227,12 +227,12 @@ async def scenario(rec: Recorder):
 
         # 2. follow-ups + repeat-safe
         rec.scenes.append((rec.now(), "ask anything about the person in front of you"))
-        await judge(ws, rec, "Lucia, where is he from?")
-        await judge(ws, rec, "Lucia, what does he do?")
+        await judge(ws, rec, "Go-go, where is he from?")
+        await judge(ws, rec, "Go-go, what does he do?")
         rec.scenes.append((rec.now(), "same question again, on purpose"))
-        await judge(ws, rec, "Lucia, who is this?")
+        await judge(ws, rec, "Go-go, who is this?")
         await judge(ws, rec, "no thanks")
-        await judge(ws, rec, "Lucia, who is this?")
+        await judge(ws, rec, "Go-go, who is this?")
         await judge(ws, rec, "no")
         stop.set(); await looker
 
@@ -246,25 +246,25 @@ async def scenario(rec: Recorder):
 
         # 4. orientation
         rec.scenes.append((rec.now(), "where am I? what's going on?"))
-        await judge(ws, rec, "Lucia, where are we?")
-        await judge(ws, rec, "Lucia, what's my name?")
-        rec.scenes.append((rec.now(), "holding the right side of the glasses instead of saying Lucia"))
+        await judge(ws, rec, "Go-go, where are we?")
+        await judge(ws, rec, "Go-go, what's my name?")
+        rec.scenes.append((rec.now(), "holding the right side of the glasses instead of saying Go-go"))
         await key(ws, "long_press")
         await asyncio.sleep(0.6)
         await judge(ws, rec, "what am I doing here?")
 
         # 5. safety
         rec.scenes.append((rec.now(), "safety"))
-        await judge(ws, rec, "Lucia, I want to go home.")
+        await judge(ws, rec, "Go-go, I want to go home.")
         await asyncio.sleep(1.5)
 
         await narrate(rec, "Private by design",
                       "Runs on the glasses and the family's own devices.\nNo cloud AI. Faces only with consent.\n"
                       "Never quizzes, never corrects. Every question is the first time.",
                       "Everything ran on the glasses and the family's own devices. No cloud AI, and faces are only "
-                      "added with consent. Lucia never quizzes and never corrects, because for the person asking, "
+                      "added with consent. Go-go never quizzes and never corrects, because for the person asking, "
                       "every question is the first time.", 6)
-        await narrate(rec, "Lucia", "Team BB", "Thank you.", 3)
+        await narrate(rec, "Go-go", "Team BB", "Thank you.", 3)
         lis.cancel()
     cg.cancel()
 
@@ -346,7 +346,7 @@ def compose(rec: Recorder, shots: dict[int, Path], t: float) -> Image.Image:
     d.text((rx, 70), scene, font=font(22), fill=GREY)
     y = 120
     for ct, who, text in [c for c in rec.captions if c[0] <= t][-3:]:
-        col = GREEN if who == "Lucia" else WHITE
+        col = GREEN if who == "Go-go" else WHITE
         d.text((rx, y), who, font=font(22, True), fill=col)
         y += 30
         for line in wrap(d, f"“{text}”", font(24), rw)[:5]:

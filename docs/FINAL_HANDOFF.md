@@ -1,4 +1,4 @@
-# Lucia: final handoff to Claude and the team
+# Go-go: final handoff to Claude and the team
 
 Reviewed November 21, 2026, against clean main `1f310813b6c8cf15570fbea0e01d26f79f7de30e` (PR #21 merged). This handoff also describes the small judge-opening fix and revised demo script delivered alongside it. Check current git status and main before changing anything: teammates are working concurrently.
 
@@ -6,7 +6,7 @@ Reviewed November 21, 2026, against clean main `1f310813b6c8cf15570fbea0e01d26f7
 
 The core demo path is implemented. Stop expanding features and move to physical glasses testing. Completion means a judge can wear the current build, get useful short reminders, repeat a question, and produce a caregiver alert that actually arrives. Passing software tests alone does not complete that loop.
 
-The user wants a judge-first presentation: **do not introduce ourselves**, explain an everyday moment of forgetting a familiar name, let the judge ask “what can I ask you?”, and let Lucia suggest a first question. Explain the motivation through what happens: supporting everyday independence without making someone find a phone, learn menus or depend on another person for each small reminder. This interaction illustrates the idea; it does not simulate the experience of dementia.
+The user wants a judge-first presentation: **do not introduce ourselves**, explain an everyday moment of forgetting a familiar name, let the judge ask “what can I ask you?”, and let Go-go suggest a first question. Explain the motivation through what happens: supporting everyday independence without making someone find a phone, learn menus or depend on another person for each small reminder. This interaction illustrates the idea; it does not simulate the experience of dementia.
 
 The running order and actual narrator words are in [DEMO.md](DEMO.md). Use that document for rehearsals instead of creating another competing pitch.
 

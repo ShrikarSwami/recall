@@ -48,6 +48,6 @@ def test_greeting_line_and_end_of_day():
 
 
 def test_calendar_phrasings_reach_the_schedule():
-    for q in ["what's on my schedule today?", "what's on my calendar", "Lucia, what's my schedule",
+    for q in ["what's on my schedule today?", "what's on my calendar", "Go-go, what's my schedule",
               "read me today's agenda", "what's on the calendar today"]:
         assert schedule.NEXT.search(q), q

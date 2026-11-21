@@ -6,7 +6,7 @@ make it calm, clear and phone-first.
 What it shows (from `ws://<hub>/ws/caregiver` events + `GET /api/state`):
 - **Alerts:** only distress ("I want to go home", "I'm scared"). The caregiver also gets a real iMessage.
 - **Right now:** glasses connected, being worn, who's in front of them.
-- **What they asked:** each question + Lucia's answer, with "asked N× in 10 min" for repeats (a useful signal
+- **What they asked:** each question + Go-go's answer, with "asked N× in 10 min" for repeats (a useful signal
   for caregivers, never shown to the patient).
 - **Patient name:** `POST /api/patient {"name": "..."}` swaps the patient's name live (e.g. to a judge's).
 

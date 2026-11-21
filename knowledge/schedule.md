@@ -1,4 +1,4 @@
-<!-- The wearer's schedule. Lucia answers "what's next?", "what's on today?", "when is lunch?",
+<!-- The wearer's schedule. Go-go answers "what's next?", "what's on today?", "when is lunch?",
      gives a calm heads-up 15 minutes before each item, and mentions the next item when the glasses go on.
 
      Format:  ## YYYY-MM-DD   then   - HH:MM Title | optional short detail (spoken after the time)

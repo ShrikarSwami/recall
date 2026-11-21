@@ -1,4 +1,4 @@
-# Lucia Care: dashboard + care server (demo)
+# Go-go Care: dashboard + care server (demo)
 
 ```
 python mockup/care/server.py          # http://localhost:9300
@@ -6,7 +6,7 @@ python mockup/care/server.py          # http://localhost:9300
 
 | URL | What |
 |---|---|
-| `/dashboard/` | For family, friends and clinicians: live view (location map, attention, what he looks at, conversation, activity), profile, 6-day plan, places and route, and "Send to Lucia". |
+| `/dashboard/` | For family, friends and clinicians: live view (location map, attention, what he looks at, conversation, activity), profile, 6-day plan, places and route, and "Send to Go-go". |
 | `/glasses/sim/` | The glasses simulator. Press **Run the demo day**. It reads the profile, plan and route from the server and logs everything it does. |
 | `/glasses/lens/` | The page the M6 shows (no controls). |
 

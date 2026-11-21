@@ -27,8 +27,8 @@ def tone(seconds=0.6, hz=660, rate=22050) -> bytes:
 
 async def handler(ws):
     print("glasses connected", ws.remote_address)
-    await ws.send(json.dumps({"type": "config", "hint": 'Say "Lucia" to ask'}))
-    await ws.send(json.dumps({"type": "card", "title": "Hi Somya", "lines": ["Lucia is connected."], "ttl_ms": 6000}))
+    await ws.send(json.dumps({"type": "config", "hint": 'Say "Go-go" to ask'}))
+    await ws.send(json.dumps({"type": "card", "title": "Hi Somya", "lines": ["Go-go is connected."], "ttl_ms": 6000}))
     mic = wave.open(str(OUT / "mic.wav"), "wb")
     mic.setnchannels(1); mic.setsampwidth(2); mic.setframerate(16000)
     frames = audio_bytes = 0

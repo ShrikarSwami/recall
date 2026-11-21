@@ -1,4 +1,4 @@
-"""Decides what Lucia says. Pure logic: no audio, no sockets, so it's easy to test.
+"""Decides what Go-go says. Pure logic: no audio, no sockets, so it's easy to test.
 
 Order: distress → time/date → who-is-this (faces) → scene description → knowledge base → gentle "not sure".
 Every answer is short, calm, and the same every time it's asked (each session = a brand-new user).
@@ -73,7 +73,7 @@ class Reply:
     alert: str | None = None
     repeat_count: int = 1
     score: float | None = None
-    offer: str | None = None       # "more" | "tell_caregiver": Lucia asked a yes/no question
+    offer: str | None = None       # "more" | "tell_caregiver": Go-go asked a yes/no question
     prompt: str | None = None      # lens line while an offer is open
     speech_rate: float = 1.0       # per-reply speed; ordinary replies keep their normal rate
 
@@ -220,7 +220,7 @@ class Brain:
         where = self.where_line()
         nxt = schedule.next_line(self.events, datetime.fromtimestamp(self.clock()))
         parts = [f"Hi {{patient}}.", where, nxt, f'Say "{{wake}}" if you need anything.']
-        # The lens already pins the "Say Lucia" hint, so the card keeps just where + next (fits 3 lines).
+        # The lens already pins the "Say Go-go" hint, so the card keeps just where + next (fits 3 lines).
         card = " ".join(p for p in (where, nxt.replace("Your next thing is", "Next:")) if p)
         return self._reply(" ".join(p for p in parts if p), "Hi {patient}", "greeting", card=card or None)
 
@@ -248,7 +248,7 @@ class Brain:
                 return self._resolve(False)
         self.offer = None
 
-        help_text = re.sub(r"^\W*(?:hey\s+)?" + re.escape(self.cfg["wakeWord"]) + r"\b\W*", "", t, flags=re.I)
+        help_text = re.sub(r"^\W*(?:hey\s+)?" + r"[\W_]*".join(map(re.escape, re.sub(r"[^a-z]", "", self.cfg["wakeWord"].lower()))) + r"\b\W*", "", t, flags=re.I)
         if DISTRESS.search(t) or HELP_DISTRESS.fullmatch(help_text):
             r = self._reply("You're safe, {patient}. {caregiver} knows where you are, and I'm letting him know now.",
                             "You're safe", "distress")
@@ -303,7 +303,7 @@ class Brain:
 
         cands = matcher.candidates(t, self.kb, person, self.cfg.get("currentPlace"))
         if person and cands and cands[0].entry.subject != person:
-            # "what does he do?" is about the person, not Lucia's own FAQ ("what can you do?"): a close
+            # "what does he do?" is about the person, not Go-go's own FAQ ("what can you do?"): a close
             # match about the person in view wins over a slightly better generic one.
             mine = next((c for c in cands if c.entry.subject == person), None)
             if mine and mine.score >= matcher.MAYBE and mine.score >= cands[0].score - 6:

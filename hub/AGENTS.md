@@ -21,7 +21,7 @@ plus its `buffalo_sc` weights (see `vendor/face_id/models/README.md`).
 | `matcher.py` | Fuzzy-matches questions to `knowledge/` entries; "he/she/they" resolve to whoever is in view or was just discussed |
 | `knowledge.py` | Parses `knowledge/*.md` (see `knowledge/AGENTS.md`) |
 | `llm.py` | Ollama: EnverThor (`qwen2.5vl:7b` over Tailscale) first, local Mac second, hard timeouts |
-| `speech.py` | VAD segmentation, mlx-whisper STT (~120–180 ms), fuzzy "Lucia" wake word, macOS `say` → PCM for the glasses speaker (the glasses have no TTS engine) |
+| `speech.py` | VAD segmentation, mlx-whisper STT (~120–180 ms), fuzzy "Go-go" wake word, macOS `say` → PCM for the glasses speaker (the glasses have no TTS engine) |
 | `faces.py` | `face_id` (ArcFace/MobileFaceNet ONNX, ~9 ms/frame on the Mac); enrolls `faces/<person_id>/*.jpg` |
 | `alerts.py` | Caregiver iMessage through the Mac's Messages app (`osascript`), rate-limited |
 | `schedule.py` | `knowledge/schedule.md` → "what's next", "when is lunch", 15-min heads-ups, next item in the greeting |
@@ -32,11 +32,11 @@ plus its `buffalo_sc` weights (see `vendor/face_id/models/README.md`).
 
 Fake glasses (same protocol as the real app; see `docs/HARDWARE.md` for the measured key codes):
 ```bash
-uv run python tools/replay_glasses.py --say "Lucia, who is this?" --frame ../faces/sid/IMG_3167.jpg
+uv run python tools/replay_glasses.py --say "Go-go, who is this?" --frame ../faces/sid/IMG_3167.jpg
 uv run python tools/replay_glasses.py --key tap --say "where are we"
 uv run python tools/replay_glasses.py --recording data/recordings/voice_wearer   # a real capture
 ```
-Record more real data when the glasses are around: `uv run python tools/capture_session.py` (Lucia speaks each step).
+Record more real data when the glasses are around: `uv run python tools/capture_session.py` (Go-go speaks each step).
 
 
 ```bash
@@ -50,7 +50,7 @@ after `/api/reload`, and after `/api/patient` changes the name. `/api/state` inc
 Only exact text is cached; changed place/schedule wording can still need a first render. A partial
 warmup does not prevent startup; check that macOS `say` produces audio before the demo.
 Caregiver alerts use the existing iMessage path, adding the Mac's local time and either the fresh
-phone-reported place or the configured demo place, e.g. `Lucia: … · 1:40 AM · City Tech, Downtown Brooklyn`. `LUCIA_DRY_RUN=1` never sends a text.
+phone-reported place or the configured demo place, e.g. `Go-go: … · 1:40 AM · City Tech, Downtown Brooklyn`. `LUCIA_DRY_RUN=1` never sends a text.
 
 ## Rules
 

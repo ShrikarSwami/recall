@@ -42,7 +42,7 @@ import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 /**
- * Lucia glasses app: a thin, dumb terminal. All intelligence lives in hub/.
+ * Go-go glasses app: a thin, dumb terminal. All intelligence lives in hub/.
  *
  *  glasses → hub   text  {"type":"hello", caps...} | {"type":"key","name":"tap|double_tap|long_press|..","code":n}
  *                  binary 0x01 + PCM16 mono 16 kHz   (mic, ~100 ms chunks, always streaming)
@@ -54,7 +54,7 @@ import java.util.concurrent.TimeUnit
  *
  * Configure:  adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://<mac-ip>:9100/ws/glasses
  *             (comma-separate several to fall back, e.g. "ws://<mac-ip>:9100/ws/glasses,ws://127.0.0.1:9100/ws/glasses")
- * Logs:       adb logcat -s Lucia
+ * Logs:       adb logcat -s Go-go
  */
 class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.SensorEventListener {
     private val ui = Handler(Looper.getMainLooper())
@@ -133,7 +133,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
 
     private fun buildUi() {
         val root = FrameLayout(this).apply { setBackgroundColor(Color.BLACK) }
-        hint = tv(16f).apply { text = "Say “Lucia” or hold right side" }
+        hint = tv(16f).apply { text = "Say “Go-go” or hold right side" }
         clock = tv(16f)
         status = tv(14f).apply { alpha = 0.8f }
         title = tv(30f, true)
@@ -370,7 +370,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
     //   66 ENTER = tap · 142 F12 = double tap (followed by a system BACK) · 141 F11 = long press
     //   22 DPAD_RIGHT = swipe forward · 21 DPAD_LEFT = swipe back · swipe up/down not supported
     //   301 from "xnm_pannel" = glasses put on (the real wear detector; the off-body sensor never fires)
-    // BACK is swallowed so a gesture can never close Lucia (every session = brand-new user).
+    // BACK is swallowed so a gesture can never close Go-go (every session = brand-new user).
     private fun gestureName(code: Int) = when (code) {
         KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> "tap"
         KeyEvent.KEYCODE_F12 -> "double_tap"
@@ -454,11 +454,11 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
 
     override fun onAccuracyChanged(sensor: android.hardware.Sensor?, accuracy: Int) {}
 
-    // Home app: the wearer can never "exit" Lucia.
+    // Home app: the wearer can never "exit" Go-go.
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {}
 
-    private fun log(s: String) = Log.i("Lucia", s)
+    private fun log(s: String) = Log.i("Go-go", s)
 
     override fun onDestroy() {
         super.onDestroy()

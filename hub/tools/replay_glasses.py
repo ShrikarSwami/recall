@@ -1,11 +1,11 @@
 """Fake glasses: drive the hub exactly like the M6 does, with no hardware.
 
 Connects to ws://<hub>/ws/glasses and sends the same binary/JSON the glasses app sends
-(mic PCM16 16 kHz, camera JPEGs, key presses), then prints what Lucia shows and says.
+(mic PCM16 16 kHz, camera JPEGs, key presses), then prints what Go-go shows and says.
 
     cd hub
     # speak a sentence (macOS `say` makes the audio) while "looking at" a photo:
-    uv run python tools/replay_glasses.py --say "Lucia, who is this?" --frame ../faces/abhiram/IMG_3170.jpg
+    uv run python tools/replay_glasses.py --say "Go-go, who is this?" --frame ../faces/abhiram/IMG_3170.jpg
     # tap the temple first, then ask without the wake word:
     uv run python tools/replay_glasses.py --key tap --say "where are we"
     # replay a recording captured on the real glasses (tools/capture_session.py):
@@ -14,7 +14,7 @@ Connects to ws://<hub>/ws/glasses and sends the same binary/JSON the glasses app
     uv run python tools/replay_glasses.py --key worn
     uv run python tools/replay_glasses.py --key double_tap
     # answer a yes/no offer ("Want to hear more about Sid?") with a head nod, or by saying it:
-    uv run python tools/replay_glasses.py --say "Lucia, who is Sid?" --then nod --then say:no
+    uv run python tools/replay_glasses.py --say "Go-go, who is Sid?" --then nod --then say:no
 
 Key names → codes are the real ones measured on the M6 (docs/HARDWARE.md).
 Only one glasses client is active at a time: running this takes over from real glasses until it exits.
@@ -100,7 +100,7 @@ async def main(a):
         global GREETED
         GREETED = asyncio.Event()
         listener = asyncio.create_task(listen(ws, time.time() + 3600))
-        try:   # the hub greets on connect (at most every 90 s); the mic is muted while Lucia speaks
+        try:   # the hub greets on connect (at most every 90 s); the mic is muted while Go-go speaks
             await asyncio.wait_for(GREETED.wait(), 1.5)
             await asyncio.sleep(7)
         except asyncio.TimeoutError:
@@ -121,7 +121,7 @@ async def main(a):
         if a.recording:
             await replay(ws, Path(a.recording))
         for step in a.then or []:
-            await asyncio.sleep(a.gap)                # let Lucia finish speaking
+            await asyncio.sleep(a.gap)                # let Go-go finish speaking
             if step == "fall":
                 print("→ the wearer falls (accelerometer + gyro)")
                 rows = synth_fall(t0_ms=int(time.time() * 1000) % 10_000_000)
@@ -175,6 +175,6 @@ if __name__ == "__main__":
     p.add_argument("--recording", help="hub/data/recordings/<step> folder to replay")
     p.add_argument("--then", action="append",
                    help='after the answer: "nod", "shake", "fall" or "say:<words>" (repeatable, e.g. --then nod --then say:yes)')
-    p.add_argument("--gap", type=float, default=7.0, help="seconds between --then steps (Lucia speaking)")
+    p.add_argument("--gap", type=float, default=7.0, help="seconds between --then steps (Go-go speaking)")
     p.add_argument("--wait", type=float, default=6.0, help="seconds to keep listening for answers")
     asyncio.run(main(p.parse_args()))

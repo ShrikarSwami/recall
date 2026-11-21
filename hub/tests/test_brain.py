@@ -43,7 +43,7 @@ def test_loader_skips_blank_answers_and_examples(brain):
 
 def test_who_is_this_uses_face_in_view(brain):
     brain.saw("dev")
-    r = ask(brain, "Lucia, who is this?")
+    r = ask(brain, "Go-go, who is this?")
     assert r.intent == "who_is_this" and "Dev" in r.speech and r.title == "Dev"
 
 

@@ -1,4 +1,4 @@
-/* Lucia lens renderer. Plain ES5 + a few ES2015 bits, all fine in Chrome 74 (Android 9 WebView).
+/* Go-go lens renderer. Plain ES5 + a few ES2015 bits, all fine in Chrome 74 (Android 9 WebView).
    NO optional chaining (?.), NO nullish (??), NO replaceAll/.at()/structuredClone.
 
    Messages (from the hub over WebSocket later, or from the simulator via postMessage):
@@ -14,7 +14,7 @@
      {"type":"ring",    "phase":"in|out", "label":"Breathe in..."}
      {"type":"tapnote", "text":"Tap when you're ready"}     (empty text hides it)
      {"type":"battery", "on":true, "pct":15}
-   Messages from the Lucia hub (all supported, so this lens is a drop-in for lens/ on the glasses):
+   Messages from the Go-go hub (all supported, so this lens is a drop-in for lens/ on the glasses):
      {"type":"state", "value":"idle|listening|thinking"}   {"type":"conn", "value":true|false}
      {"type":"card", "title", "lines", "intent":"greeting|who_is_this|kb:place|time|distress|...", "prompt":"Nod or say yes", "ttl_ms"}
        (a card with no icon gets a stamp chosen from its intent, see INTENT_STAMP)
@@ -82,7 +82,7 @@
   var BK = 1, wantBig = false;
   var yaw = 0, lastYawStep = 0, runT = 0, lastDraw = "", lastXform = "", lastT = (window.performance && performance.now) ? performance.now() : 0;
   var moving = false, lastDip = "";
-  // a short scripted move: the Lucia twirl = wave, hop, spin all the way round, bow, wave
+  // a short scripted move: the Go-go twirl = wave, hop, spin all the way round, bow, wave
   var ACT = null, TWIRL = [0, 45, 90, 135, 180, 225, 270, 315, 0];
   // the greeting: a bow, then a wave. 4 seconds in all.
   function greetFrame(now) {

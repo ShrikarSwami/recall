@@ -1,22 +1,22 @@
-# Lucia demo flow (final plan, Nov 21) — start here for slides
+# Go-go demo flow (final plan, Nov 21) — start here for slides
 
-**The one thing we sell: independence for people living with dementia.** Lucia lets someone handle the small
+**The one thing we sell: independence for people living with dementia.** Go-go lets someone handle the small
 moments themselves (who is this, what do I need, what's next) instead of asking someone else every time. When they
 do need help, their caregiver knows right away. For patients *and* caregivers, it's as easy as putting on your
 glasses every morning.
 
-Lucia is the voice and the squirrel on the lens. Our hub on the Mac is the source of truth: faces, answers, voice,
-alerts. The squirrel is how Lucia looks on the lens. It talks while Lucia speaks, waves when it introduces someone,
+Go-go is the voice and the squirrel on the lens. Our hub on the Mac is the source of truth: faces, answers, voice,
+alerts. The squirrel is how Go-go looks on the lens. It talks while Go-go speaks, waves when it introduces someone,
 points at lists and the schedule, and looks concerned after a fall.
 
 ## The demo, beat by beat (about 3 minutes)
 
 | # | What the judge sees | Who does what | What is real |
 |---|---|---|---|
-| 1 | Judge puts on the glasses. **No wires.** The lens is dark. Then WELCOME: the squirrel waves and Lucia says "Welcome! I'm Lucia, here to help you remember. Look at someone, and I'll tell you who they are." | Operator unplugs USB, hands the glasses over, then presses **s** on the caregiver page. | Glasses run on Wi-Fi to the hub. |
-| 2 | Judge looks at Shrikar, then Sid, then Abhi. Lucia says who each one is ("This is Shrikar, one of the presenters of this project"), and the squirrel waves. Judge can nod or say "yes" to hear more. | One teammate at a time, facing the judge in good light. | Real face recognition from the glasses camera, real voice, real nod detection. |
-| 3 | "What if you're grocery shopping?" The lens shows the grocery list and Lucia reads what to buy. | Operator presses **g** on the caregiver page. | The list and the voice are real. In daily life the family's phone says "you arrived at the store"; on stage the key stands in for that. |
-| 4 | "Or you have a busy day." The lens shows what's next on the hackathon schedule. | Operator presses **c**. | The real schedule and the real clock. The judge can also just ask "Lucia, what's next?" |
+| 1 | Judge puts on the glasses. **No wires.** The lens is dark. Then WELCOME: the squirrel waves and Go-go says "Welcome! I'm Go-go, here to help you remember. Look at someone, and I'll tell you who they are." | Operator unplugs USB, hands the glasses over, then presses **s** on the caregiver page. | Glasses run on Wi-Fi to the hub. |
+| 2 | Judge looks at Shrikar, then Sid, then Abhi. Go-go says who each one is ("This is Shrikar, one of the presenters of this project"), and the squirrel waves. Judge can nod or say "yes" to hear more. | One teammate at a time, facing the judge in good light. | Real face recognition from the glasses camera, real voice, real nod detection. |
+| 3 | "What if you're grocery shopping?" The lens shows the grocery list and Go-go reads what to buy. | Operator presses **g** on the caregiver page. | The list and the voice are real. In daily life the family's phone says "you arrived at the store"; on stage the key stands in for that. |
+| 4 | "Or you have a busy day." The lens shows what's next on the hackathon schedule. | Operator presses **c**. | The real schedule and the real clock. The judge can also just ask "Go-go, what's next?" |
 | 5 | "This helps caregivers too. Say I'm a person with dementia and I fall." Shrikar falls. The glasses ask "are you okay?" and a text arrives on Shrikar's iPhone. | Shrikar falls. If the alert doesn't come within a few seconds, the operator presses **f**. | Real iMessage, sent in under a second with the time and place. The fall sensor is experimental; **f** is the backup. |
 | 6 | Operator turns the laptop: the caregiver page shows the conversation, who was recognised and the fall alert in red. | Operator shows the page. | Live data from the glasses. |
 | 7 | Close: "We want people living with dementia to stay independent, and caregivers to have peace of mind. It's as easy as putting on your glasses every morning." | Narrator. | — |
@@ -26,15 +26,15 @@ The caregiver page is also the **operator's remote**. With it in front, these ke
 
 | Key | Does |
 |---|---|
-| **s** | Start: lens on, WELCOME, then Lucia introduces whoever the judge looks at |
+| **s** | Start: lens on, WELCOME, then Go-go introduces whoever the judge looks at |
 | **g** | Grocery list |
 | **c** | Calendar: what's next today |
 | **f** | Fall alert (backup if the real fall isn't detected): "are you okay?" + text to the caregiver |
-| **x** | Stop Lucia talking |
-| **b** | Blank: lens dark and Lucia quiet until **s** (between judges). Falls still alert. |
+| **x** | Stop Go-go talking |
+| **b** | Blank: lens dark and Go-go quiet until **s** (between judges). Falls still alert. |
 
-During "Want to hear more?" Lucia only takes a nod, "yes" or "no". Other talk nearby is ignored unless someone
-says "Lucia" or touches the temple.
+During "Want to hear more?" Go-go only takes a nod, "yes" or "no". Other talk nearby is ignored unless someone
+says "Go-go" or touches the temple.
 
 ## For the slides
 

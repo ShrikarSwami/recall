@@ -1,4 +1,4 @@
-# sim/: Lucia simulator (no glasses needed)
+# sim/: Go-go simulator (no glasses needed)
 
 A browser page that shows the real `lens/index.html` at 640×480 with a fake status bar, green-waveguide and
 see-through toggles, plus fake glasses inputs and the caregiver's phone.
@@ -27,7 +27,7 @@ Refresh the mock knowledge after anyone edits `knowledge/`: `cd hub && uv run py
 | Swipe ← / → (arrow keys), Back (Esc) | other touchpad gestures (no action yet) |
 | Put glasses on | off-body sensor → greeting |
 | Someone walks in / Stranger walks in | the camera recognising a teammate / an unknown face |
-| Say box + question chips | the mic. Start with "Lucia, …" (wake word) or tap first. Chips = every question in the knowledge base. |
+| Say box + question chips | the mic. Start with "Go-go, …" (wake word) or tap first. Chips = every question in the knowledge base. |
 | Force a screen state | listening, thinking, clear, disconnected, distress, unknown person, long answer |
 | Caregiver phone | shows the iMessage the caregiver would get (distress only) |
 

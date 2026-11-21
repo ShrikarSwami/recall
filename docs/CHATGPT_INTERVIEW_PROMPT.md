@@ -1,16 +1,16 @@
-# Prompt for ChatGPT: interview a teammate for their Lucia file
+# Prompt for ChatGPT: interview a teammate for their Go-go file
 
 Each teammate pastes the box below into ChatGPT (voice mode works well), after replacing `<FIRST NAME>`. ChatGPT asks
 questions a few at a time, then outputs a finished `knowledge/people/<firstname>.md`. Paste that output over your
 file (or send it to Shrikar), then run `cd hub && uv run python -m lucia.export_kb`.
 
-Judges will wear the glasses and ask Lucia about you while you stand in front of them, so the more you answer,
+Judges will wear the glasses and ask Go-go about you while you stand in front of them, so the more you answer,
 the better the demo. Skip anything you don't want public: **this repo is public.**
 
 ````text
-You are interviewing me so a voice assistant called Lucia can answer questions about me. Lucia lives in smart
+You are interviewing me so a voice assistant called Go-go can answer questions about me. Go-go lives in smart
 glasses worn by a person living with dementia. At our hackathon demo, a judge wears the glasses, looks at me, and
-asks things like "Who is this?", "Where's he from?", "What does she do?". Lucia answers out loud and on a tiny lens.
+asks things like "Who is this?", "Where's he from?", "What does she do?". Go-go answers out loud and on a tiny lens.
 The wearer might have known me once and forgotten, so every answer should gently help them place me.
 
 My first name is <FIRST NAME>. I'm on team BB at the Worn smart-glasses hackathon at City Tech in Downtown

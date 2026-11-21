@@ -3,7 +3,7 @@
    Real answers come from window.MOCK_KB (generated from knowledge/*.md). */
 (function () {
   "use strict";
-  var KB = window.MOCK_KB || { entries: [], people: {}, places: {}, patient: "Somya", caregiver: "Shrikar", app: "Lucia" };
+  var KB = window.MOCK_KB || { entries: [], people: {}, places: {}, patient: "Somya", caregiver: "Shrikar", app: "Go-go" };
 
   var DISTRESS = /\b(go(ing)? home|want (to go )?home|take me home|scared|afraid|i('m| am) lost|where is everyone|i('m| am) confused)\b/i;
   var HELP_DISTRESS = /^\W*(?:(?:please|someone|somebody)[, ]+|(?:can|could|would) (?:you|someone|somebody) )?help me(?:[,\s]+(?:please|now|right now))?\W*$/i;
@@ -18,7 +18,7 @@
   function canon(s, names) {
     var t = " " + norm(s) + " ";
     (names || []).forEach(function (n) { if (n) t = t.replace(new RegExp("\\b" + n.toLowerCase() + "('s)?\\b", "g"), "X"); });
-    return t.replace(PRON, "X").replace(/\b(lucia|please|can|you|tell|me|hey|um)\b/g, " ").replace(/\s+/g, " ").trim();
+    return t.replace(PRON, "X").replace(/\b(go-?go|go go|lucia|please|can|you|tell|me|hey|um)\b/g, " ").replace(/\s+/g, " ").trim();
   }
   function score(a, b) {  // token Dice similarity, 0..100
     var A = a.split(" "), B = b.split(" "), hit = 0;

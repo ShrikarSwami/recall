@@ -1,5 +1,5 @@
 <!-- Demo reminders (fictional). The real list lives in config/reminders.local.md, which is gitignored.
-     Sections = place kinds sent by the iPhone Shortcut. Lucia reads a section once per arrival. -->
+     Sections = place kinds sent by the iPhone Shortcut. Go-go reads a section once per arrival. -->
 
 ## grocery
 - Whole milk

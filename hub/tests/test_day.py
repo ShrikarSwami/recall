@@ -55,7 +55,7 @@ def test_greeting_card_fits_three_lines_and_speech_keeps_everything():
     g = brain().greeting()
     assert len(g.lines) <= 3 and not g.lines[-1].endswith("…")
     assert "Next: Lunch at 12:30." in " ".join(g.lines)
-    assert 'Say "Lucia"' in g.speech and "Your next thing is Lunch at 12:30." in g.speech
+    assert 'Say "Go-go"' in g.speech and "Your next thing is Lunch at 12:30." in g.speech
 
 
 def test_after_midnight_says_this_morning():

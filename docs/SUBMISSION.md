@@ -1,4 +1,4 @@
-# Lucia — submission draft
+# Go-go — submission draft
 
 Team BB: Shrikar, Abhiram, Isha and Sid. Built for the Worn Smart Glasses Hackathon on MicroLumin M6 glasses.
 
@@ -6,13 +6,13 @@ This is an editable draft for the team, not a submitted entry. Confirm the prior
 
 ## Short description
 
-Lucia gives people living with dementia a quiet way to ask for everyday reminders. Put on the glasses, say “Lucia, who is this?” or hold the right side, and hear a short, familiar answer while it appears on the lens. Ask again and get the same calm answer, without being tested or told that you already asked.
+Go-go gives people living with dementia a quiet way to ask for everyday reminders. Put on the glasses, say “Go-go, who is this?” or hold the right side, and hear a short, familiar answer while it appears on the lens. Ask again and get the same calm answer, without being tested or told that you already asked.
 
 ## Why we built it
 
 Forgetting a name or why you entered a room can turn a small moment into a reason to depend on someone else. We want to support everyday independence while keeping a caregiver close when needed. The glasses put the reminder where the person already is, without requiring them to find a phone, remember a menu or learn a new routine.
 
-Lucia is a hackathon prototype, not a treatment or a clinically validated safety device. Supporting independence is our goal; we have not measured patient outcomes.
+Go-go is a hackathon prototype, not a treatment or a clinically validated safety device. Supporting independence is our goal; we have not measured patient outcomes.
 
 ## How it works
 

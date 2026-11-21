@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lucia Care dashboard</title>
+<title>Go-go Care dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
-  /* Lucia Care: for family, friends and clinicians. Calm, high-contrast, large type. */
+  /* Go-go Care: for family, friends and clinicians. Calm, high-contrast, large type. */
   :root {
     --bg: #f3f6f4; --surface: #ffffff; --ink: #10241a; --muted: #55695d; --line: #d9e4de; --accent: #0a8f3c; --accent-ink: #ffffff;
     --soft: #e4f3e9; --warn: #a15c07; --warn-soft: #fdf0d9; --danger: #b42318; --danger-soft: #fde8e6; --info: #1d5fa8; --info-soft: #e5eefa;
@@ -122,14 +122,14 @@
 <body>
 <div class="app">
   <aside>
-    <div class="brand"><div class="logo">L</div> Lucia Care</div>
+    <div class="brand"><div class="logo">G</div> Go-go Care</div>
     <div class="patient"><b id="sp-name">Somya</b><span id="sp-meta">74 · Middle stage</span></div>
     <nav id="nav">
       <button data-tab="live" class="on">● Live</button>
       <button data-tab="profile" id="tab-about">☺ About Somya</button>
       <button data-tab="plan">▤ 6-day plan</button>
       <button data-tab="places">⌂ Places &amp; route</button>
-      <button data-tab="send">✉ Send to Lucia</button>
+      <button data-tab="send">✉ Send to Go-go</button>
     </nav>
     <div class="side-foot">Demo data. Nothing here leaves this computer.<br><a href="../glasses/sim/index.html" style="color:inherit">Open the glasses simulator</a></div>
   </aside>
@@ -144,14 +144,14 @@
     <!-- ============ LIVE ============ -->
     <section class="tab on" id="tab-live">
       <h1 id="h-live">Somya is at their seat</h1>
-      <p class="sub">What Lucia is doing right now, where they are, and what they are paying attention to.</p>
+      <p class="sub">What Go-go is doing right now, where they are, and what they are paying attention to.</p>
       <div class="grid g2">
         <div class="card">
           <div class="now">
             <div><small>Right now</small><div class="big" id="l-step">Waiting for the glasses</div></div>
             <div><small>Location</small><div class="big" id="l-loc">At the seat</div></div>
           </div>
-          <div class="said" id="l-said"><span class="empty">Lucia hasn't said anything yet.</span></div>
+          <div class="said" id="l-said"><span class="empty">Go-go hasn't said anything yet.</span></div>
           <svg class="map" viewBox="0 0 620 300" role="img" aria-label="Venue map showing where they are" style="margin-top:14px">
             <path class="path" d="M120 235 C230 235 320 235 380 150 C410 105 430 85 470 70"/>
             <rect class="room" id="r-seat" x="30" y="190" width="170" height="90" rx="14"/><text x="48" y="262">YOUR SEAT</text>
@@ -180,7 +180,7 @@
     <!-- ============ PROFILE ============ -->
     <section class="tab" id="tab-profile">
       <h1>About <span class="pname">Somya</span></h1>
-      <p class="sub">Lucia uses this to talk to them in the right way. Short, plain answers help most.</p>
+      <p class="sub">Go-go uses this to talk to them in the right way. Short, plain answers help most.</p>
       <div class="card">
         <div class="grid g3">
           <label class="f">Name<input type="text" id="p-name"></label>
@@ -193,9 +193,9 @@
           <span></span>
         </div>
         <label class="f">Limitations<span>What is hard for them right now.</span><textarea id="p-limitations"></textarea></label>
-        <label class="f">What they remember<span>Lucia can use these to comfort them.</span><textarea id="p-remembers"></textarea></label>
-        <label class="f">What they don't remember<span>Lucia will gently tell them these each time.</span><textarea id="p-forgets"></textarea></label>
-        <label class="f">Things they can do easily<span>Lucia builds goals from these.</span><textarea id="p-easy"></textarea></label>
+        <label class="f">What they remember<span>Go-go can use these to comfort them.</span><textarea id="p-remembers"></textarea></label>
+        <label class="f">What they don't remember<span>Go-go will gently tell them these each time.</span><textarea id="p-forgets"></textarea></label>
+        <label class="f">Things they can do easily<span>Go-go builds goals from these.</span><textarea id="p-easy"></textarea></label>
         <label class="f">Notes<textarea id="p-notes"></textarea></label>
         <button class="btn" id="save-profile">Save profile</button>
       </div>
@@ -204,7 +204,7 @@
     <!-- ============ PLAN ============ -->
     <section class="tab" id="tab-plan">
       <h1>6-day plan</h1>
-      <p class="sub">Goals for each day. Lucia tells <span class="pname">Somya</span> today's first goal when they put the glasses on.</p>
+      <p class="sub">Goals for each day. Go-go tells <span class="pname">Somya</span> today's first goal when they put the glasses on.</p>
       <div class="days" id="days"></div>
       <p style="margin-top:18px"><button class="btn" id="save-goals">Save plan</button></p>
     </section>
@@ -216,11 +216,11 @@
       <div class="grid g2">
         <div class="card">
           <h2>Where they are</h2>
-          <label class="f">Place name<span>What Lucia says: "You're at …"</span><input type="text" id="pl-city"></label>
+          <label class="f">Place name<span>What Go-go says: "You're at …"</span><input type="text" id="pl-city"></label>
           <div class="grid g3"><label class="f">Latitude<input type="number" step="0.0001" id="pl-lat"></label><label class="f">Longitude<input type="number" step="0.0001" id="pl-lon"></label><span></span></div>
           <div class="note" id="pl-weather">Live weather: …</div>
           <label class="f">Where the gate is<select id="pl-gate"><option>top right</option><option>top left</option><option>bottom right</option><option>bottom left</option></select></label>
-          <label class="f">Where their bag is<span>Lucia says: "Your bag is …"</span><input type="text" id="pl-bag"></label>
+          <label class="f">Where their bag is<span>Go-go says: "Your bag is …"</span><input type="text" id="pl-bag"></label>
           <label class="f">Their seat<input type="text" id="pl-seat"></label>
         </div>
         <div class="card">
@@ -235,9 +235,9 @@
 
     <!-- ============ SEND ============ -->
     <section class="tab" id="tab-send">
-      <h1>Send to Lucia</h1>
-      <p class="sub">Lucia says it on the glasses within a couple of seconds, in her own calm voice.</p>
-      <div class="note">Lucia only guides and warns. She never stops <span class="pname">Somya</span> or blocks their way. A warning also shows on this page.</div>
+      <h1>Send to Go-go</h1>
+      <p class="sub">Go-go says it on the glasses within a couple of seconds, in her own calm voice.</p>
+      <div class="note">Go-go only guides and warns. She never stops <span class="pname">Somya</span> or blocks their way. A warning also shows on this page.</div>
       <div class="grid g2">
         <div class="card">
           <h2>New message</h2>
@@ -246,9 +246,9 @@
             <label><input type="radio" name="kind" value="warning"><span>Warning</span></label>
             <label><input type="radio" name="kind" value="message"><span>Friendly message</span></label>
           </div>
-          <label class="f">What should Lucia say?<textarea id="s-text" placeholder="Keep it short and kind."></textarea></label>
+          <label class="f">What should Go-go say?<textarea id="s-text" placeholder="Keep it short and kind."></textarea></label>
           <div class="quick" id="quick"></div>
-          <button class="btn" id="send">Send to Lucia</button>
+          <button class="btn" id="send">Send to Go-go</button>
         </div>
         <div class="card"><h2>Sent</h2><div class="feed" id="sent"><span class="empty">Nothing sent yet.</span></div></div>
       </div>
@@ -328,14 +328,14 @@
   $("send").addEventListener("click", function () {
     var text = $("s-text").value.replace(/^\s+|\s+$/g, ""); if (!text) { toast("Write something first"); return; }
     var kind = document.querySelector("input[name=kind]:checked").value;
-    api("/api/instruct", { kind: kind, text: text, by: "Family dashboard" }).then(function () { $("s-text").value = ""; toast("Sent to Lucia"); poll(); });
+    api("/api/instruct", { kind: kind, text: text, by: "Family dashboard" }).then(function () { $("s-text").value = ""; toast("Sent to Go-go"); poll(); });
   });
 
   // ---------------------------------------------------------------- live view
   function header() {
     var p = state.profile;
     $("sp-name").textContent = p.name; $("sp-meta").textContent = p.age + " · " + p.stage + " stage";
-    document.title = p.name + " · Lucia Care";
+    document.title = p.name + " · Go-go Care";
     $("tab-about").textContent = "☺ About " + p.name;
     [].forEach.call(document.querySelectorAll(".pname"), function (e) { e.textContent = p.name; });
   }
@@ -344,7 +344,7 @@
     $("h-live").textContent = p.name + " is " + (LOC[loc] || "here").toLowerCase().replace("at his", "at his").replace("in the", "in the");
     $("l-step").textContent = live.step || (live.lensOnline ? "Wearing their glasses" : "Waiting for the glasses");
     $("l-loc").textContent = LOC[loc] || loc;
-    $("l-said").innerHTML = live.lastLucia ? "<b>Lucia:</b> “" + esc(live.lastLucia) + "”" : '<span class="empty">Lucia hasn\'t said anything yet.</span>';
+    $("l-said").innerHTML = live.lastLucia ? "<b>Go-go:</b> “" + esc(live.lastLucia) + "”" : '<span class="empty">Go-go hasn\'t said anything yet.</span>';
     var pos = POS[loc] || POS.seat; $("me").setAttribute("cx", pos[0]); $("me").setAttribute("cy", pos[1]);
     ["seat", "gate", "bathroom"].forEach(function (k) { $("r-" + k).setAttribute("class", "room" + (k === loc ? " on" : "")); });
     $("d-glasses").className = "dot" + (live.lensOnline ? " on" : ""); $("t-glasses").textContent = live.lensOnline ? "Glasses online" : "Glasses offline";
@@ -363,14 +363,14 @@
     var gk = Object.keys(g); $("gaze").innerHTML = gk.length ? gk.map(function (k) { return '<span class="chip">' + esc(k) + (g[k] > 1 ? " ×" + g[k] : "") + "</span>"; }).join("") : '<span class="empty">Nothing recorded yet.</span>';
     // conversation
     var talk = events.filter(function (e) { return e.type === "lucia" || e.type === "patient"; }).slice(-14);
-    $("bubbles").innerHTML = talk.length ? talk.map(function (e) { return '<div class="b ' + e.type + '">' + (e.type === "lucia" ? "<b>Lucia</b> " : "<b>" + esc(p.name) + "</b> ") + esc(e.text) + "</div>"; }).join("") : '<span class="empty">No conversation yet.</span>';
+    $("bubbles").innerHTML = talk.length ? talk.map(function (e) { return '<div class="b ' + e.type + '">' + (e.type === "lucia" ? "<b>Go-go</b> " : "<b>" + esc(p.name) + "</b> ") + esc(e.text) + "</div>"; }).join("") : '<span class="empty">No conversation yet.</span>';
     var bb = $("bubbles"); bb.scrollTop = bb.scrollHeight;
     // activity
     var ICON = { alert: "🚨", step: "▶", lucia: "💬", patient: "🗣", location: "📍", attention: "👀", gaze: "👁", instruction: "✉", system: "⚙" };
     var feed = events.slice(-40).reverse().map(function (e) {
       var text = e.type === "location" ? "Moved: " + (LOC[e.place] || e.place) : e.type === "attention" ? (MODE[e.mode] ? MODE[e.mode][0] : e.mode) + " (" + (e.secs || 0) + " s)" :
         e.type === "gaze" ? "Looked at " + e.label : e.type === "step" ? "Step: " + e.text : e.type === "instruction" ? esc((e.kind || "message")) + " sent: " + e.text : e.text || e.type;
-      return '<div class="ev ' + e.type + '"><time>' + hhmm(e.ts) + '</time><span class="ic">' + (ICON[e.type] || "•") + "</span><span>" + (e.type === "lucia" ? "Lucia said: “" + esc(text) + "”" : e.type === "patient" ? esc(p.name) + " asked: “" + esc(text) + "”" : esc(text)) +
+      return '<div class="ev ' + e.type + '"><time>' + hhmm(e.ts) + '</time><span class="ic">' + (ICON[e.type] || "•") + "</span><span>" + (e.type === "lucia" ? "Go-go said: “" + esc(text) + "”" : e.type === "patient" ? esc(p.name) + " asked: “" + esc(text) + "”" : esc(text)) +
         (e.sim ? '<span class="tag demo">demo</span>' : "") + "</span></div>";
     }).join("");
     $("feed").innerHTML = feed || '<span class="empty">No activity yet. Run the demo day in the simulator.</span>';
@@ -392,7 +392,7 @@
   function loadWeather() {
     api("/api/weather").then(function (w) {
       var t = w.ok ? w.sky + ", " + w.tempF + "°F" + (w.chill ? " (" + w.chill + ")" : "") : "unavailable (no internet)";
-      $("t-weather").textContent = "Weather: " + t; $("t-weather").style.display = w.ok ? "" : "none"; $("pl-weather").textContent = "Live weather at this place: " + t + (w.ok ? ". Lucia tells " + state.profile.name + " this." : ".");
+      $("t-weather").textContent = "Weather: " + t; $("t-weather").style.display = w.ok ? "" : "none"; $("pl-weather").textContent = "Live weather at this place: " + t + (w.ok ? ". Go-go tells " + state.profile.name + " this." : ".");
     }).catch(function () {});
   }
   function clock() { $("t-clock").textContent = new Date().toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" }); }

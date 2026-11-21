@@ -45,10 +45,10 @@
   }
   function hear(utterance) {
     log("heard", utterance);
-    var m = utterance.match(/^\s*(lucia|lucía|lucy a)[\s,.!?-]*(.*)$/i);
+    var m = utterance.match(/^\s*(go-?go|go go|lucia|lucía|lucy a)[\s,.!?-]*(.*)$/i);
     var armed = Date.now() < armedUntil, q = m ? m[2] : utterance;
     var control = window.MockBrain.control(q);
-    if (!m && !armed && !(control && Date.now() < followupUntil)) return log("ignored", "no wake word and not armed (tap first or start with “Lucia”)");
+    if (!m && !armed && !(control && Date.now() < followupUntil)) return log("ignored", "no wake word and not armed (tap first or start with “Go-go”)");
     if (mode === "live") return send({ type: "ask", text: q || utterance });
     if (!q || (!control && q.split(" ").length < 2)) return arm("wake word");
     armedUntil = 0;
@@ -91,12 +91,12 @@
   $("b-tap").onclick = function () { arm("tap"); };
   // any touch on the temple asks: the wearer never has to remember which gesture
   $("b-hold").onclick = function () { arm("long_press"); };
-  // head gestures (IMU): only mean something right after Lucia asks a yes/no question
+  // head gestures (IMU): only mean something right after Go-go asks a yes/no question
   $("b-nod").onclick = function () { log("imu", "nod"); if (mode === "live") send({ type: "gesture", name: "nod" }); };
   $("b-shake").onclick = function () { log("imu", "shake"); if (mode === "live") send({ type: "gesture", name: "shake" }); };
   $("b-left").onclick = function () { arm("swipe_back"); };
   $("b-right").onclick = function () { arm("swipe_forward"); };
-  $("b-back").onclick = function () { log("key", "back (swallowed: Lucia never closes)"); };
+  $("b-back").onclick = function () { log("key", "back (swallowed: Go-go never closes)"); };
   $("b-worn").onclick = function () {
     worn = true; log("sensor", "glasses put on");
     if (mode === "live") send({ type: "worn", value: true }); else respond(window.MockBrain.greeting());
@@ -109,8 +109,8 @@
   });
   var disc = false;
   $("b-disc").onclick = function () { disc = !disc; show({ type: "conn", value: !disc }); };
-  $("b-distress").onclick = function () { hear("Lucia, I want to go home"); };
-  $("b-unknown").onclick = function () { walkIn(null); hear("Lucia, who is this?"); };
+  $("b-distress").onclick = function () { hear("Go-go, I want to go home"); };
+  $("b-unknown").onclick = function () { walkIn(null); hear("Go-go, who is this?"); };
   $("b-long").onclick = function () {
     show({ type: "card", title: "Long answer test", intent: "kb:faq", ttl_ms: 9000,
       lines: ["This line is about thirty-four c", "second line of the answer goes", "third line gets cut off with an…"] });
@@ -142,13 +142,13 @@
     var h = document.createElement("div"); h.className = "group"; h.textContent = g; $("chips").appendChild(h);
     groups[g].forEach(function (q) {
       var b = document.createElement("button"); b.textContent = q;
-      b.onclick = function () { hear("Lucia, " + q); };
+      b.onclick = function () { hear("Go-go, " + q); };
       $("chips").appendChild(b);
     });
   });
 
   lens.addEventListener("load", function () {
-    show({ type: "config", hint: KB.hint || 'Say "Lucia" or hold right side' });
+    show({ type: "config", hint: KB.hint || 'Say "Go-go" or hold right side' });
   });
   setMode("mock");
   log("ready", Object.keys(KB.people).length + " people, " + KB.entries.length + " answers loaded from mock-kb.js");

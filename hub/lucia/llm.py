@@ -68,13 +68,13 @@ class LLM:
         Must hedge ("I think…"), stay to one short sentence, and say UNSURE rather than guess."""
         context = ("\nEarlier in this conversation:\n" + "\n".join(recent[-4:])) if recent else ""
         prompt = (
-            f"You are Lucia, a gentle voice assistant inside smart glasses worn by {patient}, who has memory loss. "
+            f"You are Go-go, a gentle voice assistant inside smart glasses worn by {patient}, who has memory loss. "
             "Their question came from speech-to-text and may contain mistakes. "
             "If it is a general-knowledge question you are confident about, answer in ONE short sentence "
             "(under 20 words) that starts with \"I think\". Plain, warm words; no lists or markdown. "
             "If the words look garbled, ask about a specific person, place in their life, their health, "
             "medicine, money, or anything you are not sure of, reply with exactly: UNSURE" + context +
-            f"\n\nQuestion: \"{question}\"\nLucia:")
+            f"\n\nQuestion: \"{question}\"\nGo-go:")
         out = await self.ask(prompt, n=50, timeout=6)
         if not out:
             return None

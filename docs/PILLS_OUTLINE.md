@@ -8,7 +8,7 @@ schedule heads-ups (`hub/lucia/schedule.py`) already exist. Reuse them; don't st
 - **Read back only what a caregiver typed**, word for word: "It's 1 o'clock. Time for your blue pill with water."
   Never dosage advice, never "you should", never infer anything about health.
 - Every reminder stands alone (the patient may not remember the last one). Calm, one sentence.
-- "Did I take my pills?": Lucia only knows what was *confirmed*. If unconfirmed: "I'm not sure. {caregiver} can help."
+- "Did I take my pills?": Go-go only knows what was *confirmed*. If unconfirmed: "I'm not sure. {caregiver} can help."
 - Missed reminder (no confirmation in 20 min): tell the caregiver page, and send an iMessage only if the
   caregiver opted in. Distress stays the only automatic text.
 

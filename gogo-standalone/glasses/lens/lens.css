@@ -1,4 +1,4 @@
-/* Gogo lens styles (drop-in for the hub: renders every Lucia message too). Target: Android 9 WebView = Chrome 74.
+/* Gogo lens styles (drop-in for the hub: renders every Go-go message too). Target: Android 9 WebView = Chrome 74.
    OK:     flexbox (margins instead of `gap`), CSS variables, transforms, animations, canvas, inline SVG.
    AVOID:  `inset`, flex/grid `gap`, `aspect-ratio`, min()/max()/clamp(), :is()/:where(), backdrop-filter.
    Black (#000) is see-through on the waveguide. Bright pixels cost battery. */

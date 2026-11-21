@@ -21,12 +21,12 @@ def test_opening_gives_concrete_questions(question):
     reply = asyncio.run(b.answer(question))
     assert reply.intent == "kb:faq" and reply.alert is None
     assert '"Who is this?"' in reply.speech and '"Where am I?"' in reply.speech
-    assert "Demo Assistant" in reply.speech and "Lucia" not in reply.speech
+    assert "Demo Assistant" in reply.speech and "Go-go" not in reply.speech
 
 
 @pytest.mark.parametrize("question", [
     "help me", "please help me", "help me now", "can you help me",
-    "help me with this, I'm scared", "I want to go home", "Lucia, help me",
+    "help me with this, I'm scared", "I want to go home", "Go-go, help me",
 ])
 def test_actual_distress_still_alerts(question):
     b = Brain(load_config(Path("../config/app.example.json")), load(KNOWLEDGE_DIR))

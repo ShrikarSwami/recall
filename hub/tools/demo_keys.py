@@ -7,7 +7,7 @@ Keep this terminal window focused and press:
     g  grocery: "You're at the store" + the grocery list (config/reminders*.md, ## grocery)
     c  calendar: what's next on today's schedule (knowledge/events, live clock)
     f  fall: the same urgent caregiver text + "are you okay?" as a detected fall (marked as a demo trigger)
-    s  stop: cut Lucia off and clear the lens
+    s  stop: cut Go-go off and clear the lens
     q  quit
 Everything goes through the hub's normal endpoints, so the lens, voice, caregiver feed and texts behave
 exactly as in the real flow. Real texts are only sent when the hub runs without LUCIA_DRY_RUN.

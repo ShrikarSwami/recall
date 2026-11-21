@@ -1,7 +1,7 @@
-# Recall (Lucia)
+# Recall (Go-go)
 
 Glasses for people living with dementia. Put them on like your everyday glasses, tap the side (or say
-"Lucia") and ask "who is this?" or "where are we?". You get a calm, short answer in your ear and on
+"Go-go") and ask "who is this?" or "where are we?". You get a calm, short answer in your ear and on
 the lens. Built by **team BB** at the Worn Smart Glasses Hackathon (Nov 20–21, 2026) on MicroLumin M6 glasses.
 
 **Start here:** [docs/SPEC.md](docs/SPEC.md) (the full plan) · [docs/TEAM_TEMPLATE.md](docs/TEAM_TEMPLATE.md) (fill this in on Discord)
@@ -12,7 +12,7 @@ the lens. Built by **team BB** at the Worn Smart Glasses Hackathon (Nov 20–21,
 
 ## Status
 
-Working end to end on real M6 glasses (Fri night): tap or say "Lucia", ask, get a spoken + on-lens answer.
+Working end to end on real M6 glasses (Fri night): tap or say "Go-go", ask, get a spoken + on-lens answer.
 
 | Folder | What goes here |
 |---|---|
@@ -21,7 +21,7 @@ Working end to end on real M6 glasses (Fri night): tap or say "Lucia", ask, get 
 | `hub/` | Python server on the Mac: speech, faces, answers, voice, alerts |
 | `glasses-app/` | Thin Android app on the glasses (camera, mic, keys → hub; shows `lens/`) |
 | `caregiver-web/` | Caregiver phone page (distress alerts, what was asked) |
-| `knowledge/` | Everything Lucia knows, in plain markdown. **Anyone can edit.** |
+| `knowledge/` | Everything Go-go knows, in plain markdown. **Anyone can edit.** |
 | `config/` | App name, wake word, patient, caregiver, model hosts. Copy `app.example.json` → `app.local.json`. |
 | `faces/` | Enrollment photos. Local only, never committed. |
 

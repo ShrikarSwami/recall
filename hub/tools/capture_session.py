@@ -1,4 +1,4 @@
-"""Guided hardware capture: Lucia speaks each instruction on the glasses, then records that step.
+"""Guided hardware capture: Go-go speaks each instruction on the glasses, then records that step.
 
     cd hub && uv run python tools/capture_session.py            # all steps (~4 min)
     cd hub && uv run python tools/capture_session.py nod shake  # only some steps
@@ -25,7 +25,7 @@ STEPS = [
     ("tilt",         10, "Tilt your head to the left shoulder, then the right.", "Tilt left, then right"),
     ("look_around",  12, "Slowly look left, then center, then right, then up, then down.", "Look L, C, R, up, down"),
     ("walk",         12, "Walk a few steps and come back.", "Walk a few steps"),
-    ("voice_wearer", 25, "Ask me questions out loud, like: Lucia, who is this? Lucia, where are we? What time is it?",
+    ("voice_wearer", 25, "Ask me questions out loud, like: Go-go, who is this? Go-go, where are we? What time is it?",
                          "Ask me questions out loud"),
     ("voice_other",  20, "Now someone else, about one meter away, asks a few questions.", "Someone else asks questions"),
     ("noise",        15, "Stay quiet. I'm recording the room noise.", "Quiet: recording room noise"),

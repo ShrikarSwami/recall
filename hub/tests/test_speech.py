@@ -88,3 +88,17 @@ def test_segmenter_keeps_a_short_huh_or_what():
         utterances.extend(seg.feed(frame))
     assert len(utterances) == 1
     assert voice * 4 in utterances[0]
+
+
+@pytest.mark.parametrize("text,rest", [
+    ("Go-go, who is this?", "who is this?"), ("Gogo who is this", "who is this"),
+    ("Go go, where are we?", "where are we?"), ("GoGo.", ""), ("Hey Gogo, what's next?", "what's next?"),
+])
+def test_gogo_wake_word(text, rest):
+    woke, r = split_wake(text, "Go-go")
+    assert woke and r == rest
+
+
+@pytest.mark.parametrize("text", ["go to the bathroom", "let's go", "I want to go home", "Google it", "go get lunch"])
+def test_gogo_no_false_wake(text):
+    assert split_wake(text, "Go-go")[0] is False

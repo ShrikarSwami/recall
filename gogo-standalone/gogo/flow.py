@@ -2,7 +2,7 @@
 
 It builds the steps from the care plan (profile, places, weather), sends them to the lens as messages
 (card / avatar / arrows / tapnote / ring / splash), speaks them through the glasses speaker, and waits for a tap.
-The lens never knows who is driving it. Nothing here touches the Lucia hub.
+The lens never knows who is driving it. Nothing here touches the Go-go hub.
 """
 import asyncio
 import json

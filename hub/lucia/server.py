@@ -1,4 +1,4 @@
-"""Lucia hub. One process on the Mac; the glasses connect over USB (adb reverse) or Wi-Fi.
+"""Go-go hub. One process on the Mac; the glasses connect over USB (adb reverse) or Wi-Fi.
 
     cd hub && uv run python -m lucia.server            # ws://0.0.0.0:9100/ws/glasses, http://localhost:9100/caregiver
 
@@ -56,7 +56,7 @@ class Hub:
         self.lenses: set[WebSocket] = set()      # lens pages (glasses WebView, simulator)
         self.armed_until = 0.0
         self.armed_by_offer = False
-        self.standby = os.environ.get("LUCIA_STANDBY") == "1"   # stage demo: lens dark and Lucia quiet until the operator starts it
+        self.standby = os.environ.get("LUCIA_STANDBY") == "1"   # stage demo: lens dark and Go-go quiet until the operator starts it
         self.playing_until = 0.0
         self.worn: bool | None = None
         self.last_greet = 0.0
@@ -221,7 +221,7 @@ class Hub:
         print(f"[hub] voice cache: {status['ready']}/{status['total']} ({status['state']})")
 
     def alert_text(self, message: str) -> str:
-        """'Lucia: <message> · 1:40 AM · City Tech, Downtown Brooklyn'. Place = the phone's fresh place, else
+        """'Go-go: <message> · 1:40 AM · City Tech, Downtown Brooklyn'. Place = the phone's fresh place, else
         the configured demo place; left out when unknown. No extra tracking."""
         stamp = datetime.fromtimestamp(self.brain.clock()).astimezone().strftime("%-I:%M %p")
         place = self.brain.live_place()
@@ -280,7 +280,7 @@ class Hub:
             await self.to_glasses({"type": "avatar", "talking": False})
 
     async def set_standby(self, on: bool):
-        """Stage demo: on = lens dark, Lucia quiet. off = welcome the wearer and start fresh."""
+        """Stage demo: on = lens dark, Go-go quiet. off = welcome the wearer and start fresh."""
         self.standby = on
         await self.interrupt()
         await self.to_glasses({"type": "power", "on": not on})
@@ -338,7 +338,7 @@ class Hub:
 
     # ------------------------------------------------------------------ yes/no offers (nod or say "yes")
     async def open_offer(self):
-        """Lucia just asked a yes/no question: listen for "yes"/"no" (no wake word needed) and a nod/shake."""
+        """Go-go just asked a yes/no question: listen for "yes"/"no" (no wake word needed) and a nod/shake."""
         until = max(time.time(), self.playing_until) + OFFER_S
         self.brain.offer.until = until
         self.armed_until = until
@@ -386,7 +386,7 @@ class Hub:
         await self.event("alert", text=text, status=status, urgent=True)
         r = self.brain._reply("{patient}, are you okay? I've let {caregiver} know. Help is on the way.",
                               "Are you okay?", "fall")
-        await self.interrupt()          # cut off whatever Lucia was saying; the fall comes first
+        await self.interrupt()          # cut off whatever Go-go was saying; the fall comes first
         await self.say(r)
 
     def imu(self, rows: list):
@@ -456,7 +456,7 @@ class Hub:
         if armed and self.armed_by_offer and not woke and not yes_no:
             armed = False                # bystander talk during "Want to hear more?" is not an answer
         if not armed and not woke and yes_no and self.brain.offer is not None:
-            armed = True                 # a yes/no while Lucia is still asking "Want to hear more?"
+            armed = True                 # a yes/no while Go-go is still asking "Want to hear more?"
         if (not armed and not woke and not during_playback and WHO_THIS.search(text) and len(text.split()) <= 6
                 and (self.brain.in_view() or time.time() - self.brain.unknown_face_at < 4)):
             armed = True                 # "who is this?" with a face in view: STT often mangles the wake word
@@ -480,7 +480,7 @@ class Hub:
             await self.question(rest if woke else text)
         elif woke:
             offer_reply = self.brain.offer is not None and (YES.search(rest) or NO.search(rest))
-            if control or offer_reply or len(rest.split()) >= 2:   # "Lucia, yes" answers the offer
+            if control or offer_reply or len(rest.split()) >= 2:   # "Go-go, yes" answers the offer
                 await self.question(rest)
             else:
                 await self.arm("wake word")
@@ -528,7 +528,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="Lucia hub", lifespan=lifespan)
+app = FastAPI(title="Go-go hub", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 WEB = ROOT / "caregiver-web"
 app.mount("/lens", StaticFiles(directory=ROOT / "lens", html=True), name="lens")
@@ -700,14 +700,14 @@ async def api_fall():
 
 @app.post("/api/demo/start", dependencies=[Depends(require_token)])
 async def api_demo_start():
-    """Operator key s: lens on, WELCOME, Lucia introduces people from here."""
+    """Operator key s: lens on, WELCOME, Go-go introduces people from here."""
     await hub.set_standby(False)
     return {"ok": True}
 
 
 @app.post("/api/demo/standby", dependencies=[Depends(require_token)])
 async def api_demo_standby():
-    """Operator key b: lens dark and Lucia quiet between judges (fall alerts still work)."""
+    """Operator key b: lens dark and Go-go quiet between judges (fall alerts still work)."""
     await hub.set_standby(True)
     return {"ok": True}
 

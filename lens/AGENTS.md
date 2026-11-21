@@ -35,14 +35,14 @@ file in a 640×480 iframe. Edit here, reload the simulator, done. No build step.
 | ES modules from CDNs, frameworks needing a bundler | plain `<script>`; if you want a framework, vendor a UMD build into `lens/vendor/` |
 | `structuredClone`, `Array.prototype.at`, `replaceAll` | manual equivalents |
 
-Debug on the real glasses: with the glasses on USB, open `chrome://inspect` on the laptop → the Lucia WebView.
+Debug on the real glasses: with the glasses on USB, open `chrome://inspect` on the laptop → the Go-go WebView.
 
 ## Messages the lens renders
 
 The lens is display-only. Input (taps, mic, camera) goes from the glasses app straight to the hub.
 
 ```js
-{"type":"config", "hint":"Say \"Lucia\" or hold right side", "app":"Lucia", "patient":"Somya", "now":<epoch ms>, "tz":-300}
+{"type":"config", "hint":"Say \"Go-go\" or hold right side", "app":"Go-go", "patient":"Somya", "now":<epoch ms>, "tz":-300}
 {"type":"state",  "value":"idle" | "listening" | "thinking"}
 {"type":"card",   "title":"Abhiram", "lines":["This is Abhiram. He's on","your team."], "ttl_ms":8000, "intent":"..."}
 {"type":"clear"}

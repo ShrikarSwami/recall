@@ -59,7 +59,7 @@ for i, dy in enumerate((-0.08, 0.0, 0.08, 0.0)):
     add("cheer_%d" % i, sit_pose(arms=arms), 0, "proud", i % 2 == 1)
 add("pointR", sit_pose(arms=arms_R((0.50, 1.10, 0.30), (0.84, 1.08, 0.30))), 0, "warm")
 
-# the end of the Lucia twirl: a small bow
+# the end of the Go-go twirl: a small bow
 add("bow_0", sit_pose(head=(0, -0.12, 0.06), pitch=0.22), 0, "happy")
 add("bow_1", sit_pose(head=(0, -0.26, 0.12), pitch=0.38), 0, "happy")
 

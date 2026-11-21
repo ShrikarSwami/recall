@@ -9,7 +9,7 @@ enrolled_face: false
 ---
 
 <!--
-  Isha: fill in the A: lines below (1-2 short sentences each, spoken aloud by Lucia).
+  Isha: fill in the A: lines below (1-2 short sentences each, spoken aloud by Go-go).
   Blank A: lines are skipped automatically, so answer as many or as few as you like.
   Add more "# Q:" blocks for anything a judge might ask about you.
   Then fix "intro", "pronouns" and "aliases" (nicknames) above.

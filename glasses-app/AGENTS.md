@@ -20,8 +20,8 @@ adb reverse tcp:9100 tcp:9100                                          # USB lin
 adb shell am start -n com.bb.lucia/.MainActivity --es hub ws://127.0.0.1:9100/ws/glasses
 # Wireless (Wi-Fi first, USB fallback; the app rotates until one answers): see docs/GLASSES_RETURN.md
 # adb shell am start -n com.bb.lucia/.MainActivity --es hub "ws://<mac-ip>:9100/ws/glasses,ws://127.0.0.1:9100/ws/glasses"
-adb shell cmd package set-home-activity com.bb.lucia/.MainActivity      # make Lucia the home app
-adb logcat -s Lucia                                                     # key codes, camera, lens console
+adb shell cmd package set-home-activity com.bb.lucia/.MainActivity      # make Go-go the home app
+adb logcat -s Go-go                                                     # key codes, camera, lens console
 ```
 
 - Point the lens at a teammate's dev server: `--es lens http://<their-ip>:9200/lens/index.html?ws=ws://<hub>:9100/ws/lens`

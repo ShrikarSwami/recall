@@ -14,17 +14,17 @@ A name set through `/api/patient` lasts in memory and can be reset by a reload/r
 
 > “We're not going to introduce ourselves just yet. Imagine seeing someone familiar and not being able to place their name, or forgetting why you came into a room. Even a small question can mean having to ask someone else for help.
 >
-> We built Lucia to give people living with dementia another way to get those reminders themselves. Put these on. Say ‘Lucia’ or hold the right side, then ask a question. That instruction stays on the lens.”
+> We built Go-go to give people living with dementia another way to get those reminders themselves. Put these on. Say ‘Go-go’ or hold the right side, then ask a question. That instruction stays on the lens.”
 
 The demo name and wake word above are examples; use the configured values if changed. Let the greeting finish. Do not talk over the glasses.
 
-## 0:25–0:45 — Let Lucia suggest the first question
+## 0:25–0:45 — Let Go-go suggest the first question
 
-Prompt only if needed: “You can ask, ‘Lucia, what can I ask you?’”
+Prompt only if needed: “You can ask, ‘Go-go, what can I ask you?’”
 
-Lucia's prepared answer:
+Go-go's prepared answer:
 
-> “Say ‘Lucia,’ then ask ‘Who is this?’ or ‘Where am I?’ You can ask again whenever you need a reminder.”
+> “Say ‘Go-go,’ then ask ‘Who is this?’ or ‘Where am I?’ You can ask again whenever you need a reminder.”
 
 Let the judge choose. This is a short help answer, not an autonomous tour or an automatic sequence of questions. If they choose location first, do location first, then invite them to look at the teammate.
 
@@ -32,7 +32,7 @@ Let the judge choose. This is a short help answer, not an autonomous tour or an 
 
 Use Shrikar or Abhiram for the main demonstration: both have supplied follow-up facts. One person stands in good light facing the glasses. Wait for an automatic introduction; if it does not arrive, the judge can ask “Who is this?”
 
-Lucia identifies them as a presenter and may offer “Want to hear more?” Let the judge say yes or nod. Then one natural question, such as “What does he do?” or “What does he like doing?”
+Go-go identifies them as a presenter and may offer “Want to hear more?” Let the judge say yes or nod. Then one natural question, such as “What does he do?” or “What does he like doing?”
 
 Use only facts that person supplied. Do not tell the judge they previously met us or that we are their family. Sid and Isha have basic introductions but mostly blank profile answers; do not promise a detailed conversation about them until they fill those in.
 
@@ -40,7 +40,7 @@ Use only facts that person supplied. Do not tell the judge they previously met u
 
 > “You don't have to remember the answer. Ask the same question again.”
 
-Let them repeat “Who is this?” or use “Lucia, say that again.” If they missed the voice, try “Lucia, say that again slowly.”
+Let them repeat “Who is this?” or use “Go-go, say that again.” If they missed the voice, try “Go-go, say that again slowly.”
 
 > “It gives you a calm reminder without saying you already asked. The goal is to make that small moment something you can handle yourself.”
 
@@ -52,9 +52,9 @@ If not already shown, ask “Where am I?” or “Why am I here?” A day/time q
 
 ## 2:05–2:35 — Support when needed
 
-> “Independence doesn't mean having no one to turn to. For this next part, we're testing a distress alert. Try ‘Lucia, I want to go home.’”
+> “Independence doesn't mean having no one to turn to. For this next part, we're testing a distress alert. Try ‘Go-go, I want to go home.’”
 
-Lucia responds and the operator checks both the caregiver feed and receiving phone. Hold up an actual received iMessage only after it arrives. The alert includes the time and available place. The caregiver feed is not proof an iMessage arrived.
+Go-go responds and the operator checks both the caregiver feed and receiving phone. Hold up an actual received iMessage only after it arrives. The alert includes the time and available place. The caregiver feed is not proof an iMessage arrived.
 
 > “The caregiver can see the question and check in, while ordinary reminders stay in the glasses.”
 

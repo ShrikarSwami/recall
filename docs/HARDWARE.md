@@ -1,6 +1,6 @@
 # MicroLumin M6: what we measured (Fri Nov 20, 2026)
 
-Everything here was probed on our own pair with `adb` and the Lucia app. It's what to build against when you
+Everything here was probed on our own pair with `adb` and the Go-go app. It's what to build against when you
 **don't have the glasses**. Serial numbers and MAC addresses are deliberately left out (this repo is public).
 The vendor SDK kit is confidential and is **not** needed for any of this.
 
@@ -13,8 +13,8 @@ The vendor SDK kit is confidential and is **not** needed for any of this.
 | Display | 640×480 @ 60 Hz, 160 dpi. Black = see-through. Launcher status bar covers the top ~40 px. |
 | Browser engine | Android System WebView **74.0.3729** (Chrome 74). See `lens/AGENTS.md` for what that rules out. |
 | Text-to-speech | **None installed.** The hub speaks (macOS `say`) and streams PCM 22.05 kHz mono to the app. |
-| Default home app | `com.mlaixr.launcher/.MainActivity` (we replace it with Lucia; see `glasses-app/AGENTS.md`) |
-| Screen timeout | 60 s by default. Lucia holds the screen on; `adb shell svc power stayon usb` keeps it awake on USB. |
+| Default home app | `com.mlaixr.launcher/.MainActivity` (we replace it with Go-go; see `glasses-app/AGENTS.md`) |
+| Screen timeout | 60 s by default. Go-go holds the screen on; `adb shell svc power stayon usb` keeps it awake on USB. |
 | Time zone | Shipped as China (UTC+8). We set it to `America/New_York`; the lens uses the hub's clock regardless. |
 | Link to laptop | USB + `adb reverse tcp:9100 tcp:9100` (no Wi-Fi needed), or Wi-Fi to the hub's IP |
 
@@ -22,7 +22,7 @@ The vendor SDK kit is confidential and is **not** needed for any of this.
 
 Gestures arrive as instant key events (~7 ms down→up). **Tell them apart by key code, never by timing.**
 
-| Gesture | Android keycode | scan | Lucia uses it for |
+| Gesture | Android keycode | scan | Go-go uses it for |
 |---|---|---|---|
 | Tap | 66 `ENTER` | 28 | ask (start listening) |
 | Double tap | 142 `F12` (system then sends 4 `BACK`) | 88 | ask (any touch asks) |
@@ -78,7 +78,7 @@ headset keys.
 - **Full pipeline:** `hub/tools/replay_glasses.py` acts as the glasses: speak any sentence, send any photo,
   press any gesture above, or replay a real recording:
   ```bash
-  cd hub && uv run python tools/replay_glasses.py --say "Lucia, who is this?" --frame ../faces/sid/IMG_3167.jpg
+  cd hub && uv run python tools/replay_glasses.py --say "Go-go, who is this?" --frame ../faces/sid/IMG_3167.jpg
   ```
 - **Real recordings** from our glasses (mic, camera frames, IMU, keys) live in `hub/data/recordings/` on
   Shrikar's Mac: `still`, `right_temple`, `ring`, `nod`, `shake`, `voice_wearer`, `off_on`. They contain

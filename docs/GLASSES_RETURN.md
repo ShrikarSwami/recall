@@ -14,7 +14,7 @@ Hardware facts: `docs/HARDWARE.md`. Build/install details: `glasses-app/AGENTS.m
 
 - [ ] `adb devices` shows it. If not: Developer Mode in the MLDemo iOS app → Glasses → Developer, replug USB.
 - [ ] `adb shell getprop ro.product.model` → `XNM-Glass`. If it's a **different pair**, also do the "new pair" box below.
-- [ ] `adb shell pm list packages | grep com.bb.lucia` → Lucia is still installed (and is still the home app).
+- [ ] `adb shell pm list packages | grep com.bb.lucia` → Go-go is still installed (and is still the home app).
 
 > **New pair:** install the APK, grant CAMERA + RECORD_AUDIO, set the home activity, set the time zone
 > (`adb shell setprop persist.sys.timezone America/New_York`), all from `glasses-app/AGENTS.md`.
@@ -45,9 +45,9 @@ device-to-device traffic, so test it:
    adb shell am start -n com.bb.lucia/.MainActivity \
      --es hub "ws://<mac-ip>:9100/ws/glasses,ws://127.0.0.1:9100/ws/glasses"
    ```
-5. `adb logcat -s Lucia | grep -i "connected\|trying hub"` → `connected ws://<mac-ip>:9100/ws/glasses`.
-6. **Unplug USB.** The lens should keep its hint and answer "Lucia, what day is it?". 
-7. Screen: on USB we used `svc power stayon usb`; off USB, Lucia keeps the screen on itself. Check it stays on
+5. `adb logcat -s Go-go | grep -i "connected\|trying hub"` → `connected ws://<mac-ip>:9100/ws/glasses`.
+6. **Unplug USB.** The lens should keep its hint and answer "Go-go, what day is it?". 
+7. Screen: on USB we used `svc power stayon usb`; off USB, Go-go keeps the screen on itself. Check it stays on
    for 3 min. Note battery % now and after each rehearsal (unmeasured so far).
 
 If Wi-Fi can't work in time: plug back in. USB is the fallback and the app switches back automatically.
