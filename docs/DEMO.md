@@ -31,7 +31,7 @@ A (quietly): "Look around at us."
 
 ## 0:35 — The wow moment: it recognizes us (B steps in front)
 
-Lucia, unprompted: *"This is B. He's on your team, BB…"* (lens: name + one line)
+Lucia, unprompted: *"This is B, one of the presenters of this project. Want to hear more about B?"* The judge can nod or say yes. (lens: name + one line)
 
 A: "Go ahead, ask it anything about any of us."
 Prompt the judge only if they freeze: "Who is this?" · "Where's she from?" · "What does he do?" · "How do I know him?"

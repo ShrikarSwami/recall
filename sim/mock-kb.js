@@ -11,27 +11,36 @@ window.MOCK_KB = {
    "name": "Abhiram",
    "first": "Abhiram",
    "aliases": [
-    "Abhi"
+    "Abhi",
+    "Avi",
+    "Abby",
+    "Aberam",
+    "Abiram"
    ],
-   "intro": "This is Abhiram. Abhiram is on your team, BB, and builds the backend."
+   "intro": "This is Abhiram, one of the presenters of this project. He built the backend."
   },
   "isha": {
    "name": "Isha",
    "first": "Isha",
    "aliases": [],
-   "intro": "This is Isha. They're on your team, BB."
+   "intro": "This is Isha, one of the presenters of this project."
   },
   "shrikar": {
    "name": "Shrikar Swami",
    "first": "Shrikar",
-   "aliases": [],
-   "intro": "This is Shrikar. He's on your team, BB."
+   "aliases": [
+    "Shree",
+    "Shrika",
+    "Shrieker",
+    "Schrieker"
+   ],
+   "intro": "This is Shrikar, one of the presenters of this project. He built the glasses software."
   },
   "sid": {
    "name": "Sid",
    "first": "Sid",
    "aliases": [],
-   "intro": "This is Sid. They're on your team, BB."
+   "intro": "This is Sid, one of the presenters of this project."
   }
  },
  "places": {
@@ -5098,7 +5107,7 @@ window.MOCK_KB = {
     "who am I talking to",
     "do I know them"
    ],
-   "answer": "This is Abhiram. Abhiram is on your team, BB."
+   "answer": "This is Abhiram, one of the presenters of this project."
   },
   {
    "scope": "person",
@@ -5108,7 +5117,7 @@ window.MOCK_KB = {
     "how do we know each other",
     "where did we meet"
    ],
-   "answer": "You met Abhiram at the Worn hackathon. Abhiram is on your team."
+   "answer": "Abhiram is one of the people presenting these glasses to you today."
   },
   {
    "scope": "person",
@@ -5264,7 +5273,7 @@ window.MOCK_KB = {
     "who am I talking to",
     "do I know them"
    ],
-   "answer": "This is Isha. They're on your team, BB."
+   "answer": "This is Isha, one of the presenters of this project."
   },
   {
    "scope": "person",
@@ -5274,7 +5283,7 @@ window.MOCK_KB = {
     "how do we know each other",
     "where did we meet"
    ],
-   "answer": "You met Isha at the Worn hackathon. They're on your team."
+   "answer": "Isha is one of the people presenting these glasses to you today."
   },
   {
    "scope": "person",
@@ -5285,7 +5294,7 @@ window.MOCK_KB = {
     "who am I talking to",
     "do I know them"
    ],
-   "answer": "This is Shrikar. He's on your team, BB."
+   "answer": "This is Shrikar, one of the presenters of this project."
   },
   {
    "scope": "person",
@@ -5295,7 +5304,7 @@ window.MOCK_KB = {
     "how do we know each other",
     "where did we meet"
    ],
-   "answer": "You met Shrikar at the Worn hackathon. He's presenting his hackathon project to you."
+   "answer": "Shrikar is one of the people presenting these glasses to you today."
   },
   {
    "scope": "person",
@@ -5506,7 +5515,7 @@ window.MOCK_KB = {
     "who am I talking to",
     "do I know them"
    ],
-   "answer": "This is Sid. They're on your team, BB."
+   "answer": "This is Sid, one of the presenters of this project."
   },
   {
    "scope": "person",
@@ -5516,7 +5525,7 @@ window.MOCK_KB = {
     "how do we know each other",
     "where did we meet"
    ],
-   "answer": "You met Sid at the Worn hackathon. They're on your team."
+   "answer": "Sid is one of the people presenting these glasses to you today."
   },
   {
    "scope": "place",
