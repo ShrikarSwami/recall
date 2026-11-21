@@ -2,36 +2,120 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<!-- The lens: exactly what the wearer sees. 640x480 @ 160 dpi, black = see-through. -->
-<meta name="viewport" content="width=640, height=480, initial-scale=1, user-scalable=no">
-<title>Lucia lens</title>
+<meta name="viewport" content="width=640, height=480, initial-scale=1">
+<title>Gogo lens</title>
 <link rel="stylesheet" href="lens.css">
 </head>
 <body>
-  <!-- Top 40px belong to the glasses' own status bar (clock, Bluetooth, battery). Keep it empty. -->
-  <div id="safe-top"></div>
+<!-- The M6 shows this page full screen: 640x480, black = see-through. Chrome 74 safe (see README). -->
+<div id="arL" class="arrow">&#8249;</div>
+<div id="arR" class="arrow">&#8250;</div>
 
-  <main id="stage">
-    <!-- Answer / intro / greeting / distress card. Hidden when there's nothing to say. -->
-    <section id="card" class="hidden" aria-live="polite">
-      <h1 id="card-title"></h1>
-      <p id="card-body"></p>
-      <!-- Only when Lucia asked a yes/no question: what it asked + how to answer (nod/shake or say it). -->
-      <p id="card-prompt" class="hidden"></p>
-    </section>
+<div id="card">
+  <div id="slot" class="empty"></div>
+  <div id="text"><h3 id="title"></h3><p id="lines"></p><p id="prompt"></p></div>
+</div>
 
-    <!-- Listening / thinking indicator -->
-    <div id="status" class="hidden"><span class="dot"></span><span id="status-text"></span></div>
-  </main>
+<div id="sqwrap"><div id="jumper">
+  <div id="shadow"></div>
+  <canvas id="sq" width="320" height="320"></canvas>
+  <div id="zzz">z z</div>
+</div></div>
 
-  <!-- Always visible: the one thing a brand-new user needs to know. -->
-  <footer id="footer">
-    <span id="hint">Say "Lucia" or hold right side</span>
-    <span id="clock"></span>
-  </footer>
+<div id="tapnote"></div>
+<div id="status"></div>
+<div id="offline">Reconnecting&hellip;</div>
+<div id="footer">
+  <span id="hint">Say &ldquo;Gogo&rdquo; to ask</span>
+  <span class="right"><span id="bat"><svg viewBox="0 0 64 64"><use xlink:href="#i-battery"/></svg><span id="batpct">15%</span></span><span id="clock"></span></span>
+</div>
 
-  <div id="offline" class="hidden">Reconnecting…</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <mask id="perf" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="112"><rect width="96" height="112" fill="#fff"/><g fill="#000"><circle cx="12" cy="0" r="3.6"/><circle cx="12" cy="112" r="3.6"/><circle cx="24" cy="0" r="3.6"/><circle cx="24" cy="112" r="3.6"/><circle cx="36" cy="0" r="3.6"/><circle cx="36" cy="112" r="3.6"/><circle cx="48" cy="0" r="3.6"/><circle cx="48" cy="112" r="3.6"/><circle cx="60" cy="0" r="3.6"/><circle cx="60" cy="112" r="3.6"/><circle cx="72" cy="0" r="3.6"/><circle cx="72" cy="112" r="3.6"/><circle cx="84" cy="0" r="3.6"/><circle cx="84" cy="112" r="3.6"/><circle cx="0" cy="16" r="3.6"/><circle cx="96" cy="16" r="3.6"/><circle cx="0" cy="32" r="3.6"/><circle cx="96" cy="32" r="3.6"/><circle cx="0" cy="48" r="3.6"/><circle cx="96" cy="48" r="3.6"/><circle cx="0" cy="64" r="3.6"/><circle cx="96" cy="64" r="3.6"/><circle cx="0" cy="80" r="3.6"/><circle cx="96" cy="80" r="3.6"/><circle cx="0" cy="96" r="3.6"/><circle cx="96" cy="96" r="3.6"/></g></mask>
+    <symbol id="s-person" viewBox="0 0 70 70"><path class="k3" d="M0 70 V58 Q35 51 70 58 V70Z"/><path class="k2" d="M10 70 C10 52 22 46 35 46 C48 46 60 52 60 70Z"/><path class="k3" d="M28 47 L35 59 L42 47Z"/>
+  <circle class="k2" cx="35" cy="31" r="12"/><path class="k1" d="M22 29 C22 13 48 13 48 29 C45 21 25 21 22 29Z"/><path class="k1" d="M24 34 C24 47 46 47 46 34 C42 41 28 41 24 34Z"/>
+  <circle class="k4" cx="30" cy="30" r="1.6"/><circle class="k4" cx="40" cy="30" r="1.6"/></symbol>
+    <symbol id="s-friends" viewBox="0 0 70 70"><path class="k3" d="M0 70 V58 Q35 51 70 58 V70Z"/><circle class="k2" cx="13" cy="34" r="7"/><path class="k2" d="M1 64 C1 50 7 45 13 45 C19 45 25 50 25 64Z"/>
+  <circle class="k2" cx="57" cy="34" r="7"/><path class="k2" d="M45 64 C45 50 51 45 57 45 C63 45 69 50 69 64Z"/>
+  <circle class="k1" cx="35" cy="26" r="9"/><path class="k1" d="M17 64 C17 46 25 39 35 39 C45 39 53 46 53 64Z"/>
+  <circle class="k4" cx="31.5" cy="25" r="1.4"/><circle class="k4" cx="38.5" cy="25" r="1.4"/><path class="kl4" d="M31 30 Q35 33 39 30"/>
+  <path class="k1" d="M58 7 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6z"/></symbol>
+    <symbol id="s-sun" viewBox="0 0 70 70"><path class="k3" d="M0 70 V58 Q35 51 70 58 V70Z"/><circle class="k1" cx="35" cy="30" r="12"/><path class="kl" d="M35 6V13 M35 47V54 M11 30H18 M52 30H59 M18 13L23 18 M47 42L52 47 M52 13L47 18 M23 42L18 47"/>
+  <path class="k2" d="M8 70 V62 Q22 56 36 62 V70Z"/></symbol>
+    <symbol id="s-moon" viewBox="0 0 70 70"><path class="k3" d="M0 70 V58 Q35 51 70 58 V70Z"/><path class="k1" d="M44 12 A19 19 0 1 0 54 44 A15 15 0 1 1 44 12Z"/><path class="k1" d="M16 14 l1.4 3.4 3.4 1.4 -3.4 1.4 -1.4 3.4 -1.4 -3.4 -3.4 -1.4 3.4 -1.4z"/>
+  <path class="k2" d="M56 48 l1.2 3 3 1.2 -3 1.2 -1.2 3 -1.2 -3 -3 -1.2 3 -1.2z"/></symbol>
+    <symbol id="s-cloud" viewBox="0 0 70 70"><path class="k3" d="M0 70 V58 Q35 51 70 58 V70Z"/><circle class="k2" cx="48" cy="20" r="11"/><path class="k1" d="M12 48 H52 A11 11 0 0 0 52 26 A15 15 0 0 0 25 30 A9 9 0 0 0 12 48Z"/></symbol>
+    <symbol id="s-rain" viewBox="0 0 70 70"><path class="k3" d="M0 70 V58 Q35 51 70 58 V70Z"/><path class="k2" d="M12 34 H52 A10 10 0 0 0 52 14 A14 14 0 0 0 25 18 A9 9 0 0 0 12 34Z"/>
+  <path class="kl" d="M20 40 L16 50 M32 40 L28 50 M44 40 L40 50 M26 52 L22 62 M38 52 L34 62 M50 52 L46 62"/></symbol>
+    <symbol id="s-bag" viewBox="0 0 70 70"><path class="k3" d="M0 70 V60 H70 V70Z"/><rect class="k2" x="17" y="20" width="36" height="38" rx="10"/><path class="k1" d="M17 32 A18 11 0 0 1 53 32 V37 H17Z"/>
+  <rect class="k3" x="23" y="43" width="24" height="13" rx="3"/><path class="kl" d="M28 20 A7 7 0 0 1 42 20"/><path class="kl4" d="M29 48 H41"/></symbol>
+    <symbol id="s-shield" viewBox="0 0 70 70"><path class="k3" d="M0 70 V58 Q35 51 70 58 V70Z"/><path class="k2" d="M35 6 L59 14 V34 C59 48 48 57 35 63 C22 57 11 48 11 34 V14Z"/>
+  <path class="k1" d="M35 47 L24 36 C20 32 22 25 29 25 C32 25 34 27 35 29 C36 27 38 25 41 25 C48 25 50 32 46 36Z"/></symbol>
+    <symbol id="s-home" viewBox="0 0 70 70"><path class="k3" d="M0 70 V58 Q35 51 70 58 V70Z"/><rect class="k2" x="14" y="32" width="42" height="26"/><path class="k1" d="M8 34 L35 12 L62 34Z"/><rect class="k4" x="30" y="42" width="10" height="16"/>
+  <rect class="k1" x="18" y="38" width="8" height="8"/><rect class="k1" x="44" y="38" width="8" height="8"/></symbol>
+    <symbol id="s-bath" viewBox="0 0 70 70"><rect class="k3" x="8" y="6" width="54" height="26" rx="3"/><path class="kl4" d="M14 12 L22 12 M14 17 L18 17"/>
+  <path class="k2" d="M8 38 H62 C62 52 50 61 35 61 C20 61 8 52 8 38Z"/><path class="kl" d="M35 38 V20 H47 V26"/><path class="k1" d="M47 30 C47 30 43 36 47 38 C51 36 47 30 47 30Z"/></symbol>
+    <symbol id="s-chair" viewBox="0 0 70 70"><path class="k3" d="M0 70 V62 H70 V70Z"/><path class="k2" d="M16 38 V22 A8 8 0 0 1 24 14 H46 A8 8 0 0 1 54 22 V38Z"/>
+  <rect class="k1" x="14" y="38" width="42" height="12" rx="4"/><rect class="k3" x="6" y="30" width="11" height="24" rx="4"/><rect class="k3" x="53" y="30" width="11" height="24" rx="4"/>
+  <path class="kl" d="M20 50 V62 M50 50 V62"/></symbol>
+    <symbol id="s-gate" viewBox="0 0 70 70"><path class="k3" d="M0 70 L24 42 H46 L70 70Z"/><rect class="k2" x="6" y="10" width="9" height="42" rx="2"/><rect class="k2" x="55" y="10" width="9" height="42" rx="2"/>
+  <path class="kl" d="M15 20 H29 M15 30 H29 M15 40 H29 M41 20 H55 M41 30 H55 M41 40 H55"/><circle class="k1" cx="10.5" cy="8" r="3"/><circle class="k1" cx="59.5" cy="8" r="3"/></symbol>
+    <symbol id="s-drop" viewBox="0 0 70 70"><ellipse class="k3" cx="35" cy="62" rx="24" ry="5"/><path class="k1" d="M35 6 C35 6 14 30 14 43 A21 21 0 0 0 56 43 C56 30 35 6 35 6Z"/>
+  <path class="kl4" d="M25 44 A11 11 0 0 0 32 54"/></symbol>
+    <symbol id="s-soap" viewBox="0 0 70 70"><rect class="k2" x="12" y="40" width="38" height="18" rx="7"/><rect class="k1" x="12" y="40" width="38" height="8" rx="4"/>
+  <circle class="k1" cx="52" cy="24" r="9"/><circle class="k2" cx="36" cy="17" r="6"/><circle class="k1" cx="22" cy="26" r="4.5"/><circle class="k2" cx="60" cy="42" r="4"/>
+  <path class="kl4" d="M48 21 A5 5 0 0 1 52 18"/></symbol>
+    <symbol id="s-hands" viewBox="0 0 70 70"><rect class="k3" x="16" y="4" width="38" height="5" rx="2.5"/><path class="k2" d="M22 9 H48 V58 H22Z"/>
+  <rect class="k1" x="22" y="40" width="26" height="5"/><rect class="k1" x="22" y="49" width="26" height="4"/><path class="k1" d="M58 20 l1.4 3.6 3.6 1.4 -3.6 1.4 -1.4 3.6 -1.4 -3.6 -3.6 -1.4 3.6 -1.4z"/></symbol>
+    <symbol id="s-timer" viewBox="0 0 70 70"><rect class="k1" x="30" y="5" width="10" height="7" rx="2"/><circle class="k2" cx="35" cy="38" r="25"/><circle class="k4" cx="35" cy="38" r="20"/>
+  <path class="k1" d="M35 38 V20 A18 18 0 0 1 51 47Z"/><path class="kl" d="M35 38 V24"/></symbol>
+    <symbol id="s-warn" viewBox="0 0 70 70"><path class="k1" d="M35 6 L65 58 H5Z"/><path class="k4" d="M32.4 24 H37.6 L36.4 44 H33.6Z"/><circle class="k4" cx="35" cy="50" r="3.2"/></symbol>
+    <symbol id="s-eye" viewBox="0 0 70 70"><path class="k3" d="M0 70 V58 Q35 51 70 58 V70Z"/><path class="k2" d="M4 34 C14 14 56 14 66 34 C56 54 14 54 4 34Z"/><circle class="k1" cx="35" cy="34" r="12"/><circle class="k4" cx="35" cy="34" r="6"/><circle class="k1" cx="38.5" cy="30.5" r="2"/></symbol>
+    <symbol id="s-forward" viewBox="0 0 70 70"><path class="k3" d="M0 62 H70 V70 H0Z"/><path class="k1" d="M8 34 H42 V22 L64 38 L42 54 V42 H8Z"/></symbol>
+    <symbol id="s-back" viewBox="0 0 70 70"><path class="k3" d="M0 62 H70 V70 H0Z"/><path class="k1" d="M62 34 H28 V22 L6 38 L28 54 V42 H62Z"/></symbol>
+    <symbol id="s-up" viewBox="0 0 70 70"><path class="k3" d="M0 70 L26 26 H44 L70 70Z"/><path class="k2" d="M35 34 V40 M35 48 V56 M35 62 V68" stroke-width="3" stroke="currentColor"/><path class="k1" d="M35 4 L54 28 H42 V46 H28 V28 H16Z"/></symbol>
+        <symbol id="i-shield" viewBox="0 0 64 64"><path d="M32 6 L54 14 V32 C54 46 44 56 32 60 C20 56 10 46 10 32 V14 Z"/><path d="M32 44 L22 34 C18 30 20 24 26 24 C29 24 31 26 32 28 C33 26 35 24 38 24 C44 24 46 30 42 34 Z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 64 64"><path d="M6 32 L32 10 L58 32"/><path d="M14 28 V54 H50 V28"/><path d="M27 54 V38 H37 V54"/></symbol>
+    <symbol id="i-warn" viewBox="0 0 64 64"><path d="M32 8 L59 54 H5 Z"/><path d="M32 24 V38"/><circle cx="32" cy="46" r="1.5"/></symbol>
+    <symbol id="i-battery" viewBox="0 0 64 64"><rect x="6" y="19" width="46" height="26" rx="5"/><path d="M57 28 V36"/><path d="M12 25 V39"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 64 64"><path d="M32 8 C32 8 14 30 14 40 A18 18 0 0 0 50 40 C50 30 32 8 32 8 Z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 64 64"><circle cx="32" cy="32" r="10"/><path d="M32 6 V14 M32 50 V58 M6 32 H14 M50 32 H58 M14 14 L20 20 M44 44 L50 50 M50 14 L44 20 M20 44 L14 50"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 64 64"><path d="M46 40 A21 21 0 1 1 26 10 A16 16 0 0 0 46 40 Z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 64 64"><circle cx="32" cy="22" r="11"/><path d="M10 56 C10 42 20 36 32 36 C44 36 54 42 54 56"/></symbol>
+    <symbol id="i-smile" viewBox="0 0 64 64"><circle cx="32" cy="32" r="25"/><circle cx="23" cy="26" r="1.5"/><circle cx="41" cy="26" r="1.5"/><path d="M20 38 Q32 50 44 38"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 64 64"><path d="M4 32 C14 16 50 16 60 32 C50 48 14 48 4 32 Z"/><circle cx="32" cy="32" r="8"/></symbol>
+    <symbol id="i-cup" viewBox="0 0 64 64"><path d="M10 24 H44 V40 C44 48 38 54 27 54 C16 54 10 48 10 40 Z"/><path d="M44 28 H49 A6 6 0 0 1 49 40 H44"/><path d="M20 8 C16 12 24 14 20 18 M30 8 C26 12 34 14 30 18"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 64 64"><path d="M22 6 V20 M42 6 V20"/><path d="M14 20 H50 V32 C50 42 42 48 32 48 C22 48 14 42 14 32 Z"/><path d="M32 48 V60"/></symbol>
+    <symbol id="i-glasses" viewBox="0 0 64 64"><circle cx="18" cy="36" r="12"/><circle cx="46" cy="36" r="12"/><path d="M30 34 H34"/></symbol>
+    <symbol id="i-back" viewBox="0 0 64 64"><path d="M50 32 H16"/><path d="M28 18 L14 32 L28 46"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 64 64"><path d="M18 46 H46 A10 10 0 0 0 46 26 A14 14 0 0 0 20 30 A8 8 0 0 0 18 46 Z"/></symbol>
+    <symbol id="i-rain" viewBox="0 0 64 64"><path d="M18 36 H46 A9 9 0 0 0 46 18 A13 13 0 0 0 21 22 A8 8 0 0 0 18 36 Z"/><path d="M22 42 L19 52 M32 42 L29 52 M42 42 L39 52"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 64 64"><path d="M16 26 A16 16 0 0 1 48 26 V52 H16 Z"/><path d="M26 14 A6 6 0 0 1 38 14"/><path d="M22 40 H42"/></symbol>
+    <symbol id="i-friends" viewBox="0 0 64 64"><circle cx="14" cy="26" r="6"/><circle cx="32" cy="20" r="7"/><circle cx="50" cy="26" r="6"/><path d="M4 52 C4 42 8 38 14 38 M60 52 C60 42 56 38 50 38 M16 56 C16 44 22 36 32 36 C42 36 48 44 48 56"/></symbol>
+    <symbol id="i-bath" viewBox="0 0 64 64"><path d="M8 34 H56 C56 46 46 54 32 54 C18 54 8 46 8 34 Z"/><path d="M32 34 V16 H44 V22"/><path d="M44 28 V31"/></symbol>
+    <symbol id="i-chair" viewBox="0 0 64 64"><path d="M18 8 V34 H48"/><path d="M22 34 V56 M44 34 V56"/></symbol>
+    <symbol id="i-gate" viewBox="0 0 64 64"><path d="M12 56 V10 H52 V56"/><path d="M24 10 V56 M40 10 V56"/><path d="M6 56 H58"/></symbol>
+    <symbol id="i-forward" viewBox="0 0 64 64"><path d="M10 32 H52"/><path d="M38 18 L52 32 L38 46"/></symbol>
+    <symbol id="i-up" viewBox="0 0 64 64"><path d="M32 54 V12"/><path d="M18 26 L32 12 L46 26"/></symbol>
+    <symbol id="i-soap" viewBox="0 0 64 64"><circle cx="24" cy="40" r="12"/><circle cx="42" cy="26" r="8"/><circle cx="46" cy="46" r="6"/><circle cx="20" cy="18" r="4"/></symbol>
+    <symbol id="i-timer" viewBox="0 0 64 64"><circle cx="32" cy="36" r="20"/><path d="M32 36 V24 M32 36 L40 42 M26 8 H38"/></symbol>
+    <symbol id="i-hands" viewBox="0 0 64 64"><path d="M20 50 V30 A3 3 0 0 1 26 30 V38 M26 24 A3 3 0 0 1 32 24 V38 M32 22 A3 3 0 0 1 38 22 V38 M38 26 A3 3 0 0 1 44 26 V46 C44 54 38 58 32 58 H28 C23 58 20 55 20 50 Z"/></symbol>
+  </defs>
+</svg>
 
-  <script src="lens.js"></script>
+<!-- splash: the GOGO wordmark, from the Figma design. Flashes at the start of the onboarding. -->
+<div id="splash"><div id="logo">
+  <div id="logoWord"></div>
+  <div id="logoCompass"></div>
+  <div id="logoMakes"></div>
+  <div id="logoBot"></div>
+</div></div>
+
+<div id="sleep"></div>
+
+<script src="squirrel_map.js"></script>
+<script src="squirrel_big_map.js"></script>
+<script src="lens.js"></script>
 </body>
 </html>
