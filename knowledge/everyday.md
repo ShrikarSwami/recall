@@ -8,10 +8,6 @@ A: Ask someone nearby to help you get a drink you usually have.
 - also: I'd like something to eat / Could I have a snack / I want some food
 A: Ask {caregiver} or someone nearby to help you find something suitable to eat.
 
-# Q: Where is the bathroom?
-- also: I need the toilet / Where's the restroom / Is there a washroom nearby
-A: Someone nearby can help you find the bathroom. At the event, you can ask a staff member.
-
 # Q: I'd like somewhere to sit.
 - also: Can I have a chair / Where can I sit down / I'd like a seat
 A: Ask someone nearby to help find a comfortable seat.
