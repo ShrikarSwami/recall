@@ -29,3 +29,5 @@ local.properties
 .idea/
 hub/probe_out/
 hub/data/
+web-demo/dist/
+.vercel/

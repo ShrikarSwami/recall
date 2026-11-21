@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Go-go demo</title>
+<meta name="description" content="Go-go: smart glasses that help people living with dementia stay independent. Interactive demo of the lens and the caregiver page.">
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">G</span> Go-go</div>
+  <p class="tag">Smart glasses that help people living with dementia stay independent. Familiar faces, everyday errands and the day's plan, with their caregiver one alert away.</p>
+</header>
+
+<main class="grid">
+  <section class="glasses">
+    <div class="head"><h2>What the wearer sees</h2><span class="sub">The real lens UI from our MicroLumin M6 glasses</span></div>
+    <div id="lens-box"><div id="lens-scale"><iframe id="lens" src="lens/index.html?ws=off" width="640" height="480" scrolling="no" title="Go-go lens"></iframe></div></div>
+
+    <div class="controls">
+      <div class="row"><span class="step">1</span><button data-k="s" class="primary">Put the glasses on <kbd>S</kbd></button></div>
+      <div class="row"><span class="step">2</span><span class="lbl">Look at someone</span>
+        <button data-person="shrikar">Shrikar</button><button data-person="sid">Sid</button><button data-person="abhiram">Abhiram</button></div>
+      <div class="row"><span class="step">3</span><span class="lbl">Answer Go-go</span>
+        <button data-say="yes">Nod / “yes”</button><button data-say="no">Shake / “no”</button></div>
+      <div class="row"><span class="step">4</span><button data-k="g">At the grocery store <kbd>G</kbd></button><button data-k="c">What's next today <kbd>C</kbd></button></div>
+      <div class="row"><span class="step">5</span><button data-k="f" class="danger">A fall <kbd>F</kbd></button><button data-k="x">Stop talking <kbd>X</kbd></button><button data-k="b">Take off <kbd>B</kbd></button></div>
+      <form id="ask" class="row ask"><span class="step">?</span><input id="ask-text" type="text" placeholder="Ask Go-go… e.g. “Go-go, where am I?”" autocomplete="off"><button type="submit">Ask</button></form>
+      <div class="chips" id="examples"></div>
+      <label class="sound"><input type="checkbox" id="sound" checked> Speak answers out loud</label>
+    </div>
+  </section>
+
+  <section class="care">
+    <div class="head"><h2>What the caregiver sees</h2><span class="sub">Live feed, alerts and “Send to Go-go”. Press S, G, C or F here too.</span></div>
+    <iframe id="care" src="caregiver/index.html" title="Go-go Care"></iframe>
+  </section>
+</main>
+
+<div id="phone" aria-live="polite"><div class="ph-app">Messages · now</div><div class="ph-from">Go-go</div><div class="ph-text" id="phone-text"></div></div>
+
+<footer>Interactive demo with prepared answers; nothing you type leaves this page. On the real glasses the camera recognises people, the mic hears the wearer and the hub runs on the family's own computer. <a href="https://github.com/ShrikarSwami/recall">Source</a></footer>
+
+<script src="brain/mock-kb.js"></script>
+<script src="brain/mock-brain.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
