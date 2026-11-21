@@ -124,6 +124,8 @@ EnverThor's Ollama keeps **one model loaded at a time**: switching models costs 
 
 ## 6a. Hardware findings (probed on our M6, Fri Nov 20, 9:10 PM)
 
+> **Full, newer measurements (gesture key codes, gyro axes, wear key 301, sensors): [`docs/HARDWARE.md`](HARDWARE.md).**
+
 | What | Result |
 |---|---|
 | Device | `XNM_Glass`, Android 9 (API 28), Unisoc UWS6152 (1x A75 + 3x A55), 1.9 GB RAM, 640x480 @ 160 dpi |

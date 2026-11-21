@@ -240,6 +240,7 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
             "say" -> if (ttsReady) tts?.speak(m.optString("text"), TextToSpeech.QUEUE_FLUSH, null, "lucia")
             "snap" -> snapRequested = true
             "mic" -> micOn = m.optBoolean("on", true)
+            "imu" -> ui.post { setImu(m.optBoolean("on", false)) }
         }
     }
 
@@ -284,7 +285,11 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
                 setPreviewCallback { data, cam -> onFrame(data, cam) }
                 startPreview()
             }
-        } catch (e: Exception) { log("camera failed $e") }
+        } catch (e: Exception) {
+            log("camera failed $e; retrying in 3 s")
+            camera = null
+            ui.postDelayed({ openCamera() }, 3000)   // e.g. a previous instance still holds the camera
+        }
     }
 
     private fun onFrame(nv21: ByteArray, cam: Camera) {
@@ -315,23 +320,30 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
     }
 
     // ------------------------------------------------------------------ touchpad / ring
-    // The M6 firmware turns touchpad/ring gestures into instant key events (~7 ms down→up),
-    // so gestures are told apart by key code, not by timing. Measured Fri Nov 20:
-    //   66 ENTER = tap (→ ask) · 142 F12 + 4 BACK = second gesture · 22/21 DPAD = swipes.
+    // The M6 firmware turns temple-touchpad gestures (device "hyn_ts") into instant key events
+    // (~7 ms down→up), so gestures are told apart by key code, not timing. Measured Fri Nov 20 (docs/HARDWARE.md):
+    //   66 ENTER = tap · 142 F12 = double tap (followed by a system BACK) · 141 F11 = long press
+    //   22 DPAD_RIGHT = swipe forward · 21 DPAD_LEFT = swipe back · swipe up/down not supported
+    //   301 from "xnm_pannel" = glasses put on (the real wear detector; the off-body sensor never fires)
     // BACK is swallowed so a gesture can never close Lucia (every session = brand-new user).
     private fun gestureName(code: Int) = when (code) {
         KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> "tap"
+        KeyEvent.KEYCODE_F12 -> "double_tap"
+        KeyEvent.KEYCODE_F11 -> "long_press"
         KeyEvent.KEYCODE_DPAD_RIGHT -> "swipe_forward"
         KeyEvent.KEYCODE_DPAD_LEFT -> "swipe_back"
         KeyEvent.KEYCODE_BACK -> "back"
-        KeyEvent.KEYCODE_F12 -> "f12"
+        301 -> "worn"
         else -> "key_$code"
     }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         log("key code=${event.keyCode} (${KeyEvent.keyCodeToString(event.keyCode)}) action=${event.action} repeat=${event.repeatCount}")
         if (event.keyCode == KeyEvent.KEYCODE_VOLUME_UP || event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) return super.dispatchKeyEvent(event)
-        if (event.action == KeyEvent.ACTION_UP) sendKey(gestureName(event.keyCode), event.keyCode)
+        if (event.action == KeyEvent.ACTION_UP) {
+            if (event.keyCode == 301) ws?.send(JSONObject().put("type", "worn").put("value", true).toString())
+            sendKey(gestureName(event.keyCode), event.keyCode, event.scanCode, event.device?.name ?: "?")
+        }
         return true
     }
 
@@ -345,14 +357,46 @@ class MainActivity : Activity(), TextToSpeech.OnInitListener, android.hardware.S
         return true
     }
 
-    private fun sendKey(name: String, code: Int) {
+    private fun sendKey(name: String, code: Int, scan: Int = -1, device: String = "") {
         log("input $name")
-        ws?.send(JSONObject().put("type", "key").put("name", name).put("code", code).toString())
+        ws?.send(JSONObject().put("type", "key").put("name", name).put("code", code)
+            .put("scan", scan).put("device", device).toString())
     }
 
     private var worn: Boolean? = null
+    private var imuOn = false
+    private val imuBuf = org.json.JSONArray()
+    private var imuLastSend = 0L
+
+    private fun setImu(on: Boolean) {
+        val sm = getSystemService(Context.SENSOR_SERVICE) as android.hardware.SensorManager
+        if (on && !imuOn) {
+            listOf(android.hardware.Sensor.TYPE_GYROSCOPE, android.hardware.Sensor.TYPE_ACCELEROMETER,
+                   android.hardware.Sensor.TYPE_GAME_ROTATION_VECTOR, android.hardware.Sensor.TYPE_PROXIMITY,
+                   android.hardware.Sensor.TYPE_LIGHT).forEach { type ->
+                sm.getDefaultSensor(type)?.let { sm.registerListener(this, it, 20000) }  // 50 Hz
+            }
+        } else if (!on && imuOn) {
+            sm.unregisterListener(this)
+            sm.getDefaultSensor(android.hardware.Sensor.TYPE_LOW_LATENCY_OFFBODY_DETECT, true)?.let {
+                sm.registerListener(this, it, android.hardware.SensorManager.SENSOR_DELAY_NORMAL) }
+        }
+        imuOn = on
+        log("imu streaming=$on")
+    }
 
     override fun onSensorChanged(e: android.hardware.SensorEvent) {
+        if (imuOn && e.sensor.type != android.hardware.Sensor.TYPE_LOW_LATENCY_OFFBODY_DETECT) {
+            val row = org.json.JSONArray().put(e.sensor.type).put(e.timestamp / 1_000_000)
+            e.values.forEach { row.put(it.toDouble()) }
+            imuBuf.put(row)
+            val now = System.currentTimeMillis()
+            if (now - imuLastSend > 100 && imuBuf.length() > 0) {
+                imuLastSend = now
+                ws?.send(JSONObject().put("type", "imu").put("rows", org.json.JSONArray(imuBuf.toString())).toString())
+                while (imuBuf.length() > 0) imuBuf.remove(0)
+            }
+        }
         if (e.sensor.type == android.hardware.Sensor.TYPE_LOW_LATENCY_OFFBODY_DETECT) {
             val on = e.values[0] > 0.5f  // 1.0 = on body
             if (on != worn) {

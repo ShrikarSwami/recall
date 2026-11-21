@@ -27,13 +27,14 @@ seeing it for the first time, every time:
 | `glasses-app/` | Thin Android 9 app: camera/mic/keys → hub, shows `lens/` in a WebView | `glasses-app/AGENTS.md` |
 | `knowledge/` | Everything Lucia knows, in markdown Q&A. **Anyone can edit.** | `knowledge/AGENTS.md` |
 | `config/` | App name, wake word, patient, caregiver, model hosts | `config/app.example.json` |
-| `docs/` | `SPEC.md` (full plan + measured hardware facts), `TEAM_TEMPLATE.md`, `CHATGPT_KB_PROMPT.md` | |
+| `docs/` | `SPEC.md` (full plan), **`HARDWARE.md` (measured M6 facts: keys, sensors, camera)**, `CHATGPT_KB_PROMPT.md` | |
 
 ## Quick start by role
 
 - **Frontend (no glasses needed):** open `sim/index.html` in a browser (double-click works). Edit `lens/`
   and reload. Details: `sim/AGENTS.md`.
 - **Backend:** `cd hub && uv sync && uv run pytest -q && uv run python -m lucia.server` (Mac, Apple Silicon).
+  No glasses? `uv run python tools/replay_glasses.py --say "Lucia, who is this?"` acts as them.
 - **Content:** fill in `knowledge/people/<your-name>.md`, then run `cd hub && uv run python -m lucia.export_kb`
   so the simulator picks it up.
 

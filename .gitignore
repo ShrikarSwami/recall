@@ -8,8 +8,10 @@ vendor/
 sdkappkey.jks
 
 # ---- private data: faces, real phone numbers, keys ----
-faces/*
+faces/**
+!faces/*/
 !faces/README.md
+!faces/*/INSTRUCTIONS.txt
 config/app.local.json
 .env
 *.local.*

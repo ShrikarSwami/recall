@@ -28,6 +28,15 @@ plus its `buffalo_sc` weights (see `vendor/face_id/models/README.md`).
 
 ## Testing without glasses
 
+Fake glasses (same protocol as the real app; see `docs/HARDWARE.md` for the measured key codes):
+```bash
+uv run python tools/replay_glasses.py --say "Lucia, who is this?" --frame ../faces/sid/IMG_3167.jpg
+uv run python tools/replay_glasses.py --key tap --say "where are we"
+uv run python tools/replay_glasses.py --recording data/recordings/voice_wearer   # a real capture
+```
+Record more real data when the glasses are around: `uv run python tools/capture_session.py` (Lucia speaks each step).
+
+
 ```bash
 curl -XPOST localhost:9100/api/ask -H 'content-type: application/json' -d '{"text":"where are we?"}'
 ```

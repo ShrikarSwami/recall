@@ -1,0 +1,18 @@
+Hi Sid! This is your folder for Lucia (team BB). Two things to do, ~10 minutes total.
+
+1) YOUR FACE (so the glasses recognise you)
+   - Take 3 photos at the venue, in venue lighting, no sunglasses or hat:
+       * one straight on (most important)
+       * one turned ~30-45 degrees left, one ~30-45 degrees right (not a full side profile)
+   - Put them in THIS folder (faces/sid/). Any filename. HEIC from an iPhone is fine; Shrikar converts it.
+   - Photos stay on Shrikar's Mac only. They are never pushed to GitHub and get deleted after the event.
+
+2) WHAT LUCIA SAYS ABOUT YOU (judges will ask!)
+   - Open knowledge/people/sid.md in the repo.
+   - Fill in pronouns, a short intro ("This is Sid. He/She/They ..."), and as many A: answers as you can.
+     1-2 short, friendly sentences each. Blank answers are skipped, so partial is fine.
+   - Add extra "# Q:" blocks for anything a judge might ask about you.
+   - Then: cd hub && uv run python -m lucia.export_kb   (updates the simulator) and open a PR.
+   - Using a coding agent? Point it at AGENTS.md; it knows to walk you through this file.
+
+Questions -> Shrikar / the team Discord.

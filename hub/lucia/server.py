@@ -53,6 +53,43 @@ class Hub:
         self.speak_lock = asyncio.Lock()
         DATA_DIR.mkdir(parents=True, exist_ok=True)
         self.log_path = DATA_DIR / "events.jsonl"
+        self.rec: dict | None = None   # active hardware recording (see /api/record)
+
+    # ------------------------------------------------------------------ recording (glasses-free dev)
+    async def record_start(self, label: str, seconds: float, imu: bool):
+        import wave
+        d = DATA_DIR / "recordings" / label
+        (d / "frames").mkdir(parents=True, exist_ok=True)
+        w = wave.open(str(d / "mic.wav"), "wb"); w.setnchannels(1); w.setsampwidth(2); w.setframerate(16000)
+        self.rec = {"label": label, "dir": d, "wav": w, "frames": 0, "t0": time.time(),
+                    "imu": (d / "imu.jsonl").open("w"), "keys": (d / "keys.jsonl").open("w")}
+        if imu:
+            await self.to_glasses({"type": "imu", "on": True})
+        await self.event("record", label=label, state="start", seconds=seconds)
+        asyncio.get_running_loop().call_later(seconds, lambda: asyncio.ensure_future(self.record_stop()))
+
+    async def record_stop(self):
+        r, self.rec = self.rec, None
+        if not r:
+            return
+        await self.to_glasses({"type": "imu", "on": False})
+        r["wav"].close(); r["imu"].close(); r["keys"].close()
+        meta = {"label": r["label"], "seconds": round(time.time() - r["t0"], 1), "frames": r["frames"]}
+        (r["dir"] / "meta.json").write_text(json.dumps(meta))
+        await self.event("record", state="stop", **meta)
+
+    def record_audio(self, pcm: bytes):
+        if self.rec:
+            self.rec["wav"].writeframes(pcm)
+
+    def record_frame(self, jpeg: bytes):
+        if self.rec:
+            self.rec["frames"] += 1
+            (self.rec["dir"] / "frames" / f"{self.rec['frames']:04d}.jpg").write_bytes(jpeg)
+
+    def record_line(self, kind: str, obj: dict):
+        if self.rec:
+            self.rec[kind].write(json.dumps({"t": round(time.time() - self.rec["t0"], 3), **obj}) + "\n")
 
     # ------------------------------------------------------------------ setup
     async def start(self):
@@ -244,6 +281,7 @@ async def api_kb():
 @app.websocket("/ws/glasses")
 async def ws_glasses(ws: WebSocket):
     await ws.accept()
+    previous = hub.glasses          # e.g. real glasses, while a replay tool briefly takes over
     hub.glasses = ws
     seg = Segmenter()
     vals = placeholders(hub.cfg)
@@ -257,12 +295,14 @@ async def ws_glasses(ws: WebSocket):
             if msg.get("bytes"):
                 b = msg["bytes"]
                 if b[0] == 1:
+                    hub.record_audio(b[1:])
                     if time.time() < hub.playing_until:
                         seg.feed(b"\x00" * (len(b) - 1))  # don't transcribe Lucia's own voice
                         continue
                     for utt in seg.feed(b[1:]):
                         asyncio.create_task(hub.utterance(utt))
                 elif b[0] == 2:
+                    hub.record_frame(b[1:])
                     asyncio.create_task(hub.frame(b[1:]))
             elif msg.get("text"):
                 m = json.loads(msg["text"])
@@ -271,8 +311,11 @@ async def ws_glasses(ws: WebSocket):
                     hub.worn = m.get("worn") if m.get("worn") is not None else hub.worn
                     await hub.event("hello", **{k: v for k, v in m.items() if k != "type"})
                     await hub.greet()
+                elif t == "imu":
+                    hub.record_line("imu", {"rows": m.get("rows", [])})
                 elif t == "key":
-                    await hub.event("key", name=m.get("name"), code=m.get("code"))
+                    hub.record_line("keys", m)
+                    await hub.event("key", name=m.get("name"), code=m.get("code"), scan=m.get("scan"), device=m.get("device"))
                     if m.get("name") == "tap":
                         await hub.arm("tap")
                 elif t == "worn":
@@ -284,7 +327,7 @@ async def ws_glasses(ws: WebSocket):
         pass
     finally:
         if hub.glasses is ws:
-            hub.glasses = None
+            hub.glasses = previous if previous is not None and previous.client_state.name == "CONNECTED" else None
         await hub.event("glasses", connected=False)
 
 
@@ -324,6 +367,17 @@ async def api_say(body: dict):
     r = hub.brain._reply(body.get("text", ""), body.get("title", hub.cfg["appName"]), "manual")
     await hub.say(r)
     return {"ok": True}
+
+
+@app.post("/api/record")
+async def api_record(body: dict):
+    """Record raw glasses data for offline development: mic.wav, frames/*.jpg, imu.jsonl, keys.jsonl
+    in hub/data/recordings/<label>/ (gitignored, local only). {"label": "nod", "seconds": 15, "imu": true}"""
+    if hub.rec:
+        await hub.record_stop()
+    label = "".join(c for c in body.get("label", "take") if c.isalnum() or c in "-_") or "take"
+    await hub.record_start(label, float(body.get("seconds", 15)), bool(body.get("imu", True)))
+    return {"recording": label}
 
 
 @app.post("/api/reload")
