@@ -9,10 +9,10 @@ import re
 import textwrap
 import time
 from collections import deque
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import datetime
 
-from . import matcher, schedule
+from . import matcher, schedule, playback
 from .config import fill, placeholders
 from .knowledge import Knowledge
 
@@ -66,6 +66,7 @@ class Reply:
     score: float | None = None
     offer: str | None = None       # "more" | "tell_caregiver": Lucia asked a yes/no question
     prompt: str | None = None      # lens line while an offer is open
+    speech_rate: float = 1.0       # per-reply speed; ordinary replies keep their normal rate
 
 
 @dataclass
@@ -91,6 +92,8 @@ class Brain:
     offer: Offer | None = None
     events: list = field(default_factory=list)                 # schedule.Event list (knowledge/schedule.md)
     place: dict | None = None                                  # live place from the iPhone: name, kind, home_min, at
+
+    last_answer: Reply | None = None
 
     # ---------------------------------------------------------------- context
     def live_place(self) -> dict | None:
@@ -144,7 +147,10 @@ class Brain:
         lines = textwrap.wrap(shown, 34)[:3]
         if len(textwrap.wrap(shown, 34)) > 3:
             lines[-1] = lines[-1][:31].rstrip() + "…"
-        return Reply(speech, fill(title, self.vals)[:22], lines, intent, subject, repeat_count=repeats, **kw)
+        reply = Reply(speech, fill(title, self.vals)[:22], lines, intent, subject, repeat_count=repeats, **kw)
+        if speech and not intent.startswith("speech_"):
+            self.last_answer = replace(reply, alert=None, offer=None, prompt=None)
+        return reply
 
     def intro(self, pid: str) -> str:
         p = self.kb.people[pid]
@@ -212,6 +218,20 @@ class Brain:
     # ---------------------------------------------------------------- main entry
     async def answer(self, text: str) -> Reply:
         t = text.strip()
+        control = playback.command(t, self.cfg["wakeWord"])
+        if control == "stop":
+            self.offer = None
+            return Reply("", "", [], "speech_stop")
+        if control in ("repeat", "slow"):
+            pending = self.offer
+            self.offer = None
+            if not self.last_answer:
+                return self._reply("There isn't an earlier answer to repeat yet.", "Ask a question", "speech_repeat_empty")
+            r = replace(self.last_answer, intent="speech_slow" if control == "slow" else "speech_repeat",
+                        speech_rate=0.72 if control == "slow" else 1.0, alert=None, offer=None, prompt=None)
+            if pending and self.clock() <= pending.until:
+                r = self._with_offer(r, pending.kind, pending.subject, pending.question, pending.told)
+            return r
         if self.offer and self.clock() <= self.offer.until and len(t.split()) <= 5:
             if YES.search(t):
                 return self._resolve(True)

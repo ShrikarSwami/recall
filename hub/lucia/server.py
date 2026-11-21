@@ -18,7 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import knowledge, reminders, schedule
+from . import knowledge, reminders, schedule, playback
 from .export_kb import export_kb
 from .alerts import Alerts
 from .brain import OFFER_S, Brain, Reply
@@ -65,6 +65,9 @@ class Hub:
         self.head = HeadGestures()
         self.imu_for_offer = False
         self.gesture_quiet_until = 0.0
+        self.output_generation = 0
+        self.followup_until = 0.0
+        self.answer_tasks: set[asyncio.Task] = set()
         self.falls = FallDetector()
 
     # ------------------------------------------------------------------ recording (glasses-free dev)
@@ -199,17 +202,45 @@ class Hub:
         except Exception:
             pass
 
+    async def interrupt(self):
+        """Flush the device without waiting for rendering, a model, or the speech lock."""
+        self.output_generation += 1
+        self.playing_until = self.armed_until = self.followup_until = 0.0
+        self.brain.offer = None
+        for task in tuple(self.answer_tasks):
+            task.cancel()
+        await self.to_glasses({"type": "audio_stop"})
+        await self.to_glasses({"type": "clear"})
+        if self.imu_for_offer:
+            self.imu_for_offer = False
+            await self.imu_wanted()
+
     async def say(self, reply: Reply, question: str = ""):
+        if reply.intent == "speech_stop":
+            await self.interrupt()
+            return
+        generation = self.output_generation
         async with self.speak_lock:
+            if generation != self.output_generation:
+                return
             ttl = max(6000, 450 * len(reply.speech.split()) + 3000) + (OFFER_S * 1000 if reply.offer else 0)
             await self.to_glasses({"type": "card", "title": reply.title, "lines": reply.lines, "intent": reply.intent,
                                    "prompt": reply.prompt or "", "ttl_ms": ttl})
             await self.to_glasses({"type": "state", "value": "idle"})
             if self.cfg["voice"].get("speakAnswers", True):
-                pcm = await self.voice.pcm(reply.speech)
+                pcm = await self.voice.pcm(reply.speech, rate=reply.speech_rate)
+                if generation != self.output_generation:
+                    return
                 self.playing_until = time.time() + len(pcm) / 2 / Voice.OUT_RATE + 0.4
-                for i in range(0, len(pcm), 8820):  # 200 ms chunks
-                    await self.to_glasses(pcm[i:i + 8820])
+                for i in range(0, len(pcm), 8820):  # Pace chunks so stop can flush a small device buffer.
+                    if generation != self.output_generation:
+                        return
+                    chunk = pcm[i:i + 8820]
+                    await self.to_glasses(chunk)
+                    await asyncio.sleep(len(chunk) / (2 * Voice.OUT_RATE))
+            if generation != self.output_generation:
+                return
+            self.followup_until = max(time.time(), self.playing_until) + 15
             if reply.offer and self.brain.offer:
                 await self.open_offer()
         await self.event("answer", question=question, speech=reply.speech, intent=reply.intent,
@@ -288,6 +319,8 @@ class Hub:
 
     # ------------------------------------------------------------------ input
     async def arm(self, why: str):
+        if self.speak_lock.locked() or time.time() < self.playing_until:
+            await self.interrupt()
         self.armed_until = time.time() + ARM_S
         await self.to_glasses({"type": "state", "value": "listening"})
         await self.to_glasses({"type": "snap"})
@@ -296,29 +329,55 @@ class Hub:
         await self.event("listening", why=why)
 
     async def question(self, text: str):
+        control = playback.command(text, self.cfg["wakeWord"])
+        if control == "stop":
+            await self.interrupt()
+            await self.event("answer", question=text, speech="", intent="speech_stop", repeat=1)
+            return
+        if control in ("repeat", "slow"):
+            pending = self.brain.offer
+            await self.interrupt()
+            self.brain.offer = pending
+        generation = self.output_generation
         self.armed_until = 0
         await self.to_glasses({"type": "state", "value": "thinking"})
         t0 = time.perf_counter()
-        reply = await self.brain.answer(text)
+        task = asyncio.create_task(self.brain.answer(text))
+        self.answer_tasks.add(task)
+        try:
+            reply = await task
+        except asyncio.CancelledError:
+            return
+        finally:
+            self.answer_tasks.discard(task)
+        if generation != self.output_generation:
+            return
         await self.event("timing", brain_ms=round((time.perf_counter() - t0) * 1000), stt_ms=round(self.stt.last_ms),
                          llm_ms=round(self.llm.last_ms or 0))
         await self.say(reply, text)
 
-    async def utterance(self, pcm: bytes):
+    async def utterance(self, pcm: bytes, during_playback: bool = False):
         text = await self.stt.transcribe(pcm)
         if not text:
             return
         armed = time.time() < self.armed_until
         woke, rest = split_wake(text, self.cfg["wakeWord"])
-        if not (armed or woke):
+        control = playback.command(rest if woke else text, self.cfg["wakeWord"])
+        playback_finished = time.time() >= self.playing_until and not self.speak_lock.locked()
+        followup = bool(control and time.time() < self.followup_until
+                        and (not during_playback or playback_finished))
+        if during_playback and not armed and not (woke and control) and not followup:
+            await self.event("heard", ignored=True, words=len(text.split()))
+            return
+        if not (armed or woke or followup):
             # Bystander talk: never stored or shown. Only a word count, so we can debug "it didn't hear me".
             await self.event("heard", ignored=True, words=len(text.split()))
             return
         await self.event("heard", text=text, armed=armed, wake=woke)
-        if armed:
+        if armed or followup:
             await self.question(rest if woke else text)
         elif woke:
-            if len(rest.split()) >= 2:
+            if control or len(rest.split()) >= 2:
                 await self.question(rest)
             else:
                 await self.arm("wake word")
@@ -417,6 +476,8 @@ async def ws_glasses(ws: WebSocket):
     previous = hub.glasses          # e.g. real glasses, while a replay tool briefly takes over
     hub.glasses = ws
     seg = Segmenter()
+    segment_generation = hub.output_generation
+    echo_segment = False
     vals = placeholders(hub.cfg)
     await ws.send_text(json.dumps({"type": "config", "hint": fill(hub.cfg["idleHint"], vals)}))
     await hub.event("glasses", connected=True)
@@ -429,11 +490,17 @@ async def ws_glasses(ws: WebSocket):
                 b = msg["bytes"]
                 if b[0] == 1:
                     hub.record_audio(b[1:])
-                    if time.time() < hub.playing_until:
-                        seg.feed(b"\x00" * (len(b) - 1))  # don't transcribe Lucia's own voice
-                        continue
+                    if segment_generation != hub.output_generation:
+                        seg = Segmenter()
+                        segment_generation = hub.output_generation
+                        echo_segment = False
+                    playing = time.time() < hub.playing_until
+                    echo_segment = echo_segment or playing
                     for utt in seg.feed(b[1:]):
-                        asyncio.create_task(hub.utterance(utt))
+                        asyncio.create_task(hub.utterance(utt, during_playback=echo_segment))
+                        echo_segment = playing
+                    if not seg.speaking:
+                        echo_segment = False
                 elif b[0] == 2:
                     hub.record_frame(b[1:])
                     asyncio.create_task(hub.frame(b[1:]))
