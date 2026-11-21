@@ -80,6 +80,8 @@ def check(faces_dir: Path, threshold: float = 0.45) -> None:
     per_photo: dict[str, list[tuple[str, np.ndarray | None]]] = {}
     for person_dir in sorted(p for p in faces_dir.iterdir() if p.is_dir()):
         for img_path in sorted(person_dir.glob("*")):
+            if img_path.is_dir():
+                continue  # e.g. original/ with the HEIC files
             if img_path.suffix.lower() not in (".jpg", ".jpeg", ".png"):
                 if not img_path.name.startswith("."):
                     print(f"  skip {person_dir.name}/{img_path.name} (use .jpg/.png; convert HEIC first)")
