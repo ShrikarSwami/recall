@@ -48,12 +48,27 @@
     arrival: { pose: "point", emo: "warm" }, schedule: { pose: "point", emo: "warm" }, heads_up: { pose: "point", emo: "warm" },
     fall: { emo: "concerned" }, distress: { emo: "concerned" } };
   var cardMood = null;
+  function hop() {
+    if (ACT) return;
+    setClass(jumper, "hop", false); void jumper.offsetWidth; setClass(jumper, "hop", true);   // restart the animation
+    setTimeout(function () { setClass(jumper, "hop", false); }, 1250);
+  }
   function react(intent) {
     var r = REACT[intent] || {};
     cardMood = r.emo || null; AV.emo = cardMood; AV.pose = r.pose || "idle";
     if (r.act) ACT = { name: r.act, t0: performance.now(), hopped: false };
+    else if (r.pose === "point") { TG.x = 0.45; AV.dir = "left"; }   // scamper aside and point back at the card
+    else if (intent === "fall" || intent === "distress") TG.x = 0;   // come straight back, concerned
+    else hop();                                                      // any other new answer: a little bound
   }
-  function clearCard() { cardMood = null; AV.emo = null; AV.pose = "idle"; $("prompt").textContent = ""; title.textContent = ""; lines.textContent = ""; slot.className = "empty"; slot.innerHTML = ""; }
+  // while Lucia talks, wander a little (walk a few steps, the odd hop), then come back to the middle
+  var wander = 0;
+  setInterval(function () {
+    if (!AV.talking || ACT || AV.pose === "point") { if (!AV.talking && AV.pose !== "point" && !ACT) { TG.x = 0; wander = 0; } return; }
+    var step = ["left", "hop", "right", "center"][wander]; wander = (wander + 1) % 4;
+    if (step === "hop") hop(); else TG.x = { left: -0.3, right: 0.3, center: 0 }[step];
+  }, 1400);
+  function clearCard() { cardMood = null; AV.emo = null; AV.pose = "idle"; TG.x = 0; $("prompt").textContent = ""; title.textContent = ""; lines.textContent = ""; slot.className = "empty"; slot.innerHTML = ""; }
   // hub answers carry an intent but no icon: give each a calm stamp
   var INTENT_STAMP = { greeting: ["shield", "WITH YOU"], proactive_intro: ["person-visitor", "HELLO"], who_is_this: ["person-visitor", "HELLO"], who_is: ["person-visitor", "HELLO"],
     "kb:person": ["person-visitor", "FRIEND"], "kb:place": ["home", "HERE"], "kb:patient": ["person", "YOU"], time: ["timer", "TODAY"], distress: ["shield", "SAFE"],
