@@ -18,8 +18,12 @@ from .knowledge import Knowledge
 
 DISTRESS = re.compile(
     r"\b(go(ing)? home|want (to go )?home|take me home|scared|afraid|frightened|i('m| am) lost|"
-    r"where is everyone|where('s| is) my (mom|mother|dad|father|wife|husband)|help me|i('m| am) confused|"
+    r"where is everyone|where('s| is) my (mom|mother|dad|father|wife|husband)|i('m| am) confused|"
     r"don't know where i am|do not know where i am|get me out)\b", re.I)
+# A bare call for help is distress; asking what the assistant helps with is not.
+HELP_DISTRESS = re.compile(
+    r"\W*(?:(?:please|someone|somebody)[, ]+|(?:can|could|would) (?:you|someone|somebody) )?"
+    r"help me(?:[,\s]+(?:please|now|right now))?\W*", re.I)
 TIME = re.compile(r"\b(what )?(time|day|date|year|month)\b.*\b(is it|today|now)\b|\bwhat day\b|\bwhat time\b|"
                   r"\bwhat('s| is) the date\b|\bwhat year\b|\bwhat month\b|\btoday's date\b", re.I)
 WHERE = re.compile(r"\b(where (am i|are we|is this)|what (is|'s) this place|what place is this|where have i (got|gotten) to)\b", re.I)
@@ -239,7 +243,8 @@ class Brain:
                 return self._resolve(False)
         self.offer = None
 
-        if DISTRESS.search(t):
+        help_text = re.sub(r"^\W*(?:hey\s+)?" + re.escape(self.cfg["wakeWord"]) + r"\b\W*", "", t, flags=re.I)
+        if DISTRESS.search(t) or HELP_DISTRESS.fullmatch(help_text):
             r = self._reply("You're safe, {patient}. {caregiver} knows where you are, and I'm letting him know now.",
                             "You're safe", "distress")
             r.alert = f"{self.vals['patient']} said: \"{t}\""

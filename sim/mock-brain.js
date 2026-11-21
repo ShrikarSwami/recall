@@ -5,7 +5,8 @@
   "use strict";
   var KB = window.MOCK_KB || { entries: [], people: {}, places: {}, patient: "Somya", caregiver: "Shrikar", app: "Lucia" };
 
-  var DISTRESS = /\b(go(ing)? home|want (to go )?home|take me home|scared|afraid|i('m| am) lost|where is everyone|help me|i('m| am) confused)\b/i;
+  var DISTRESS = /\b(go(ing)? home|want (to go )?home|take me home|scared|afraid|i('m| am) lost|where is everyone|i('m| am) confused)\b/i;
+  var HELP_DISTRESS = /^\W*(?:(?:please|someone|somebody)[, ]+|(?:can|could|would) (?:you|someone|somebody) )?help me(?:[,\s]+(?:please|now|right now))?\W*$/i;
   var TIME = /\bwhat (time|day)\b|\bwhat('s| is) the date\b|\bwhat year\b|\btoday's date\b/i;
   var WHO_THIS = /\bwho('s| is| are)? (this|that|he|she|they|in front of me|next to me)\b|\bwho am i talking to\b|(?<!how )\bdo i know (him|her|them|this)\b/i;
   var PRON = /\b(he|she|him|her|his|hers|they|them|their)\b|\b(this|that) (person|guy|girl|man|woman|lady)\b/gi;
@@ -89,7 +90,9 @@
       return replay;
     }
     var t = text.trim();
-    if (DISTRESS.test(t)) {
+    var helpText = norm(t).replace(/^hey /, ""), wake = norm(KB.wake || "");
+    if (wake && helpText.indexOf(wake + " ") === 0) helpText = helpText.slice(wake.length).trim();
+    if (DISTRESS.test(t) || HELP_DISTRESS.test(helpText)) {
       var r = card("You're safe, " + KB.patient + ". " + KB.caregiver + " knows where you are, and I'm letting him know now.", "You're safe", "distress");
       r.alert = KB.patient + ' said: "' + t + '"';
       return r;

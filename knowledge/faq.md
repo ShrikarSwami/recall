@@ -21,8 +21,8 @@ A: Say "{wake}," then ask what you'd like to know. There's no hurry.
 A: Tap the side of the glasses to ask a question. You can also say "{wake}."
 
 # Q: What can you help me with?
-- also: What can you do? / What do I ask you about? / Wait, what are you here for? / What can ya do?
-A: I can help with familiar faces, the time, and where you are. If you're distressed, I can alert {caregiver}.
+- also: What can you do? / What do I ask you about? / Wait, what are you here for? / What can ya do? / What can I ask you? / What can I ask? / What questions can I ask you? / Give me some examples / How can you help me? / What can you help me? / What should I ask you? / Can you give me an example?
+A: Say "{wake}," then ask "Who is this?" or "Where am I?" You can ask again whenever you need a reminder.
 
 # Q: Can you hear me?
 - also: Is this microphone working? / Hello, are you listening? / Did you hear what I said? / Can you here me?

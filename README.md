@@ -6,6 +6,8 @@ the lens. Built by **team BB** at the Worn Smart Glasses Hackathon (Nov 20–21,
 
 **Start here:** [docs/SPEC.md](docs/SPEC.md) (the full plan) · [docs/TEAM_TEMPLATE.md](docs/TEAM_TEMPLATE.md) (fill this in on Discord)
 
+**Final demo handoff:** [docs/FINAL_HANDOFF.md](docs/FINAL_HANDOFF.md) · [docs/DEMO.md](docs/DEMO.md) (judge-first script).
+
 **Submission draft:** [docs/SUBMISSION.md](docs/SUBMISSION.md) (description, prior work and privacy).
 
 ## Status

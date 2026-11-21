@@ -197,7 +197,7 @@ class Hub:
         texts = [preview.greeting().speech]
         texts.extend(preview.intro_reply(pid).speech for pid in self.kb.people)
         for question in ("where are we", "why am I here", "what is my name",
-                         "who takes care of me", "who are you", "how do I use this"):
+                         "who takes care of me", "who are you", "how do I use this", "what can I ask you"):
             preview.offer = None
             reply = await preview.answer(question)
             if not reply.alert:
