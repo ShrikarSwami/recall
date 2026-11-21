@@ -112,3 +112,21 @@ def test_how_do_i_know_him_is_not_who_is_this(brain):
 def test_tell_me_about_named_person_gives_intro(brain):
     r = ask(brain, "tell me about Dev")
     assert r.subject == "dev" and r.speech.startswith("This is Dev")
+
+
+@pytest.mark.parametrize("q", ["who is a pyrom", "do you know Margaret", "who is my son", "tell me about my wife"])
+def test_unknown_people_never_guessed(brain, q):
+    r = ask(brain, q)
+    assert r.intent == "unknown_person" and r.offer == "tell_caregiver"
+
+
+@pytest.mark.parametrize("q", ["how much medicine should I take", "my chest hurts a bit", "should I take my pills"])
+def test_health_goes_to_doctor_and_caregiver(brain, q):
+    r = ask(brain, q)
+    assert r.intent in ("health", "distress", "kb:faq") and ("doctor" in r.speech or r.alert)
+
+
+def test_caregiver_text_says_what_was_asked(brain):
+    ask(brain, "who is a pyrom")
+    y = ask(brain, "yes")
+    assert y.alert == 'Somya has a question: "who is a pyrom"'

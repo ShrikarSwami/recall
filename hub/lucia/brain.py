@@ -36,6 +36,15 @@ YES = re.compile(r"^\W*(yes|yeah|yep|yup|sure|okay|ok|of course|go ahead|go on|t
 NO = re.compile(r"^\W*(no|nope|nah|not now|no thanks|no thank you|i'?m (ok|okay|fine|good)|that'?s (ok|okay|fine|all)|"
                 r"i'?m good|maybe later)([\s,]+(thanks|thank you|lucia|please))*\W*$", re.I)
 
+# "who is <someone we don't know>": also catches speech-to-text mangling a name ("who is a pyrom").
+UNKNOWN_PERSON = re.compile(r"\b(who('s| is| was| are)|tell me about|do you know|have you met)\s+"
+                            r"(?!(this|that|he|she|they|it|him|her|them|you|i|me|we|here|there|in|on|at|my caregiver|"
+                            r"taking care|talking|next|coming|everyone|everybody|the (president|judge)s?)\b)\w+", re.I)
+FAMILY = re.compile(r"\bmy (wife|husband|son|daughter|mom|mother|dad|father|brother|sister|grandson|granddaughter|"
+                    r"grandkids?|children|kids?|friend|neighbou?r|dog|cat|pet)s?\b", re.I)
+HEALTH = re.compile(r"\b(medicine|medication|meds|pills?|dose|dosage|tablet|doctor|nurse|hospital|blood pressure|"
+                    r"sugar|insulin|diabetes|heart|chest|pain|hurts?|sick|dizzy|fever|allerg\w*|surgery|"
+                    r"prescription|vitamin)\b", re.I)
 ABOUT = re.compile(r"\b(tell me (more )?about|what do you know about|talk about|who is|who's)\b", re.I)
 
 SEEN_FRESH_S = 15        # a face counts as "in front of you" for this long
@@ -189,7 +198,7 @@ class Brain:
             r = self._reply(e.answer, self.kb.people[o.subject].first, "offer_yes", o.subject)
             return self._with_offer(r, "more", o.subject, told=o.told + [e.key])
         r = self._reply("Okay. I've let {caregiver} know.", "Done", "offer_yes")
-        r.alert = f"{self.vals['patient']} asked something I couldn't answer: \"{o.question}\""
+        r.alert = f"{self.vals['patient']} has a question: \"{o.question}\""
         return r
 
     def greeting(self) -> Reply:
@@ -234,6 +243,10 @@ class Brain:
             return self._reply(f"It's {now:%A}, {now:%B} {day}{suffix}. It's about {hm} {part}.",
                                f"{now:%a} {now:%-I:%M}", "time")
 
+        rel = (self.cfg.get("caregiver", {}).get("relationship") or "").split()[-1:]   # "your grandson" -> grandson
+        if rel and re.search(rf"\bmy {re.escape(rel[0])}\b", t, re.I):
+            t = "who is my caregiver"                    # "who is my grandson?" -> the caregiver answer
+
         named = matcher.person_mentioned(t, self.kb)
         if WHO_THIS.search(t) and not named:
             pid = self.in_view()
@@ -266,6 +279,11 @@ class Brain:
             if mine and mine.score >= matcher.MAYBE and mine.score >= cands[0].score - 6:
                 cands = [mine] + [c for c in cands if c is not mine]
         best = cands[0] if cands else None
+        if (UNKNOWN_PERSON.search(t) and not named and not WHO_THIS.search(t)
+                and not (best and best.score >= matcher.SURE)):
+            r = self._reply("I don't know who that is yet.", "Not sure", "unknown_person",
+                            score=best.score if best else None)
+            return self._with_offer(r, "tell_caregiver", None, question=t)
         chosen = None
         if best and best.score >= matcher.SURE:
             chosen = best
@@ -289,10 +307,19 @@ class Brain:
                 title = {"place": "Where you are", "patient": "{patient}", "faq": "{app}"}[e.scope]
             return self._reply(e.answer, title, f"kb:{e.scope}", e.subject, score=chosen.score)
 
+        # Nothing we wrote down matches. Never guess about people or health; general knowledge may go to the
+        # private model, which must hedge ("I think…") or admit it doesn't know.
+        score = best.score if best else None
+        if UNKNOWN_PERSON.search(t) or FAMILY.search(t):
+            r = self._reply("I don't know who that is yet.", "Not sure", "unknown_person", score=score)
+            return self._with_offer(r, "tell_caregiver", None, question=t)
+        if HEALTH.search(t):
+            r = self._reply("That's a good question for your doctor.", "Ask your doctor", "health", score=score)
+            return self._with_offer(r, "tell_caregiver", None, question=t)
         if self.llm is not None:
             recent = [k for _, k in list(self.history)[-4:]]
             free = await self.llm.freeform(t, self.vals["patient"], recent)
             if free:
-                return self._reply(free, "{app}", "freeform", score=best.score if best else None)
-        r = self._reply("I'm not sure about that one.", "Not sure", "unknown", score=best.score if best else None)
+                return self._reply(free, "{app}", "freeform", score=score)
+        r = self._reply("I'm not sure about that one.", "Not sure", "unknown", score=score)
         return self._with_offer(r, "tell_caregiver", None, question=t)
