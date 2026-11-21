@@ -5952,7 +5952,7 @@ window.MOCK_KB = {
     "who am I talking to",
     "do I know them"
    ],
-   "answer": "This is Sid, one of the presenters of this project."
+   "answer": "This is Sid, one of the presenters of this project. He worked on the front end of the app and designed the squirrel guide on the lens."
   },
   {
    "scope": "person",
@@ -5962,7 +5962,152 @@ window.MOCK_KB = {
     "how do we know each other",
     "where did we meet"
    ],
-   "answer": "Sid is one of the people presenting these glasses to you today."
+   "answer": "Sid is one of the people presenting these glasses to you today and explaining everything about the UI and interactions."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What do they do on the team?",
+    "what's their role",
+    "what are they working on",
+    "what do they do",
+    "what does he do",
+    "what does she do"
+   ],
+   "answer": "Sid works on the UI, visual design, front end and user experience."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "Where are they from?",
+    "what's their hometown",
+    "where did they grow up"
+   ],
+   "answer": "Sid is from India and has lived in England, France and various parts of India before starting his master's at NYU in New York City."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "Where do they live now?"
+   ],
+   "answer": "Sid lives in New York City."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "Do they go to school?",
+    "what school do they go to",
+    "what do they study",
+    "what's their major"
+   ],
+   "answer": "Yes, Sid studies Integrated Design and Media at NYU's Tandon School of Engineering."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What's their job?",
+    "where do they work"
+   ],
+   "answer": "Sid is a design engineer with specialization in AI-first User Experience Design."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "How old are they?"
+   ],
+   "answer": "Sid is 26 years old."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What do they like to do for fun?",
+    "what are their hobbies"
+   ],
+   "answer": "Sid likes playing the guitar and hitting the gym."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What's their favorite food?"
+   ],
+   "answer": "Sid's favorite food is chicken curry."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "Do they have any pets?"
+   ],
+   "answer": "Sid has a pet named Tiger."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "Do they have brothers or sisters?",
+    "do they have siblings",
+    "tell me about their family"
+   ],
+   "answer": "Sid doesn't have any brothers or sisters."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What's a fun fact about them?",
+    "tell me something interesting about them"
+   ],
+   "answer": "Sid can write and perform a song in under 15 minutes."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What should I talk to them about?",
+    "what can I ask them",
+    "conversation starter"
+   ],
+   "answer": "Ask Sid about traveling and life in New York City."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What did we do together today?"
+   ],
+   "answer": "You were at a hackathon together in Downtown Brooklyn."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What's their favorite movie or show?"
+   ],
+   "answer": "Sid's favorite movie is Whiplash."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What music do they like?"
+   ],
+   "answer": "Sid likes James Bay."
+  },
+  {
+   "scope": "person",
+   "subject": "sid",
+   "questions": [
+    "What sports team do they root for?"
+   ],
+   "answer": "Sid doesn't follow a sports team."
   },
   {
    "scope": "place",

@@ -2,7 +2,7 @@
 id: sid
 name: Sid
 aliases:
-pronouns: he/him 
+pronouns: he/him
 intro: This is Sid, one of the presenters of this project.
 relationship: teammate on team BB
 enrolled_face: true
@@ -18,7 +18,7 @@ enrolled_face: true
 
 # Q: Who is this?
 - also: who's that / who am I talking to / do I know them
-A: This is Sid, one of the presenters of this project. He worked on the front-end of the app and developed the avatar for the dementia pateint using the smart watch. 
+A: This is Sid, one of the presenters of this project. He worked on the front end of the app and designed the squirrel guide on the lens.
 
 # Q: How do I know them?
 - also: how do we know each other / where did we meet
@@ -26,57 +26,57 @@ A: Sid is one of the people presenting these glasses to you today and explaining
 
 # Q: What do they do on the team?
 - also: what's their role / what are they working on / what do they do / what does he do / what does she do
-A: Sid has worked on the UI, visual design, front-end and User Experience design. 
+A: Sid works on the UI, visual design, front end and user experience.
 
 
 # Q: Where are they from?
 - also: what's their hometown / where did they grow up
-A: Sid is from India and has lived in England, France and various parts of India before pursuing his masters at NYU in New York City. 
+A: Sid is from India and has lived in England, France and various parts of India before starting his master's at NYU in New York City.
 
 # Q: Where do they live now?
-A: Sid lives in New York City. It's in the United States. 
+A: Sid lives in New York City.
 
 # Q: Do they go to school?
 - also: what school do they go to / what do they study / what's their major
-A: Yes, Sid studies Integrated Design & Media at New York University, Tandon School of Engineering
+A: Yes, Sid studies Integrated Design and Media at NYU's Tandon School of Engineering.
 
 # Q: What's their job?
 - also: where do they work
 A: Sid is a design engineer with specialization in AI-first User Experience Design.
 
 # Q: How old are they?
-A: 26 year old
+A: Sid is 26 years old.
 
 # Q: What do they like to do for fun?
 - also: what are their hobbies
-A: Play the guitar or hit the gym
+A: Sid likes playing the guitar and hitting the gym.
 
 # Q: What's their favorite food?
-A: Chicken Curry
+A: Sid's favorite food is chicken curry.
 
 # Q: Do they have any pets?
-A: Tiger
+A: Sid has a pet named Tiger.
 
 # Q: Do they have brothers or sisters?
 - also: do they have siblings / tell me about their family
-A: None
+A: Sid doesn't have any brothers or sisters.
 
 # Q: What's a fun fact about them?
 - also: tell me something interesting about them
-A: Sid can write and perform a song in under 15 minutes
+A: Sid can write and perform a song in under 15 minutes.
 
 # Q: What should I talk to them about?
 - also: what can I ask them / conversation starter
-A: About travelling and life in NYC
+A: Ask Sid about traveling and life in New York City.
 
 # Q: What did we do together today?
-A: Hack in Downtown Brooklyn
+A: You were at a hackathon together in Downtown Brooklyn.
 
 # Q: What's their favorite movie or show?
-A: Whiplash
+A: Sid's favorite movie is Whiplash.
 
 # Q: What music do they like?
-A: James Bay
+A: Sid likes James Bay.
 
 # Q: What sports team do they root for?
-A: None
+A: Sid doesn't follow a sports team.
