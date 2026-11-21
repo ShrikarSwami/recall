@@ -16,7 +16,7 @@
      {"type":"battery", "on":true, "pct":15}
    Messages from the Go-go hub (all supported, so this lens is a drop-in for lens/ on the glasses):
      {"type":"state", "value":"idle|listening|thinking"}   {"type":"conn", "value":true|false}
-     {"type":"avatar", "talking":true|false, "perk":true}   (talking follows Go-go's audio; perk = she was interrupted)
+     {"type":"avatar", "talking":true|false, "perk":true, "wake":true}   (wake = someone said the wake word: hand up)   (talking follows Go-go's audio; perk = she was interrupted)
      {"type":"card", "title", "lines", "intent":"greeting|who_is_this|kb:place|time|distress|...", "prompt":"Nod or say yes", "ttl_ms"}
        (a card with no icon gets a stamp chosen from its intent, see INTENT_STAMP)
    URL params: ?ws=ws://host:9100/ws/lens (default: the host that served this page), ?ws=off = postMessage only
@@ -125,6 +125,7 @@
   }
   function actFrame(now) {
     if (ACT.name === "greet") return greetFrame(now);
+    if (ACT.name === "raise") { var r = now - ACT.t0; return r < 1500 ? { name: "wave_" + (Math.floor(r / 160) % 4), mir: false } : null; }   // heard "Go-go": hand up
     var e = now - ACT.t0, k;
     if (e < 900) return { name: "wave_" + (Math.floor(e / 160) % 4), mir: false };
     if (e < 2100) {
@@ -218,6 +219,7 @@
       if (msg.face !== undefined) TG.face = msg.face === "away" ? "away" : "user";
       if (msg.size !== undefined) wantBig = msg.size === "big";
       if (msg.perk) { AV.pose = "alert"; setTimeout(function () { if (AV.pose === "alert") AV.pose = "idle"; }, 1200); }   // interrupted: perk up
+      if (msg.wake) ACT = { name: "raise", t0: performance.now(), hopped: false };   // the wake word was heard
       if (msg.action === "twirl" || msg.action === "greet") ACT = { name: msg.action, t0: performance.now(), hopped: false };
     }
     else if (t === "splash") {

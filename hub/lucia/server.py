@@ -452,6 +452,8 @@ class Hub:
             return
         armed = time.time() < self.armed_until
         woke, rest = split_wake(text, self.cfg["wakeWord"])
+        if woke and not self.standby:
+            await self.to_glasses({"type": "avatar", "wake": True})   # the squirrel raises its hand
         yes_no = bool(YES.search(text) or NO.search(text))
         if armed and self.armed_by_offer and not woke and not yes_no:
             armed = False                # bystander talk during "Want to hear more?" is not an answer

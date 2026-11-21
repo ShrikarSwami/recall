@@ -200,3 +200,24 @@ def test_who_is_this_without_wake_word_when_a_face_is_in_view():
     finally:
         del hub.stt.transcribe, hub.question
         hub.brain.seen.clear()
+
+
+def test_wake_word_raises_the_squirrels_hand():
+    import asyncio
+    from lucia import server
+    hub, sent = server.hub, []
+
+    async def capture(msg):
+        sent.append(msg)
+
+    async def tx(pcm):
+        return "Go-go, what day is it?"
+
+    async def q(text):
+        pass
+    hub.to_glasses, hub.stt.transcribe, hub.question = capture, tx, q
+    try:
+        asyncio.run(hub.utterance(b""))
+        assert {"type": "avatar", "wake": True} in sent
+    finally:
+        del hub.to_glasses, hub.stt.transcribe, hub.question
