@@ -8,14 +8,6 @@ relationship: teammate on team BB
 enrolled_face: false
 ---
 
-<!--
-  Isha: fill in the A: lines below (1-2 short sentences each, spoken aloud by Go-go).
-  Blank A: lines are skipped automatically, so answer as many or as few as you like.
-  Add more "# Q:" blocks for anything a judge might ask about you.
-  Then fix "intro", "pronouns" and "aliases" (nicknames) above.
-  Photos: DM Shrikar 3 selfies taken at the venue (front, slight left, slight right).
--->
-
 # Q: Who is this?
 - also: who's that / who am I talking to / do I know them
 A: This is Isha, one of the presenters of this project.
@@ -28,36 +20,11 @@ A: Isha is one of the people presenting these glasses to you today.
 - also: what's their role / what are they working on / what do they do / what does he do / what does she do
 A:
 
-# Q: Where are they from?
-- also: what's their hometown / where did they grow up
-A:
-
-# Q: Where do they live now?
-A:
-
-# Q: Do they go to school?
-- also: what school do they go to / what do they study / what's their major
-A:
-
-# Q: What's their job?
-- also: where do they work
-A:
-
-# Q: How old are they?
-A:
-
 # Q: What do they like to do for fun?
 - also: what are their hobbies
 A:
 
 # Q: What's their favorite food?
-A:
-
-# Q: Do they have any pets?
-A:
-
-# Q: Do they have brothers or sisters?
-- also: do they have siblings / tell me about their family
 A:
 
 # Q: What's a fun fact about them?

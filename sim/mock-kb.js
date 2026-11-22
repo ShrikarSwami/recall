@@ -5573,52 +5573,6 @@ window.MOCK_KB = {
    "scope": "person",
    "subject": "abhiram",
    "questions": [
-    "Where are they from?",
-    "what's their hometown",
-    "where did they grow up"
-   ],
-   "answer": "Abhiram is from Central Jersey."
-  },
-  {
-   "scope": "person",
-   "subject": "abhiram",
-   "questions": [
-    "Where do they live now?"
-   ],
-   "answer": "He lives in Hoboken, New Jersey."
-  },
-  {
-   "scope": "person",
-   "subject": "abhiram",
-   "questions": [
-    "Do they go to school?",
-    "what school do they go to",
-    "what do they study",
-    "what's their major"
-   ],
-   "answer": "Abhiram is a computer engineering student at Stevens Institute of Technology."
-  },
-  {
-   "scope": "person",
-   "subject": "abhiram",
-   "questions": [
-    "What's their job?",
-    "where do they work"
-   ],
-   "answer": "Abhiram does not have a job. He is a student."
-  },
-  {
-   "scope": "person",
-   "subject": "abhiram",
-   "questions": [
-    "How old are they?"
-   ],
-   "answer": "Abhiram is 19 years old."
-  },
-  {
-   "scope": "person",
-   "subject": "abhiram",
-   "questions": [
     "What do they like to do for fun?",
     "what are their hobbies"
    ],
@@ -5631,33 +5585,6 @@ window.MOCK_KB = {
     "What's their favorite food?"
    ],
    "answer": "Abhiram's favorite food is pizza."
-  },
-  {
-   "scope": "person",
-   "subject": "abhiram",
-   "questions": [
-    "Do they have any pets?"
-   ],
-   "answer": "No, Abhiram does not have any pets."
-  },
-  {
-   "scope": "person",
-   "subject": "abhiram",
-   "questions": [
-    "Do they have brothers or sisters?",
-    "do they have siblings",
-    "tell me about their family"
-   ],
-   "answer": "Abhiram has a younger brother."
-  },
-  {
-   "scope": "person",
-   "subject": "abhiram",
-   "questions": [
-    "What's a fun fact about them?",
-    "tell me something interesting about them"
-   ],
-   "answer": "Abhiram was born in Australia."
   },
   {
    "scope": "person",
@@ -5760,52 +5687,6 @@ window.MOCK_KB = {
    "scope": "person",
    "subject": "shrikar",
    "questions": [
-    "Where are they from?",
-    "what's their hometown",
-    "where did they grow up"
-   ],
-   "answer": "He's from Manalapan, New Jersey. He grew up in Iselin."
-  },
-  {
-   "scope": "person",
-   "subject": "shrikar",
-   "questions": [
-    "Where do they live now?"
-   ],
-   "answer": "He lives in Hoboken, New Jersey, on campus at Stevens."
-  },
-  {
-   "scope": "person",
-   "subject": "shrikar",
-   "questions": [
-    "Do they go to school?",
-    "what school do they go to",
-    "what do they study",
-    "what's their major"
-   ],
-   "answer": "He's a second-year computer science student at Stevens Institute of Technology."
-  },
-  {
-   "scope": "person",
-   "subject": "shrikar",
-   "questions": [
-    "What's their job?",
-    "where do they work"
-   ],
-   "answer": "He doesn't have a job right now. He previously interned in AI research at AuresTech, a defense contractor."
-  },
-  {
-   "scope": "person",
-   "subject": "shrikar",
-   "questions": [
-    "How old are they?"
-   ],
-   "answer": "He's 19."
-  },
-  {
-   "scope": "person",
-   "subject": "shrikar",
-   "questions": [
     "What do they like to do for fun?",
     "what are their hobbies"
    ],
@@ -5818,24 +5699,6 @@ window.MOCK_KB = {
     "What's their favorite food?"
    ],
    "answer": "He's vegetarian. He loves poke bowls and dosas."
-  },
-  {
-   "scope": "person",
-   "subject": "shrikar",
-   "questions": [
-    "Do they have any pets?"
-   ],
-   "answer": "He has pet fish."
-  },
-  {
-   "scope": "person",
-   "subject": "shrikar",
-   "questions": [
-    "Do they have brothers or sisters?",
-    "do they have siblings",
-    "tell me about their family"
-   ],
-   "answer": "He has a younger brother, Shriyansh."
   },
   {
    "scope": "person",
@@ -5914,34 +5777,12 @@ window.MOCK_KB = {
    "scope": "person",
    "subject": "shrikar",
    "questions": [
-    "What do they want to do after graduation?",
-    "what do you want to do after you graduate",
-    "what are his career goals",
-    "what are Shrikar's dream companies"
-   ],
-   "answer": "He wants to work in software or AI. His dream companies are Meta, Google, and Apple."
-  },
-  {
-   "scope": "person",
-   "subject": "shrikar",
-   "questions": [
     "Have they done hackathons before?",
     "have you done hackathons before",
     "has he won a hackathon prize",
     "tell me about Shrikar's fakeblock project"
    ],
    "answer": "He won Best Pitch at an NYU hackathon for a project called fakeblock."
-  },
-  {
-   "scope": "person",
-   "subject": "shrikar",
-   "questions": [
-    "Are they looking for an internship?",
-    "is he looking for a summer internship",
-    "when does Shrikar want an internship",
-    "what internship is he hunting for"
-   ],
-   "answer": "He's looking for a summer 2027 internship."
   },
   {
    "scope": "person",
@@ -5981,52 +5822,6 @@ window.MOCK_KB = {
    "scope": "person",
    "subject": "sid",
    "questions": [
-    "Where are they from?",
-    "what's their hometown",
-    "where did they grow up"
-   ],
-   "answer": "Sid is from India and has lived in England, France and various parts of India before starting his master's at NYU in New York City."
-  },
-  {
-   "scope": "person",
-   "subject": "sid",
-   "questions": [
-    "Where do they live now?"
-   ],
-   "answer": "Sid lives in New York City."
-  },
-  {
-   "scope": "person",
-   "subject": "sid",
-   "questions": [
-    "Do they go to school?",
-    "what school do they go to",
-    "what do they study",
-    "what's their major"
-   ],
-   "answer": "Yes, Sid studies Integrated Design and Media at NYU's Tandon School of Engineering."
-  },
-  {
-   "scope": "person",
-   "subject": "sid",
-   "questions": [
-    "What's their job?",
-    "where do they work"
-   ],
-   "answer": "Sid is a design engineer with specialization in AI-first User Experience Design."
-  },
-  {
-   "scope": "person",
-   "subject": "sid",
-   "questions": [
-    "How old are they?"
-   ],
-   "answer": "Sid is 26 years old."
-  },
-  {
-   "scope": "person",
-   "subject": "sid",
-   "questions": [
     "What do they like to do for fun?",
     "what are their hobbies"
    ],
@@ -6039,24 +5834,6 @@ window.MOCK_KB = {
     "What's their favorite food?"
    ],
    "answer": "Sid's favorite food is chicken curry."
-  },
-  {
-   "scope": "person",
-   "subject": "sid",
-   "questions": [
-    "Do they have any pets?"
-   ],
-   "answer": "Sid has a pet named Tiger."
-  },
-  {
-   "scope": "person",
-   "subject": "sid",
-   "questions": [
-    "Do they have brothers or sisters?",
-    "do they have siblings",
-    "tell me about their family"
-   ],
-   "answer": "Sid doesn't have any brothers or sisters."
   },
   {
    "scope": "person",
