@@ -8,7 +8,7 @@ and you get the same calm answer, never "you already asked."
 
 Go-go runs on MicroLumin M6 glasses, with a hub on a home Mac and a care page for the family.
 
-**[Watch the demo video](https://youtu.be/VFcCb8kKdmE)** · **[Try it in your browser](https://gogo-demo.vercel.app)**
+**[Watch the demo video](https://youtu.be/VFcCb8kKdmE)**
 
 ---
 
